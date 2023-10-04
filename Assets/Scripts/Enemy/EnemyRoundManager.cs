@@ -5,6 +5,8 @@ using RicTools.Managers;
 using System;
 using UnityEngine.Splines;
 using OperationPlayground.Enemy;
+using RicTools.Attributes;
+using RicTools.Utilities;
 
 namespace OperationPlayground
 {
@@ -15,69 +17,140 @@ namespace OperationPlayground
         [SerializeField]
         private List<EnemyRoundScriptableObject> rounds;
 
-        private List<GameObject> aliveGameObjects = new List<GameObject>();
+        private List<GameObject> aliveEnemies = new List<GameObject>();
+
+        private List<EnemyScriptableObject> queueEnemies = new List<EnemyScriptableObject>();
 
         [SerializeField]
         private SplineContainer splineToFollow;
 
+        public event Action onRoundStart;
+        public event Action onRoundEnd;
+        public event Action<float> onCountdown;
+
+        private int roundNumber = 1;
+
+        [SerializeField, PositiveValueOnly, ReadOnly(AvailableMode.Play)]
+        private float timeBetweenRounds;
+
+        [SerializeField, PositiveValueOnly, ReadOnly(AvailableMode.Play)]
+        private float baseSpeed;
+
         private void Start()
         {
+            StartCountdown();
+        }
+
+        private void StartCountdown()
+        {
+            if(rounds.Count <= 0)
+            {
+                Debug.Log("End of game");
+                return;
+            }
+
+            StartCoroutine(CountdownCoroutine());
+        }
+
+        private IEnumerator CountdownCoroutine()
+        {
+            Debug.Log("started countdown");
+
+            float timer = timeBetweenRounds;
+
+            while(timer > 0)
+            {
+                onCountdown?.Invoke(timer);
+                yield return null;
+                timer -= Time.deltaTime;
+            }
+
             StartRound();
         }
 
-        public void StartRound()
+        private void StartRound()
         {
-            if(rounds.Count == 0)
+            onRoundStart?.Invoke();
+
+            if(queueEnemies.Count > 0)
             {
-                Debug.Log("end of game");
-                return; 
+                Debug.Log("Starting new round with queued enemies");
+                queueEnemies.Clear();
             }
 
-            var round = rounds[0];
+            Debug.Log($"Starting round {roundNumber}");
+            var round = GetNextRound();
 
-            StartCoroutine(SpawnEnemiesCoroutine(round));
 
-            rounds.RemoveAt(0);
-        }
-
-        private IEnumerator SpawnEnemiesCoroutine(EnemyRoundScriptableObject round)
-        {
-            var enemies = round.enemies;
-
-            for (int i = 0; i < enemies.Length; i++)
+            foreach (var enemyData in round.enemies)
             {
-                var enemy = enemies[i];
-                for (int j = 0; j < enemy.count; j++)
+                for (int i = 0; i < enemyData.count; i++)
                 {
-                    GameObject gameObject = GameObject.Instantiate(enemy.enemy.prefab);
-                    var enemyHealth = gameObject.GetComponent<EnemyHealth>();
-                    enemyHealth.enemySo = enemy.enemy;
-
-                    {
-                        var splineAnimator = gameObject.AddComponent<SplineAnimate>();
-                        splineAnimator.Container = splineToFollow;
-                        splineAnimator.AnimationMethod = SplineAnimate.Method.Speed;
-                        splineAnimator.MaxSpeed = 2.5f;
-                    }
-
-                    aliveGameObjects.Add(gameObject);
-
-                    yield return new WaitForSeconds(1.5f);
+                    queueEnemies.Add(enemyData.enemy);
                 }
             }
+
+            StartCoroutine(RoundCoroutine(round));
+
+            rounds.Remove(round);
+        }
+
+        private IEnumerator RoundCoroutine(EnemyRoundScriptableObject round)
+        {
+            float spawnTime = 10 / baseSpeed;
+
+            while(queueEnemies.Count > 0)
+            {
+                SpawnRandomEnemy();
+                yield return new WaitForSeconds(spawnTime);
+            }
+        }
+
+        private void SpawnRandomEnemy()
+        {
+            if (queueEnemies.Count == 0) return;
+
+            var enemy = queueEnemies.GetRandomElement();
+
+            var gameObject = Instantiate(enemy.prefab);
+            gameObject.GetComponent<EnemyHealth>().enemySo = enemy;
+
+            {
+                var splineAnimate = gameObject.AddComponent<SplineAnimate>();
+                splineAnimate.Loop = SplineAnimate.LoopMode.Once;
+                splineAnimate.AnimationMethod = SplineAnimate.Method.Speed;
+                splineAnimate.MaxSpeed = baseSpeed;
+                splineAnimate.Container = splineToFollow;
+            }
+
+            aliveEnemies.Add(gameObject);
+
+            queueEnemies.Remove(enemy);
+        }
+
+        public EnemyRoundScriptableObject GetNextRound()
+        {
+            if (rounds.Count == 0)
+                return null;
+
+            return rounds[0];
         }
 
         public void RemoveEnemy(GameObject gameObject)
         {
-            aliveGameObjects.Remove(gameObject);
-            CheckEndOfRound();
+            if (aliveEnemies.Remove(gameObject))
+            {
+                CheckEndOfRound();
+            }
         }
 
         private void CheckEndOfRound()
         {
-            if(aliveGameObjects.Count <= 0)
+            if (queueEnemies.Count > 0)
             {
-                StartRound();
+                onRoundEnd?.Invoke();
+                roundNumber++;
+                StartCountdown();
             }
         }
     }

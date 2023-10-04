@@ -30,7 +30,7 @@ namespace OperationPlayground.Enemy
 
             healthSlider = healthBar.GetComponentInChildren<Slider>();
             var billboard = healthBar.GetComponentInChildren<Billboard>();
-            billboard.lookAtTarget = GameManager.Instance.gameCamera.transform;
+            billboard.LookAtTarget = GameManager.Instance.gameCamera.transform;
 
             Health = enemySo.health;
         }

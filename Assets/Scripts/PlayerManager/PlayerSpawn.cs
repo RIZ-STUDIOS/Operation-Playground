@@ -1,21 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 namespace OperationPlayground.PlayerManager
 {
     public class PlayerSpawn : MonoBehaviour
     {
-        // Start is called before the first frame update
-        void Start()
+        [SerializeField]
+        private Transform[] spawnLocations;
+
+        void OnPlayerJoined(PlayerInput input)
         {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
+            Debug.Log($"Player {input.playerIndex} has joined the session!");
+            
         }
     }
 }

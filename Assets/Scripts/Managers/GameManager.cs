@@ -9,5 +9,6 @@ namespace OperationPlayground.Managers
     {
         public Canvas gameCanvas;
         public Camera gameCamera;
+        public TowerHealth towerHealth;
     }
 }

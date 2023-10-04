@@ -27,7 +27,8 @@ namespace OperationPlayground.Enemy
 
         public event Action onRoundStart;
         public event Action onRoundEnd;
-        public event Action<float> onCountdown;
+        public event Action onCountdownStart;
+        public event Action<float> onCountdownTick;
 
         private int roundNumber = 1;
 
@@ -59,9 +60,11 @@ namespace OperationPlayground.Enemy
 
             float timer = timeBetweenRounds;
 
-            while(timer > 0)
+            onCountdownStart?.Invoke();
+
+            while (timer > 0)
             {
-                onCountdown?.Invoke(timer);
+                onCountdownTick?.Invoke(timer);
                 yield return null;
                 timer -= Time.deltaTime;
             }
@@ -123,6 +126,8 @@ namespace OperationPlayground.Enemy
                 splineAnimate.MaxSpeed = baseSpeed;
                 splineAnimate.Container = splineToFollow;
             }
+
+            gameObject.AddComponent<EnemyPathing>();
 
             aliveEnemies.Add(gameObject);
 

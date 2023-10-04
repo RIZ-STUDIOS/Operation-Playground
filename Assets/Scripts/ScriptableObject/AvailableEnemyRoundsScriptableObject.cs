@@ -4,7 +4,7 @@ using UnityEngine;
 using RicTools;
 using RicTools.ScriptableObjects;
 
-namespace OperationPlayground
+namespace OperationPlayground.ScriptableObjects
 {
     public class AvailableEnemyRoundsScriptableObject : AvailableScriptableObject<EnemyRoundScriptableObject>
     {

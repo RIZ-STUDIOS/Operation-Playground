@@ -7,8 +7,9 @@ using UnityEngine.Splines;
 using OperationPlayground.Enemy;
 using RicTools.Attributes;
 using RicTools.Utilities;
+using OperationPlayground.ScriptableObjects;
 
-namespace OperationPlayground
+namespace OperationPlayground.Enemy
 {
     public class EnemyRoundManager : GenericManager<EnemyRoundManager>
     {

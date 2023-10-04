@@ -6,8 +6,9 @@ using RicTools.Editor.Windows;
 using UnityEditor;
 using RicTools.Editor.Utilities;
 using System;
+using OperationPlayground.ScriptableObjects;
 
-namespace OperationPlayground
+namespace OperationPlayground.Editor.Windows
 {
     public class EnemyRoundEditorWindow : GenericEditorWindow<EnemyRoundScriptableObject, AvailableEnemyRoundsScriptableObject>
     {

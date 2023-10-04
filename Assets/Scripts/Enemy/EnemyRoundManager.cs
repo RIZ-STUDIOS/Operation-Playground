@@ -50,7 +50,7 @@ namespace OperationPlayground
                 for (int j = 0; j < enemy.count; j++)
                 {
                     GameObject gameObject = GameObject.Instantiate(enemy.enemy.prefab);
-                    var enemyHealth = gameObject.AddComponent<EnemyHealth>();
+                    var enemyHealth = gameObject.GetComponent<EnemyHealth>();
                     enemyHealth.enemySo = enemy.enemy;
 
                     {

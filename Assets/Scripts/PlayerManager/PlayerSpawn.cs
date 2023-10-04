@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 namespace OperationPlayground.PlayerManager
@@ -15,6 +12,7 @@ namespace OperationPlayground.PlayerManager
         {
             Debug.Log($"Player {input.playerIndex} has joined the session!");
             
+            input.gameObject.transform.position = spawnLocations[Random.Range(0, spawnLocations.Length)].position;
         }
     }
 }

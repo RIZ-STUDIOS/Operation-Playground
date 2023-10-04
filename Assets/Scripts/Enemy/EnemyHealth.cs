@@ -1,23 +1,38 @@
+using RicTools;
 using RicTools.Attributes;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace OperationPlayground.Enemy
 {
     public class EnemyHealth : MonoBehaviour
     {
-        [ReadOnly(AvailableMode.Editor), MustBeAssigned]
+        [SerializeField]
+        private GameObject healthBarPrefab;
+
+        [NonSerialized]
         public EnemyScriptableObject enemySo;
 
         private int health;
 
-        public int Health { get { return health; } private set { health = value; } }
+        public int Health { get { return health; } private set { health = value; healthSlider.value = health / (float)enemySo.health; } }
+
+        private Slider healthSlider;
 
         private void Start()
         {
-            health = enemySo.health;
+            var healthBar = Instantiate(healthBarPrefab, transform);
+            healthBar.transform.localPosition = new Vector3(0, 2.5f, 0);
+
+            healthSlider = healthBar.GetComponentInChildren<Slider>();
+            var billboard = healthBar.GetComponentInChildren<Billboard>();
+            billboard.lookAtTarget = GameManager.Instance.gameCamera.transform;
+
+            Health = enemySo.health;
         }
 
         public void Damage(int amount = 1, DamageType damageType = DamageType.None)
@@ -30,7 +45,7 @@ namespace OperationPlayground.Enemy
 
             int damageMod = IsWeakTo(damageType) ? 3 : 1;
 
-            health -= damageMod * amount;
+            Health -= damageMod * amount;
 
             if(health <= 0)
             {
@@ -47,8 +62,12 @@ namespace OperationPlayground.Enemy
 
         public void DestroyEnemy()
         {
-            EnemyRoundManager.Instance.RemoveEnemy(gameObject);
             Destroy(gameObject);
+        }
+
+        private void OnDestroy()
+        {
+            EnemyRoundManager.Instance.RemoveEnemy(gameObject);
         }
     }
 }

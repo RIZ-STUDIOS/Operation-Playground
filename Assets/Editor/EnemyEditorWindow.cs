@@ -5,6 +5,7 @@ using RicTools;
 using RicTools.Editor.Windows;
 using UnityEditor;
 using RicTools.Editor.Utilities;
+using System;
 
 namespace OperationPlayground
 {
@@ -16,10 +17,21 @@ namespace OperationPlayground
         [SerializeField]
         private EditorContainer<int> health = new EditorContainer<int>(1);
 
-        [MenuItem("Window/RicTools Windows/EnemyEditorWindow")]
+        private SerializedProperty m_damageTypes;
+
+        public DamageType[] damageTypes = new DamageType[] { };
+
+        [MenuItem("Project Playground/Enemy Editor")]
     	public static EnemyEditorWindow ShowWindow()
         {
-            return GetWindow<EnemyEditorWindow>("EnemyEditorWindow");
+            return GetWindow<EnemyEditorWindow>("Enemy Editor");
+        }
+
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+
+            m_damageTypes = serializedObject.FindProperty("damageTypes");
         }
 
         protected override void DrawGUI()
@@ -38,6 +50,10 @@ namespace OperationPlayground
                 RegisterCheckCompletion(element);
                 RegisterLoadChange(element, health);
             }
+
+            {
+                var element = rootVisualElement.AddPropertyField(m_damageTypes, "Damage Types");
+            }
         }
 
         protected override void LoadScriptableObject(EnemyScriptableObject so, bool isNull)
@@ -46,11 +62,13 @@ namespace OperationPlayground
             {
                 health.Value = 1;
                 prefab.Value = null;
+                damageTypes = new DamageType[] { };
             }
             else
             {
                 health.Value = so.health;
                 prefab.Value = so.prefab;
+                damageTypes = so.damageTypes.Copy();
             }
         }
 
@@ -58,6 +76,7 @@ namespace OperationPlayground
         {
             asset.health = health;
             asset.prefab = prefab;
+            asset.damageTypes = damageTypes.Copy();
         }
 
         protected override IEnumerable<CompleteCriteria> GetCompleteCriteria()

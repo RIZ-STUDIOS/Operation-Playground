@@ -8,14 +8,14 @@ namespace OperationPlayground.Enemy
 {
     public class EnemyHealth : MonoBehaviour
     {
-        [SerializeField, ReadOnly(AvailableMode.Editor), MustBeAssigned]
-        private EnemyScriptableObject enemySo;
+        [ReadOnly(AvailableMode.Editor), MustBeAssigned]
+        public EnemyScriptableObject enemySo;
 
         private int health;
 
         public int Health { get { return health; } private set { health = value; } }
 
-        private void Awake()
+        private void Start()
         {
             health = enemySo.health;
         }
@@ -47,7 +47,8 @@ namespace OperationPlayground.Enemy
 
         public void DestroyEnemy()
         {
-
+            EnemyRoundManager.Instance.RemoveEnemy(gameObject);
+            Destroy(gameObject);
         }
     }
 }

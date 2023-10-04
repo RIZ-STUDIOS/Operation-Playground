@@ -5,7 +5,7 @@ using RicTools;
 using RicTools.ScriptableObjects;
 using System;
 
-namespace OperationPlayground
+namespace OperationPlayground.ScriptableObjects
 {
     public class EnemyRoundScriptableObject : GenericScriptableObject
     {

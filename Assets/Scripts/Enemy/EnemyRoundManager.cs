@@ -129,6 +129,11 @@ namespace OperationPlayground.Enemy
 
             gameObject.AddComponent<EnemyPathing>();
 
+            {
+                var enemyAttack = gameObject.AddComponent<EnemyAttack>();
+                enemyAttack.enemySo = enemy;
+            }
+
             aliveEnemies.Add(gameObject);
 
             queueEnemies.Remove(enemy);

@@ -18,6 +18,9 @@ namespace OperationPlayground.Editor.Windows
         [SerializeField]
         private EditorContainer<int> health = new EditorContainer<int>(1);
 
+        [SerializeField]
+        private EditorContainer<float> attackRange = new EditorContainer<float>(1);
+
         private SerializedProperty m_damageTypes;
 
         public DamageType[] damageTypes = new DamageType[] { };
@@ -53,8 +56,13 @@ namespace OperationPlayground.Editor.Windows
             }
 
             {
-                var element = rootVisualElement.AddPropertyField(m_damageTypes, "Damage Types");
+                var element = rootVisualElement.AddFloatField(attackRange, "Attack Range");
+
+                RegisterCheckCompletion(element);
+                RegisterLoadChange(element, attackRange);
             }
+
+            rootVisualElement.AddPropertyField(m_damageTypes, "Damage Types");
         }
 
         protected override void LoadScriptableObject(EnemyScriptableObject so, bool isNull)
@@ -64,12 +72,14 @@ namespace OperationPlayground.Editor.Windows
                 health.Value = 1;
                 prefab.Value = null;
                 damageTypes = new DamageType[] { };
+                attackRange.Value = 1;
             }
             else
             {
                 health.Value = so.health;
                 prefab.Value = so.prefab;
                 damageTypes = so.damageTypes.Copy();
+                attackRange.Value = so.attackRange;
             }
         }
 
@@ -78,12 +88,14 @@ namespace OperationPlayground.Editor.Windows
             asset.health = health;
             asset.prefab = prefab;
             asset.damageTypes = damageTypes.Copy();
+            asset.attackRange = attackRange;
         }
 
         protected override IEnumerable<CompleteCriteria> GetCompleteCriteria()
         {
             yield return new CompleteCriteria(health.Value > 0, "Health must be above 0");
             yield return new CompleteCriteria(prefab.Value != null, "Prefab must not be null");
+            yield return new CompleteCriteria(attackRange.Value > 0, "Attack Range must be above 0");
         }
     }
 }

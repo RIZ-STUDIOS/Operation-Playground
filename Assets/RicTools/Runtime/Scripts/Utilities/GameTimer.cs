@@ -20,6 +20,8 @@ namespace RicTools.Utilities
 
         public event System.Action onTick;
 
+        public event System.Action onComplete;
+
         internal GameTimer(float timer, bool repeat)
         {
             Timer = timer;
@@ -34,7 +36,11 @@ namespace RicTools.Utilities
             if (time >= Timer)
             {
                 onTick?.Invoke();
-                if (!Repeat) ended = true;
+                if (!Repeat)
+                {
+                    onComplete?.Invoke();
+                    ended = true;
+                }
                 time -= Timer;
             }
         }

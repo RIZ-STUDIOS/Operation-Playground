@@ -53,8 +53,8 @@ namespace OperationPlayground.Player
             Vector2 moveInput = input.Get<Vector2>();
             if (moveInput.magnitude > 0.1f)
             {
-                Vector3 forwardRelativeDir = moveInput.y * -cForwardNorm;
-                Vector3 rightRelativeDir = moveInput.x * -cRightNorm;
+                Vector3 forwardRelativeDir = moveInput.y * cForwardNorm;
+                Vector3 rightRelativeDir = moveInput.x * cRightNorm;
 
                 Vector3 relativeRotVector = forwardRelativeDir + rightRelativeDir;
 

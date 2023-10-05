@@ -140,6 +140,8 @@ namespace OperationPlayground.Enemy
                 enemyAttack.enemySo = enemy;
             }
 
+            gameObject.tag = "Enemy";
+
             aliveEnemies.Add(gameObject);
 
             queueEnemies.Remove(enemy);

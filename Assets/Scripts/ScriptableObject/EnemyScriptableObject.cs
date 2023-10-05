@@ -12,6 +12,7 @@ namespace OperationPlayground.ScriptableObjects
         public int health;
         public DamageType[] damageTypes;
         public float attackRange;
+        public float attackCooldown;
     }
 
     public enum DamageType

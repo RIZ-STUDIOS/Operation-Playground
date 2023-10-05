@@ -1,3 +1,4 @@
+using OperationPlayground.Enemy;
 using OperationPlayground.Managers;
 using RicTools.Attributes;
 using System.Collections;
@@ -6,18 +7,12 @@ using UnityEngine;
 
 namespace OperationPlayground
 {
-    public class TowerHealth : MonoBehaviour
+    public class TowerHealth : ObjectHealth
     {
         [SerializeField, MinValue(1), ReadOnly(AvailableMode.Play)]
         private int maxHealth;
 
-        private int health;
-
-        public int Health { get { return health; } private set { health = value; onHealthChange?.Invoke(); } }
-
-        public int MaxHealth => maxHealth;
-
-        public event System.Action onHealthChange;
+        public override int MaxHealth => maxHealth;
 
         private void Awake()
         {
@@ -25,17 +20,18 @@ namespace OperationPlayground
             Health = maxHealth;
         }
 
-        public void Damage(int amount)
+        private void Update()
         {
-            if (amount < 0)
-                return;
-
-            Health -= amount;
-
-            if(health < 0)
+            if(Input.GetKeyDown(KeyCode.K))
             {
-
+                OnDeath();
             }
+        }
+
+        protected override void OnDeath()
+        {
+            EnemyRoundManager.Instance.StopRounds();
+            GameManager.Instance.loseWinUI.ShowWin();
         }
     }
 }

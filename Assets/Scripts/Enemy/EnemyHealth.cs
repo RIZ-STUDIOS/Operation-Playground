@@ -1,5 +1,6 @@
 using OperationPlayground.Managers;
 using OperationPlayground.ScriptableObjects;
+using OperationPlayground.UI;
 using RicTools;
 using RicTools.Attributes;
 using System;
@@ -11,7 +12,7 @@ using UnityEngine.UI;
 
 namespace OperationPlayground.Enemy
 {
-    public class EnemyHealth : MonoBehaviour
+    public class EnemyHealth : ObjectHealth
     {
         [SerializeField]
         private GameObject healthBarPrefab;
@@ -19,40 +20,31 @@ namespace OperationPlayground.Enemy
         [NonSerialized]
         public EnemyScriptableObject enemySo;
 
-        private int health;
-
-        public int Health { get { return health; } private set { health = value; healthSlider.value = health / (float)enemySo.health; } }
-
-        private Slider healthSlider;
+        public override int MaxHealth => enemySo.health;
 
         private void Start()
         {
             var healthBar = Instantiate(healthBarPrefab, transform);
             healthBar.transform.localPosition = new Vector3(0, 2.5f, 0);
 
-            healthSlider = healthBar.GetComponentInChildren<Slider>();
-            var billboard = healthBar.GetComponentInChildren<Billboard>();
-            billboard.LookAtTarget = GameManager.Instance.gameCamera.transform;
+            var enemyHealthUI = healthBar.GetComponentInChildren<EnemyHealthUI>();
+            enemyHealthUI.parentHealth = this;
 
             Health = enemySo.health;
         }
 
+        public new void Damage(int amount = 1)
+        {
+            Damage(amount, DamageType.None);
+        }
+
         public void Damage(int amount = 1, DamageType damageType = DamageType.None)
         {
-            if(amount < 0)
-            {
-                //Heal(amount, damageType);
-                return;
-            }
-
             int damageMod = IsWeakTo(damageType) ? 3 : 1;
 
             Health -= damageMod * amount;
 
-            if(health <= 0)
-            {
-                DestroyEnemy();
-            }
+            base.Damage(damageMod * amount);
         }
 
         public bool IsWeakTo(DamageType damageType)
@@ -62,7 +54,7 @@ namespace OperationPlayground.Enemy
             return enemySo.damageTypes.Contains(damageType);
         }
 
-        public void DestroyEnemy()
+        protected override void OnDeath()
         {
             Destroy(gameObject);
         }

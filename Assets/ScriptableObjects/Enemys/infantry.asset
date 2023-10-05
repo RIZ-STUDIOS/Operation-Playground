@@ -17,3 +17,5 @@ MonoBehaviour:
   health: 1
   damageTypes: 
   attackRange: 4
+  attackDamage: 1
+  attackCooldown: 1

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-namespace OperationPlayground
+namespace OperationPlayground.UI
 {
     public class NextRoundUI : MonoBehaviour
     {

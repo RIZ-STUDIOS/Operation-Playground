@@ -1,3 +1,4 @@
+using OperationPlayground.UI;
 using RicTools.Managers;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,5 +11,6 @@ namespace OperationPlayground.Managers
         public Canvas gameCanvas;
         public Camera gameCamera;
         public TowerHealth towerHealth;
+        public LoseWinUI loseWinUI;
     }
 }

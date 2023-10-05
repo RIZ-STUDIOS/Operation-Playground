@@ -21,6 +21,9 @@ namespace OperationPlayground.Editor.Windows
         [SerializeField]
         private EditorContainer<float> attackRange = new EditorContainer<float>(1);
 
+        [SerializeField]
+        private EditorContainer<float> attackCooldown = new EditorContainer<float>(1);
+
         private SerializedProperty m_damageTypes;
 
         public DamageType[] damageTypes = new DamageType[] { };
@@ -55,11 +58,20 @@ namespace OperationPlayground.Editor.Windows
                 RegisterLoadChange(element, health);
             }
 
+            rootVisualElement.AddTitle("Attack");
+
             {
                 var element = rootVisualElement.AddFloatField(attackRange, "Attack Range");
 
                 RegisterCheckCompletion(element);
                 RegisterLoadChange(element, attackRange);
+            }
+
+            {
+                var element = rootVisualElement.AddFloatField(attackCooldown, "Attack Cooldown");
+
+                RegisterCheckCompletion(element);
+                RegisterLoadChange(element, attackCooldown);
             }
 
             rootVisualElement.AddPropertyField(m_damageTypes, "Damage Types");
@@ -73,6 +85,7 @@ namespace OperationPlayground.Editor.Windows
                 prefab.Value = null;
                 damageTypes = new DamageType[] { };
                 attackRange.Value = 1;
+                attackCooldown.Value = 1;
             }
             else
             {
@@ -80,6 +93,7 @@ namespace OperationPlayground.Editor.Windows
                 prefab.Value = so.prefab;
                 damageTypes = so.damageTypes.Copy();
                 attackRange.Value = so.attackRange;
+                attackCooldown.Value = so.attackCooldown;
             }
         }
 
@@ -89,6 +103,7 @@ namespace OperationPlayground.Editor.Windows
             asset.prefab = prefab;
             asset.damageTypes = damageTypes.Copy();
             asset.attackRange = attackRange;
+            asset.attackCooldown = attackCooldown;
         }
 
         protected override IEnumerable<CompleteCriteria> GetCompleteCriteria()
@@ -96,6 +111,7 @@ namespace OperationPlayground.Editor.Windows
             yield return new CompleteCriteria(health.Value > 0, "Health must be above 0");
             yield return new CompleteCriteria(prefab.Value != null, "Prefab must not be null");
             yield return new CompleteCriteria(attackRange.Value > 0, "Attack Range must be above 0");
+            yield return new CompleteCriteria(attackCooldown.Value > 0, "Attack Cooldown must be above 0");
         }
     }
 }

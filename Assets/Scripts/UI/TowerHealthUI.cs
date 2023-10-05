@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace OperationPlayground
+namespace OperationPlayground.UI
 {
     public class TowerHealthUI : MonoBehaviour
     {
@@ -20,7 +20,7 @@ namespace OperationPlayground
 
         private void UpdateHealthSlider()
         {
-            healthSlider.value = GameManager.Instance.towerHealth.Health / (float)GameManager.Instance.towerHealth.MaxHealth;
+            healthSlider.value = GameManager.Instance.towerHealth.HealthPer;
         }
     }
 }

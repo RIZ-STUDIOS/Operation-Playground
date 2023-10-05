@@ -14,9 +14,6 @@ namespace OperationPlayground.Enemy
 {
     public class EnemyHealth : ObjectHealth
     {
-        [SerializeField]
-        private GameObject healthBarPrefab;
-
         [NonSerialized]
         public EnemyScriptableObject enemySo;
 
@@ -25,12 +22,6 @@ namespace OperationPlayground.Enemy
         protected override void Start()
         {
             base.Start();
-
-            var healthBar = Instantiate(healthBarPrefab, transform);
-            healthBar.transform.localPosition = new Vector3(0, 2.5f, 0);
-
-            var enemyHealthUI = healthBar.GetComponentInChildren<ObjectHealthUI>();
-            enemyHealthUI.parentHealth = this;
         }
 
         public new void Damage(int amount = 1)

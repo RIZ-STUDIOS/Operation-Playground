@@ -15,10 +15,9 @@ namespace OperationPlayground.Buildings
         [SerializeField]
         private Component[] scriptsToEnable;
 
-        [SerializeField]
-        private GameObject healthBarPrefab;
-
         public override int MaxHealth => buildingSo.health;
+
+        protected override bool DoSpawnHealthBar => false;
 
         public void StartPlacement()
         {
@@ -43,11 +42,7 @@ namespace OperationPlayground.Buildings
                 }
             }
 
-            var healthBar = Instantiate(healthBarPrefab, transform);
-            healthBar.transform.localPosition = new Vector3(0, 2.5f, 0);
-
-            var enemyHealthUI = healthBar.GetComponentInChildren<ObjectHealthUI>();
-            enemyHealthUI.parentHealth = this;
+            SpawnHealthBar();
 
             OnPlaced();
         }

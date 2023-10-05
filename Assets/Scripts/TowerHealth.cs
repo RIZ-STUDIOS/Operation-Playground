@@ -14,6 +14,8 @@ namespace OperationPlayground
 
         public override int MaxHealth => maxHealth;
 
+        protected override bool DoSpawnHealthBar => false;
+
         private void Awake()
         {
             GameManager.Instance.towerHealth = this;

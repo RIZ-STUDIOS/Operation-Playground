@@ -37,7 +37,7 @@ namespace OperationPlayground.Weapons.Projectiles
 
         private bool GetGroundHitInfo(out RaycastHit hitInfo)
         {
-            return Physics.Raycast(transform.position, Vector3.down, out hitInfo, float.MaxValue, LayerMask.GetMask("Ground"));
+            return Physics.Raycast(transform.position, Vector3.down, out hitInfo, float.MaxValue, LayerMask.GetMask("Ground"), QueryTriggerInteraction.Ignore);
         }
 
         private float GetGroundOffset()

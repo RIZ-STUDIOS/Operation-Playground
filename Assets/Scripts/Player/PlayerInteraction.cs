@@ -21,7 +21,7 @@ namespace OperationPlayground.Player
 
             if(button == interactable.interactButton)
             {
-                interactable.Interact();
+                interactable.Interact(gameObject);
             }
         }
 

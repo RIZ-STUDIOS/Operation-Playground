@@ -13,17 +13,25 @@ namespace OperationPlayground.Player
     public class PlayerShooting : MonoBehaviour
     {
         [SerializeField]
-        private ProjectileScriptableObject projectileSo;
-
-        [SerializeField]
-        private Transform firingPoint;
+        private Transform weaponSlotTransform;
 
         private OPPlayerInput playerInput;
 
-        private float cooldownTime = 1;
-        private float cooldownTimer;
-
         private bool triggerPressed;
+
+        [SerializeField]
+        private Weapon defaultWeapon;
+
+        private Weapon equippedWeapon;
+
+        public Weapon EquippedWeapon
+        {
+            get
+            {
+                if (equippedWeapon) return equippedWeapon;
+                return defaultWeapon;
+            }
+        }
 
         private void Awake()
         {
@@ -32,18 +40,16 @@ namespace OperationPlayground.Player
             playerInput.Enable();
             playerInput.Player.Fire.performed += OnFirePerformed;
             playerInput.Player.Fire.canceled += OnFireCanceled;
+
+            EquipWeapon(defaultWeapon);
         }
 
         private void Update()
         {
-            if (triggerPressed && cooldownTimer <= 0)
+            if (triggerPressed)
             {
-                cooldownTimer = cooldownTime;
-                ShootBullet();
+                EquippedWeapon.Shoot();
             }
-
-            cooldownTimer -= Time.deltaTime;
-            cooldownTimer = Mathf.Max(0, cooldownTimer);
         }
 
         private void OnFirePerformed(InputAction.CallbackContext value)
@@ -56,16 +62,34 @@ namespace OperationPlayground.Player
             triggerPressed = false;
         }
 
-        private void ShootBullet()
+        public bool EquipWeapon(Weapon weapon)
         {
-            var gameObject = Instantiate(projectileSo.prefab);
+            if (weapon == null)
+            {
+                if (equippedWeapon == null || equippedWeapon == defaultWeapon) return false;
 
-            gameObject.transform.position = firingPoint.position;
-            gameObject.transform.forward = firingPoint.forward;
+                Destroy(equippedWeapon.gameObject);
 
-            var projectile = gameObject.AddComponent<Projectile>();
-            projectile.projectileSo = projectileSo;
-            projectile.parentShooter = this.gameObject;
+                equippedWeapon = null;
+
+                return EquipWeapon(defaultWeapon);
+            }
+
+            if (equippedWeapon != null && equippedWeapon != defaultWeapon) return false;
+
+            if (weapon != defaultWeapon)
+                defaultWeapon.gameObject.SetActive(false);
+            equippedWeapon = weapon;
+            weapon.transform.SetParent(weaponSlotTransform, false);
+            weapon.transform.localPosition = weapon.offset;
+            weapon.onAmmoEnd += UnequipWeapon;
+            equippedWeapon.gameObject.SetActive(true);
+            return true;
+        }
+
+        private void UnequipWeapon()
+        {
+            EquipWeapon(null);
         }
     }
 }

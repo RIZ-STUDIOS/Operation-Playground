@@ -31,7 +31,7 @@ namespace OperationPlayground.Interactables
 
         private List<PlayerInteraction> players = new List<PlayerInteraction>();
 
-        public event System.Action onInteract;
+        public event System.Action<GameObject> onInteract;
 
         private void Awake()
         {
@@ -113,11 +113,16 @@ namespace OperationPlayground.Interactables
                 if(player.interactable == this)
                 player.interactable = null;
             }
+            HideOutline();
+            foreach(var outline in outlines)
+            {
+                Destroy(outline);
+            }
         }
 
-        public void Interact()
+        public void Interact(GameObject gameObject)
         {
-            onInteract?.Invoke();
+            onInteract?.Invoke(gameObject);
         }
     }
 }

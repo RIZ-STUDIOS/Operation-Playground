@@ -41,9 +41,9 @@ GameObject:
   m_Component:
   - component: {fileID: 174192415852335704}
   - component: {fileID: 996262083128667596}
+  - component: {fileID: 5528933775326153158}
   - component: {fileID: 7487843308486089112}
   - component: {fileID: -4646308382689371846}
-  - component: {fileID: 5528933775326153158}
   - component: {fileID: 8814529424316359839}
   m_Layer: 0
   m_Name: Player
@@ -100,6 +100,32 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!143 &5528933775326153158
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1001155888842553992}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &7487843308486089112
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,32 +153,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectileSo: {fileID: 11400000, guid: 64d419158ad1a90418b1ab58078640a5, type: 2}
   firingPoint: {fileID: 1313517059184062078}
---- !u!143 &5528933775326153158
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1001155888842553992}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Height: 2
-  m_Radius: 0.5
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &8814529424316359839
 MonoBehaviour:
   m_ObjectHideFlags: 0

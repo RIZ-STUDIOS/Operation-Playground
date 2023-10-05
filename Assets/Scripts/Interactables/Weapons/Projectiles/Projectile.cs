@@ -84,7 +84,8 @@ namespace OperationPlayground.Weapons.Projectiles
             {
                 if (other.tag == "Player")
                 {
-                    // Damage players.
+                    PlayerHealth player = other.GetComponent<PlayerHealth>();
+                    player.Damage(1);
                 }
                 else if (other.tag == "Enemy")
                 {

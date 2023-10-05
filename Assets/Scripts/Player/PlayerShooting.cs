@@ -5,12 +5,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Utilities;
 
 namespace OperationPlayground.Player
 {
     [RequireComponent(typeof(PlayerInput))]
     public class PlayerShooting : MonoBehaviour
     {
+        [System.NonSerialized]
+        public ReadOnlyArray<InputDevice> devices;
+
         [SerializeField]
         private ProjectileScriptableObject projectileSo;
 
@@ -23,11 +27,11 @@ namespace OperationPlayground.Player
         private float cooldownTimer;
 
         private bool triggerPressed;
-        private bool canShoot = true;
 
         private void Awake()
         {
             playerInput = new OPPlayerInput();
+            playerInput.devices = devices;
             playerInput.Enable();
             playerInput.Player.Fire.performed += OnFirePerformed;
             playerInput.Player.Fire.canceled += OnFireCanceled;
@@ -64,6 +68,7 @@ namespace OperationPlayground.Player
 
             var projectile = gameObject.AddComponent<Projectile>();
             projectile.projectileSo = projectileSo;
+            projectile.parentShooter = this.gameObject;
         }
     }
 }

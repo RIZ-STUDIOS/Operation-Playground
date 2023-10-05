@@ -18,7 +18,7 @@ namespace OperationPlayground.Editor.Windows
         private SerializedProperty m_enemies;
         private SerializedProperty m_supportEnemies;
 
-        [MenuItem("Project Playground/Enemy Round Editor")]
+        [MenuItem("Operation Playground/Enemy Round Editor")]
     	public static EnemyRoundEditorWindow ShowWindow()
         {
             return GetWindow<EnemyRoundEditorWindow>("Enemy Round Editor");

@@ -25,10 +25,12 @@ namespace OperationPlayground.Editor.Windows
         private EditorContainer<float> attackCooldown = new EditorContainer<float>(1);
 
         private SerializedProperty m_damageTypes;
+        private SerializedProperty m_targetBuildings;
 
         public DamageType[] damageTypes = new DamageType[] { };
+        public BuildingScriptableObject[] targetBuildings = new BuildingScriptableObject[] { };
 
-        [MenuItem("Project Playground/Enemy Editor")]
+        [MenuItem("Operation Playground/Enemy Editor")]
     	public static EnemyEditorWindow ShowWindow()
         {
             return GetWindow<EnemyEditorWindow>("Enemy Editor");
@@ -39,6 +41,7 @@ namespace OperationPlayground.Editor.Windows
             base.OnEnable();
 
             m_damageTypes = serializedObject.FindProperty("damageTypes");
+            m_targetBuildings = serializedObject.FindProperty("targetBuildings");
         }
 
         protected override void DrawGUI()
@@ -75,6 +78,8 @@ namespace OperationPlayground.Editor.Windows
             }
 
             rootVisualElement.AddPropertyField(m_damageTypes, "Damage Types");
+
+            rootVisualElement.AddPropertyField(m_targetBuildings, "Target Buildings");
         }
 
         protected override void LoadScriptableObject(EnemyScriptableObject so, bool isNull)
@@ -84,6 +89,7 @@ namespace OperationPlayground.Editor.Windows
                 health.Value = 1;
                 prefab.Value = null;
                 damageTypes = new DamageType[] { };
+                targetBuildings = new BuildingScriptableObject[] { };
                 attackRange.Value = 1;
                 attackCooldown.Value = 1;
             }
@@ -91,7 +97,8 @@ namespace OperationPlayground.Editor.Windows
             {
                 health.Value = so.health;
                 prefab.Value = so.prefab;
-                damageTypes = so.damageTypes.Copy();
+                targetBuildings = so.targetBuildings?.Copy();
+                damageTypes = so.damageTypes?.Copy();
                 attackRange.Value = so.attackRange;
                 attackCooldown.Value = so.attackCooldown;
             }
@@ -104,6 +111,7 @@ namespace OperationPlayground.Editor.Windows
             asset.damageTypes = damageTypes.Copy();
             asset.attackRange = attackRange;
             asset.attackCooldown = attackCooldown;
+            asset.targetBuildings = targetBuildings.Copy();
         }
 
         protected override IEnumerable<CompleteCriteria> GetCompleteCriteria()

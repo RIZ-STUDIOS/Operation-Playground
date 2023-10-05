@@ -18,3 +18,5 @@ MonoBehaviour:
   damageTypes: 01000000
   attackRange: 10
   attackCooldown: 3
+  targetBuildings:
+  - {fileID: 11400000, guid: 22970bc8861d11246a999ed381ef500c, type: 2}

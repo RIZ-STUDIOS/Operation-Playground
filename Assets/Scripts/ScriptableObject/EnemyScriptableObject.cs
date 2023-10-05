@@ -13,6 +13,7 @@ namespace OperationPlayground.ScriptableObjects
         public DamageType[] damageTypes;
         public float attackRange;
         public float attackCooldown;
+        public BuildingScriptableObject[] targetBuildings;
     }
 
     public enum DamageType

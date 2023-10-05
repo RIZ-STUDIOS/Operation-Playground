@@ -64,6 +64,15 @@ namespace OperationPlayground
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Value"",
+                    ""id"": ""810eebab-daca-47f4-9b78-6662b83d422b"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -110,6 +119,61 @@ namespace OperationPlayground
                     ""action"": ""Join"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""2D Vector"",
+                    ""id"": ""9760861f-a0f7-4416-bd9e-acac77dc7797"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""6f175e37-0cd9-4ac6-aba0-c6674d3e3a8f"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""14d62f69-bf31-4306-886d-8e066e3bfcfc"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""d5dfc3c5-bcc5-4509-b94e-eb500176b83d"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""c5beb185-9e77-4e02-8653-f54767bde125"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         },
@@ -699,6 +763,7 @@ namespace OperationPlayground
             m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
             m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
             m_Player_Join = m_Player.FindAction("Join", throwIfNotFound: true);
+            m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -776,6 +841,7 @@ namespace OperationPlayground
         private readonly InputAction m_Player_Look;
         private readonly InputAction m_Player_Fire;
         private readonly InputAction m_Player_Join;
+        private readonly InputAction m_Player_Interact;
         public struct PlayerActions
         {
             private @OPPlayerInput m_Wrapper;
@@ -784,6 +850,7 @@ namespace OperationPlayground
             public InputAction @Look => m_Wrapper.m_Player_Look;
             public InputAction @Fire => m_Wrapper.m_Player_Fire;
             public InputAction @Join => m_Wrapper.m_Player_Join;
+            public InputAction @Interact => m_Wrapper.m_Player_Interact;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -805,6 +872,9 @@ namespace OperationPlayground
                 @Join.started += instance.OnJoin;
                 @Join.performed += instance.OnJoin;
                 @Join.canceled += instance.OnJoin;
+                @Interact.started += instance.OnInteract;
+                @Interact.performed += instance.OnInteract;
+                @Interact.canceled += instance.OnInteract;
             }
 
             private void UnregisterCallbacks(IPlayerActions instance)
@@ -821,6 +891,9 @@ namespace OperationPlayground
                 @Join.started -= instance.OnJoin;
                 @Join.performed -= instance.OnJoin;
                 @Join.canceled -= instance.OnJoin;
+                @Interact.started -= instance.OnInteract;
+                @Interact.performed -= instance.OnInteract;
+                @Interact.canceled -= instance.OnInteract;
             }
 
             public void RemoveCallbacks(IPlayerActions instance)
@@ -1007,6 +1080,7 @@ namespace OperationPlayground
             void OnLook(InputAction.CallbackContext context);
             void OnFire(InputAction.CallbackContext context);
             void OnJoin(InputAction.CallbackContext context);
+            void OnInteract(InputAction.CallbackContext context);
         }
         public interface IUIActions
         {

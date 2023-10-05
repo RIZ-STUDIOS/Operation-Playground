@@ -1,9 +1,9 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace OperationPlayground.PlayerManager
+namespace OperationPlayground.Player
 {
-    public class PlayerSpawn : MonoBehaviour
+    public class PlayerSpawnManager : MonoBehaviour
     {
         [SerializeField]
         private Transform[] spawnLocations;

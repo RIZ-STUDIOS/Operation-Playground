@@ -5,7 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace OperationPlayground.Projectiles
+namespace OperationPlayground.Weapons.Projectiles
 {
     public class Projectile : MonoBehaviour
     {

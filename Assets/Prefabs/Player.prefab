@@ -124,10 +124,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92e0c6142b16fea4ebe6556d4fa32960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 481260972957639133, guid: 1f5962a542f931f4f89eb639ed7fc8d6,
-    type: 3}
-  firingPoint: {fileID: 778898212000968512}
   projectileSo: {fileID: 11400000, guid: 64d419158ad1a90418b1ab58078640a5, type: 2}
+  firingPoint: {fileID: 1313517059184062078}
 --- !u!143 &5528933775326153158
 CharacterController:
   m_ObjectHideFlags: 0

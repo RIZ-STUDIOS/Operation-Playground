@@ -1,3 +1,5 @@
+using OperationPlayground.ScriptableObjects;
+using OperationPlayground.Weapons.Projectiles;
 using RicTools;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,14 +12,15 @@ namespace OperationPlayground.Player
     public class PlayerShooting : MonoBehaviour
     {
         [SerializeField]
-        private GameObject bulletPrefab;
+        private ProjectileScriptableObject projectileSo;
 
         [SerializeField]
-        private GameObject firingPoint;
+        private Transform firingPoint;
 
         private OPPlayerInput playerInput;
 
         private float cooldownTime = 1;
+        private float cooldownTimer;
 
         private bool triggerPressed;
         private bool canShoot = true;
@@ -25,17 +28,21 @@ namespace OperationPlayground.Player
         private void Awake()
         {
             playerInput = new OPPlayerInput();
+            playerInput.Enable();
             playerInput.Player.Fire.performed += OnFirePerformed;
             playerInput.Player.Fire.canceled += OnFireCanceled;
         }
 
         private void Update()
         {
-            Debug.Log(triggerPressed);
-            if (triggerPressed)
+            if(triggerPressed && cooldownTimer <= 0)
             {
-                if (canShoot) ShootBullet();
+                cooldownTimer = cooldownTime;
+                ShootBullet();
             }
+
+            cooldownTimer -= Time.deltaTime;
+            cooldownTimer = Mathf.Max(0, cooldownTimer);
         }
 
         private void OnFirePerformed(InputAction.CallbackContext value)
@@ -50,24 +57,13 @@ namespace OperationPlayground.Player
 
         private void ShootBullet()
         {
-            Bullet newBullet = Instantiate(bulletPrefab).GetComponent<Bullet>();
-            newBullet.gameObject.transform.position = firingPoint.transform.position;
-            newBullet.gameObject.transform.rotation = firingPoint.transform.rotation;
-            newBullet.Fire(firingPoint.transform.forward.normalized);
-            StartCoroutine(ShootCooldown());
-        }
+            var gameObject = Instantiate(projectileSo.prefab);
 
-        private IEnumerator ShootCooldown()
-        {
-            canShoot = false;
+            gameObject.transform.position = firingPoint.position;
+            gameObject.transform.forward = firingPoint.forward;
 
-            float timer = 0;
-            while (timer < cooldownTime)
-            {
-                yield return null;
-            }
-
-            canShoot = true;
+            var projectile = gameObject.AddComponent<Projectile>();
+            projectile.projectileSo = projectileSo;
         }
     }
 }

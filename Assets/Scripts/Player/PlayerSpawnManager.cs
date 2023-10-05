@@ -12,6 +12,8 @@ namespace OperationPlayground.Player
         {
             Debug.Log($"Player {input.playerIndex} has joined the session!");
 
+            input.gameObject.GetComponent<PlayerShooting>().devices = input.devices;
+
             input.gameObject.transform.position = spawnLocations[Random.Range(0, spawnLocations.Length)].position;
         }
     }

@@ -1,3 +1,4 @@
+using OperationPlayground.Enemy;
 using OperationPlayground.ScriptableObjects;
 using RicTools;
 using RicTools.Utilities;
@@ -11,6 +12,8 @@ namespace OperationPlayground.Weapons.Projectiles
     {
         [System.NonSerialized]
         public ProjectileScriptableObject projectileSo;
+
+        public GameObject parentShooter;
 
         private float groundOffset;
         private float timer;
@@ -64,6 +67,31 @@ namespace OperationPlayground.Weapons.Projectiles
         private void Destroy()
         {
             Destroy(gameObject);
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (parentShooter.tag == "Player")
+            {
+                if (other.tag == "Player") Destroy();
+                else if (other.tag == "Enemy")
+                {
+                    EnemyHealth enemy = other.GetComponent<EnemyHealth>();
+                    enemy.Damage(1);
+                }
+            }
+            else if (parentShooter.tag == "Enemy")
+            {
+                if (other.tag == "Player")
+                {
+                    // Damage players.
+                }
+                else if (other.tag == "Enemy")
+                {
+                    Destroy();
+                }
+            }
+            else Destroy();
         }
     }
 }

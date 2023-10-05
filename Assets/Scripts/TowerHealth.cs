@@ -21,7 +21,7 @@ namespace OperationPlayground
 
         private void Update()
         {
-            if(Input.GetKeyDown(KeyCode.K))
+            if (Input.GetKeyDown(KeyCode.K))
             {
                 OnDeath();
             }

@@ -49,7 +49,7 @@ namespace OperationPlayground.Enemy
 
         public bool IsWeakTo(DamageType damageType)
         {
-            if(damageType == DamageType.None) return false;
+            if (damageType == DamageType.None) return false;
 
             return enemySo.damageTypes.Contains(damageType);
         }

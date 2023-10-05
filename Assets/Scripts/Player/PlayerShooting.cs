@@ -35,7 +35,7 @@ namespace OperationPlayground.Player
 
         private void Update()
         {
-            if(triggerPressed && cooldownTimer <= 0)
+            if (triggerPressed && cooldownTimer <= 0)
             {
                 cooldownTimer = cooldownTime;
                 ShootBullet();

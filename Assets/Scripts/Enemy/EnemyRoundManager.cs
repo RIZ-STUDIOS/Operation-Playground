@@ -1,14 +1,14 @@
+using OperationPlayground.Enemy;
+using OperationPlayground.Managers;
+using OperationPlayground.ScriptableObjects;
+using RicTools.Attributes;
+using RicTools.Managers;
+using RicTools.Utilities;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using RicTools.Managers;
-using System;
 using UnityEngine.Splines;
-using OperationPlayground.Enemy;
-using RicTools.Attributes;
-using RicTools.Utilities;
-using OperationPlayground.ScriptableObjects;
-using OperationPlayground.Managers;
 
 namespace OperationPlayground.Enemy
 {
@@ -51,7 +51,7 @@ namespace OperationPlayground.Enemy
 
         private void StartCountdown()
         {
-            if(rounds.Count <= 0)
+            if (rounds.Count <= 0)
             {
                 GameManager.Instance.loseWinUI.ShowWin();
                 return;
@@ -82,7 +82,7 @@ namespace OperationPlayground.Enemy
         {
             onRoundStart?.Invoke();
 
-            if(queueEnemies.Count > 0)
+            if (queueEnemies.Count > 0)
             {
                 Debug.LogWarning("Starting new round with queued enemies");
                 queueEnemies.Clear();
@@ -109,7 +109,7 @@ namespace OperationPlayground.Enemy
         {
             float spawnTime = 10 / baseSpeed;
 
-            while(queueEnemies.Count > 0)
+            while (queueEnemies.Count > 0)
             {
                 SpawnRandomEnemy();
                 yield return new WaitForSeconds(spawnTime);
@@ -179,7 +179,7 @@ namespace OperationPlayground.Enemy
             if (roundCoroutine != null)
                 StopCoroutine(roundCoroutine);
 
-            foreach(var enemy in aliveEnemies)
+            foreach (var enemy in aliveEnemies)
             {
                 enemy.GetComponent<SplineAnimate>().Pause();
             }

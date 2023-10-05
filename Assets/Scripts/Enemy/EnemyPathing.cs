@@ -19,7 +19,7 @@ namespace OperationPlayground.Enemy
 
         private void Update()
         {
-            if(splineAnimate.NormalizedTime >= 1)
+            if (splineAnimate.NormalizedTime >= 1)
             {
                 OnEndReached();
             }

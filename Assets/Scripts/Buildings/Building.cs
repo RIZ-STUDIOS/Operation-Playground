@@ -34,7 +34,7 @@ namespace OperationPlayground.Buildings
 
         public void Place()
         {
-            foreach(var script in scriptsToEnable)
+            foreach (var script in scriptsToEnable)
             {
                 var property = script.GetType().GetProperty("enabled");
                 if (property != null)

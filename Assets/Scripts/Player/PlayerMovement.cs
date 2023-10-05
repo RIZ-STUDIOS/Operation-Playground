@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 
 namespace OperationPlayground.Player
 {
-    [RequireComponent(typeof(PlayerInput)) ]
+    [RequireComponent(typeof(PlayerInput))]
     public class PlayerMovement : MonoBehaviour
     {
         private CharacterController controller;
@@ -33,7 +33,7 @@ namespace OperationPlayground.Player
         /// Left stick moves the player relative to the camera.
         /// </summary>
         /// <param name="input"></param>
-        void OnMove(InputValue input)
+        private void OnMove(InputValue input)
         {
             Vector2 moveInput = input.Get<Vector2>();
 
@@ -48,7 +48,7 @@ namespace OperationPlayground.Player
         /// Right stick rotates the player relative to the camera.
         /// </summary>
         /// <param name="input"></param>
-        void OnLook(InputValue input)
+        private void OnLook(InputValue input)
         {
             Vector2 moveInput = input.Get<Vector2>();
             if (moveInput.magnitude > 0.1f)

@@ -14,8 +14,7 @@ namespace OperationPlayground.Enemy
     {
         [NonSerialized]
         public EnemyScriptableObject enemySo;
-
-        GameTimer timer;
+        private GameTimer timer;
 
         private void Start()
         {
@@ -38,14 +37,14 @@ namespace OperationPlayground.Enemy
         private void Attack()
         {
             var colliders = Physics.OverlapSphere(transform.position, enemySo.attackRange).ToList();
-            if(colliders.Count == 0) return;
+            if (colliders.Count == 0) return;
 
             var enemyTargets = colliders.Select(e => e.GetComponentInParent<EnemyTarget>()).ToList().FindAll(e => e != null);
             if (enemyTargets.Count == 0) return;
 
             var targets = enemySo.targetBuildings.ToList();
 
-            foreach(var enemyTarget in enemyTargets)
+            foreach (var enemyTarget in enemyTargets)
             {
                 var building = enemyTarget.GetComponent<Building>();
                 if (building)
@@ -53,18 +52,18 @@ namespace OperationPlayground.Enemy
                     if (targets.Contains(building.buildingSo))
                     {
                         var objectHealth = enemyTarget.GetComponentInChildren<ObjectHealth>();
-                        if(objectHealth != null)
+                        if (objectHealth != null)
                         {
                             AttackHealth(objectHealth);
-                        return;
+                            return;
                         }
                     }
                 }
             }
 
-            foreach(var enemyTarget in enemyTargets)
+            foreach (var enemyTarget in enemyTargets)
             {
-                if(enemyTarget.tag == "Player")
+                if (enemyTarget.tag == "Player")
                 {
                     var objectHealth = enemyTarget.GetComponentInChildren<ObjectHealth>();
                     if (objectHealth != null)

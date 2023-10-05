@@ -13,8 +13,7 @@ namespace OperationPlayground.Weapons.Projectiles
         public ProjectileScriptableObject projectileSo;
 
         private float groundOffset;
-
-        float timer;
+        private float timer;
 
         private void Start()
         {
@@ -27,7 +26,7 @@ namespace OperationPlayground.Weapons.Projectiles
 
             Move();
 
-            if(timer >= projectileSo.travelDuration)
+            if (timer >= projectileSo.travelDuration)
             {
                 Destroy();
             }
@@ -40,7 +39,7 @@ namespace OperationPlayground.Weapons.Projectiles
 
         private float GetGroundOffset()
         {
-            if(!GetGroundHitInfo(out var hitInfo))
+            if (!GetGroundHitInfo(out var hitInfo))
             {
                 return groundOffset;
             }
@@ -53,7 +52,7 @@ namespace OperationPlayground.Weapons.Projectiles
 
             var currentGroundOffset = GetGroundOffset();
 
-            if(currentGroundOffset != groundOffset)
+            if (currentGroundOffset != groundOffset)
             {
                 var position = transform.position;
                 GetGroundHitInfo(out var hitInfo);

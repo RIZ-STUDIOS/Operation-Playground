@@ -73,7 +73,8 @@ namespace OperationPlayground.Buildings
             if (canPlace && (!materialCanPlace || force))
             {
                 GreenMaterial();
-            }else if(!canPlace && (materialCanPlace || force))
+            }
+            else if (!canPlace && (materialCanPlace || force))
             {
                 RedMaterial();
             }
@@ -82,7 +83,7 @@ namespace OperationPlayground.Buildings
         public bool Place()
         {
             if (!canPlace) return false;
-            foreach(var material in materials)
+            foreach (var material in materials)
             {
                 material.Key.material = material.Value;
             }

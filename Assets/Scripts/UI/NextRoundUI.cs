@@ -20,7 +20,7 @@ namespace OperationPlayground.UI
         private void UpdateNextEnemies()
         {
             var nextRound = EnemyRoundManager.Instance.GetNextRound();
-            if(nextRound == null)
+            if (nextRound == null)
             {
                 nextRoundText.text = "End";
                 return;

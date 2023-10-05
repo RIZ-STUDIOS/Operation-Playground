@@ -1,12 +1,12 @@
+using OperationPlayground.ScriptableObjects;
+using RicTools;
+using RicTools.Editor.Utilities;
+using RicTools.Editor.Windows;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using RicTools;
-using RicTools.Editor.Windows;
 using UnityEditor;
-using RicTools.Editor.Utilities;
-using System;
-using OperationPlayground.ScriptableObjects;
+using UnityEngine;
 
 namespace OperationPlayground.Editor.Windows
 {
@@ -31,7 +31,7 @@ namespace OperationPlayground.Editor.Windows
         public BuildingScriptableObject[] targetBuildings = new BuildingScriptableObject[] { };
 
         [MenuItem("Operation Playground/Enemy Editor")]
-    	public static EnemyEditorWindow ShowWindow()
+        public static EnemyEditorWindow ShowWindow()
         {
             return GetWindow<EnemyEditorWindow>("Enemy Editor");
         }

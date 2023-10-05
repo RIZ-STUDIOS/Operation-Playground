@@ -43,7 +43,7 @@ namespace OperationPlayground.Buildings
                 }
             }
 
-            if(!buildingPlacement && Input.GetMouseButtonDown(1))
+            if (!buildingPlacement && Input.GetMouseButtonDown(1))
             {
                 StartPlacement(availableBuildings[0]);
             }

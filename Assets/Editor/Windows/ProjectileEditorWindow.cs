@@ -1,11 +1,11 @@
+using OperationPlayground.ScriptableObjects;
+using RicTools;
+using RicTools.Editor.Utilities;
+using RicTools.Editor.Windows;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using RicTools;
-using RicTools.Editor.Windows;
 using UnityEditor;
-using OperationPlayground.ScriptableObjects;
-using RicTools.Editor.Utilities;
+using UnityEngine;
 
 namespace OperationPlayground.Editor.Windows
 {
@@ -21,7 +21,7 @@ namespace OperationPlayground.Editor.Windows
         private EditorContainer<float> speed = new EditorContainer<float>(1);
 
         [MenuItem("Operation Playground/Projectile Editor")]
-    	public static ProjectileEditorWindow ShowWindow()
+        public static ProjectileEditorWindow ShowWindow()
         {
             return GetWindow<ProjectileEditorWindow>("Projectile Editor");
         }
@@ -52,7 +52,7 @@ namespace OperationPlayground.Editor.Windows
 
         protected override void LoadScriptableObject(ProjectileScriptableObject so, bool isNull)
         {
-            if(isNull)
+            if (isNull)
             {
                 prefab.Value = null;
                 travelDuration.Value = 1;

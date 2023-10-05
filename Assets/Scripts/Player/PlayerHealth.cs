@@ -1,4 +1,5 @@
 using OperationPlayground.UI;
+using RicTools.Attributes;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,7 +8,7 @@ namespace OperationPlayground
 {
     public class PlayerHealth : ObjectHealth
     {
-        [SerializeField]
+        [SerializeField, MinValue(1)]
         private int maxHealth;
 
         [SerializeField]

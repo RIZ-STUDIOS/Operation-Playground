@@ -1,3 +1,4 @@
+using RicTools.Utilities;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -12,7 +13,10 @@ namespace OperationPlayground.Player
         {
             Debug.Log($"Player {input.playerIndex} has joined the session!");
 
-            input.gameObject.GetComponent<PlayerShooting>().devices = input.devices;
+            var playerInputData = input.gameObject.GetOrAddComponent<PlayerInputData>();
+
+            playerInputData.devices = input.devices;
+            playerInputData.playerIndex = input.playerIndex;
 
             input.gameObject.transform.position = spawnLocations[Random.Range(0, spawnLocations.Length)].position;
         }

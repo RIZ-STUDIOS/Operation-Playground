@@ -12,9 +12,6 @@ namespace OperationPlayground.Player
     [RequireComponent(typeof(PlayerInput))]
     public class PlayerShooting : MonoBehaviour
     {
-        [System.NonSerialized]
-        public ReadOnlyArray<InputDevice> devices;
-
         [SerializeField]
         private ProjectileScriptableObject projectileSo;
 
@@ -31,7 +28,7 @@ namespace OperationPlayground.Player
         private void Awake()
         {
             playerInput = new OPPlayerInput();
-            playerInput.devices = devices;
+            playerInput.devices = GetComponent<PlayerInputData>().devices;
             playerInput.Enable();
             playerInput.Player.Fire.performed += OnFirePerformed;
             playerInput.Player.Fire.canceled += OnFireCanceled;

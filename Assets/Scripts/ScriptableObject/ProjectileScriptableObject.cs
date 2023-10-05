@@ -11,5 +11,6 @@ namespace OperationPlayground.ScriptableObjects
         public GameObject prefab;
         public float speed;
         public float travelDuration;
+        public DamageType damageType;
     }
 }

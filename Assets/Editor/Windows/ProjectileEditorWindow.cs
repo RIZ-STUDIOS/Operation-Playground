@@ -20,6 +20,9 @@ namespace OperationPlayground.Editor.Windows
         [SerializeField]
         private EditorContainer<float> speed = new EditorContainer<float>(1);
 
+        [SerializeField]
+        private EditorContainer<DamageType> damageType = new EditorContainer<DamageType>();
+
         [MenuItem("Operation Playground/Projectile Editor")]
         public static ProjectileEditorWindow ShowWindow()
         {
@@ -48,6 +51,13 @@ namespace OperationPlayground.Editor.Windows
                 RegisterCheckCompletion(element);
                 RegisterLoadChange(element, speed);
             }
+
+            {
+                var element = rootVisualElement.AddEnumField(damageType, "Damage Type");
+
+                RegisterCheckCompletion(element);
+                RegisterLoadChange(element, damageType);
+            }
         }
 
         protected override void LoadScriptableObject(ProjectileScriptableObject so, bool isNull)
@@ -57,12 +67,14 @@ namespace OperationPlayground.Editor.Windows
                 prefab.Value = null;
                 travelDuration.Value = 1;
                 speed.Value = 1;
+                damageType.Value = default;
             }
             else
             {
                 prefab.Value = so.prefab;
                 travelDuration.Value = so.travelDuration;
                 speed.Value = so.speed;
+                damageType.Value = so.damageType;
             }
         }
 
@@ -71,6 +83,7 @@ namespace OperationPlayground.Editor.Windows
             asset.prefab = prefab;
             asset.travelDuration = travelDuration;
             asset.speed = speed;
+            asset.damageType = damageType;
         }
     }
 }

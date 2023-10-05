@@ -18,11 +18,19 @@ namespace OperationPlayground.Editor.Windows
         [SerializeField]
         private EditorContainer<int> health = new EditorContainer<int>(1);
 
+        [SerializeField]
+        private EditorContainer<float> attackRange = new EditorContainer<float>(1);
+
+        [SerializeField]
+        private EditorContainer<float> attackCooldown = new EditorContainer<float>(1);
+
         private SerializedProperty m_damageTypes;
+        private SerializedProperty m_targetBuildings;
 
         public DamageType[] damageTypes = new DamageType[] { };
+        public BuildingScriptableObject[] targetBuildings = new BuildingScriptableObject[] { };
 
-        [MenuItem("Project Playground/Enemy Editor")]
+        [MenuItem("Operation Playground/Enemy Editor")]
     	public static EnemyEditorWindow ShowWindow()
         {
             return GetWindow<EnemyEditorWindow>("Enemy Editor");
@@ -33,6 +41,7 @@ namespace OperationPlayground.Editor.Windows
             base.OnEnable();
 
             m_damageTypes = serializedObject.FindProperty("damageTypes");
+            m_targetBuildings = serializedObject.FindProperty("targetBuildings");
         }
 
         protected override void DrawGUI()
@@ -52,9 +61,25 @@ namespace OperationPlayground.Editor.Windows
                 RegisterLoadChange(element, health);
             }
 
+            rootVisualElement.AddTitle("Attack");
+
             {
-                var element = rootVisualElement.AddPropertyField(m_damageTypes, "Damage Types");
+                var element = rootVisualElement.AddFloatField(attackRange, "Attack Range");
+
+                RegisterCheckCompletion(element);
+                RegisterLoadChange(element, attackRange);
             }
+
+            {
+                var element = rootVisualElement.AddFloatField(attackCooldown, "Attack Cooldown");
+
+                RegisterCheckCompletion(element);
+                RegisterLoadChange(element, attackCooldown);
+            }
+
+            rootVisualElement.AddPropertyField(m_damageTypes, "Damage Types");
+
+            rootVisualElement.AddPropertyField(m_targetBuildings, "Target Buildings");
         }
 
         protected override void LoadScriptableObject(EnemyScriptableObject so, bool isNull)
@@ -64,12 +89,18 @@ namespace OperationPlayground.Editor.Windows
                 health.Value = 1;
                 prefab.Value = null;
                 damageTypes = new DamageType[] { };
+                targetBuildings = new BuildingScriptableObject[] { };
+                attackRange.Value = 1;
+                attackCooldown.Value = 1;
             }
             else
             {
                 health.Value = so.health;
                 prefab.Value = so.prefab;
-                damageTypes = so.damageTypes.Copy();
+                targetBuildings = so.targetBuildings?.Copy();
+                damageTypes = so.damageTypes?.Copy();
+                attackRange.Value = so.attackRange;
+                attackCooldown.Value = so.attackCooldown;
             }
         }
 
@@ -78,12 +109,17 @@ namespace OperationPlayground.Editor.Windows
             asset.health = health;
             asset.prefab = prefab;
             asset.damageTypes = damageTypes.Copy();
+            asset.attackRange = attackRange;
+            asset.attackCooldown = attackCooldown;
+            asset.targetBuildings = targetBuildings.Copy();
         }
 
         protected override IEnumerable<CompleteCriteria> GetCompleteCriteria()
         {
             yield return new CompleteCriteria(health.Value > 0, "Health must be above 0");
             yield return new CompleteCriteria(prefab.Value != null, "Prefab must not be null");
+            yield return new CompleteCriteria(attackRange.Value > 0, "Attack Range must be above 0");
+            yield return new CompleteCriteria(attackCooldown.Value > 0, "Attack Cooldown must be above 0");
         }
     }
 }

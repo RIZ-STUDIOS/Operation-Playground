@@ -8,6 +8,7 @@ using OperationPlayground.Enemy;
 using RicTools.Attributes;
 using RicTools.Utilities;
 using OperationPlayground.ScriptableObjects;
+using OperationPlayground.Managers;
 
 namespace OperationPlayground.Enemy
 {
@@ -35,8 +36,13 @@ namespace OperationPlayground.Enemy
         [SerializeField, PositiveValueOnly, ReadOnly(AvailableMode.Play)]
         private float timeBetweenRounds;
 
+        public float TimeBetweenRounds => timeBetweenRounds;
+
         [SerializeField, PositiveValueOnly, ReadOnly(AvailableMode.Play)]
         private float baseSpeed;
+
+        private Coroutine countdownCoroutine;
+        private Coroutine roundCoroutine;
 
         private void Start()
         {
@@ -47,11 +53,11 @@ namespace OperationPlayground.Enemy
         {
             if(rounds.Count <= 0)
             {
-                Debug.Log("End of game");
+                GameManager.Instance.loseWinUI.ShowWin();
                 return;
             }
 
-            StartCoroutine(CountdownCoroutine());
+            countdownCoroutine = StartCoroutine(CountdownCoroutine());
         }
 
         private IEnumerator CountdownCoroutine()
@@ -78,7 +84,7 @@ namespace OperationPlayground.Enemy
 
             if(queueEnemies.Count > 0)
             {
-                Debug.Log("Starting new round with queued enemies");
+                Debug.LogWarning("Starting new round with queued enemies");
                 queueEnemies.Clear();
             }
 
@@ -94,7 +100,7 @@ namespace OperationPlayground.Enemy
                 }
             }
 
-            StartCoroutine(RoundCoroutine(round));
+            roundCoroutine = StartCoroutine(RoundCoroutine(round));
 
             rounds.Remove(round);
         }
@@ -129,6 +135,11 @@ namespace OperationPlayground.Enemy
 
             gameObject.AddComponent<EnemyPathing>();
 
+            {
+                var enemyAttack = gameObject.AddComponent<EnemyAttack>();
+                enemyAttack.enemySo = enemy;
+            }
+
             aliveEnemies.Add(gameObject);
 
             queueEnemies.Remove(enemy);
@@ -157,6 +168,20 @@ namespace OperationPlayground.Enemy
                 onRoundEnd?.Invoke();
                 roundNumber++;
                 StartCountdown();
+            }
+        }
+
+        public void StopRounds()
+        {
+            if (countdownCoroutine != null)
+                StopCoroutine(countdownCoroutine);
+
+            if (roundCoroutine != null)
+                StopCoroutine(roundCoroutine);
+
+            foreach(var enemy in aliveEnemies)
+            {
+                enemy.GetComponent<SplineAnimate>().Pause();
             }
         }
     }

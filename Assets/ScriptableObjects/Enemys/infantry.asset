@@ -16,3 +16,6 @@ MonoBehaviour:
   prefab: {fileID: 1001155888842553992, guid: ba4f6da6288f29b4280ece138ac11493, type: 3}
   health: 1
   damageTypes: 
+  attackRange: 4
+  attackCooldown: 1
+  targetBuildings: []

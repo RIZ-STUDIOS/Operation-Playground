@@ -16,6 +16,12 @@ MonoBehaviour:
   - manager:
       GuidAssignmentFailed: 0
       GUID: a8cb771531411294d87f43509e82e044
-      _typeNameAndAssembly: OperationPlayground.GameManager, OperationPlayground
+      _typeNameAndAssembly: OperationPlayground.Managers.GameManager, OperationPlayground
       _suppressLogs: 0
     data: {fileID: 0}
+  - manager:
+      GuidAssignmentFailed: 0
+      GUID: 250048cc632358d4c9a731a797a9c208
+      _typeNameAndAssembly: OperationPlayground.Managers.MaterialsManager, OperationPlayground
+      _suppressLogs: 0
+    data: {fileID: 11400000, guid: df3ce74d5581b3c44b9ca7fee0f06fef, type: 2}

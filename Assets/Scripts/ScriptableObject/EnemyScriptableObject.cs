@@ -11,6 +11,9 @@ namespace OperationPlayground.ScriptableObjects
         public GameObject prefab;
         public int health;
         public DamageType[] damageTypes;
+        public float attackRange;
+        public float attackCooldown;
+        public BuildingScriptableObject[] targetBuildings;
     }
 
     public enum DamageType

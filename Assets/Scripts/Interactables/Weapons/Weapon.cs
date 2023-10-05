@@ -33,6 +33,9 @@ namespace OperationPlayground
 
         public event System.Action onAmmoEnd;
 
+        [System.NonSerialized]
+        public ObjectHealth parentShooter;
+
         private void Awake()
         {
             interactable = GetComponent<Interactable>();
@@ -69,7 +72,7 @@ namespace OperationPlayground
 
             var projectile = gameObject.AddComponent<Projectile>();
             projectile.projectileSo = projectileSo;
-            projectile.parentShooter = this.gameObject;
+            projectile.parentShooter = parentShooter;
             if (!infiniteAmmo)
             {
                 ammoCount--;

@@ -79,5 +79,10 @@ namespace OperationPlayground.Enemy
         {
             objectHealth.Damage(1);
         }
+
+        private void OnDestroy()
+        {
+            timer.Remove();
+        }
     }
 }

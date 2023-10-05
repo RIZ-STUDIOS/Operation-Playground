@@ -13,7 +13,7 @@ namespace OperationPlayground.Weapons.Projectiles
         [System.NonSerialized]
         public ProjectileScriptableObject projectileSo;
 
-        public GameObject parentShooter;
+        public ObjectHealth parentShooter;
 
         private float groundOffset;
         private float timer;
@@ -71,28 +71,18 @@ namespace OperationPlayground.Weapons.Projectiles
 
         private void OnTriggerEnter(Collider other)
         {
-            if (parentShooter.tag == "Player")
+            var objectHealth = other.GetComponentInParent<ObjectHealth>();
+            if (!objectHealth) return;
+            if(parentShooter.tag != objectHealth.tag)
             {
-                if (other.tag == "Player") Destroy();
-                else if (other.tag == "Enemy")
+                if (objectHealth is EnemyHealth enemyHealth)
                 {
-                    EnemyHealth enemy = other.GetComponent<EnemyHealth>();
-                    enemy.Damage(1);
+                    enemyHealth.Damage(damageType: projectileSo.damageType);
                 }
+                else
+                    objectHealth.Damage(1);
             }
-            else if (parentShooter.tag == "Enemy")
-            {
-                if (other.tag == "Player")
-                {
-                    PlayerHealth player = other.GetComponent<PlayerHealth>();
-                    player.Damage(1);
-                }
-                else if (other.tag == "Enemy")
-                {
-                    Destroy();
-                }
-            }
-            else Destroy();
+            Destroy();
         }
     }
 }

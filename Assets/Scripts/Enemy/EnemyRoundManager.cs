@@ -165,7 +165,7 @@ namespace OperationPlayground.Enemy
 
         private void CheckEndOfRound()
         {
-            if (queueEnemies.Count > 0)
+            if (queueEnemies.Count <= 0 && aliveEnemies.Count <= 0)
             {
                 onRoundEnd?.Invoke();
                 roundNumber++;

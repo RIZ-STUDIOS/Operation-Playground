@@ -1025,7 +1025,7 @@ MonoBehaviour:
   offset: {x: 0, y: 0, z: 0.6}
   fireTransform: {fileID: 1070144467}
   infiniteAmmo: 0
-  ammoCount: 2
+  ammoCount: 20
 --- !u!23 &1736036469
 MeshRenderer:
   m_ObjectHideFlags: 0

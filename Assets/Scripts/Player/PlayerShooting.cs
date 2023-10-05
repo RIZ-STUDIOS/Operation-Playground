@@ -83,6 +83,7 @@ namespace OperationPlayground.Player
             weapon.transform.SetParent(weaponSlotTransform, false);
             weapon.transform.localPosition = weapon.offset;
             weapon.onAmmoEnd += UnequipWeapon;
+            weapon.parentShooter = GetComponent<ObjectHealth>();
             equippedWeapon.gameObject.SetActive(true);
             return true;
         }

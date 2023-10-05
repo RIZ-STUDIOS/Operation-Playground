@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 namespace OperationPlayground.UI
 {
-    public class EnemyHealthUI : MonoBehaviour
+    public class ObjectHealthUI : MonoBehaviour
     {
         [SerializeField]
         private Slider healthSlider;
@@ -18,7 +18,7 @@ namespace OperationPlayground.UI
         private Billboard billboard;
 
         [NonSerialized]
-        public EnemyHealth parentHealth;
+        public ObjectHealth parentHealth;
 
         private void Start()
         {

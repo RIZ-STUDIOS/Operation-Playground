@@ -14,19 +14,19 @@ namespace OperationPlayground.UI
 
         private void Start()
         {
-            EnemyRoundManager.Instance.onCountdownStart += UpdateNextEnemies;
+            EnemyRoundManager.Instance.onCountdownStart += ()=> UpdateNextEnemies(EnemyRoundManager.Instance.nextRound);
+            EnemyRoundManager.Instance.onEnemyKilled += ()=> UpdateNextEnemies(EnemyRoundManager.Instance.currentRound);
         }
 
-        private void UpdateNextEnemies()
+        private void UpdateNextEnemies(GameRound round)
         {
-            var nextRound = EnemyRoundManager.Instance.GetNextRound();
-            if (nextRound == null)
+            if (round == null)
             {
                 nextRoundText.text = "End";
                 return;
             }
 
-            nextRoundText.text = RoundEnemiesToString(nextRound);
+            nextRoundText.text = round.EnemiesToString();
         }
 
         private string RoundEnemiesToString(EnemyRoundScriptableObject data)

@@ -19,9 +19,7 @@ namespace OperationPlayground.Enemy
         [SerializeField]
         private List<EnemyRoundScriptableObject> rounds;
 
-        private List<GameObject> aliveEnemies = new List<GameObject>();
-
-        private List<EnemyScriptableObject> queueEnemies = new List<EnemyScriptableObject>();
+        public GameRound currentRound, nextRound;
 
         [SerializeField]
         private SplineContainer splineToFollow;
@@ -30,6 +28,7 @@ namespace OperationPlayground.Enemy
         public event Action onRoundEnd;
         public event Action onCountdownStart;
         public event Action<float> onCountdownTick;
+        public event Action onEnemyKilled;
 
         private int roundNumber = 1;
 
@@ -66,6 +65,8 @@ namespace OperationPlayground.Enemy
 
             float timer = timeBetweenRounds;
 
+            UpdateNextRound();
+
             onCountdownStart?.Invoke();
 
             while (timer > 0)
@@ -78,38 +79,44 @@ namespace OperationPlayground.Enemy
             StartRound();
         }
 
+        private void UpdateNextRound()
+        {
+            nextRound = null;
+
+            var round = GetNextRoundScriptableObject();
+            if(round != null)
+            {
+                nextRound = new GameRound();
+                nextRound.Populate(round);
+            }
+        }
+
         private void StartRound()
         {
             onRoundStart?.Invoke();
 
-            if (queueEnemies.Count > 0)
+            if (currentRound != null)
             {
-                Debug.LogWarning("Starting new round with queued enemies");
-                queueEnemies.Clear();
+                Debug.LogWarning("Starting new round during a round");
+                currentRound = null;
             }
 
             Debug.Log($"Starting round {roundNumber}");
-            var round = GetNextRound();
+            var round = GetNextRoundScriptableObject();
 
+            currentRound = new GameRound();
+            currentRound.Populate(round);
 
-            foreach (var enemyData in round.enemies)
-            {
-                for (int i = 0; i < enemyData.count; i++)
-                {
-                    queueEnemies.Add(enemyData.enemy);
-                }
-            }
-
-            roundCoroutine = StartCoroutine(RoundCoroutine(round));
+            roundCoroutine = StartCoroutine(RoundCoroutine());
 
             rounds.Remove(round);
         }
 
-        private IEnumerator RoundCoroutine(EnemyRoundScriptableObject round)
+        private IEnumerator RoundCoroutine()
         {
             float spawnTime = 10 / baseSpeed;
 
-            while (queueEnemies.Count > 0)
+            while (currentRound.queueEnemies.Count > 0)
             {
                 SpawnRandomEnemy();
                 yield return new WaitForSeconds(spawnTime);
@@ -118,9 +125,9 @@ namespace OperationPlayground.Enemy
 
         private void SpawnRandomEnemy()
         {
-            if (queueEnemies.Count == 0) return;
+            if (currentRound.queueEnemies.Count == 0) return;
 
-            var enemy = queueEnemies.GetRandomElement();
+            var enemy = currentRound.queueEnemies.GetRandomElement();
 
             var gameObject = Instantiate(enemy.prefab);
             gameObject.GetComponent<EnemyHealth>().enemySo = enemy;
@@ -142,12 +149,12 @@ namespace OperationPlayground.Enemy
 
             gameObject.tag = "Enemy";
 
-            aliveEnemies.Add(gameObject);
+            currentRound.aliveEnemies.Add(gameObject);
 
-            queueEnemies.Remove(enemy);
+            currentRound.queueEnemies.Remove(enemy);
         }
 
-        public EnemyRoundScriptableObject GetNextRound()
+        public EnemyRoundScriptableObject GetNextRoundScriptableObject()
         {
             if (rounds.Count == 0)
                 return null;
@@ -157,15 +164,16 @@ namespace OperationPlayground.Enemy
 
         public void RemoveEnemy(GameObject gameObject)
         {
-            if (aliveEnemies.Remove(gameObject))
+            if (currentRound != null && currentRound.aliveEnemies.Remove(gameObject))
             {
+                onEnemyKilled?.Invoke();
                 CheckEndOfRound();
             }
         }
 
         private void CheckEndOfRound()
         {
-            if (queueEnemies.Count <= 0 && aliveEnemies.Count <= 0)
+            if (currentRound == null || currentRound.queueEnemies.Count <= 0 && currentRound.aliveEnemies.Count <= 0)
             {
                 onRoundEnd?.Invoke();
                 roundNumber++;
@@ -181,10 +189,72 @@ namespace OperationPlayground.Enemy
             if (roundCoroutine != null)
                 StopCoroutine(roundCoroutine);
 
-            foreach (var enemy in aliveEnemies)
+            if(currentRound != null)
+            foreach (var enemy in currentRound.aliveEnemies)
             {
                 enemy.GetComponent<SplineAnimate>().Pause();
             }
+        }
+    }
+
+    public class GameRound
+    {
+        public List<GameObject> aliveEnemies = new List<GameObject>();
+        public List<EnemyScriptableObject> queueEnemies = new List<EnemyScriptableObject>();
+
+        public void Populate(EnemyRoundScriptableObject round)
+        {
+            foreach (var enemyData in round.enemies)
+            {
+                for (int i = 0; i < enemyData.count; i++)
+                {
+                    queueEnemies.Add(enemyData.enemy);
+                }
+            }
+        }
+
+        public string EnemiesToString()
+        {
+            Dictionary<string, int> roundEnemies = new Dictionary<string, int>();
+
+            foreach (var queueEnemy in queueEnemies)
+            {
+                if (!roundEnemies.TryGetValue(queueEnemy.id, out var value))
+                {
+                    roundEnemies.Add(queueEnemy.id, value);
+                }
+
+                value++;
+
+                roundEnemies[queueEnemy.id] = value;
+            }
+
+            foreach (var enemy in aliveEnemies)
+            {
+                var enemySo = enemy.GetComponent<EnemyAttack>().enemySo;
+                if (!roundEnemies.TryGetValue(enemySo.id, out var value))
+                {
+                    roundEnemies.Add(enemySo.id, value);
+                }
+
+                value++;
+
+                roundEnemies[enemySo.id] = value;
+            }
+
+            List<string> enemyString = new List<string>();
+
+            foreach (var enemy in roundEnemies)
+            {
+                enemyString.Add($"{enemy.Value} {enemy.Key}");
+            }
+
+            /*foreach (var enemy in data.supportEnemies)
+            {
+                enemyString.Add($"{enemy.count} {enemy.enemy.id}");
+            }*/
+
+            return string.Join("\n", enemyString);
         }
     }
 }

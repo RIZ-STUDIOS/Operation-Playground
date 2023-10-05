@@ -18,6 +18,11 @@ namespace OperationPlayground
 
         public float HealthPer => Health / (float)MaxHealth;
 
+        protected virtual void Start()
+        {
+            Health = MaxHealth;
+        }
+
         public void Damage(int amount)
         {
             if (amount < 0)
@@ -25,7 +30,7 @@ namespace OperationPlayground
 
             Health -= amount;
 
-            if (health < 0)
+            if (health <= 0)
             {
                 OnDeath();
             }

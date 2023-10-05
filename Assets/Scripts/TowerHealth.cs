@@ -17,7 +17,6 @@ namespace OperationPlayground
         private void Awake()
         {
             GameManager.Instance.towerHealth = this;
-            Health = maxHealth;
         }
 
         private void Update()

@@ -39,8 +39,45 @@ namespace OperationPlayground.Enemy
             var colliders = Physics.OverlapSphere(transform.position, enemySo.attackRange).ToList();
             if(colliders.Count == 0) return;
 
-            var enemyTargets = colliders.FindAll(e => e.GetComponentInParent<EnemyTarget>() != null).Cast<EnemyTarget>().ToList();
+            var enemyTargets = colliders.Select(e => e.GetComponentInParent<EnemyTarget>()).ToList().FindAll(e => e != null);
             if (enemyTargets.Count == 0) return;
+
+            var targets = enemySo.targetBuildings.ToList();
+
+            foreach(var enemyTarget in enemyTargets)
+            {
+                var building = enemyTarget.GetComponent<Building>();
+                if (building)
+                {
+                    if (targets.Contains(building.buildingSo))
+                    {
+                        var objectHealth = enemyTarget.GetComponentInChildren<ObjectHealth>();
+                        if(objectHealth != null)
+                        {
+                            AttackHealth(objectHealth);
+                        return;
+                        }
+                    }
+                }
+            }
+
+            foreach(var enemyTarget in enemyTargets)
+            {
+                if(enemyTarget.tag == "Player")
+                {
+                    var objectHealth = enemyTarget.GetComponentInChildren<ObjectHealth>();
+                    if (objectHealth != null)
+                    {
+                        AttackHealth(objectHealth);
+                        return;
+                    }
+                }
+            }
+        }
+
+        private void AttackHealth(ObjectHealth objectHealth)
+        {
+            objectHealth.Damage(1);
         }
     }
 }

@@ -22,15 +22,15 @@ namespace OperationPlayground.Enemy
 
         public override int MaxHealth => enemySo.health;
 
-        private void Start()
+        protected override void Start()
         {
+            base.Start();
+
             var healthBar = Instantiate(healthBarPrefab, transform);
             healthBar.transform.localPosition = new Vector3(0, 2.5f, 0);
 
-            var enemyHealthUI = healthBar.GetComponentInChildren<EnemyHealthUI>();
+            var enemyHealthUI = healthBar.GetComponentInChildren<ObjectHealthUI>();
             enemyHealthUI.parentHealth = this;
-
-            Health = enemySo.health;
         }
 
         public new void Damage(int amount = 1)

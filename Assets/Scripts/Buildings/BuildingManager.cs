@@ -31,7 +31,8 @@ namespace OperationPlayground
             buildingPlacement.StartPlacement();
         }
 
-        /*private void Update()
+#if UNITY_EDITOR
+        private void Update()
         {
             if (buildingPlacement && Input.GetMouseButtonDown(0))
             {
@@ -46,6 +47,7 @@ namespace OperationPlayground
             {
                 StartPlacement(availableBuildings[0]);
             }
-        }*/
+        }
+#endif
     }
 }

@@ -32,7 +32,7 @@ namespace OperationPlayground
             {
                 renderer.material = MaterialsManager.Instance.data.placementMaterial;
             }
-            CheckPlacement();
+            CheckPlacement(true);
             toPlace.StartPlacement();
         }
 
@@ -67,13 +67,13 @@ namespace OperationPlayground
             CheckPlacement();
         }
 
-        private void CheckPlacement()
+        private void CheckPlacement(bool force = false)
         {
             canPlace = CheckCanPlace();
-            if (canPlace && !materialCanPlace)
+            if (canPlace && (!materialCanPlace || force))
             {
                 GreenMaterial();
-            }else if(!canPlace && materialCanPlace)
+            }else if(!canPlace && (materialCanPlace || force))
             {
                 RedMaterial();
             }

@@ -15,5 +15,5 @@ MonoBehaviour:
   id: turret
   prefab: {fileID: 8127427878927711719, guid: 1b3eb64c5945e95409075afa6f0cb6e4, type: 3}
   health: 1
-  placementDistance: 2
+  placementDistance: 2.5
   boundsToCheck: {x: 3, y: 3, z: 3}

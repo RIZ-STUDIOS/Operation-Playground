@@ -63,13 +63,13 @@ namespace OperationPlayground.Player
             DisableInput();
         }
 
-        private void EnableInput()
+        public void EnableInput()
         {
             playerInputManager.playerInput.Player.Fire.performed += OnFirePerformed;
             playerInputManager.playerInput.Player.Fire.canceled += OnFireCanceled;
         }
 
-        private void DisableInput()
+        public void DisableInput()
         {
             playerInputManager.playerInput.Player.Fire.performed -= OnFirePerformed;
             playerInputManager.playerInput.Player.Fire.canceled -= OnFireCanceled;

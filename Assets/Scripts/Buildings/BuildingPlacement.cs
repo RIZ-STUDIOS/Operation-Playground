@@ -1,6 +1,7 @@
 using OperationPlayground.Managers;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace OperationPlayground.Buildings
@@ -90,6 +91,8 @@ namespace OperationPlayground.Buildings
 
             transform.SetParent(null);
 
+            gameObject.AddComponent<UnplaceArea>();
+
             toPlace.Place();
             Destroy(this);
             return true;
@@ -97,7 +100,8 @@ namespace OperationPlayground.Buildings
 
         private bool CheckCanPlace()
         {
-            return Physics.OverlapBox(transform.position, toPlace.buildingSo.boundsToCheck / 2f, transform.rotation, LayerMask.GetMask("EnemyPath")).Length == 0;
+            var colliders = Physics.OverlapBox(transform.position, toPlace.buildingSo.boundsToCheck / 2f, transform.rotation).ToList().FindAll(c=>c.GetComponentInParent<UnplaceArea>());
+            return colliders.Count == 0;
         }
     }
 }

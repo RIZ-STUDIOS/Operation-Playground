@@ -57,6 +57,15 @@ namespace OperationPlayground
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""Build"",
+                    ""type"": ""Button"",
+                    ""id"": ""114a8538-bf19-430a-991a-0e8146c7429f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Join"",
                     ""type"": ""Button"",
                     ""id"": ""ddc50ff4-bd20-4ad1-8ad5-dec10cfd47ff"",
@@ -70,6 +79,15 @@ namespace OperationPlayground
                     ""type"": ""Value"",
                     ""id"": ""810eebab-daca-47f4-9b78-6662b83d422b"",
                     ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Cycle"",
+                    ""type"": ""Value"",
+                    ""id"": ""6735c462-9977-4d08-9790-273316b62401"",
+                    ""expectedControlType"": ""Axis"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
@@ -172,6 +190,50 @@ namespace OperationPlayground
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""41ab6d86-a0b6-4130-963e-b12586cc8a0f"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Build"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""1D Axis"",
+                    ""id"": ""874b22a6-db7c-4155-bf54-aab098ae7212"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Cycle"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""918faece-c16c-402b-9a3e-3b96578bb889"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Cycle"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""7798180a-f357-4c26-a25e-53a2d3ed7db4"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Cycle"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 }
@@ -762,8 +824,10 @@ namespace OperationPlayground
             m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
             m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
             m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
+            m_Player_Build = m_Player.FindAction("Build", throwIfNotFound: true);
             m_Player_Join = m_Player.FindAction("Join", throwIfNotFound: true);
             m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
+            m_Player_Cycle = m_Player.FindAction("Cycle", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -840,8 +904,10 @@ namespace OperationPlayground
         private readonly InputAction m_Player_Move;
         private readonly InputAction m_Player_Look;
         private readonly InputAction m_Player_Fire;
+        private readonly InputAction m_Player_Build;
         private readonly InputAction m_Player_Join;
         private readonly InputAction m_Player_Interact;
+        private readonly InputAction m_Player_Cycle;
         public struct PlayerActions
         {
             private @OPPlayerInput m_Wrapper;
@@ -849,8 +915,10 @@ namespace OperationPlayground
             public InputAction @Move => m_Wrapper.m_Player_Move;
             public InputAction @Look => m_Wrapper.m_Player_Look;
             public InputAction @Fire => m_Wrapper.m_Player_Fire;
+            public InputAction @Build => m_Wrapper.m_Player_Build;
             public InputAction @Join => m_Wrapper.m_Player_Join;
             public InputAction @Interact => m_Wrapper.m_Player_Interact;
+            public InputAction @Cycle => m_Wrapper.m_Player_Cycle;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -869,12 +937,18 @@ namespace OperationPlayground
                 @Fire.started += instance.OnFire;
                 @Fire.performed += instance.OnFire;
                 @Fire.canceled += instance.OnFire;
+                @Build.started += instance.OnBuild;
+                @Build.performed += instance.OnBuild;
+                @Build.canceled += instance.OnBuild;
                 @Join.started += instance.OnJoin;
                 @Join.performed += instance.OnJoin;
                 @Join.canceled += instance.OnJoin;
                 @Interact.started += instance.OnInteract;
                 @Interact.performed += instance.OnInteract;
                 @Interact.canceled += instance.OnInteract;
+                @Cycle.started += instance.OnCycle;
+                @Cycle.performed += instance.OnCycle;
+                @Cycle.canceled += instance.OnCycle;
             }
 
             private void UnregisterCallbacks(IPlayerActions instance)
@@ -888,12 +962,18 @@ namespace OperationPlayground
                 @Fire.started -= instance.OnFire;
                 @Fire.performed -= instance.OnFire;
                 @Fire.canceled -= instance.OnFire;
+                @Build.started -= instance.OnBuild;
+                @Build.performed -= instance.OnBuild;
+                @Build.canceled -= instance.OnBuild;
                 @Join.started -= instance.OnJoin;
                 @Join.performed -= instance.OnJoin;
                 @Join.canceled -= instance.OnJoin;
                 @Interact.started -= instance.OnInteract;
                 @Interact.performed -= instance.OnInteract;
                 @Interact.canceled -= instance.OnInteract;
+                @Cycle.started -= instance.OnCycle;
+                @Cycle.performed -= instance.OnCycle;
+                @Cycle.canceled -= instance.OnCycle;
             }
 
             public void RemoveCallbacks(IPlayerActions instance)
@@ -1079,8 +1159,10 @@ namespace OperationPlayground
             void OnMove(InputAction.CallbackContext context);
             void OnLook(InputAction.CallbackContext context);
             void OnFire(InputAction.CallbackContext context);
+            void OnBuild(InputAction.CallbackContext context);
             void OnJoin(InputAction.CallbackContext context);
             void OnInteract(InputAction.CallbackContext context);
+            void OnCycle(InputAction.CallbackContext context);
         }
         public interface IUIActions
         {

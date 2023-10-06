@@ -18,7 +18,7 @@ namespace OperationPlayground.Editor.Windows
         private EditorContainer<int> health = new EditorContainer<int>(1);
 
         [SerializeField]
-        private EditorContainer<int> placementDistance = new EditorContainer<int>(1);
+        private EditorContainer<float> placementDistance = new EditorContainer<float>(1);
 
         [MenuItem("Operation Playground/Building Editor")]
         public static BuildingEditorWindow ShowWindow()
@@ -43,7 +43,7 @@ namespace OperationPlayground.Editor.Windows
             }
 
             {
-                var element = rootVisualElement.AddIntField(placementDistance, "Placement Distance");
+                var element = rootVisualElement.AddFloatField(placementDistance, "Placement Distance");
 
                 RegisterCheckCompletion(element);
                 RegisterLoadChange(element, placementDistance);

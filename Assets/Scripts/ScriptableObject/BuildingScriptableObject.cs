@@ -10,7 +10,7 @@ namespace OperationPlayground.ScriptableObjects
     {
         public GameObject prefab;
         public int health;
-        public int placementDistance;
+        public float placementDistance;
         public Vector3 boundsToCheck;
     }
 }

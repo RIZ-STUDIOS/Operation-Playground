@@ -52,6 +52,14 @@ namespace OperationPlayground
             }
         }
 
+        public void Heal(int amount)
+        {
+            if (amount < 0)
+                return;
+
+            Health += amount;
+        }
+
         protected abstract void OnDeath();
 
         protected void SpawnHealthBar()

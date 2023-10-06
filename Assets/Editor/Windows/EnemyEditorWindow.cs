@@ -16,6 +16,9 @@ namespace OperationPlayground.Editor.Windows
         private EditorContainer<GameObject> prefab = new EditorContainer<GameObject>();
 
         [SerializeField]
+        private EditorContainer<ProjectileScriptableObject> projectileSo = new EditorContainer<ProjectileScriptableObject>();
+
+        [SerializeField]
         private EditorContainer<int> health = new EditorContainer<int>(1);
 
         [SerializeField]
@@ -64,6 +67,13 @@ namespace OperationPlayground.Editor.Windows
             rootVisualElement.AddTitle("Attack");
 
             {
+                var element = rootVisualElement.AddObjectField(projectileSo, "Projectile");
+
+                RegisterCheckCompletion(element);
+                RegisterLoadChange(element, projectileSo);
+            }
+
+            {
                 var element = rootVisualElement.AddFloatField(attackRange, "Attack Range");
 
                 RegisterCheckCompletion(element);
@@ -92,6 +102,7 @@ namespace OperationPlayground.Editor.Windows
                 targetBuildings = new BuildingScriptableObject[] { };
                 attackRange.Value = 1;
                 attackCooldown.Value = 1;
+                projectileSo.Value = null;
             }
             else
             {
@@ -101,6 +112,7 @@ namespace OperationPlayground.Editor.Windows
                 damageTypes = so.damageTypes?.Copy();
                 attackRange.Value = so.attackRange;
                 attackCooldown.Value = so.attackCooldown;
+                projectileSo.Value = so.projectileSo;
             }
         }
 
@@ -112,12 +124,14 @@ namespace OperationPlayground.Editor.Windows
             asset.attackRange = attackRange;
             asset.attackCooldown = attackCooldown;
             asset.targetBuildings = targetBuildings.Copy();
+            asset.projectileSo = projectileSo;
         }
 
         protected override IEnumerable<CompleteCriteria> GetCompleteCriteria()
         {
             yield return new CompleteCriteria(health.Value > 0, "Health must be above 0");
             yield return new CompleteCriteria(prefab.Value != null, "Prefab must not be null");
+            yield return new CompleteCriteria(projectileSo.Value != null, "Project must not be null");
             yield return new CompleteCriteria(attackRange.Value > 0, "Attack Range must be above 0");
             yield return new CompleteCriteria(attackCooldown.Value > 0, "Attack Cooldown must be above 0");
         }

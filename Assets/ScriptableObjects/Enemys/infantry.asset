@@ -18,4 +18,5 @@ MonoBehaviour:
   damageTypes: 
   attackRange: 4
   attackCooldown: 1
+  projectileSo: {fileID: 11400000, guid: 64d419158ad1a90418b1ab58078640a5, type: 2}
   targetBuildings: []

@@ -1,4 +1,5 @@
 using OperationPlayground.Buildings;
+using OperationPlayground.Projectiles;
 using OperationPlayground.ScriptableObjects;
 using RicTools;
 using RicTools.Utilities;
@@ -77,7 +78,16 @@ namespace OperationPlayground.Enemy
 
         private void AttackHealth(ObjectHealth objectHealth)
         {
-            objectHealth.Damage(1);
+            var gameObject = Instantiate(enemySo.projectileSo.prefab);
+            gameObject.transform.position = transform.position + new Vector3(0, 1, 0);
+
+            gameObject.transform.LookAt(objectHealth.transform);
+
+            var projectile = gameObject.AddComponent<Projectile>();
+            projectile.parentShooter = GetComponent<EnemyHealth>();
+            projectile.projectileSo = enemySo.projectileSo;
+
+            //objectHealth.Damage(1);
         }
 
         private void OnDestroy()

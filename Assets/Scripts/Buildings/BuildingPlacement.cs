@@ -7,7 +7,7 @@ namespace OperationPlayground.Buildings
 {
     public class BuildingPlacement : MonoBehaviour
     {
-        public Building toPlace;
+        public BuildingHealth toPlace;
 
         private Renderer[] meshRenderers;
 

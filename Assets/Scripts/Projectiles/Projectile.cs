@@ -6,7 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace OperationPlayground.Weapons.Projectiles
+namespace OperationPlayground.Projectiles
 {
     public class Projectile : MonoBehaviour
     {
@@ -73,7 +73,7 @@ namespace OperationPlayground.Weapons.Projectiles
         {
             var objectHealth = other.GetComponentInParent<ObjectHealth>();
             if (!objectHealth) return;
-            if(parentShooter.tag != objectHealth.tag)
+            if(objectHealth.IsPlayer != parentShooter.IsPlayer)
             {
                 if (objectHealth is EnemyHealth enemyHealth)
                 {

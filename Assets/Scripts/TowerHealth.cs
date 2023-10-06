@@ -16,6 +16,8 @@ namespace OperationPlayground
 
         protected override bool DoSpawnHealthBar => false;
 
+        public override bool IsPlayer => true;
+
         private void Awake()
         {
             GameManager.Instance.towerHealth = this;

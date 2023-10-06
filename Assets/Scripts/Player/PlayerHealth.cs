@@ -13,6 +13,8 @@ namespace OperationPlayground
 
         public override int MaxHealth => maxHealth;
 
+        public override bool IsPlayer => true;
+
         protected override void Start()
         {
             base.Start();

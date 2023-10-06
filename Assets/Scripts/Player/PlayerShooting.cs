@@ -1,5 +1,5 @@
 using OperationPlayground.ScriptableObjects;
-using OperationPlayground.Weapons.Projectiles;
+using OperationPlayground.Weapons;
 using RicTools;
 using System.Collections;
 using System.Collections.Generic;

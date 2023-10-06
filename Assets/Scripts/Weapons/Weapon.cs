@@ -1,12 +1,12 @@
 using OperationPlayground.Interactables;
 using OperationPlayground.Player;
 using OperationPlayground.ScriptableObjects;
-using OperationPlayground.Weapons.Projectiles;
+using OperationPlayground.Projectiles;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace OperationPlayground
+namespace OperationPlayground.Weapons
 {
     public class Weapon : MonoBehaviour
     {

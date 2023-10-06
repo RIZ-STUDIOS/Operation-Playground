@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace OperationPlayground.Buildings
 {
-    public abstract class Building : ObjectHealth
+    public abstract class BuildingHealth : ObjectHealth
     {
         [System.NonSerialized]
         public BuildingScriptableObject buildingSo;
@@ -18,6 +18,8 @@ namespace OperationPlayground.Buildings
         public override int MaxHealth => buildingSo.health;
 
         protected override bool DoSpawnHealthBar => false;
+
+        public override bool IsPlayer => true;
 
         public void StartPlacement()
         {

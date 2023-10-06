@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace OperationPlayground.Buildings
 {
-    public class TurrentBuilding : Building
+    public class TurrentBuilding : BuildingHealth
     {
         protected override void OnPlaced()
         {

@@ -25,7 +25,7 @@ namespace OperationPlayground.Buildings
             currentBuildingGameObject.transform.localPosition = Vector3.forward * building.placementDistance;
 
             buildingPlacement = currentBuildingGameObject.AddComponent<BuildingPlacement>();
-            buildingPlacement.toPlace = currentBuildingGameObject.GetComponent<Building>();
+            buildingPlacement.toPlace = currentBuildingGameObject.GetComponent<BuildingHealth>();
             buildingPlacement.toPlace.buildingSo = building;
 
             buildingPlacement.StartPlacement();

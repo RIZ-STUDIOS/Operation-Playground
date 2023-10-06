@@ -7,6 +7,7 @@ using RicTools.Utilities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Splines;
 
@@ -215,7 +216,7 @@ namespace OperationPlayground.Enemy
 
         public string EnemiesToString()
         {
-            Dictionary<string, int> roundEnemies = new Dictionary<string, int>();
+            SortedDictionary<string, int> roundEnemies = new SortedDictionary<string, int>();
 
             foreach (var queueEnemy in queueEnemies)
             {
@@ -244,7 +245,7 @@ namespace OperationPlayground.Enemy
 
             List<string> enemyString = new List<string>();
 
-            foreach (var enemy in roundEnemies)
+            foreach (var enemy in roundEnemies.OrderBy(e => e.Key))
             {
                 enemyString.Add($"{enemy.Value} {enemy.Key}");
             }

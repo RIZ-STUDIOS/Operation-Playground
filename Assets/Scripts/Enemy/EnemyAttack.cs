@@ -46,7 +46,7 @@ namespace OperationPlayground.Enemy
 
             foreach (var enemyTarget in enemyTargets)
             {
-                var building = enemyTarget.GetComponent<Building>();
+                var building = enemyTarget.GetComponent<BuildingHealth>();
                 if (building)
                 {
                     if (targets.Contains(building.buildingSo))

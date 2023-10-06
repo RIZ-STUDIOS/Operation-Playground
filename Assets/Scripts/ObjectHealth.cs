@@ -25,6 +25,8 @@ namespace OperationPlayground
 
         private GameObject healthBarPrefab => PrefabsManager.Instance.data.healthBarPrefab;
 
+        public virtual bool IsPlayer => false;
+
         protected virtual void Start()
         {
             Health = MaxHealth;

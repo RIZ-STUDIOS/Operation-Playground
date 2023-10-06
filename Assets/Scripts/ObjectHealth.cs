@@ -16,6 +16,7 @@ namespace OperationPlayground
         public abstract int MaxHealth { get; }
 
         public event System.Action onHealthChange;
+        public event System.Action onDeath;
 
         public float HealthPer => Health / (float)MaxHealth;
 
@@ -25,13 +26,15 @@ namespace OperationPlayground
 
         private GameObject healthBarPrefab => PrefabsManager.Instance.data.healthBarPrefab;
 
+        protected GameObject healthBarGameObject;
+
         public virtual bool IsPlayer => false;
 
         protected virtual void Start()
         {
             Health = MaxHealth;
 
-            if(DoSpawnHealthBar)
+            if (DoSpawnHealthBar)
                 SpawnHealthBar();
         }
 
@@ -44,6 +47,7 @@ namespace OperationPlayground
 
             if (health <= 0)
             {
+                onDeath?.Invoke();
                 OnDeath();
             }
         }
@@ -52,10 +56,10 @@ namespace OperationPlayground
 
         protected void SpawnHealthBar()
         {
-            var healthBar = Instantiate(healthBarPrefab, transform);
-            healthBar.transform.localPosition = HealthBarSpawnOffset;
+            healthBarGameObject = Instantiate(healthBarPrefab, transform);
+            healthBarGameObject.transform.localPosition = HealthBarSpawnOffset;
 
-            var enemyHealthUI = healthBar.GetComponentInChildren<ObjectHealthUI>();
+            var enemyHealthUI = healthBarGameObject.GetComponentInChildren<ObjectHealthUI>();
             enemyHealthUI.parentHealth = this;
         }
     }

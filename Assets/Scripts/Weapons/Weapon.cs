@@ -1,7 +1,7 @@
 using OperationPlayground.Interactables;
 using OperationPlayground.Player;
-using OperationPlayground.ScriptableObjects;
 using OperationPlayground.Projectiles;
+using OperationPlayground.ScriptableObjects;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -48,7 +48,10 @@ namespace OperationPlayground.Weapons
         private void Pickup(GameObject playerGameObject)
         {
             if (playerGameObject.GetComponent<PlayerShooting>().EquipWeapon(this))
+            {
                 Destroy(interactable);
+                Destroy(interactable.sphereCollider);
+            }
         }
 
         public void Shoot()

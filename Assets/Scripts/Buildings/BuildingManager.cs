@@ -32,6 +32,29 @@ namespace OperationPlayground.Buildings
             playerInputManager.playerInput.Player.Build.performed += OnBuildPerformed;
         }
 
+        private void OnDisable()
+        {
+            DisableInput();
+
+            if (currentBuildingGameObject != null)
+            {
+                currentBuildingGameObject.SetActive(false);
+            }
+        }
+
+        private void OnEnable()
+        {
+            if (buildingMode)
+            {
+                EnableInput();
+
+                if (currentBuildingGameObject != null)
+                {
+                    currentBuildingGameObject.SetActive(true);
+                }
+            }
+        }
+
         private void EnableInput()
         {
             playerInputManager.playerInput.Player.Fire.performed += OnFirePerformed;
@@ -57,7 +80,7 @@ namespace OperationPlayground.Buildings
         private void OnCyclePerformed(InputAction.CallbackContext value)
         {
             var data = value.ReadValue<float>();
-            if(CycleIndex(data > 0))
+            if (CycleIndex(data > 0))
             {
                 Destroy(currentBuildingGameObject);
 
@@ -67,7 +90,7 @@ namespace OperationPlayground.Buildings
 
         private void ToggleBuildingMode()
         {
-            if(buildingMode)
+            if (buildingMode)
             {
                 Destroy(currentBuildingGameObject);
                 playerShooting.EnableInput();

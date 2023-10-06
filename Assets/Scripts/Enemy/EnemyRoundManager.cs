@@ -85,7 +85,7 @@ namespace OperationPlayground.Enemy
             nextRound = null;
 
             var round = GetNextRoundScriptableObject();
-            if(round != null)
+            if (round != null)
             {
                 nextRound = new GameRound();
                 nextRound.Populate(round);
@@ -190,11 +190,11 @@ namespace OperationPlayground.Enemy
             if (roundCoroutine != null)
                 StopCoroutine(roundCoroutine);
 
-            if(currentRound != null)
-            foreach (var enemy in currentRound.aliveEnemies)
-            {
-                enemy.GetComponent<SplineAnimate>().Pause();
-            }
+            if (currentRound != null)
+                foreach (var enemy in currentRound.aliveEnemies)
+                {
+                    enemy.GetComponent<SplineAnimate>().Pause();
+                }
         }
     }
 

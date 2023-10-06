@@ -25,13 +25,16 @@ namespace OperationPlayground.Interactables
 
         public InteractButton interactButton = InteractButton.Bottom;
 
-        private SphereCollider sphereCollider;
+        [System.NonSerialized]
+        public SphereCollider sphereCollider;
 
         private List<Outline> outlines = new List<Outline>();
 
         private List<PlayerInteraction> players = new List<PlayerInteraction>();
 
         public event System.Action<GameObject> onInteract;
+        public event System.Func<GameObject, bool> canInteract;
+        public event System.Action<GameObject> onPlayerNearby;
 
         private void Awake()
         {
@@ -52,6 +55,24 @@ namespace OperationPlayground.Interactables
             }
         }
 
+        private void OnEnable()
+        {
+            foreach (var player in players)
+            {
+                AddPlayer(player);
+            }
+            UpdateOutline();
+        }
+
+        private void OnDisable()
+        {
+            foreach (var player in players)
+            {
+                RemovePlayer(player);
+            }
+            HideOutline();
+        }
+
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.blue;
@@ -63,24 +84,45 @@ namespace OperationPlayground.Interactables
         {
             var playerInteraction = other.GetComponentInParent<PlayerInteraction>();
             if (!playerInteraction) return;
-            playerInteraction.interactable = this;
             players.Add(playerInteraction);
-            UpdateOutline();
+            if (!enabled) return;
+            AddPlayer(playerInteraction);
         }
 
         private void OnTriggerExit(Collider other)
         {
             var playerInteraction = other.GetComponentInParent<PlayerInteraction>();
             if (!playerInteraction) return;
+            players.Remove(playerInteraction);
+            if (!enabled) return;
+            RemovePlayer(playerInteraction);
+        }
+
+        public void RemovePlayer(PlayerInteraction playerInteraction, bool removeReference = false)
+        {
             if (playerInteraction.interactable == this)
                 playerInteraction.interactable = null;
-            players.Remove(playerInteraction);
+            if (removeReference)
+                players.Remove(playerInteraction);
+            UpdateOutline();
+        }
+
+        public void AddPlayer(PlayerInteraction playerInteraction, bool addReference = false)
+        {
+            if (canInteract != null)
+            {
+                if (!canInteract.Invoke(playerInteraction.gameObject)) return;
+            }
+            playerInteraction.interactable = this;
+            onPlayerNearby?.Invoke(playerInteraction.gameObject);
+            if (addReference && !players.Contains(playerInteraction))
+                players.Add(playerInteraction);
             UpdateOutline();
         }
 
         private void UpdateOutline()
         {
-            if (players.Count > 0)
+            if (players.Count > 0 && enabled)
             {
                 ShowOutline();
             }
@@ -98,6 +140,15 @@ namespace OperationPlayground.Interactables
             }
         }
 
+        public void SetOutlineColor(Color color)
+        {
+            foreach (var outline in outlines)
+            {
+                outline.OutlineColor = color;
+            }
+            UpdateOutline();
+        }
+
         private void HideOutline()
         {
             foreach (Outline outline in outlines)
@@ -108,13 +159,13 @@ namespace OperationPlayground.Interactables
 
         private void OnDestroy()
         {
-            foreach(var player in players)
+            foreach (var player in players)
             {
-                if(player.interactable == this)
-                player.interactable = null;
+                if (player.interactable == this)
+                    player.interactable = null;
             }
             HideOutline();
-            foreach(var outline in outlines)
+            foreach (var outline in outlines)
             {
                 Destroy(outline);
             }

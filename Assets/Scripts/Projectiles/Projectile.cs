@@ -73,10 +73,10 @@ namespace OperationPlayground.Projectiles
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.GetComponent<Weapon>()) return;
             var objectHealth = other.GetComponentInParent<ObjectHealth>();
             if (!objectHealth) return;
-            if(objectHealth.IsPlayer != parentShooter.IsPlayer)
+            if (objectHealth == parentShooter) return;
+            if (objectHealth.IsPlayer != parentShooter.IsPlayer)
             {
                 if (objectHealth is EnemyHealth enemyHealth)
                 {

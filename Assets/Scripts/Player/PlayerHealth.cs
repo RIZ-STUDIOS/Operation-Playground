@@ -24,5 +24,16 @@ namespace OperationPlayground
         {
 
         }
+
+        private void OnEnable()
+        {
+            if (!healthBarGameObject) return;
+            healthBarGameObject.SetActive(true);
+        }
+
+        private void OnDisable()
+        {
+            healthBarGameObject.SetActive(false);
+        }
     }
 }

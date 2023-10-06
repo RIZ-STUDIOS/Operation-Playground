@@ -21,11 +21,19 @@ namespace OperationPlayground.Player
         private void OnEnable()
         {
             EnableInput();
+            if (interactable != null)
+            {
+                interactable.AddPlayer(this, true);
+            }
         }
 
         private void OnDisable()
         {
             DisableInput();
+            if (interactable != null)
+            {
+                interactable.RemovePlayer(this, true);
+            }
         }
 
         private void EnableInput()
@@ -54,19 +62,20 @@ namespace OperationPlayground.Player
 
         private InteractButton GetInteractButton(Vector2 data)
         {
-            if(data.x == 1)
+            if (data.x == 1)
             {
                 return InteractButton.Right;
-            }else if(data.x == -1)
+            }
+            else if (data.x == -1)
             {
                 return InteractButton.Left;
             }
 
-            if(data.y == 1)
+            if (data.y == 1)
             {
                 return InteractButton.Top;
             }
-            else if(data.y == -1)
+            else if (data.y == -1)
             {
                 return InteractButton.Bottom;
             }

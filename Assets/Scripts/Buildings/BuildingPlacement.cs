@@ -100,7 +100,7 @@ namespace OperationPlayground.Buildings
 
         private bool CheckCanPlace()
         {
-            var colliders = Physics.OverlapBox(transform.position, toPlace.buildingSo.boundsToCheck / 2f, transform.rotation).ToList().FindAll(c=>c.GetComponentInParent<UnplaceArea>());
+            var colliders = Physics.OverlapBox(transform.position, toPlace.buildingSo.boundsToCheck / 2f, transform.rotation, Physics.AllLayers, QueryTriggerInteraction.Ignore).ToList().FindAll(c => c.GetComponentInParent<UnplaceArea>());
             return colliders.Count == 0;
         }
     }

@@ -14,8 +14,8 @@ namespace OperationPlayground.UI
 
         private void Start()
         {
-            EnemyRoundManager.Instance.onCountdownStart += ()=> UpdateNextEnemies(EnemyRoundManager.Instance.nextRound);
-            EnemyRoundManager.Instance.onEnemyKilled += ()=> UpdateNextEnemies(EnemyRoundManager.Instance.currentRound);
+            EnemyRoundManager.Instance.onCountdownStart += () => UpdateNextEnemies(EnemyRoundManager.Instance.nextRound);
+            EnemyRoundManager.Instance.onEnemyKilled += () => UpdateNextEnemies(EnemyRoundManager.Instance.currentRound);
         }
 
         private void UpdateNextEnemies(GameRound round)

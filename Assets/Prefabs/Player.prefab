@@ -72,6 +72,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 174192415852335704}
+  - component: {fileID: 6772618253788609692}
   - component: {fileID: 996262083128667596}
   - component: {fileID: 7487843308486089112}
   - component: {fileID: -4646308382689371846}
@@ -106,6 +107,29 @@ Transform:
   - {fileID: 456092169273839201}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6772618253788609692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1001155888842553992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4058645ca3e7dc44da5c23741e833e77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scriptsToDisable:
+  - {fileID: -2489104241463137181}
+  - {fileID: 2225120310336673047}
+  - {fileID: -2742027816656682815}
+  - {fileID: 8814529424316359839}
+  - {fileID: -4646308382689371846}
+  - {fileID: 7487843308486089112}
+  gameObjectsToDisable:
+  - {fileID: 7996623735611611377}
+  - {fileID: 2274243338680076478}
+  - {fileID: 4233405050645588177}
 --- !u!114 &996262083128667596
 MonoBehaviour:
   m_ObjectHideFlags: 0

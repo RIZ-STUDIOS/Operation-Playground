@@ -15,14 +15,14 @@ namespace OperationPlayground.Player
         [SerializeField]
         private Transform weaponSlotTransform;
 
-        private OPPlayerInput playerInput;
-
         private bool triggerPressed;
 
         [SerializeField]
         private Weapon defaultWeapon;
 
         private Weapon equippedWeapon;
+
+        private PlayerInputManager playerInputManager;
 
         public Weapon EquippedWeapon
         {
@@ -35,13 +35,14 @@ namespace OperationPlayground.Player
 
         private void Awake()
         {
-            playerInput = new OPPlayerInput();
-            playerInput.devices = GetComponent<PlayerInputData>().devices;
-            playerInput.Enable();
-            playerInput.Player.Fire.performed += OnFirePerformed;
-            playerInput.Player.Fire.canceled += OnFireCanceled;
+            playerInputManager = GetComponent<PlayerInputManager>();
 
             EquipWeapon(defaultWeapon);
+        }
+
+        private void Start()
+        {
+            EnableInput();
         }
 
         private void Update()
@@ -50,6 +51,28 @@ namespace OperationPlayground.Player
             {
                 EquippedWeapon.Shoot();
             }
+        }
+
+        private void OnEnable()
+        {
+            EnableInput();
+        }
+
+        private void OnDisable()
+        {
+            DisableInput();
+        }
+
+        private void EnableInput()
+        {
+            playerInputManager.playerInput.Player.Fire.performed += OnFirePerformed;
+            playerInputManager.playerInput.Player.Fire.canceled += OnFireCanceled;
+        }
+
+        private void DisableInput()
+        {
+            playerInputManager.playerInput.Player.Fire.performed -= OnFirePerformed;
+            playerInputManager.playerInput.Player.Fire.canceled -= OnFireCanceled;
         }
 
         private void OnFirePerformed(InputAction.CallbackContext value)

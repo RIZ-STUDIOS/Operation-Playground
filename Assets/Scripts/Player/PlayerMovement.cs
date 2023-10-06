@@ -6,73 +6,95 @@ using UnityEngine.InputSystem;
 
 namespace OperationPlayground.Player
 {
-    [RequireComponent(typeof(PlayerInput))]
+    //[RequireComponent(typeof(PlayerInput))]
     public class PlayerMovement : MonoBehaviour
     {
-        private CharacterController controller;
+
         [SerializeField]
         private float maxSpeed = 6;
+
+        private CharacterController controller;
+
         private Vector3 moveDirection;
-        private Camera gameCamera;
-        private Vector3 cForwardNorm;
-        private Vector3 cRightNorm;
+
+        private GameCamera gameCamera;
+
+        private PlayerInputManager playerInputManager;
+
+        private void Awake()
+        {
+            playerInputManager = GetComponent<PlayerInputManager>();
+            controller = GetComponent<CharacterController>();
+        }
 
         private void Start()
         {
-            controller = GetComponent<CharacterController>();
             gameCamera = GameManager.Instance.gameCamera;
-            UpdateNormalizedCameraVectors();
         }
 
         private void Update()
         {
-            controller.SimpleMove(moveDirection);
+            MoveCharacter();
+        }
+
+        private void MoveCharacter()
+        {
+            var direction = gameCamera.WorldToCameraVector(moveDirection) * maxSpeed;
+
+            controller.SimpleMove(direction);
+        }
+
+        private void OnEnable()
+        {
+            EnableInput();
+        }
+
+        private void OnDisable()
+        {
+            DisableInput();
+        }
+
+        private void EnableInput()
+        {
+            playerInputManager.playerInput.Player.Move.performed += OnMovePerformed;
+            playerInputManager.playerInput.Player.Move.canceled += OnMoveCanceled;
+
+            playerInputManager.playerInput.Player.Look.performed += OnLookPerformed;
+        }
+
+        private void DisableInput()
+        {
+            playerInputManager.playerInput.Player.Move.performed -= OnMovePerformed;
+            playerInputManager.playerInput.Player.Move.canceled -= OnMoveCanceled;
+
+            playerInputManager.playerInput.Player.Look.performed -= OnLookPerformed;
         }
 
         /// <summary>
         /// Left stick moves the player relative to the camera.
         /// </summary>
-        /// <param name="input"></param>
-        private void OnMove(InputValue input)
+        /// <param name="value"></param>
+        private void OnMovePerformed(InputAction.CallbackContext value)
         {
-            Vector2 moveInput = input.Get<Vector2>();
+            moveDirection = value.ReadValue<Vector2>();
+        }
 
-            Vector3 forwardRelativeDir = moveInput.y * cForwardNorm;
-            Vector3 rightRelativeDir = moveInput.x * cRightNorm;
-
-            Vector3 relativeMoveDir = forwardRelativeDir + rightRelativeDir;
-            moveDirection = relativeMoveDir *= maxSpeed;
+        private void OnMoveCanceled(InputAction.CallbackContext value)
+        {
+            moveDirection = Vector3.zero;
         }
 
         /// <summary>
         /// Right stick rotates the player relative to the camera.
         /// </summary>
-        /// <param name="input"></param>
-        private void OnLook(InputValue input)
+        /// <param name="value"></param>
+        private void OnLookPerformed(InputAction.CallbackContext value)
         {
-            Vector2 moveInput = input.Get<Vector2>();
-            if (moveInput.magnitude > 0.1f)
+            var vector = value.ReadValue<Vector2>();
+            if (vector.magnitude > 0.1f)
             {
-                Vector3 forwardRelativeDir = moveInput.y * cForwardNorm;
-                Vector3 rightRelativeDir = moveInput.x * cRightNorm;
-
-                Vector3 relativeRotVector = forwardRelativeDir + rightRelativeDir;
-
-                transform.rotation = Quaternion.LookRotation(relativeRotVector, Vector3.up);
+                transform.rotation = Quaternion.LookRotation(gameCamera.WorldToCameraVector(vector), Vector3.up);
             }
-        }
-
-        /// <summary>
-        /// Should the camera move, continue to update the normalized vectors until stationary.
-        /// </summary>
-        private void UpdateNormalizedCameraVectors()
-        {
-            Vector3 cForward = gameCamera.transform.forward;
-            Vector3 cRight = gameCamera.transform.right;
-            cForward.y = 0;
-            cRight.y = 0;
-            cForwardNorm = cForward.normalized;
-            cRightNorm = cRight.normalized;
         }
     }
 }

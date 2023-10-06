@@ -9,7 +9,7 @@ namespace OperationPlayground
     {
         private void Update()
         {
-            if (Physics.Raycast(GameManager.Instance.gameCamera.ScreenPointToRay(Input.mousePosition), out var hitInfo))
+            if (Physics.Raycast(GameManager.Instance.gameCamera.camera.ScreenPointToRay(Input.mousePosition), out var hitInfo))
             {
                 transform.position = hitInfo.point;
             }

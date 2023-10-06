@@ -11,15 +11,42 @@ namespace OperationPlayground.Player
         [System.NonSerialized]
         public Interactable interactable;
 
-        private void OnInteract(InputValue value)
+        private PlayerInputManager playerInputManager;
+
+        private void Awake()
+        {
+            playerInputManager = GetComponent<PlayerInputManager>();
+        }
+
+        private void OnEnable()
+        {
+            EnableInput();
+        }
+
+        private void OnDisable()
+        {
+            DisableInput();
+        }
+
+        private void EnableInput()
+        {
+            playerInputManager.playerInput.Player.Interact.performed += OnInteractPerformed;
+        }
+
+        private void DisableInput()
+        {
+            playerInputManager.playerInput.Player.Interact.performed -= OnInteractPerformed;
+        }
+
+        private void OnInteractPerformed(InputAction.CallbackContext value)
         {
             if (!interactable) return;
 
-            var vector = value.Get<Vector2>();
-            
+            var vector = value.ReadValue<Vector2>();
+
             var button = GetInteractButton(vector);
 
-            if(button == interactable.interactButton)
+            if (button == interactable.interactButton)
             {
                 interactable.Interact(gameObject);
             }

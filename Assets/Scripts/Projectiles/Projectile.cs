@@ -1,5 +1,7 @@
 using OperationPlayground.Enemy;
+using OperationPlayground.Interactables;
 using OperationPlayground.ScriptableObjects;
+using OperationPlayground.Weapons;
 using RicTools;
 using RicTools.Utilities;
 using System.Collections;
@@ -71,6 +73,7 @@ namespace OperationPlayground.Projectiles
 
         private void OnTriggerEnter(Collider other)
         {
+            if (other.GetComponent<Weapon>()) return;
             var objectHealth = other.GetComponentInParent<ObjectHealth>();
             if (!objectHealth) return;
             if(objectHealth.IsPlayer != parentShooter.IsPlayer)

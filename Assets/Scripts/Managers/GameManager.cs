@@ -9,7 +9,7 @@ namespace OperationPlayground.Managers
     public class GameManager : SingletonGenericManager<GameManager>
     {
         public Canvas gameCanvas;
-        public Camera gameCamera;
+        public GameCamera gameCamera;
         public TowerHealth towerHealth;
         public LoseWinUI loseWinUI;
     }

@@ -13,7 +13,7 @@ namespace OperationPlayground.Player
         {
             Debug.Log($"Player {input.playerIndex} has joined the session!");
 
-            var playerInputData = input.gameObject.GetOrAddComponent<PlayerInputData>();
+            var playerInputData = input.gameObject.GetOrAddComponent<PlayerInputManager>();
 
             playerInputData.devices = input.devices;
             playerInputData.playerIndex = input.playerIndex;

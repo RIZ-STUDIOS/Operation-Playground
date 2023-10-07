@@ -73,6 +73,7 @@ namespace OperationPlayground.Player
         {
             playerInputManager.playerInput.Player.Fire.performed -= OnFirePerformed;
             playerInputManager.playerInput.Player.Fire.canceled -= OnFireCanceled;
+            triggerPressed = false;
         }
 
         private void OnFirePerformed(InputAction.CallbackContext value)

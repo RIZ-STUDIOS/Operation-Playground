@@ -29,11 +29,11 @@ namespace OperationPlayground.Buildings
             playerInputManager = GetComponent<PlayerInputManager>();
             playerShooting = GetComponent<PlayerShooting>();
 
-            playerInputManager.playerInput.Player.Build.performed += OnBuildPerformed;
         }
 
         private void OnDisable()
         {
+            playerInputManager.playerInput.Player.Build.performed -= OnBuildPerformed;
             DisableInput();
 
             if (currentBuildingGameObject != null)
@@ -44,6 +44,7 @@ namespace OperationPlayground.Buildings
 
         private void OnEnable()
         {
+            playerInputManager.playerInput.Player.Build.performed += OnBuildPerformed;
             if (buildingMode)
             {
                 EnableInput();

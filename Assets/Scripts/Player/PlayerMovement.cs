@@ -68,6 +68,7 @@ namespace OperationPlayground.Player
             playerInputManager.playerInput.Player.Move.canceled -= OnMoveCanceled;
 
             playerInputManager.playerInput.Player.Look.performed -= OnLookPerformed;
+            moveDirection = Vector3.zero;
         }
 
         /// <summary>

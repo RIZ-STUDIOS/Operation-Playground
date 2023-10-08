@@ -15,5 +15,5 @@ MonoBehaviour:
   id: bullet
   prefab: {fileID: 481260972957639133, guid: 1f5962a542f931f4f89eb639ed7fc8d6, type: 3}
   speed: 100
-  travelDuration: 3
+  travelDuration: 1.5
   damageType: 0

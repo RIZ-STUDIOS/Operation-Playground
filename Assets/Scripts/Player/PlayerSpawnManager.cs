@@ -8,9 +8,11 @@ namespace OperationPlayground.Player
 {
     public class PlayerSpawnManager : MonoBehaviour
     {
+        public List<GameObject> players;
+        public System.Action playerJoined;
+
         [SerializeField]
         private Transform[] spawnLocations;
-        public List<GameObject> players;
 
         private int respawnTimer = 5;
 
@@ -33,6 +35,8 @@ namespace OperationPlayground.Player
             player.GetComponent<PlayerHealth>().onDeath += () => { StartCoroutine(RespawnPlayer(input.gameObject)); };
 
             SpawnPlayer(player);
+
+            playerJoined.Invoke();
         }
 
         private IEnumerator RespawnPlayer(GameObject player)
@@ -57,7 +61,7 @@ namespace OperationPlayground.Player
 
         private void SpawnPlayer(GameObject player)
         {
-            player.transform.position = spawnLocations[Random.Range(0, spawnLocations.Length)].position;
+            player.transform.position = spawnLocations[players.Count - 1].position;
         }
     }
 }

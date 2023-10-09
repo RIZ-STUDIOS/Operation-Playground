@@ -30,6 +30,8 @@ namespace OperationPlayground
 
         public virtual bool IsPlayer => false;
 
+        protected bool healthBarVisiblity = true;
+
         protected virtual void Start()
         {
             Health = MaxHealth;
@@ -69,6 +71,26 @@ namespace OperationPlayground
 
             var enemyHealthUI = healthBarGameObject.GetComponentInChildren<ObjectHealthUI>();
             enemyHealthUI.parentHealth = this;
+
+            UpdateHealthBarVisiblity();
+        }
+
+        private void UpdateHealthBarVisiblity()
+        {
+            if (!healthBarGameObject) return;
+            healthBarGameObject.SetActive(healthBarVisiblity);
+        }
+
+        public void ShowHealthBar()
+        {
+            healthBarVisiblity = true;
+            UpdateHealthBarVisiblity();
+        }
+
+        public void HideHealthBar()
+        {
+            healthBarVisiblity = false;
+            UpdateHealthBarVisiblity();
         }
     }
 }

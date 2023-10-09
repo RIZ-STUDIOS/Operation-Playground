@@ -32,5 +32,10 @@ namespace OperationPlayground.UI
         {
             healthSlider.value = parentHealth.HealthPer;
         }
+
+        private void OnDestroy()
+        {
+            parentHealth.onHealthChange -= UpdateHealthSlider;
+        }
     }
 }

@@ -1,3 +1,4 @@
+using OperationPlayground.Interactables;
 using OperationPlayground.Managers;
 using OperationPlayground.ScriptableObjects;
 using OperationPlayground.UI;
@@ -21,28 +22,63 @@ namespace OperationPlayground.Buildings
 
         public override bool IsPlayer => true;
 
+        private Interactable interactable;
+
+        private Collider[] colliders;
+
+        private EnemyTarget target;
+
+        private void Awake()
+        {
+            colliders = GetComponentsInChildren<Collider>();
+            foreach (var collider in colliders)
+            {
+                collider.enabled = false;
+            }
+
+            interactable = GetComponent<Interactable>();
+            if (interactable)
+            {
+                interactable.enabled = false;
+            }
+            target = GetComponent<EnemyTarget>();
+            target.visible = false;
+        }
+
         public void StartPlacement()
         {
-            foreach (var script in scriptsToEnable)
+            /*foreach (var script in scriptsToEnable)
             {
                 var property = script.GetType().GetProperty("enabled");
                 if (property != null)
                 {
                     property.SetValue(script, false);
                 }
-            }
+            }*/
         }
 
         public void Place()
         {
-            foreach (var script in scriptsToEnable)
+            /*foreach (var script in scriptsToEnable)
             {
                 var property = script.GetType().GetProperty("enabled");
                 if (property != null)
                 {
                     property.SetValue(script, true);
                 }
+            }*/
+
+            if (interactable)
+            {
+                interactable.enabled = true;
             }
+
+            foreach (var collider in colliders)
+            {
+                collider.enabled = true;
+            }
+
+            target.visible = true;
 
             SpawnHealthBar();
 

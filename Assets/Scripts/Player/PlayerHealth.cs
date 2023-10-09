@@ -15,6 +15,11 @@ namespace OperationPlayground
 
         public override bool IsPlayer => true;
 
+        private void Awake()
+        {
+            healthBarVisiblity = false;
+        }
+
         protected override void Start()
         {
             base.Start();
@@ -23,17 +28,6 @@ namespace OperationPlayground
         protected override void OnDeath()
         {
 
-        }
-
-        private void OnEnable()
-        {
-            if (!healthBarGameObject) return;
-            healthBarGameObject.SetActive(true);
-        }
-
-        private void OnDisable()
-        {
-            healthBarGameObject.SetActive(false);
         }
     }
 }

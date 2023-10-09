@@ -1,3 +1,4 @@
+using OperationPlayground.Player;
 using OperationPlayground.Projectiles;
 using OperationPlayground.ScriptableObjects;
 using System.Collections;
@@ -28,14 +29,14 @@ namespace OperationPlayground.Buildings
 
         public void EnableInput(GameObject playerGameObject)
         {
-            var playerInputManager = playerGameObject.GetComponent<PlayerInputManager>();
+            var playerInputManager = playerGameObject.GetComponent<PlayerManager>();
             playerInputManager.playerInput.Player.Fire.performed += OnFirePerformed;
             playerInputManager.playerInput.Player.Fire.canceled += OnFireCanceled;
         }
 
         public void DisableInput(GameObject playerGameObject)
         {
-            var playerInputManager = playerGameObject.GetComponent<PlayerInputManager>();
+            var playerInputManager = playerGameObject.GetComponent<PlayerManager>();
             playerInputManager.playerInput.Player.Fire.performed -= OnFirePerformed;
             playerInputManager.playerInput.Player.Fire.canceled -= OnFireCanceled;
             triggerDown = false;

@@ -22,7 +22,9 @@ namespace OperationPlayground.Player
 
         private Weapon equippedWeapon;
 
-        private PlayerInputManager playerInputManager;
+        private PlayerManager playerInputManager;
+
+        private bool shootingEnabled;
 
         public Weapon EquippedWeapon
         {
@@ -35,14 +37,9 @@ namespace OperationPlayground.Player
 
         private void Awake()
         {
-            playerInputManager = GetComponent<PlayerInputManager>();
+            playerInputManager = GetComponent<PlayerManager>();
 
             EquipWeapon(defaultWeapon);
-        }
-
-        private void Start()
-        {
-            EnableInput();
         }
 
         private void Update()
@@ -63,17 +60,32 @@ namespace OperationPlayground.Player
             DisableInput();
         }
 
-        public void EnableInput()
+        public void EnableShooting()
         {
             playerInputManager.playerInput.Player.Fire.performed += OnFirePerformed;
             playerInputManager.playerInput.Player.Fire.canceled += OnFireCanceled;
+            weaponSlotTransform.gameObject.SetActive(true);
+            shootingEnabled = true;
         }
 
-        public void DisableInput()
+        public void DisableShooting()
         {
             playerInputManager.playerInput.Player.Fire.performed -= OnFirePerformed;
             playerInputManager.playerInput.Player.Fire.canceled -= OnFireCanceled;
+            weaponSlotTransform.gameObject.SetActive(false);
             triggerPressed = false;
+            shootingEnabled = false;
+        }
+
+        private void EnableInput()
+        {
+            if (shootingEnabled)
+                EnableShooting();
+        }
+
+        private void DisableInput()
+        {
+            DisableShooting();
         }
 
         private void OnFirePerformed(InputAction.CallbackContext value)

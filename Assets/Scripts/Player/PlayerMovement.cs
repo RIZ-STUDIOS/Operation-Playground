@@ -19,11 +19,14 @@ namespace OperationPlayground.Player
 
         private GameCamera gameCamera;
 
-        private PlayerInputManager playerInputManager;
+        private PlayerManager playerInputManager;
+
+        private bool movementEnabled;
+        private bool lookingEnabled;
 
         private void Awake()
         {
-            playerInputManager = GetComponent<PlayerInputManager>();
+            playerInputManager = GetComponent<PlayerManager>();
             controller = GetComponent<CharacterController>();
         }
 
@@ -54,21 +57,44 @@ namespace OperationPlayground.Player
             DisableInput();
         }
 
-        private void EnableInput()
+        public void EnableMovement()
         {
             playerInputManager.playerInput.Player.Move.performed += OnMovePerformed;
             playerInputManager.playerInput.Player.Move.canceled += OnMoveCanceled;
+            movementEnabled = true;
+        }
 
+        public void DisableMovement()
+        {
+            playerInputManager.playerInput.Player.Move.performed -= OnMovePerformed;
+            playerInputManager.playerInput.Player.Move.canceled -= OnMoveCanceled;
+            movementEnabled = false;
+            moveDirection = Vector3.zero;
+        }
+
+        public void EnableLooking()
+        {
             playerInputManager.playerInput.Player.Look.performed += OnLookPerformed;
+        }
+
+        public void DisableLooking()
+        {
+            playerInputManager.playerInput.Player.Look.performed -= OnLookPerformed;
+            lookingEnabled = false;
+        }
+
+        private void EnableInput()
+        {
+            if (movementEnabled)
+                EnableMovement();
+            if (lookingEnabled)
+                EnableLooking();
         }
 
         private void DisableInput()
         {
-            playerInputManager.playerInput.Player.Move.performed -= OnMovePerformed;
-            playerInputManager.playerInput.Player.Move.canceled -= OnMoveCanceled;
-
-            playerInputManager.playerInput.Player.Look.performed -= OnLookPerformed;
-            moveDirection = Vector3.zero;
+            DisableMovement();
+            DisableLooking();
         }
 
         /// <summary>

@@ -57,7 +57,7 @@ namespace OperationPlayground
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Build"",
+                    ""name"": ""ToggleBuild"",
                     ""type"": ""Button"",
                     ""id"": ""114a8538-bf19-430a-991a-0e8146c7429f"",
                     ""expectedControlType"": ""Button"",
@@ -155,7 +155,7 @@ namespace OperationPlayground
                     ""path"": ""<Gamepad>/buttonNorth"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Gamepad"",
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -166,7 +166,7 @@ namespace OperationPlayground
                     ""path"": ""<Gamepad>/buttonSouth"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Gamepad"",
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -177,7 +177,7 @@ namespace OperationPlayground
                     ""path"": ""<Gamepad>/buttonWest"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Gamepad"",
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -188,7 +188,7 @@ namespace OperationPlayground
                     ""path"": ""<Gamepad>/buttonEast"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Gamepad"",
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -200,7 +200,7 @@ namespace OperationPlayground
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
-                    ""action"": ""Build"",
+                    ""action"": ""ToggleBuild"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -824,7 +824,7 @@ namespace OperationPlayground
             m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
             m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
             m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
-            m_Player_Build = m_Player.FindAction("Build", throwIfNotFound: true);
+            m_Player_ToggleBuild = m_Player.FindAction("ToggleBuild", throwIfNotFound: true);
             m_Player_Join = m_Player.FindAction("Join", throwIfNotFound: true);
             m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
             m_Player_Cycle = m_Player.FindAction("Cycle", throwIfNotFound: true);
@@ -904,7 +904,7 @@ namespace OperationPlayground
         private readonly InputAction m_Player_Move;
         private readonly InputAction m_Player_Look;
         private readonly InputAction m_Player_Fire;
-        private readonly InputAction m_Player_Build;
+        private readonly InputAction m_Player_ToggleBuild;
         private readonly InputAction m_Player_Join;
         private readonly InputAction m_Player_Interact;
         private readonly InputAction m_Player_Cycle;
@@ -915,7 +915,7 @@ namespace OperationPlayground
             public InputAction @Move => m_Wrapper.m_Player_Move;
             public InputAction @Look => m_Wrapper.m_Player_Look;
             public InputAction @Fire => m_Wrapper.m_Player_Fire;
-            public InputAction @Build => m_Wrapper.m_Player_Build;
+            public InputAction @ToggleBuild => m_Wrapper.m_Player_ToggleBuild;
             public InputAction @Join => m_Wrapper.m_Player_Join;
             public InputAction @Interact => m_Wrapper.m_Player_Interact;
             public InputAction @Cycle => m_Wrapper.m_Player_Cycle;
@@ -937,9 +937,9 @@ namespace OperationPlayground
                 @Fire.started += instance.OnFire;
                 @Fire.performed += instance.OnFire;
                 @Fire.canceled += instance.OnFire;
-                @Build.started += instance.OnBuild;
-                @Build.performed += instance.OnBuild;
-                @Build.canceled += instance.OnBuild;
+                @ToggleBuild.started += instance.OnToggleBuild;
+                @ToggleBuild.performed += instance.OnToggleBuild;
+                @ToggleBuild.canceled += instance.OnToggleBuild;
                 @Join.started += instance.OnJoin;
                 @Join.performed += instance.OnJoin;
                 @Join.canceled += instance.OnJoin;
@@ -962,9 +962,9 @@ namespace OperationPlayground
                 @Fire.started -= instance.OnFire;
                 @Fire.performed -= instance.OnFire;
                 @Fire.canceled -= instance.OnFire;
-                @Build.started -= instance.OnBuild;
-                @Build.performed -= instance.OnBuild;
-                @Build.canceled -= instance.OnBuild;
+                @ToggleBuild.started -= instance.OnToggleBuild;
+                @ToggleBuild.performed -= instance.OnToggleBuild;
+                @ToggleBuild.canceled -= instance.OnToggleBuild;
                 @Join.started -= instance.OnJoin;
                 @Join.performed -= instance.OnJoin;
                 @Join.canceled -= instance.OnJoin;
@@ -1159,7 +1159,7 @@ namespace OperationPlayground
             void OnMove(InputAction.CallbackContext context);
             void OnLook(InputAction.CallbackContext context);
             void OnFire(InputAction.CallbackContext context);
-            void OnBuild(InputAction.CallbackContext context);
+            void OnToggleBuild(InputAction.CallbackContext context);
             void OnJoin(InputAction.CallbackContext context);
             void OnInteract(InputAction.CallbackContext context);
             void OnCycle(InputAction.CallbackContext context);

@@ -45,12 +45,12 @@ namespace OperationPlayground.Weapons
             }
         }
 
-        private void Pickup(GameObject playerGameObject)
+        private void Pickup(PlayerManager playerManager)
         {
-            if (playerGameObject.GetComponent<PlayerShooting>().EquipWeapon(this))
+            if (playerManager.playerShooting.EquipWeapon(this))
             {
                 Destroy(interactable);
-                Destroy(interactable.sphereCollider);
+                //Destroy(interactable.sphereCollider);
             }
         }
 

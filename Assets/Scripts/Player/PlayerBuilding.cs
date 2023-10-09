@@ -1,3 +1,4 @@
+using OperationPlayground.Buildings;
 using OperationPlayground.Player;
 using OperationPlayground.ScriptableObjects;
 using RicTools.Utilities;
@@ -6,9 +7,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace OperationPlayground.Buildings
+namespace OperationPlayground.Player
 {
-    public class BuildingManager : MonoBehaviour
+    public class PlayerBuilding : MonoBehaviour
     {
         private AvailableBuildingsScriptableObject availableBuildings;
 
@@ -17,58 +18,56 @@ namespace OperationPlayground.Buildings
 
         private int currentIndex;
 
-        private PlayerInputManager playerInputManager;
-
-        private PlayerShooting playerShooting;
+        private PlayerManager playerInputManager;
 
         private bool buildingMode;
+
+        private bool buildingToggleEnabled;
 
         private void Awake()
         {
             availableBuildings = RicUtilities.GetAvailableScriptableObject<AvailableBuildingsScriptableObject, BuildingScriptableObject>();
-            playerInputManager = GetComponent<PlayerInputManager>();
-            playerShooting = GetComponent<PlayerShooting>();
+            playerInputManager = GetComponent<PlayerManager>();
 
         }
 
         private void OnDisable()
         {
-            playerInputManager.playerInput.Player.Build.performed -= OnBuildPerformed;
-            DisableInput();
-
-            if (currentBuildingGameObject != null)
-            {
-                currentBuildingGameObject.SetActive(false);
-            }
+            DisableBuildingToggle();
         }
 
         private void OnEnable()
         {
-            playerInputManager.playerInput.Player.Build.performed += OnBuildPerformed;
-            if (buildingMode)
-            {
-                EnableInput();
-
-                if (currentBuildingGameObject != null)
-                {
-                    currentBuildingGameObject.SetActive(true);
-                }
-            }
+            if (buildingToggleEnabled)
+                EnableBuildingToggle();
         }
 
-        private void EnableInput()
+        public void EnableBuildingToggle()
+        {
+            playerInputManager.playerInput.Player.ToggleBuild.performed += OnToggleBuildPerformed;
+            buildingToggleEnabled = true;
+        }
+
+        public void DisableBuildingToggle()
+        {
+            playerInputManager.playerInput.Player.ToggleBuild.performed -= OnToggleBuildPerformed;
+            DisableBuildMode();
+            buildingToggleEnabled = false;
+        }
+
+        private void EnablePlacing()
         {
             playerInputManager.playerInput.Player.Fire.performed += OnFirePerformed;
             playerInputManager.playerInput.Player.Cycle.performed += OnCyclePerformed;
         }
 
-        private void DisableInput()
+        private void DisablePlacing()
         {
             playerInputManager.playerInput.Player.Fire.performed -= OnFirePerformed;
             playerInputManager.playerInput.Player.Cycle.performed -= OnCyclePerformed;
         }
 
-        private void OnBuildPerformed(InputAction.CallbackContext value)
+        private void OnToggleBuildPerformed(InputAction.CallbackContext value)
         {
             ToggleBuildingMode();
         }
@@ -89,25 +88,39 @@ namespace OperationPlayground.Buildings
             }
         }
 
+        private void DisableBuildMode()
+        {
+            if (buildingMode)
+            {
+                buildingPlacement = null;
+                Destroy(currentBuildingGameObject);
+                DisablePlacing();
+            }
+            buildingMode = false;
+        }
+
+        private void EnableBuildMode()
+        {
+            EnablePlacing();
+
+            currentIndex = 0;
+
+            StartPlacement(availableBuildings[currentIndex]);
+            buildingMode = true;
+        }
+
         private void ToggleBuildingMode()
         {
             if (buildingMode)
             {
-                Destroy(currentBuildingGameObject);
-                playerShooting.EnableInput();
-                DisableInput();
+                DisableBuildMode();
+                playerInputManager.AddPlayerState(PlayerStates.PlayerStateType.Shooting);
             }
             else
             {
-                playerShooting.DisableInput();
-                EnableInput();
-
-                currentIndex = 0;
-
-                StartPlacement(availableBuildings[currentIndex]);
+                playerInputManager.RemovePlayerState(PlayerStates.PlayerStateType.Shooting);
+                EnableBuildMode();
             }
-
-            buildingMode = !buildingMode;
         }
 
         private bool CycleIndex(bool up)
@@ -128,6 +141,7 @@ namespace OperationPlayground.Buildings
             currentBuildingGameObject.transform.localPosition = Vector3.forward * building.placementDistance;
 
             buildingPlacement = currentBuildingGameObject.AddComponent<BuildingPlacement>();
+            buildingPlacement.playerPlacing = playerInputManager;
             buildingPlacement.toPlace = currentBuildingGameObject.GetComponent<BuildingHealth>();
             buildingPlacement.toPlace.buildingSo = building;
 

@@ -1126,6 +1126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0304c117ca59dc241a93b7cd421bdc31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  players: []
   spawnLocations:
   - {fileID: 2004322309}
   - {fileID: 1769133264}
@@ -2777,7 +2778,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1659869378}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -2832,6 +2833,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b53f2d1f03d89f240a5aa33d80e7c73a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  invalid: 1
 --- !u!1 &1769133263
 GameObject:
   m_ObjectHideFlags: 0

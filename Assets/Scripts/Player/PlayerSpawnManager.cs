@@ -25,7 +25,7 @@ namespace OperationPlayground.Player
         {
             Debug.Log($"Player {input.playerIndex} has joined the session!");
 
-            var playerInputData = input.gameObject.GetOrAddComponent<PlayerInputManager>();
+            var playerInputData = input.gameObject.GetOrAddComponent<PlayerManager>();
             GameObject player = input.gameObject;
 
             playerInputData.devices = input.devices;
@@ -36,7 +36,7 @@ namespace OperationPlayground.Player
 
             SpawnPlayer(player);
 
-            playerJoined.Invoke();
+            playerJoined?.Invoke();
         }
 
         private IEnumerator RespawnPlayer(GameObject player)

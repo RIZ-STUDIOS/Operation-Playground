@@ -1,45 +1,44 @@
 using OperationPlayground.Player;
+using OperationPlayground.Player.PlayerStates;
 using RicTools.Attributes;
+using RicTools.Utilities;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Numerics;
 using UnityEngine;
 using static UnityEditor.Experimental.GraphView.GraphView;
 
 namespace OperationPlayground.Interactables
 {
-    public enum InteractButton
+    public enum InteractionButton
     {
-        Top,
         Bottom,
+        Top,
         Left,
-        Right,
-        None
+        Right
     }
 
     [RequireComponent(typeof(SphereCollider))]
     public class Interactable : MonoBehaviour
     {
+        private SphereCollider sphereCollider;
+
         [SerializeField, PositiveValueOnly]
-        private float interactDistance;
+        private float interactRadius;
 
-        public InteractButton interactButton = InteractButton.Bottom;
+        public InteractionButton button;
 
-        [System.NonSerialized]
-        public SphereCollider sphereCollider;
+        public System.Action<PlayerManager> onInteract;
+
+        private List<PlayerManager> nearbyPlayers = new List<PlayerManager>();
 
         private List<Outline> outlines = new List<Outline>();
 
-        private List<PlayerInteraction> players = new List<PlayerInteraction>();
-
-        public event System.Action<GameObject> onInteract;
-        public event System.Func<GameObject, bool> canInteract;
-        public event System.Action<GameObject> onPlayerNearby;
-
         private void Awake()
         {
-            sphereCollider = GetComponent<SphereCollider>();
-            sphereCollider.radius = interactDistance;
+            sphereCollider = gameObject.GetOrAddComponent<SphereCollider>();
+            sphereCollider.radius = interactRadius;
             sphereCollider.isTrigger = true;
 
             var meshRenderers = GetComponentsInChildren<MeshRenderer>();
@@ -55,125 +54,100 @@ namespace OperationPlayground.Interactables
             }
         }
 
-        private void OnEnable()
-        {
-            foreach (var player in players)
-            {
-                AddPlayer(player);
-            }
-            UpdateOutline();
-        }
-
-        private void OnDisable()
-        {
-            foreach (var player in players)
-            {
-                RemovePlayer(player);
-            }
-            HideOutline();
-        }
-
-        private void OnDrawGizmos()
-        {
-            Gizmos.color = Color.blue;
-
-            Gizmos.DrawWireSphere(transform.position, interactDistance);
-        }
-
         private void OnTriggerEnter(Collider other)
         {
-            var playerInteraction = other.GetComponentInParent<PlayerInteraction>();
-            if (!playerInteraction) return;
-            players.Add(playerInteraction);
-            if (!enabled) return;
-            AddPlayer(playerInteraction);
+            var playerManager = other.GetComponentInParent<PlayerManager>();
+            if (!playerManager) return;
+
+            if (PlayerNearby(playerManager)) return;
+
+            nearbyPlayers.Add(playerManager);
+
+            if (enabled)
+            {
+                playerManager.playerInteraction.AddInteractable(this);
+                UpdateOutlines();
+            }
         }
 
         private void OnTriggerExit(Collider other)
         {
-            var playerInteraction = other.GetComponentInParent<PlayerInteraction>();
-            if (!playerInteraction) return;
-            players.Remove(playerInteraction);
-            if (!enabled) return;
-            RemovePlayer(playerInteraction);
-        }
+            var playerManager = other.GetComponentInParent<PlayerManager>();
+            if (!playerManager) return;
 
-        public void RemovePlayer(PlayerInteraction playerInteraction, bool removeReference = false)
-        {
-            if (playerInteraction.interactable == this)
-                playerInteraction.interactable = null;
-            if (removeReference)
-                players.Remove(playerInteraction);
-            UpdateOutline();
-        }
+            if (!PlayerNearby(playerManager)) return;
 
-        public void AddPlayer(PlayerInteraction playerInteraction, bool addReference = false)
-        {
-            if (canInteract != null)
-            {
-                if (!canInteract.Invoke(playerInteraction.gameObject)) return;
-            }
-            playerInteraction.interactable = this;
-            onPlayerNearby?.Invoke(playerInteraction.gameObject);
-            if (addReference && !players.Contains(playerInteraction))
-                players.Add(playerInteraction);
-            UpdateOutline();
-        }
+            playerManager.playerInteraction.RemoveInteractable(this);
 
-        private void UpdateOutline()
-        {
-            if (players.Count > 0 && enabled)
+            nearbyPlayers.Remove(playerManager);
+
+            if (enabled)
             {
-                ShowOutline();
-            }
-            else
-            {
-                HideOutline();
+                UpdateOutlines();
             }
         }
 
-        private void ShowOutline()
+        private void OnEnable()
         {
-            foreach (Outline outline in outlines)
+            UpdateOutlines();
+            foreach (var player in nearbyPlayers)
             {
-                outline.enabled = true;
+                player.playerInteraction.AddInteractable(this);
             }
         }
 
-        public void SetOutlineColor(Color color)
+        private void OnDisable()
         {
+            DisableOutlines();
+            RemoveAllPlayers();
+        }
+
+        private bool PlayerNearby(PlayerManager playerManager)
+        {
+            return nearbyPlayers.Contains(playerManager);
+        }
+
+        public bool AnyPlayerNearby()
+        {
+            return nearbyPlayers.Any(p => p.HasPlayerState(PlayerStateType.Interaction));
+        }
+
+        public void UpdateOutlines()
+        {
+            var playersNearby = AnyPlayerNearby();
+
             foreach (var outline in outlines)
             {
-                outline.OutlineColor = color;
+                outline.enabled = playersNearby;
             }
-            UpdateOutline();
         }
 
-        private void HideOutline()
+        private void DisableOutlines()
         {
-            foreach (Outline outline in outlines)
+            foreach (var outline in outlines)
             {
                 outline.enabled = false;
             }
         }
 
-        private void OnDestroy()
+        private void RemoveAllPlayers()
         {
-            foreach (var player in players)
+            foreach (var player in nearbyPlayers)
             {
-                if (player.interactable == this)
-                    player.interactable = null;
-            }
-            HideOutline();
-            foreach (var outline in outlines)
-            {
-                Destroy(outline);
+                player.playerInteraction.RemoveInteractable(this);
             }
         }
 
-        public void Interact(GameObject gameObject)
+        private void OnDestroy()
         {
-            onInteract?.Invoke(gameObject);
+            Destroy(sphereCollider);
+            RemoveAllPlayers();
+        }
+
+        private void OnValidate()
+        {
+            var collider = GetComponent<SphereCollider>();
+            collider.radius = interactRadius;
         }
     }
 }

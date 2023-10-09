@@ -1,8 +1,10 @@
 using OperationPlayground.Interactables;
 using OperationPlayground.Player;
+using OperationPlayground.Player.PlayerStates;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace OperationPlayground.Buildings
 {
@@ -10,67 +12,62 @@ namespace OperationPlayground.Buildings
     {
         private Interactable interactable;
 
-        private ObjectHealth objectHealth;
+        public System.Action<PlayerManager> onEnterBuilding;
+        public System.Action<PlayerManager> onExitBuilding;
 
-        private List<PlayerInteraction> players = new List<PlayerInteraction>();
+        private PlayerManager playerManager;
 
-        public event System.Action<GameObject> onEnterBuilding;
-        public event System.Action<GameObject> onExitBuilding;
-
-        protected virtual void Awake()
+        private void Awake()
         {
             interactable = GetComponent<Interactable>();
-            interactable.onPlayerNearby += OnPlayerNearby;
-            interactable.onInteract += OnInteract;
-            interactable.canInteract += CanInteract;
-            objectHealth = GetComponent<ObjectHealth>();
-            objectHealth.onDeath += OnDeath;
+            interactable.onInteract += OnEnterBuilding;
         }
 
-        private void OnPlayerNearby(GameObject playerGameObject)
+        private void OnEnterBuilding(PlayerManager player)
         {
-            interactable.SetOutlineColor(CanEnter() ? Color.green : Color.red);
+            if (playerManager) return;
+            playerManager = player;
+            player.playerInput.Player.Interact.performed += OnInteractPerformed;
+            player.RemovePlayerState(PlayerStateType.Building);
+            player.RemovePlayerState(PlayerStateType.Looking);
+            player.RemovePlayerState(PlayerStateType.Movement);
+            player.RemovePlayerState(PlayerStateType.Shooting);
+            player.RemovePlayerState(PlayerStateType.HealthBar);
+            player.RemovePlayerState(PlayerStateType.InvalidPlacement);
+            player.RemovePlayerState(PlayerStateType.EnemyTarget);
+            player.RemovePlayerState(PlayerStateType.Interaction);
+            player.RemovePlayerState(PlayerStateType.Graphics);
+            player.RemovePlayerState(PlayerStateType.Collision);
+            onEnterBuilding?.Invoke(player);
         }
 
-        protected virtual bool CanInteract(GameObject playerGameObject)
+        private void OnInteractPerformed(InputAction.CallbackContext context)
         {
-            return !players.Contains(playerGameObject.GetComponent<PlayerInteraction>());
-        }
+            var value = context.ReadValue<Vector2>();
 
-        protected virtual bool CanEnter()
-        {
-            return players.Count <= 0;
-        }
+            var button = PlayerInteraction.GetInteractionButton(value);
 
-        private void OnInteract(GameObject playerGameObject)
-        {
-            if (!CanEnter()) return;
-            EnterBuilding(playerGameObject);
-        }
-
-        public void EnterBuilding(GameObject playerGameObject)
-        {
-            var playerInteraction = playerGameObject.GetComponentInChildren<PlayerInteraction>();
-            players.Add(playerInteraction);
-            playerInteraction.GetComponent<PlayerInputManager>().DisablePlayer();
-            onEnterBuilding?.Invoke(playerGameObject);
-        }
-
-        public void ExitBuilding(GameObject playerGameObject)
-        {
-            var playerInteraction = playerGameObject.GetComponentInChildren<PlayerInteraction>();
-            players.Remove(playerInteraction);
-            playerInteraction.GetComponent<PlayerInputManager>().EnablePlayer();
-            onExitBuilding?.Invoke(playerGameObject);
-        }
-
-        private void OnDeath()
-        {
-            foreach (var player in players)
+            if (button == InteractionButton.Right)
             {
-                ExitBuilding(player.gameObject);
+                OnExitBuilding(playerManager);
             }
-            Destroy(gameObject);
+        }
+
+        private void OnExitBuilding(PlayerManager player)
+        {
+            player.playerInput.Player.Interact.performed -= OnInteractPerformed;
+            player.AddPlayerState(PlayerStateType.Building);
+            player.AddPlayerState(PlayerStateType.Looking);
+            player.AddPlayerState(PlayerStateType.Movement);
+            player.AddPlayerState(PlayerStateType.Shooting);
+            player.AddPlayerState(PlayerStateType.HealthBar);
+            player.AddPlayerState(PlayerStateType.InvalidPlacement);
+            player.AddPlayerState(PlayerStateType.EnemyTarget);
+            player.AddPlayerState(PlayerStateType.Interaction);
+            player.AddPlayerState(PlayerStateType.Graphics);
+            player.AddPlayerState(PlayerStateType.Collision);
+            onExitBuilding?.Invoke(player);
+            playerManager = null;
         }
     }
 }

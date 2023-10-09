@@ -265,8 +265,7 @@ GameObject:
   - component: {fileID: 1804547065245100583}
   - component: {fileID: 1449153746502503431}
   - component: {fileID: 5912497692925724395}
-  - component: {fileID: 2034541818553468894}
-  - component: {fileID: 8932047832686510122}
+  - component: {fileID: -6999206705900011001}
   m_Layer: 2
   m_Name: Turret
   m_TagString: Untagged
@@ -306,8 +305,8 @@ MonoBehaviour:
   scriptsToEnable:
   - {fileID: 7694375226448961723}
   - {fileID: 5912497692925724395}
-  - {fileID: 2034541818553468894}
-  - {fileID: 8932047832686510122}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 1804547065245100583}
   fireTransform: {fileID: 9118052631968971980}
   projectileSo: {fileID: 11400000, guid: 64d419158ad1a90418b1ab58078640a5, type: 2}
@@ -324,6 +323,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 826343c4a27bfd94dae8356e4ace1fcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  visible: 0
+  type: 0
 --- !u!135 &1449153746502503431
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -343,7 +344,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.5
+  m_Radius: 3
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &5912497692925724395
 MonoBehaviour:
@@ -357,9 +358,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06b643417ea888849a0d789a6ec3ba90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactDistance: 5
-  interactButton: 1
---- !u!114 &2034541818553468894
+  interactRadius: 3
+  button: 0
+--- !u!114 &-6999206705900011001
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -368,20 +369,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 8127427878927711719}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e6495f349fcbb14ba6f126732c7e897, type: 3}
+  m_Script: {fileID: 11500000, guid: d07a2432b75b41445abaf2d99af190fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &8932047832686510122
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8127427878927711719}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d6dc4d4e24d2e24ba0b6168ec5f0144, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rotateTransform: {fileID: 2391657944212800025}
-  restrictedAngle: 70

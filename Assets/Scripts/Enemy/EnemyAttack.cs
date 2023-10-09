@@ -40,7 +40,7 @@ namespace OperationPlayground.Enemy
             var colliders = Physics.OverlapSphere(transform.position, enemySo.attackRange).ToList();
             if (colliders.Count == 0) return;
 
-            var enemyTargets = colliders.Select(e => e.GetComponentInParent<EnemyTarget>()).ToList().FindAll(e => e != null);
+            var enemyTargets = colliders.Select(e => e.GetComponentInParent<EnemyTarget>()).ToList().FindAll(e => e != null && e.visible);
             if (enemyTargets.Count == 0) return;
 
             var targets = enemySo.targetBuildings.ToList();

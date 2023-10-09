@@ -11,76 +11,76 @@ namespace OperationPlayground.Player
         [System.NonSerialized]
         public Interactable interactable;
 
-        private PlayerInputManager playerInputManager;
+        private PlayerManager playerInputManager;
+
+        private List<Interactable> interactables = new List<Interactable>();
 
         private void Awake()
         {
-            playerInputManager = GetComponent<PlayerInputManager>();
+            playerInputManager = GetComponent<PlayerManager>();
         }
 
-        private void OnEnable()
-        {
-            EnableInput();
-            if (interactable != null)
-            {
-                interactable.AddPlayer(this, true);
-            }
-        }
-
-        private void OnDisable()
-        {
-            DisableInput();
-            if (interactable != null)
-            {
-                interactable.RemovePlayer(this, true);
-            }
-        }
-
-        private void EnableInput()
+        public void EnableInteraction()
         {
             playerInputManager.playerInput.Player.Interact.performed += OnInteractPerformed;
+
+            foreach (var interactable in interactables)
+            {
+                interactable.UpdateOutlines();
+            }
         }
 
-        private void DisableInput()
+        public void DisableInteraction()
         {
             playerInputManager.playerInput.Player.Interact.performed -= OnInteractPerformed;
-        }
 
-        private void OnInteractPerformed(InputAction.CallbackContext value)
-        {
-            if (!interactable) return;
-
-            var vector = value.ReadValue<Vector2>();
-
-            var button = GetInteractButton(vector);
-
-            if (button == interactable.interactButton)
+            foreach (var interactable in interactables)
             {
-                interactable.Interact(gameObject);
+                interactable.UpdateOutlines();
             }
         }
 
-        private InteractButton GetInteractButton(Vector2 data)
+        private void OnInteractPerformed(InputAction.CallbackContext callbackContext)
         {
-            if (data.x == 1)
-            {
-                return InteractButton.Right;
-            }
-            else if (data.x == -1)
-            {
-                return InteractButton.Left;
-            }
+            var value = callbackContext.ReadValue<Vector2>();
 
-            if (data.y == 1)
-            {
-                return InteractButton.Top;
-            }
-            else if (data.y == -1)
-            {
-                return InteractButton.Bottom;
-            }
+            var button = GetInteractionButton(value);
 
-            return InteractButton.None;
+            foreach (var interactable in interactables)
+            {
+                if (interactable.button == button)
+                {
+                    interactable.onInteract?.Invoke(playerInputManager);
+                    break;
+                }
+            }
+        }
+
+        public void AddInteractable(Interactable interactable)
+        {
+            if (interactables.Contains(interactable)) return;
+            interactables.Add(interactable);
+        }
+
+        public void RemoveInteractable(Interactable interactable)
+        {
+            if (!interactables.Contains(interactable)) return;
+            interactables.Remove(interactable);
+        }
+
+        public static InteractionButton GetInteractionButton(Vector2 value)
+        {
+            if (value.x == 1)
+                return InteractionButton.Right;
+            else if (value.x == -1)
+                return InteractionButton.Left;
+
+            if (value.y == 1)
+                return InteractionButton.Top;
+            else if (value.y == -1)
+                return InteractionButton.Bottom;
+
+            return InteractionButton.Bottom;
         }
     }
 }

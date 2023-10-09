@@ -46,7 +46,7 @@ namespace OperationPlayground
             playerInput.SwitchCurrentActionMap("UI");
 
             playerInput.actions.FindAction("Submit").performed += (InputAction.CallbackContext value) =>
-            { 
+            {
                 if (value.ReadValue<float>() == 1)
                 {
                     PlayerReadied(player);
@@ -63,7 +63,7 @@ namespace OperationPlayground
 
         private void PlayerReadied(GameObject player)
         {
-            int playerIndex = player.GetComponent<PlayerInputManager>().playerIndex;
+            int playerIndex = player.GetComponent<PlayerManager>().playerIndex;
             playerPrompts[playerIndex].text = $"Player {playerIndex + 1}\nReady";
             playerPrompts[playerIndex].color = Color.green;
 

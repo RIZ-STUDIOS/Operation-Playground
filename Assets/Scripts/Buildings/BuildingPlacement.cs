@@ -1,4 +1,5 @@
 using OperationPlayground.Managers;
+using OperationPlayground.Player;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,9 @@ namespace OperationPlayground.Buildings
         private Renderer[] meshRenderers;
 
         private Dictionary<Renderer, Material> materials = new Dictionary<Renderer, Material>();
+
+        [System.NonSerialized]
+        public PlayerManager playerPlacing;
 
         private bool canPlace, materialCanPlace;
 
@@ -91,7 +95,7 @@ namespace OperationPlayground.Buildings
 
             transform.SetParent(null);
 
-            gameObject.AddComponent<UnplaceArea>();
+            gameObject.AddComponent<InvalidPlacement>();
 
             toPlace.Place();
             Destroy(this);
@@ -100,8 +104,16 @@ namespace OperationPlayground.Buildings
 
         private bool CheckCanPlace()
         {
-            var colliders = Physics.OverlapBox(transform.position, toPlace.buildingSo.boundsToCheck / 2f, transform.rotation, Physics.AllLayers, QueryTriggerInteraction.Ignore).ToList().FindAll(c => c.GetComponentInParent<UnplaceArea>());
-            return colliders.Count == 0;
+            var colliders = Physics.OverlapBox(transform.position, toPlace.buildingSo.boundsToCheck / 2f, transform.rotation, Physics.AllLayers, QueryTriggerInteraction.Ignore);
+
+            var invalidPlacements = colliders.Select(c => c.GetComponentInParent<InvalidPlacement>()).ToList().FindAll(c => c != null && c.invalid);
+
+            var playerIndex = invalidPlacements.FindIndex(c => c.GetComponent<PlayerManager>() == playerPlacing);
+
+            if (playerIndex >= 0)
+                invalidPlacements.RemoveAt(playerIndex);
+
+            return invalidPlacements.Count == 0;
         }
     }
 }

@@ -38,10 +38,10 @@ namespace OperationPlayground.Buildings
             if (value.magnitude > 0.1f)
             {
                 var transformRotation = transform.rotation.eulerAngles;
-                if (transformRotation.y > 180)
+                if (transformRotation.y >= 180)
                     transformRotation.y -= 360;
 
-                var cameraVector = Quaternion.Euler(0, transformRotation.y, 0) * GameManager.Instance.gameCamera.WorldToCameraVector(value);
+                var cameraVector = Quaternion.Euler(0, -transformRotation.y, 0) * GameManager.Instance.gameCamera.WorldToCameraVector(value);
 
                 var yRotation = Mathf.Atan2(cameraVector.x, cameraVector.z) * Mathf.Rad2Deg;
 

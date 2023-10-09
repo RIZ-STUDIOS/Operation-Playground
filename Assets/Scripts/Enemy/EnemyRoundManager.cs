@@ -46,7 +46,7 @@ namespace OperationPlayground.Enemy
 
         private void Start()
         {
-            StartCountdown();
+            GameManager.Instance.lobbyMenu.onLobbyFinished += StartCountdown;
         }
 
         private void StartCountdown()

@@ -123,5 +123,13 @@ namespace OperationPlayground.Player
                 transform.rotation = Quaternion.LookRotation(gameCamera.WorldToCameraVector(vector), Vector3.up);
             }
         }
+
+        public void SetPosition(Vector3 position)
+        {
+            if(!controller) controller = GetComponent<CharacterController>();
+            controller.enabled = false;
+            transform.position = position;
+            controller.enabled = true;
+        }
     }
 }

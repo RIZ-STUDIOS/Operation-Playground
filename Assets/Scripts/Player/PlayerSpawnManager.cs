@@ -1,3 +1,4 @@
+using RicTools.Managers;
 using RicTools.Utilities;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,42 +7,39 @@ using UnityEngine.InputSystem;
 
 namespace OperationPlayground.Player
 {
-    public class PlayerSpawnManager : MonoBehaviour
+    public class PlayerSpawnManager : GenericManager<PlayerSpawnManager>
     {
-        public List<GameObject> players;
-        public System.Action playerJoined;
+        [System.NonSerialized]
+        public List<PlayerManager> players = new List<PlayerManager>();
+        public event System.Action<PlayerManager> onPlayerJoined;
 
         [SerializeField]
         private Transform[] spawnLocations;
 
         private int respawnTimer = 5;
 
-        private void Start()
-        {
-            players = new List<GameObject>();
-        }
-
         private void OnPlayerJoined(PlayerInput input)
         {
             Debug.Log($"Player {input.playerIndex} has joined the session!");
 
-            var playerInputData = input.gameObject.GetOrAddComponent<PlayerManager>();
+            var playerManager = input.gameObject.GetOrAddComponent<PlayerManager>();
+            playerManager.GetData();
             GameObject player = input.gameObject;
 
-            playerInputData.devices = input.devices;
-            playerInputData.playerIndex = input.playerIndex;
+            playerManager.devices = input.devices;
+            playerManager.playerIndex = input.playerIndex;
 
-            players.Add(player);
-            player.GetComponent<PlayerHealth>().onDeath += () => { StartCoroutine(RespawnPlayer(input.gameObject)); };
+            players.Add(playerManager);
+            playerManager.playerHealth.onDeath += () => { StartCoroutine(RespawnPlayer(playerManager)); };
 
-            SpawnPlayer(player);
+            SpawnPlayer(playerManager);
 
-            playerJoined?.Invoke();
+            onPlayerJoined?.Invoke(playerManager);
         }
 
-        private IEnumerator RespawnPlayer(GameObject player)
+        private IEnumerator RespawnPlayer(PlayerManager playerManager)
         {
-            player.SetActive(false);
+            playerManager.RemoveAllPlayerStates();
 
             float timer = 0;
 
@@ -51,17 +49,19 @@ namespace OperationPlayground.Player
                 yield return null;
             }
 
-            player.SetActive(true);
+            playerManager.AddDefaultPlayerStates();
 
-            var ph = player.GetComponent<PlayerHealth>();
+            var ph = playerManager.playerHealth;
             ph.Heal(ph.MaxHealth);
 
-            SpawnPlayer(player);
+            SpawnPlayer(playerManager);
         }
 
-        private void SpawnPlayer(GameObject player)
+        private void SpawnPlayer(PlayerManager playerManager)
         {
-            player.transform.position = spawnLocations[players.Count - 1].position;
+            playerManager.playerMovement.SetPosition(spawnLocations[playerManager.playerIndex].position);
+            //playerManager.transform.position = new Vector3(200, 0, 0);
+            //playerManager.transform.position = spawnLocations[playerManager.playerIndex].position;
         }
     }
 }

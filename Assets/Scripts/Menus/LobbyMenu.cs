@@ -1,3 +1,4 @@
+using OperationPlayground.Managers;
 using OperationPlayground.Player;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,15 +11,14 @@ namespace OperationPlayground
 {
     public class LobbyMenu : MonoBehaviour
     {
-        public System.Action lobbyFinished;
+        public event System.Action onLobbyFinished;
 
         [SerializeField]
         private TextMeshProUGUI timerText;
 
         [SerializeField]
         private TextMeshProUGUI[] playerPrompts;
-
-        [SerializeField]
+        
         private PlayerSpawnManager playerSpawn;
 
         [SerializeField]
@@ -29,27 +29,33 @@ namespace OperationPlayground
         private int totalPlayers;
         private int readyPlayers;
 
+        private void Awake()
+        {
+            GameManager.Instance.lobbyMenu = this;
+        }
+
         private void Start()
         {
-            playerSpawn.playerJoined += RegisterPlayer;
+            playerSpawn = PlayerSpawnManager.Instance;
+            playerSpawn.onPlayerJoined += RegisterPlayer;
             timerText.text = lobbyDuration.ToString();
         }
 
-        private void RegisterPlayer()
+        private void RegisterPlayer(PlayerManager playerManager)
         {
-            int index = playerSpawn.players.Count - 1;
-            GameObject player = playerSpawn.players[index];
+            var index = playerManager.playerIndex;
+            GameObject playerGameObject = playerManager.gameObject;
             Debug.Log(index);
             playerPrompts[index].text = $"Player {index + 1}\n(X/A) Ready";
 
-            var playerInput = player.GetComponent<PlayerInput>();
-            playerInput.SwitchCurrentActionMap("UI");
+            playerManager.playerInput.Player.Disable();
+            playerManager.playerInput.UI.Enable();
 
-            playerInput.actions.FindAction("Submit").performed += (InputAction.CallbackContext value) =>
+            playerManager.playerInput.UI.Submit.performed += (InputAction.CallbackContext context) =>
             {
-                if (value.ReadValue<float>() == 1)
+                if(context.ReadValue<float>() == 1)
                 {
-                    PlayerReadied(player);
+                    PlayerReadied(playerManager);
                 }
             };
 
@@ -61,9 +67,9 @@ namespace OperationPlayground
             }
         }
 
-        private void PlayerReadied(GameObject player)
+        private void PlayerReadied(PlayerManager playerManager)
         {
-            int playerIndex = player.GetComponent<PlayerManager>().playerIndex;
+            int playerIndex = playerManager.playerIndex;
             playerPrompts[playerIndex].text = $"Player {playerIndex + 1}\nReady";
             playerPrompts[playerIndex].color = Color.green;
 
@@ -76,14 +82,11 @@ namespace OperationPlayground
         {
             if (totalPlayers > 1 && readyPlayers == totalPlayers)
             {
+                if(timerCoroutine != null)
+                    StopCoroutine(timerCoroutine);
                 timerCoroutine = null;
 
-                foreach (var player in playerSpawn.players)
-                {
-                    player.GetComponent<PlayerInput>().SwitchCurrentActionMap("Player");
-                }
-
-                gameObject.SetActive(false);
+                OnTimerEnd();
             }
         }
 
@@ -99,13 +102,19 @@ namespace OperationPlayground
                 timerText.text = timer.ToString();
             }
 
+            OnTimerEnd();
+        }
+
+        private void OnTimerEnd()
+        {
             foreach (var player in playerSpawn.players)
             {
-                player.GetComponent<PlayerInput>().SwitchCurrentActionMap("Player");
+                player.playerInput.Player.Enable();
+                player.playerInput.UI.Disable();
             }
 
-            lobbyFinished.Invoke();
-            gameObject.SetActive(false);
+            onLobbyFinished?.Invoke();
+            Destroy(gameObject);
         }
     }
 }

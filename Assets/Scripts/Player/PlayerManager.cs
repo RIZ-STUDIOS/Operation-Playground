@@ -1,6 +1,7 @@
 using OperationPlayground.Buildings;
 using OperationPlayground.Player;
 using OperationPlayground.Player.PlayerStates;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -34,6 +35,22 @@ namespace OperationPlayground.Player
 
         private void Awake()
         {
+            GetData();
+        }
+
+        private void Start()
+        {
+            playerInput.devices = devices;
+
+            AddDefaultPlayerStates();
+        }
+
+        public void GetData()
+        {
+            if (playerInput != null) return;
+            playerInput = new OPPlayerInput();
+            playerInput.Enable();
+
             playerMovement = GetComponent<PlayerMovement>();
             playerShooting = GetComponent<PlayerShooting>();
             playerHealth = GetComponent<PlayerHealth>();
@@ -44,25 +61,6 @@ namespace OperationPlayground.Player
 
             playerRenderers = transform.GetChild(0).GetComponentsInChildren<Renderer>();
             playerColliders = transform.GetChild(1).GetComponentsInChildren<Collider>();
-
-            playerInput = new OPPlayerInput();
-            playerInput.Enable();
-        }
-
-        private void Start()
-        {
-            playerInput.devices = devices;
-
-            AddPlayerState(PlayerStateType.Movement);
-            AddPlayerState(PlayerStateType.HealthBar);
-            AddPlayerState(PlayerStateType.Looking);
-            AddPlayerState(PlayerStateType.Shooting);
-            AddPlayerState(PlayerStateType.Building);
-            AddPlayerState(PlayerStateType.InvalidPlacement);
-            AddPlayerState(PlayerStateType.EnemyTarget);
-            AddPlayerState(PlayerStateType.Interaction);
-            AddPlayerState(PlayerStateType.Graphics);
-            AddPlayerState(PlayerStateType.Collision);
         }
 
         public void AddPlayerState(PlayerStateType playerStateType)
@@ -90,6 +88,20 @@ namespace OperationPlayground.Player
 
         }
 
+        public void AddDefaultPlayerStates()
+        {
+            AddPlayerState(PlayerStateType.Movement);
+            AddPlayerState(PlayerStateType.HealthBar);
+            AddPlayerState(PlayerStateType.Looking);
+            AddPlayerState(PlayerStateType.Shooting);
+            AddPlayerState(PlayerStateType.Building);
+            AddPlayerState(PlayerStateType.InvalidPlacement);
+            AddPlayerState(PlayerStateType.EnemyTarget);
+            AddPlayerState(PlayerStateType.Interaction);
+            AddPlayerState(PlayerStateType.Graphics);
+            AddPlayerState(PlayerStateType.Collision);
+        }
+
         private PlayerState GetPlayerState(PlayerStateType playerStateType)
         {
             return playerStates.Find(p => p.StateType == playerStateType);
@@ -98,6 +110,14 @@ namespace OperationPlayground.Player
         public bool HasPlayerState(PlayerStateType playerStateType)
         {
             return GetPlayerState(playerStateType) != null;
+        }
+
+        public void RemoveAllPlayerStates()
+        {
+            while(playerStates.Count > 0)
+            {
+                RemovePlayerState(playerStates[0].StateType);
+            }
         }
     }
 }

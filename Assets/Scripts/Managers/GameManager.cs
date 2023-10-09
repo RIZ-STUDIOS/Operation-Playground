@@ -12,5 +12,6 @@ namespace OperationPlayground.Managers
         public GameCamera gameCamera;
         public TowerHealth towerHealth;
         public LoseWinUI loseWinUI;
+        public LobbyMenu lobbyMenu;
     }
 }

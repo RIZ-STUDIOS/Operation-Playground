@@ -41,7 +41,7 @@ namespace OperationPlayground.UI
             canvasGroup.blocksRaycasts = true;
             canvasGroup.alpha = 1;
             backgroundImage.color = winBackgroundColor;
-            winLoseText.text = "The Axis Won!";
+            winLoseText.text = "The Allies Won!";
         }
 
         public void ShowLose()
@@ -49,7 +49,7 @@ namespace OperationPlayground.UI
             canvasGroup.blocksRaycasts = true;
             canvasGroup.alpha = 1;
             backgroundImage.color = loseBackgroundColor;
-            winLoseText.text = "The Allies Won!";
+            winLoseText.text = "The Axis Won!";
         }
     }
 }

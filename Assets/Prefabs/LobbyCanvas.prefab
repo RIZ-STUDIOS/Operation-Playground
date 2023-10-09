@@ -778,7 +778,7 @@ MonoBehaviour:
   - {fileID: 7481216295825868202}
   - {fileID: 4761660853532715909}
   - {fileID: 8874000256834626716}
-  playerSpawn: {fileID: 0}
+  minPlayers: 2
   lobbyDuration: 60
 --- !u!1 &8914534909589951687
 GameObject:

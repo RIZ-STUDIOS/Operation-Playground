@@ -1111,18 +1111,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6030d5cb74ae68448b7566b3f2ac5089, type: 3}
---- !u!114 &195861200 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8066485649319446923, guid: 6030d5cb74ae68448b7566b3f2ac5089,
-    type: 3}
-  m_PrefabInstance: {fileID: 195861199}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0304c117ca59dc241a93b7cd421bdc31, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &228118953
 GameObject:
   m_ObjectHideFlags: 0
@@ -7604,16 +7592,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5067985677521654476, guid: e3969db9e605b5a469b8a421e99b7f42,
-        type: 3}
-      propertyPath: minPlayers
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5067985677521654476, guid: e3969db9e605b5a469b8a421e99b7f42,
-        type: 3}
-      propertyPath: playerSpawn
-      value: 
-      objectReference: {fileID: 195861200}
     - target: {fileID: 6142263469424788800, guid: e3969db9e605b5a469b8a421e99b7f42,
         type: 3}
       propertyPath: m_Pivot.x

@@ -6,6 +6,7 @@ namespace OperationPlayground.Managers
 {
     public class GameCamera : MonoBehaviour
     {
+        [System.NonSerialized]
         public new Camera camera;
         private Vector3 cForwardNorm;
         private Vector3 cRightNorm;

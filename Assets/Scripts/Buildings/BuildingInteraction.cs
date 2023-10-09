@@ -49,24 +49,25 @@ namespace OperationPlayground.Buildings
 
             if (button == InteractionButton.Right)
             {
-                OnExitBuilding(playerManager);
+                OnExitBuilding();
             }
         }
 
-        private void OnExitBuilding(PlayerManager player)
+        public void OnExitBuilding()
         {
-            player.playerInput.Player.Interact.performed -= OnInteractPerformed;
-            player.AddPlayerState(PlayerStateType.Building);
-            player.AddPlayerState(PlayerStateType.Looking);
-            player.AddPlayerState(PlayerStateType.Movement);
-            player.AddPlayerState(PlayerStateType.Shooting);
-            player.AddPlayerState(PlayerStateType.HealthBar);
-            player.AddPlayerState(PlayerStateType.InvalidPlacement);
-            player.AddPlayerState(PlayerStateType.EnemyTarget);
-            player.AddPlayerState(PlayerStateType.Interaction);
-            player.AddPlayerState(PlayerStateType.Graphics);
-            player.AddPlayerState(PlayerStateType.Collision);
-            onExitBuilding?.Invoke(player);
+            if (!playerManager) return;
+            playerManager.playerInput.Player.Interact.performed -= OnInteractPerformed;
+            playerManager.AddPlayerState(PlayerStateType.Building);
+            playerManager.AddPlayerState(PlayerStateType.Looking);
+            playerManager.AddPlayerState(PlayerStateType.Movement);
+            playerManager.AddPlayerState(PlayerStateType.Shooting);
+            playerManager.AddPlayerState(PlayerStateType.HealthBar);
+            playerManager.AddPlayerState(PlayerStateType.InvalidPlacement);
+            playerManager.AddPlayerState(PlayerStateType.EnemyTarget);
+            playerManager.AddPlayerState(PlayerStateType.Interaction);
+            playerManager.AddPlayerState(PlayerStateType.Graphics);
+            playerManager.AddPlayerState(PlayerStateType.Collision);
+            onExitBuilding?.Invoke(playerManager);
             playerManager = null;
         }
     }

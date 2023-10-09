@@ -2,6 +2,7 @@ using OperationPlayground.Interactables;
 using OperationPlayground.Managers;
 using OperationPlayground.ScriptableObjects;
 using OperationPlayground.UI;
+using RicTools.Utilities;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,9 +14,6 @@ namespace OperationPlayground.Buildings
         [System.NonSerialized]
         public BuildingScriptableObject buildingSo;
 
-        [SerializeField]
-        private Component[] scriptsToEnable;
-
         public override int MaxHealth => buildingSo.health;
 
         protected override bool DoSpawnHealthBar => false;
@@ -24,18 +22,12 @@ namespace OperationPlayground.Buildings
 
         private Interactable interactable;
 
-        private Collider[] colliders;
-
         private EnemyTarget target;
 
-        private void Awake()
-        {
-            colliders = GetComponentsInChildren<Collider>();
-            foreach (var collider in colliders)
-            {
-                collider.enabled = false;
-            }
+        protected BuildingInteraction buildingInteraction;
 
+        protected virtual void Awake()
+        {
             interactable = GetComponent<Interactable>();
             if (interactable)
             {
@@ -43,39 +35,14 @@ namespace OperationPlayground.Buildings
             }
             target = GetComponent<EnemyTarget>();
             target.visible = false;
-        }
-
-        public void StartPlacement()
-        {
-            /*foreach (var script in scriptsToEnable)
-            {
-                var property = script.GetType().GetProperty("enabled");
-                if (property != null)
-                {
-                    property.SetValue(script, false);
-                }
-            }*/
+            buildingInteraction = gameObject.GetOrAddComponent<BuildingInteraction>();
         }
 
         public void Place()
         {
-            /*foreach (var script in scriptsToEnable)
-            {
-                var property = script.GetType().GetProperty("enabled");
-                if (property != null)
-                {
-                    property.SetValue(script, true);
-                }
-            }*/
-
             if (interactable)
             {
                 interactable.enabled = true;
-            }
-
-            foreach (var collider in colliders)
-            {
-                collider.enabled = true;
             }
 
             target.visible = true;
@@ -89,6 +56,10 @@ namespace OperationPlayground.Buildings
 
         protected override void OnDeath()
         {
+            if (buildingInteraction)
+            {
+                buildingInteraction.OnExitBuilding();
+            }
             Destroy(gameObject);
         }
     }

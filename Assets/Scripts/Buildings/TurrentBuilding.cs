@@ -1,6 +1,8 @@
 using OperationPlayground.Player;
 using OperationPlayground.Projectiles;
 using OperationPlayground.ScriptableObjects;
+using OperationPlayground.Weapons;
+using RicTools.Utilities;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,35 +12,39 @@ namespace OperationPlayground.Buildings
 {
     public class TurrentBuilding : BuildingHealth
     {
-        [SerializeField]
-        private Transform fireTransform;
-
         private bool triggerDown;
 
-        [SerializeField]
-        private ProjectileScriptableObject projectileSo;
+        private TurretRotation turretRotation;
 
-        [SerializeField]
-        private float reloadTime = 1;
+        private Weapon turretWeapon;
 
-        private float reloadTimer;
+        protected override void Awake()
+        {
+            base.Awake();
+            turretWeapon = GetComponent<Weapon>();
+            turretRotation = GetComponent<TurretRotation>();
+            buildingInteraction.onEnterBuilding += EnableFiring;
+            buildingInteraction.onExitBuilding += DisableFiring;
+
+            turretWeapon.parentShooter = this;
+        }
 
         protected override void OnPlaced()
         {
         }
 
-        public void EnableInput(GameObject playerGameObject)
+        public void EnableFiring(PlayerManager player)
         {
-            var playerInputManager = playerGameObject.GetComponent<PlayerManager>();
-            playerInputManager.playerInput.Player.Fire.performed += OnFirePerformed;
-            playerInputManager.playerInput.Player.Fire.canceled += OnFireCanceled;
+            player.playerInput.Player.Fire.performed += OnFirePerformed;
+            player.playerInput.Player.Fire.canceled += OnFireCanceled;
+            turretRotation.EnableRotation(player);
         }
 
-        public void DisableInput(GameObject playerGameObject)
+        public void DisableFiring(PlayerManager player)
         {
-            var playerInputManager = playerGameObject.GetComponent<PlayerManager>();
-            playerInputManager.playerInput.Player.Fire.performed -= OnFirePerformed;
-            playerInputManager.playerInput.Player.Fire.canceled -= OnFireCanceled;
+            player.playerInput.Player.Fire.performed -= OnFirePerformed;
+            player.playerInput.Player.Fire.canceled -= OnFireCanceled;
+            turretRotation.DisableRotation(player);
             triggerDown = false;
         }
 
@@ -56,32 +62,8 @@ namespace OperationPlayground.Buildings
         {
             if (triggerDown)
             {
-                Shoot();
+                turretWeapon.Shoot();
             }
-        }
-
-        public void Shoot()
-        {
-            if (reloadTimer <= 0)
-            {
-                reloadTimer = reloadTime;
-                ShootProjectile();
-            }
-
-            reloadTimer -= Time.deltaTime;
-            reloadTimer = Mathf.Max(0, reloadTimer);
-        }
-
-        private void ShootProjectile()
-        {
-            var gameObject = Instantiate(projectileSo.prefab);
-
-            gameObject.transform.position = fireTransform.position;
-            gameObject.transform.forward = fireTransform.forward;
-
-            var projectile = gameObject.AddComponent<Projectile>();
-            projectile.projectileSo = projectileSo;
-            projectile.parentShooter = this;
         }
     }
 }

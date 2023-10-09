@@ -27,6 +27,7 @@ namespace OperationPlayground.Weapons
         [SerializeField]
         private int ammoCount;
 
+        [SerializeField]
         private Interactable interactable;
 
         private float cooldownTimer;
@@ -38,7 +39,6 @@ namespace OperationPlayground.Weapons
 
         private void Awake()
         {
-            interactable = GetComponent<Interactable>();
             if (interactable != null)
             {
                 interactable.onInteract += Pickup;

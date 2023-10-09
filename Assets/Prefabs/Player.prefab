@@ -119,18 +119,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4058645ca3e7dc44da5c23741e833e77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scriptsToDisable:
-  - {fileID: -2489104241463137181}
-  - {fileID: 2225120310336673047}
-  - {fileID: -2742027816656682815}
-  - {fileID: 8814529424316359839}
-  - {fileID: -4646308382689371846}
-  - {fileID: 7487843308486089112}
-  - {fileID: 2477185374147307916}
-  gameObjectsToDisable:
-  - {fileID: 7996623735611611377}
-  - {fileID: 2274243338680076478}
-  - {fileID: 4233405050645588177}
   playerMovement: {fileID: 0}
   playerShooting: {fileID: 0}
   playerHealth: {fileID: 0}
@@ -138,6 +126,8 @@ MonoBehaviour:
   enemyTarget: {fileID: 0}
   playerBuilding: {fileID: 0}
   invalidPlacement: {fileID: 0}
+  playerRenderers: []
+  playerColliders: []
 --- !u!114 &996262083128667596
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -444,6 +434,7 @@ MonoBehaviour:
   fireTransform: {fileID: 1313517059184062078}
   infiniteAmmo: 1
   ammoCount: 0
+  interactable: {fileID: 0}
 --- !u!1 &5085153504377601727
 GameObject:
   m_ObjectHideFlags: 0

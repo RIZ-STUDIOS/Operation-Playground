@@ -18,6 +18,8 @@ namespace OperationPlayground.Buildings
         [System.NonSerialized]
         public PlayerManager playerPlacing;
 
+        private Collider[] colliders;
+
         private bool canPlace, materialCanPlace;
 
         private void Awake()
@@ -29,6 +31,12 @@ namespace OperationPlayground.Buildings
                 var material = renderer.material;
                 materials.Add(renderer, material);
             }
+
+            colliders = GetComponentsInChildren<Collider>();
+            foreach (var collider in colliders)
+            {
+                collider.enabled = false;
+            }
         }
 
         public void StartPlacement()
@@ -38,7 +46,6 @@ namespace OperationPlayground.Buildings
                 renderer.material = MaterialsManager.Instance.data.placementMaterial;
             }
             CheckPlacement(true);
-            toPlace.StartPlacement();
         }
 
         private void GreenMaterial()
@@ -91,6 +98,11 @@ namespace OperationPlayground.Buildings
             foreach (var material in materials)
             {
                 material.Key.material = material.Value;
+            }
+
+            foreach (var collider in colliders)
+            {
+                collider.enabled = true;
             }
 
             transform.SetParent(null);

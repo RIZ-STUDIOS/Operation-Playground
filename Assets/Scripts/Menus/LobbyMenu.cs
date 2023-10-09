@@ -1,5 +1,6 @@
 using OperationPlayground.Managers;
 using OperationPlayground.Player;
+using RicTools.Attributes;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -18,7 +19,10 @@ namespace OperationPlayground
 
         [SerializeField]
         private TextMeshProUGUI[] playerPrompts;
-        
+
+        [SerializeField, MinValue(1)]
+        private int minPlayers = 2;
+
         private PlayerSpawnManager playerSpawn;
 
         [SerializeField]
@@ -61,7 +65,7 @@ namespace OperationPlayground
 
             totalPlayers++;
 
-            if (playerSpawn.players.Count == 2)
+            if (playerSpawn.players.Count == minPlayers)
             {
                 timerCoroutine = StartCoroutine(StartTimer());
             }
@@ -80,7 +84,7 @@ namespace OperationPlayground
 
         private void ReadyCheck()
         {
-            if (totalPlayers > 1 && readyPlayers == totalPlayers)
+            if (totalPlayers >= minPlayers && readyPlayers == totalPlayers)
             {
                 if(timerCoroutine != null)
                     StopCoroutine(timerCoroutine);

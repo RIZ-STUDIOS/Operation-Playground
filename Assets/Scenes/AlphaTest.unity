@@ -7606,6 +7606,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5067985677521654476, guid: e3969db9e605b5a469b8a421e99b7f42,
         type: 3}
+      propertyPath: minPlayers
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5067985677521654476, guid: e3969db9e605b5a469b8a421e99b7f42,
+        type: 3}
       propertyPath: playerSpawn
       value: 
       objectReference: {fileID: 195861200}

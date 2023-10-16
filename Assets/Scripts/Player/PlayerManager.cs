@@ -12,26 +12,45 @@ namespace OperationPlayground.Player
 {
     public class PlayerManager : MonoBehaviour
     {
-        [System.NonSerialized]
+        [NonSerialized]
         public ReadOnlyArray<InputDevice> devices;
 
-        [System.NonSerialized]
+        [NonSerialized]
         public int playerIndex;
 
         public OPPlayerInput playerInput;
+        public Gamepad gamepad;
 
         private List<PlayerCapability> playerStates = new List<PlayerCapability>();
 
+        [NonSerialized]
         public PlayerMovement playerMovement;
+
+        [NonSerialized]
         public PlayerShooting playerShooting;
+
+        [NonSerialized]
         public PlayerHealth playerHealth;
+
+        [NonSerialized]
         public PlayerInteraction playerInteraction;
+
+        [NonSerialized]
         public EnemyTarget enemyTarget;
+
+        [NonSerialized]
         public PlayerBuilding playerBuilding;
+
+        [NonSerialized]
         public InvalidPlacement invalidPlacement;
 
+        [NonSerialized]
         public Renderer[] playerRenderers;
+
+        [NonSerialized]
         public Collider[] playerColliders;
+
+        public RumbleController rumbleController;
 
         private void Awake()
         {
@@ -61,6 +80,8 @@ namespace OperationPlayground.Player
 
             playerRenderers = transform.GetChild(0).GetComponentsInChildren<Renderer>();
             playerColliders = transform.GetChild(1).GetComponentsInChildren<Collider>();
+
+            rumbleController = new RumbleController(this);
         }
 
         public void AddPlayerState(PlayerCapabilityType playerStateType)
@@ -118,6 +139,16 @@ namespace OperationPlayground.Player
             {
                 RemovePlayerState(playerStates[0].CapabilityType);
             }
+        }
+
+        private void OnDisable()
+        {
+            rumbleController.StopRumble();
+        }
+
+        private void OnDestroy()
+        {
+            rumbleController.StopRumble();
         }
     }
 }

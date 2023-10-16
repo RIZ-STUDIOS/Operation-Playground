@@ -23,8 +23,11 @@ namespace OperationPlayground.Player
             Debug.Log($"Player {input.playerIndex} has joined the session!");
 
             var playerManager = input.gameObject.GetOrAddComponent<PlayerManager>();
+            playerManager.gamepad = input.GetDevice<Gamepad>();
             playerManager.GetData();
             GameObject player = input.gameObject;
+
+            playerManager.rumbleController.DoRumble(0, 0.2f, 0.2f);
 
             playerManager.devices = input.devices;
             playerManager.playerIndex = input.playerIndex;

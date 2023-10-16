@@ -13,8 +13,7 @@ namespace OperationPlayground.Weapons
         [SerializeField]
         private ProjectileScriptableObject projectileSo;
 
-        [SerializeField]
-        private float reloadTime;
+        public float reloadTime;
 
         public Vector3 offset;
 
@@ -54,16 +53,18 @@ namespace OperationPlayground.Weapons
             }
         }
 
-        public void Shoot()
+        public bool Shoot()
         {
             if (cooldownTimer <= 0 && (ammoCount > 0 || infiniteAmmo))
             {
                 cooldownTimer = reloadTime;
                 ShootProjectile();
+                return true;
             }
 
             cooldownTimer -= Time.deltaTime;
             cooldownTimer = Mathf.Max(0, cooldownTimer);
+            return false;
         }
 
         private void ShootProjectile()

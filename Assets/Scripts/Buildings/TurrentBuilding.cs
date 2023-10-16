@@ -18,6 +18,8 @@ namespace OperationPlayground.Buildings
 
         private Weapon turretWeapon;
 
+        private PlayerManager playerManager;
+
         protected override void Awake()
         {
             base.Awake();
@@ -38,6 +40,7 @@ namespace OperationPlayground.Buildings
             player.playerInput.Player.Fire.performed += OnFirePerformed;
             player.playerInput.Player.Fire.canceled += OnFireCanceled;
             turretRotation.EnableRotation(player);
+            playerManager = player;
         }
 
         public void DisableFiring(PlayerManager player)
@@ -46,6 +49,7 @@ namespace OperationPlayground.Buildings
             player.playerInput.Player.Fire.canceled -= OnFireCanceled;
             turretRotation.DisableRotation(player);
             triggerDown = false;
+            playerManager = null;
         }
 
         private void OnFirePerformed(InputAction.CallbackContext context)
@@ -62,7 +66,10 @@ namespace OperationPlayground.Buildings
         {
             if (triggerDown)
             {
-                turretWeapon.Shoot();
+                if (turretWeapon.Shoot())
+                {
+                    playerManager.rumbleController.DoRumble(0.1f, 0.4f, turretWeapon.reloadTime / 2f);
+                }
             }
         }
     }

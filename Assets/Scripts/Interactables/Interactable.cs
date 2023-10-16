@@ -115,6 +115,7 @@ namespace OperationPlayground.Interactables
         {
             var playersNearby = AnyPlayerNearby();
 
+            CheckOutlines();
             foreach (var outline in outlines)
             {
                 outline.enabled = playersNearby;
@@ -123,6 +124,7 @@ namespace OperationPlayground.Interactables
 
         private void DisableOutlines()
         {
+            CheckOutlines();
             foreach (var outline in outlines)
             {
                 outline.enabled = false;
@@ -147,6 +149,11 @@ namespace OperationPlayground.Interactables
         {
             var collider = GetComponent<SphereCollider>();
             collider.radius = interactRadius;
+        }
+
+        private void CheckOutlines()
+        {
+            outlines.RemoveAll(o => o == null);
         }
     }
 }

@@ -1,3 +1,4 @@
+using OperationPlayground.SupplyCreates;
 using OperationPlayground.UI;
 using RicTools.Managers;
 using System.Collections;
@@ -13,5 +14,6 @@ namespace OperationPlayground.Managers
         public TowerHealth towerHealth;
         public LoseWinUI loseWinUI;
         public LobbyMenu lobbyMenu;
+        public SupplyCrateManager supplyCrateManager;
     }
 }

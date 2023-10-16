@@ -114,7 +114,7 @@ namespace OperationPlayground.Player
 
         public void RemoveAllPlayerStates()
         {
-            while(playerStates.Count > 0)
+            while (playerStates.Count > 0)
             {
                 RemovePlayerState(playerStates[0].StateType);
             }

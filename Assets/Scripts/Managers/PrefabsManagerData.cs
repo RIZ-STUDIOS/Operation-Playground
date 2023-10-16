@@ -8,5 +8,6 @@ namespace OperationPlayground.Managers
     public class PrefabsManagerData : DataManagerScriptableObject
     {
         public GameObject healthBarPrefab;
+        public GameObject supplyCratePrefab;
     }
 }

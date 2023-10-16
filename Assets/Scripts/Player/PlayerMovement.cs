@@ -126,7 +126,7 @@ namespace OperationPlayground.Player
 
         public void SetPosition(Vector3 position)
         {
-            if(!controller) controller = GetComponent<CharacterController>();
+            if (!controller) controller = GetComponent<CharacterController>();
             controller.enabled = false;
             transform.position = position;
             controller.enabled = true;

@@ -98,4 +98,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0304c117ca59dc241a93b7cd421bdc31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnLocations: []
+  spawnLocations:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}

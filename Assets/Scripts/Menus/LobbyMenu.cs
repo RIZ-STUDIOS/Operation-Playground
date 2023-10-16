@@ -57,7 +57,7 @@ namespace OperationPlayground
 
             playerManager.playerInput.UI.Submit.performed += (InputAction.CallbackContext context) =>
             {
-                if(context.ReadValue<float>() == 1)
+                if (context.ReadValue<float>() == 1)
                 {
                     PlayerReadied(playerManager);
                 }
@@ -86,7 +86,7 @@ namespace OperationPlayground
         {
             if (totalPlayers >= minPlayers && readyPlayers == totalPlayers)
             {
-                if(timerCoroutine != null)
+                if (timerCoroutine != null)
                     StopCoroutine(timerCoroutine);
                 timerCoroutine = null;
 

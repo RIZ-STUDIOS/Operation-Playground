@@ -63,5 +63,14 @@ namespace OperationPlayground.Player
             //playerManager.transform.position = new Vector3(200, 0, 0);
             //playerManager.transform.position = spawnLocations[playerManager.playerIndex].position;
         }
+
+        private void OnDrawGizmosSelected()
+        {
+            Gizmos.color = Color.blue;
+            foreach (var transform in spawnLocations)
+            {
+                Gizmos.DrawWireSphere(transform.position, 2);
+            }
+        }
     }
 }

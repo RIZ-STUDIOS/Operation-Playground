@@ -9,10 +9,29 @@ namespace OperationPlayground.Editor.CustomEditors
     [CustomEditor(typeof(SupplyCrateManager))]
     public class SupplyCrateManagerCustomEditor : UnityEditor.Editor
     {
+        private SupplyCrateManager crateManager;
+
+        private void OnEnable()
+        {
+            crateManager = (SupplyCrateManager)target;
+        }
+
+        public override void OnInspectorGUI()
+        {
+            base.OnInspectorGUI();
+
+            if (GUILayout.Button("Get All Dropdown Locations"))
+            {
+                crateManager.locations = new SupplyCreateSpawnLocation[] { };
+
+                crateManager.locations = GameObject.FindObjectsByType<SupplyCreateSpawnLocation>(FindObjectsSortMode.None);
+
+                serializedObject.ApplyModifiedProperties();
+            }
+        }
+
         private void OnSceneGUI()
         {
-            var crateManager = target as SupplyCrateManager;
-
             var color = new Color(0.2f, 1f, 0.2f);
 
             Handles.color = color;

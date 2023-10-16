@@ -6,11 +6,18 @@ using UnityEngine;
 
 namespace OperationPlayground.ScriptableObjects
 {
+    public enum BuildingType
+    {
+        Generic,
+        Turret
+    }
+
     public class BuildingScriptableObject : GenericScriptableObject
     {
         public GameObject prefab;
         public int health;
         public float placementDistance;
+        public BuildingType buildingType;
         public Vector3 boundsToCheck;
     }
 }

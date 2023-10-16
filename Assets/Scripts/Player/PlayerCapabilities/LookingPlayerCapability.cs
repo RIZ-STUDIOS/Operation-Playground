@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace OperationPlayground.Player.PlayerStates
+namespace OperationPlayground.Player.PlayerCapabilities
 {
-    public class LookingPlayerState : PlayerState
+    public class LookingPlayerCapability : PlayerCapability
     {
-        public override PlayerStateType StateType => PlayerStateType.Looking;
+        public override PlayerCapabilityType CapabilityType => PlayerCapabilityType.Looking;
 
         public override void OnStateEnter()
         {

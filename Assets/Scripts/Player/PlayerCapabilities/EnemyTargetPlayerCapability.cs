@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace OperationPlayground.Player.PlayerStates
+namespace OperationPlayground.Player.PlayerCapabilities
 {
-    public class EnemyTargetPlayerState : PlayerState
+    public class EnemyTargetPlayerCapability : PlayerCapability
     {
-        public override PlayerStateType StateType => PlayerStateType.EnemyTarget;
+        public override PlayerCapabilityType CapabilityType => PlayerCapabilityType.EnemyTarget;
 
         public override void OnStateEnter()
         {

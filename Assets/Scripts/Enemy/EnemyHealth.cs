@@ -52,7 +52,7 @@ namespace OperationPlayground.Enemy
 
         private void OnDestroy()
         {
-            EnemyRoundManager.Instance.RemoveEnemy(gameObject);
+            GameManager.Instance.enemyRoundManager.RemoveEnemy(gameObject);
         }
     }
 }

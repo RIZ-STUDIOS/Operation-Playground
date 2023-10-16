@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace OperationPlayground.Player.PlayerStates
+namespace OperationPlayground.Player.PlayerCapabilities
 {
-    public class HealthBarPlayerState : PlayerState
+    public class HealthBarPlayerCapability : PlayerCapability
     {
-        public override PlayerStateType StateType => PlayerStateType.HealthBar;
+        public override PlayerCapabilityType CapabilityType => PlayerCapabilityType.HealthBar;
 
         public override void OnStateEnter()
         {

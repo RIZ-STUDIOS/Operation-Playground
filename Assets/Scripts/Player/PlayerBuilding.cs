@@ -114,11 +114,11 @@ namespace OperationPlayground.Player
             if (buildingMode)
             {
                 DisableBuildMode();
-                playerInputManager.AddPlayerState(PlayerStates.PlayerStateType.Shooting);
+                playerInputManager.AddPlayerState(PlayerCapabilities.PlayerCapabilityType.Shooting);
             }
             else
             {
-                playerInputManager.RemovePlayerState(PlayerStates.PlayerStateType.Shooting);
+                playerInputManager.RemovePlayerState(PlayerCapabilities.PlayerCapabilityType.Shooting);
                 EnableBuildMode();
             }
         }

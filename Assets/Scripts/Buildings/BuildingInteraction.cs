@@ -1,6 +1,6 @@
 using OperationPlayground.Interactables;
 using OperationPlayground.Player;
-using OperationPlayground.Player.PlayerStates;
+using OperationPlayground.Player.PlayerCapabilities;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -28,16 +28,16 @@ namespace OperationPlayground.Buildings
             if (playerManager) return;
             playerManager = player;
             player.playerInput.Player.Interact.performed += OnInteractPerformed;
-            player.RemovePlayerState(PlayerStateType.Building);
-            player.RemovePlayerState(PlayerStateType.Looking);
-            player.RemovePlayerState(PlayerStateType.Movement);
-            player.RemovePlayerState(PlayerStateType.Shooting);
-            player.RemovePlayerState(PlayerStateType.HealthBar);
-            player.RemovePlayerState(PlayerStateType.InvalidPlacement);
-            player.RemovePlayerState(PlayerStateType.EnemyTarget);
-            player.RemovePlayerState(PlayerStateType.Interaction);
-            player.RemovePlayerState(PlayerStateType.Graphics);
-            player.RemovePlayerState(PlayerStateType.Collision);
+            player.RemovePlayerState(PlayerCapabilityType.Building);
+            player.RemovePlayerState(PlayerCapabilityType.Looking);
+            player.RemovePlayerState(PlayerCapabilityType.Movement);
+            player.RemovePlayerState(PlayerCapabilityType.Shooting);
+            player.RemovePlayerState(PlayerCapabilityType.HealthBar);
+            player.RemovePlayerState(PlayerCapabilityType.InvalidPlacement);
+            player.RemovePlayerState(PlayerCapabilityType.EnemyTarget);
+            player.RemovePlayerState(PlayerCapabilityType.Interaction);
+            player.RemovePlayerState(PlayerCapabilityType.Graphics);
+            player.RemovePlayerState(PlayerCapabilityType.Collision);
             onEnterBuilding?.Invoke(player);
         }
 
@@ -57,16 +57,16 @@ namespace OperationPlayground.Buildings
         {
             if (!playerManager) return;
             playerManager.playerInput.Player.Interact.performed -= OnInteractPerformed;
-            playerManager.AddPlayerState(PlayerStateType.Building);
-            playerManager.AddPlayerState(PlayerStateType.Looking);
-            playerManager.AddPlayerState(PlayerStateType.Movement);
-            playerManager.AddPlayerState(PlayerStateType.Shooting);
-            playerManager.AddPlayerState(PlayerStateType.HealthBar);
-            playerManager.AddPlayerState(PlayerStateType.InvalidPlacement);
-            playerManager.AddPlayerState(PlayerStateType.EnemyTarget);
-            playerManager.AddPlayerState(PlayerStateType.Interaction);
-            playerManager.AddPlayerState(PlayerStateType.Graphics);
-            playerManager.AddPlayerState(PlayerStateType.Collision);
+            playerManager.AddPlayerState(PlayerCapabilityType.Building);
+            playerManager.AddPlayerState(PlayerCapabilityType.Looking);
+            playerManager.AddPlayerState(PlayerCapabilityType.Movement);
+            playerManager.AddPlayerState(PlayerCapabilityType.Shooting);
+            playerManager.AddPlayerState(PlayerCapabilityType.HealthBar);
+            playerManager.AddPlayerState(PlayerCapabilityType.InvalidPlacement);
+            playerManager.AddPlayerState(PlayerCapabilityType.EnemyTarget);
+            playerManager.AddPlayerState(PlayerCapabilityType.Interaction);
+            playerManager.AddPlayerState(PlayerCapabilityType.Graphics);
+            playerManager.AddPlayerState(PlayerCapabilityType.Collision);
             onExitBuilding?.Invoke(playerManager);
             playerManager = null;
         }

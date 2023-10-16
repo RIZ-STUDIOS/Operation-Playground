@@ -14,6 +14,9 @@ namespace OperationPlayground.SupplyCreates
         [MinValue(0.001f)]
         public float spawnHeight = 10;
 
+        [SerializeField]
+        private ParticleSystem landingParticles;
+
         private GameObject supplyCratePrefab;
 
         private SupplyCrate currentSupplyCrate;
@@ -46,6 +49,8 @@ namespace OperationPlayground.SupplyCreates
                 Destroy(supplyCrateGameObject);
             };
 
+            landingParticles.transform.localPosition = new Vector3(randomisedPosition.x, 0.01f, randomisedPosition.y);
+            landingParticles.Play();
             StartCoroutine(MoveCrateDown());
         }
 
@@ -53,9 +58,11 @@ namespace OperationPlayground.SupplyCreates
         {
             var position = currentSupplyCrate.transform.position;
 
+            var speed = spawnHeight / GameManager.Instance.supplyCrateManager.timeToDescend;
+
             while (position.y > transform.position.y)
             {
-                position.y -= GameManager.Instance.supplyCrateManager.descentVelocity * Time.deltaTime;
+                position.y -= speed * Time.deltaTime;
                 currentSupplyCrate.transform.position = position;
                 yield return null;
             }
@@ -64,6 +71,8 @@ namespace OperationPlayground.SupplyCreates
             currentSupplyCrate.transform.position = position;
 
             currentSupplyCrate.onLand?.Invoke();
+            landingParticles.Stop();
+            landingParticles.time = 0;
         }
     }
 }

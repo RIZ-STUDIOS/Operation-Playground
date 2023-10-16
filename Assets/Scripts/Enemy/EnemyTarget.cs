@@ -7,7 +7,8 @@ namespace OperationPlayground
     public enum TargetType
     {
         Building,
-        Player
+        Player,
+        Crate
     }
 
     public class EnemyTarget : MonoBehaviour

@@ -23,17 +23,9 @@ namespace OperationPlayground
             GameManager.Instance.towerHealth = this;
         }
 
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.K))
-            {
-                OnDeath();
-            }
-        }
-
         protected override void OnDeath()
         {
-            EnemyRoundManager.Instance.StopRounds();
+            GameManager.Instance.enemyRoundManager.StopRounds();
             GameManager.Instance.loseWinUI.ShowWin();
         }
     }

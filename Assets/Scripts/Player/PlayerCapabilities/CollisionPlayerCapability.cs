@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace OperationPlayground.Player.PlayerStates
+namespace OperationPlayground.Player.PlayerCapabilities
 {
-    public class CollisionPlayerState : PlayerState
+    public class CollisionPlayerCapability : PlayerCapability
     {
-        public override PlayerStateType StateType => PlayerStateType.Collision;
+        public override PlayerCapabilityType CapabilityType => PlayerCapabilityType.Collision;
 
         public override void OnStateEnter()
         {

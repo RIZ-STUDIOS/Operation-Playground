@@ -1,3 +1,4 @@
+using OperationPlayground.Enemy;
 using OperationPlayground.SupplyCreates;
 using OperationPlayground.UI;
 using RicTools.Managers;
@@ -15,5 +16,6 @@ namespace OperationPlayground.Managers
         public LoseWinUI loseWinUI;
         public LobbyMenu lobbyMenu;
         public SupplyCrateManager supplyCrateManager;
+        public EnemyRoundManager enemyRoundManager;
     }
 }

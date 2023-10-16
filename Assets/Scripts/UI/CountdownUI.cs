@@ -1,4 +1,5 @@
 using OperationPlayground.Enemy;
+using OperationPlayground.Managers;
 using RicTools.Attributes;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,14 +15,14 @@ namespace OperationPlayground.UI
 
         private void Start()
         {
-            EnemyRoundManager.Instance.onCountdownTick += DoCountdown;
-            EnemyRoundManager.Instance.onRoundEnd += ShowCountdown;
-            EnemyRoundManager.Instance.onRoundStart += HideCountdown;
+            GameManager.Instance.enemyRoundManager.onCountdownTick += DoCountdown;
+            GameManager.Instance.enemyRoundManager.onRoundEnd += ShowCountdown;
+            GameManager.Instance.enemyRoundManager.onRoundStart += HideCountdown;
         }
 
         private void DoCountdown(float timer)
         {
-            timerImage.fillAmount = timer / EnemyRoundManager.Instance.TimeBetweenRounds;
+            timerImage.fillAmount = timer / GameManager.Instance.enemyRoundManager.TimeBetweenRounds;
         }
 
         private void ShowCountdown()

@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace OperationPlayground.Player.PlayerStates
+namespace OperationPlayground.Player.PlayerCapabilities
 {
-    public class MovementPlayerState : PlayerState
+    public class MovementPlayerCapability : PlayerCapability
     {
-        public override PlayerStateType StateType => PlayerStateType.Movement;
+        public override PlayerCapabilityType CapabilityType => PlayerCapabilityType.Movement;
 
         public override void OnStateEnter()
         {

@@ -1,5 +1,5 @@
 using OperationPlayground.Player;
-using OperationPlayground.Player.PlayerStates;
+using OperationPlayground.Player.PlayerCapabilities;
 using RicTools.Attributes;
 using RicTools.Utilities;
 using System.Collections;
@@ -108,7 +108,7 @@ namespace OperationPlayground.Interactables
 
         public bool AnyPlayerNearby()
         {
-            return nearbyPlayers.Any(p => p.HasPlayerState(PlayerStateType.Interaction));
+            return nearbyPlayers.Any(p => p.HasPlayerState(PlayerCapabilityType.Interaction));
         }
 
         public void UpdateOutlines()

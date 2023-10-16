@@ -18,6 +18,9 @@ namespace OperationPlayground.Editor.Windows
         private EditorContainer<int> health = new EditorContainer<int>(1);
 
         [SerializeField]
+        private EditorContainer<BuildingType> buildingType = new EditorContainer<BuildingType>();
+
+        [SerializeField]
         private EditorContainer<float> placementDistance = new EditorContainer<float>(1);
 
         [MenuItem("Operation Playground/Building Editor")]
@@ -57,12 +60,14 @@ namespace OperationPlayground.Editor.Windows
                 prefab.Value = null;
                 health.Value = 1;
                 placementDistance.Value = 1;
+                buildingType.Value = default;
             }
             else
             {
                 prefab.Value = so.prefab;
                 health.Value = so.health;
                 placementDistance.Value = so.placementDistance;
+                buildingType.Value = so.buildingType;
             }
         }
 
@@ -71,6 +76,8 @@ namespace OperationPlayground.Editor.Windows
             asset.prefab = prefab;
             asset.health = health;
             asset.placementDistance = placementDistance;
+            asset.buildingType = buildingType;
+
             var gameObject = new GameObject();
             var prefabCreated = GameObject.Instantiate(prefab.Value);
             prefabCreated.transform.parent = gameObject.transform;

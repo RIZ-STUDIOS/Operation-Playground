@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace OperationPlayground.Player.PlayerStates
+namespace OperationPlayground.Player.PlayerCapabilities
 {
-    public class InvalidPlacementPlayerState : PlayerState
+    public class InvalidPlacementPlayerCapability : PlayerCapability
     {
-        public override PlayerStateType StateType => PlayerStateType.InvalidPlacement;
+        public override PlayerCapabilityType CapabilityType => PlayerCapabilityType.InvalidPlacement;
 
         public override void OnStateEnter()
         {

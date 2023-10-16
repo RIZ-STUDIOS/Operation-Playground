@@ -13,10 +13,8 @@ using UnityEngine.Splines;
 
 namespace OperationPlayground.Enemy
 {
-    public class EnemyRoundManager : GenericManager<EnemyRoundManager>
+    public class EnemyRoundManager : MonoBehaviour
     {
-        protected override bool DestroyIfFound => false;
-
         [SerializeField]
         private List<EnemyRoundScriptableObject> rounds;
 
@@ -43,6 +41,11 @@ namespace OperationPlayground.Enemy
 
         private Coroutine countdownCoroutine;
         private Coroutine roundCoroutine;
+
+        private void Awake()
+        {
+            GameManager.Instance.enemyRoundManager = this;
+        }
 
         private void Start()
         {

@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace OperationPlayground.Player.PlayerStates
+namespace OperationPlayground.Player.PlayerCapabilities
 {
-    public class GraphicsPlayerState : PlayerState
+    public class GraphicsPlayerCapability : PlayerCapability
     {
-        public override PlayerStateType StateType => PlayerStateType.Graphics;
+        public override PlayerCapabilityType CapabilityType => PlayerCapabilityType.Graphics;
 
         public override void OnStateEnter()
         {

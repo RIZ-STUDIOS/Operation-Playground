@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace OperationPlayground.Player.PlayerStates
+namespace OperationPlayground.Player.PlayerCapabilities
 {
-    public class InteractionPlayerState : PlayerState
+    public class InteractionPlayerCapability : PlayerCapability
     {
-        public override PlayerStateType StateType => PlayerStateType.Interaction;
+        public override PlayerCapabilityType CapabilityType => PlayerCapabilityType.Interaction;
 
         public override void OnStateEnter()
         {

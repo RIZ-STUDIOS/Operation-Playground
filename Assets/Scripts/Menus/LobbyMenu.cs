@@ -26,6 +26,7 @@ namespace OperationPlayground
         private PlayerSpawnManager playerSpawn;
 
         [SerializeField]
+        [PositiveValueOnly]
         private int lobbyDuration;
 
         private Coroutine timerCoroutine;

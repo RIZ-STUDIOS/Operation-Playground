@@ -1,4 +1,5 @@
 using OperationPlayground.Enemy;
+using OperationPlayground.Managers;
 using OperationPlayground.ScriptableObjects;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,8 +15,8 @@ namespace OperationPlayground.UI
 
         private void Start()
         {
-            EnemyRoundManager.Instance.onCountdownStart += () => UpdateNextEnemies(EnemyRoundManager.Instance.nextRound);
-            EnemyRoundManager.Instance.onEnemyKilled += () => UpdateNextEnemies(EnemyRoundManager.Instance.currentRound);
+            GameManager.Instance.enemyRoundManager.onCountdownStart += () => UpdateNextEnemies(GameManager.Instance.enemyRoundManager.nextRound);
+            GameManager.Instance.enemyRoundManager.onEnemyKilled += () => UpdateNextEnemies(GameManager.Instance.enemyRoundManager.currentRound);
         }
 
         private void UpdateNextEnemies(GameRound round)

@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace OperationPlayground.Player.PlayerStates
+namespace OperationPlayground.Player.PlayerCapabilities
 {
-    public class ShootingPlayerState : PlayerState
+    public class ShootingPlayerCapability : PlayerCapability
     {
-        public override PlayerStateType StateType => PlayerStateType.Shooting;
+        public override PlayerCapabilityType CapabilityType => PlayerCapabilityType.Shooting;
 
         public override void OnStateEnter()
         {

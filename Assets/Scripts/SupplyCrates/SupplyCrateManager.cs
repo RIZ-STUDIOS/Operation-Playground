@@ -8,10 +8,10 @@ namespace OperationPlayground.SupplyCreates
 {
     public class SupplyCrateManager : MonoBehaviour
     {
-        public SupplyCreateSpawnLocation[] locations;
-
         [MinValue(0.001f)]
-        public float descentVelocity = 1;
+        public float timeToDescend = 1;
+
+        public SupplyCreateSpawnLocation[] locations;
 
         private void Awake()
         {

@@ -16,3 +16,5 @@ MonoBehaviour:
     type: 3}
   supplyCratePrefab: {fileID: 1129758997697749059, guid: 2ed2cfc0c234b6a4d9021b790f987a10,
     type: 3}
+  waterBeamPrefab: {fileID: 3107792432532508031, guid: cda6c402035fa6a47bfb66eafff90113,
+    type: 3}

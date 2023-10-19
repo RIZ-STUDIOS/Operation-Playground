@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: tank
   prefab: {fileID: 7475393509802682153, guid: 0bf1d1bded174e64e8298d0970027f6f, type: 3}
-  health: 10
+  health: 50
   damageTypes: 01000000
   attackRange: 10
   attackCooldown: 3

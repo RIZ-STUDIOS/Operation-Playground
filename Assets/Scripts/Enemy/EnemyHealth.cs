@@ -17,19 +17,19 @@ namespace OperationPlayground.Enemy
         [NonSerialized]
         public EnemyScriptableObject enemySo;
 
-        public override int MaxHealth => enemySo.health;
+        public override float MaxHealth => enemySo.health;
 
         protected override void Start()
         {
             base.Start();
         }
 
-        public new void Damage(int amount = 1)
+        public new void Damage(float amount = 1)
         {
             Damage(amount, DamageType.None);
         }
 
-        public void Damage(int amount = 1, DamageType damageType = DamageType.None)
+        public void Damage(float amount = 1, DamageType damageType = DamageType.None)
         {
             int damageMod = IsWeakTo(damageType) ? 3 : 1;
 

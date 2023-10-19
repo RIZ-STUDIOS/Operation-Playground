@@ -15,10 +15,8 @@ namespace OperationPlayground.Player
         [SerializeField]
         private Transform weaponSlotTransform;
 
-        private bool triggerPressed;
-
         [SerializeField]
-        private Weapon defaultWeapon;
+        private WaterGunWeapon defaultWeapon;
 
         private Weapon equippedWeapon;
 
@@ -26,28 +24,22 @@ namespace OperationPlayground.Player
 
         private bool shootingEnabled;
 
-        public Weapon EquippedWeapon
+        /*public Weapon EquippedWeapon
         {
             get
             {
                 if (equippedWeapon) return equippedWeapon;
                 return defaultWeapon;
             }
-        }
+        }*/
 
         private void Awake()
         {
             playerInputManager = GetComponent<PlayerManager>();
 
-            EquipWeapon(defaultWeapon);
-        }
+            //EquipWeapon(defaultWeapon);
 
-        private void Update()
-        {
-            if (triggerPressed)
-            {
-                EquippedWeapon.Shoot();
-            }
+            defaultWeapon.parentShooter = playerInputManager.playerHealth;
         }
 
         private void OnEnable()
@@ -73,8 +65,8 @@ namespace OperationPlayground.Player
             playerInputManager.playerInput.Player.Fire.performed -= OnFirePerformed;
             playerInputManager.playerInput.Player.Fire.canceled -= OnFireCanceled;
             weaponSlotTransform.gameObject.SetActive(false);
-            triggerPressed = false;
             shootingEnabled = false;
+            defaultWeapon.StopShooting();
         }
 
         private void EnableInput()
@@ -90,17 +82,17 @@ namespace OperationPlayground.Player
 
         private void OnFirePerformed(InputAction.CallbackContext value)
         {
-            triggerPressed = true;
+            defaultWeapon.StartShoot();
         }
 
         private void OnFireCanceled(InputAction.CallbackContext value)
         {
-            triggerPressed = false;
+            defaultWeapon.StopShooting();
         }
 
         public bool EquipWeapon(Weapon weapon)
         {
-            if (weapon == null)
+            /*if (weapon == null)
             {
                 if (equippedWeapon == null || equippedWeapon == defaultWeapon) return false;
 
@@ -120,7 +112,7 @@ namespace OperationPlayground.Player
             weapon.transform.localPosition = weapon.offset;
             weapon.onAmmoEnd += UnequipWeapon;
             weapon.parentShooter = GetComponent<ObjectHealth>();
-            equippedWeapon.gameObject.SetActive(true);
+            equippedWeapon.gameObject.SetActive(true);*/
             return true;
         }
 

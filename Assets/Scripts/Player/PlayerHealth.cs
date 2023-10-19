@@ -8,10 +8,10 @@ namespace OperationPlayground
 {
     public class PlayerHealth : ObjectHealth
     {
-        [SerializeField, MinValue(1)]
-        private int maxHealth;
+        [SerializeField, MinValue(0.001f)]
+        private float maxHealth;
 
-        public override int MaxHealth => maxHealth;
+        public override float MaxHealth => maxHealth;
 
         public override bool IsPlayer => true;
 

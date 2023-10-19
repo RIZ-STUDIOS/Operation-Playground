@@ -19,7 +19,7 @@ namespace OperationPlayground.Editor.Windows
         private EditorContainer<ProjectileScriptableObject> projectileSo = new EditorContainer<ProjectileScriptableObject>();
 
         [SerializeField]
-        private EditorContainer<int> health = new EditorContainer<int>(1);
+        private EditorContainer<float> health = new EditorContainer<float>(1);
 
         [SerializeField]
         private EditorContainer<float> attackRange = new EditorContainer<float>(1);
@@ -58,7 +58,7 @@ namespace OperationPlayground.Editor.Windows
 
 
             {
-                var element = rootVisualElement.AddIntField(health, "Health");
+                var element = rootVisualElement.AddFloatField(health, "Health");
 
                 RegisterCheckCompletion(element);
                 RegisterLoadChange(element, health);

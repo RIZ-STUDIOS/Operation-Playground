@@ -80,10 +80,19 @@ namespace OperationPlayground.Editor.Windows
 
         protected override void CreateAsset(ref ProjectileScriptableObject asset)
         {
-            asset.prefab = prefab;
+            /*asset.prefab = prefab;
             asset.travelDuration = travelDuration;
             asset.speed = speed;
-            asset.damageType = damageType;
+            asset.damageType = damageType;*/
+
+            var waterProjectile = ScriptableObject.CreateInstance<WaterProjectileScriptableObject>();
+
+            waterProjectile.beamDuration = 0;
+            waterProjectile.beamCooldown = -1;
+            waterProjectile.damagePerSecond = 10;
+            waterProjectile.beamStrength = 20;
+
+            asset = waterProjectile;
         }
     }
 }

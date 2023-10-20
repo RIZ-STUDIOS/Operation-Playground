@@ -420,8 +420,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shootTransform: {fileID: 1313517059184062078}
-  waterStrength: 20
-  waterDamage: 10
+  projectileSo: {fileID: 11400000, guid: 044943dabfdc3e143a93dea50e495cc9, type: 2}
 --- !u!1 &5085153504377601727
 GameObject:
   m_ObjectHideFlags: 0

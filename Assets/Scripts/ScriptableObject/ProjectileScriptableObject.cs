@@ -6,6 +6,12 @@ using UnityEngine;
 
 namespace OperationPlayground.ScriptableObjects
 {
+    public enum ProjectileType
+    {
+        SingleShot,
+        Water
+    }
+
     public class ProjectileScriptableObject : GenericScriptableObject
     {
         public GameObject prefab;

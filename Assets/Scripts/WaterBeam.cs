@@ -14,7 +14,7 @@ namespace OperationPlayground
         [SerializeField, MustBeAssigned]
         private ParticleSystem waterBeamParticles;
 
-        private float currentBeamStrength;
+        public event System.Action onParticleSystemStopped;
 
         private void Awake()
         {
@@ -23,24 +23,43 @@ namespace OperationPlayground
 
         public void SetBeamStrength(float beamStrength)
         {
-            currentBeamStrength = beamStrength;
+            this.beamStrength = beamStrength;
             UpdateParticlesSpeed();
+        }
+
+        public void SetBeamDuration(float beamDuration)
+        {
+            var main = waterBeamParticles.main;
+            main.loop = beamDuration <= 0;
+            main.duration = beamDuration <= 0 ? 100 : beamDuration;
         }
 
         private void UpdateParticlesSpeed()
         {
             var main = waterBeamParticles.main;
-            main.startSpeed = currentBeamStrength;
+            main.startSpeed = beamStrength;
             var emission = waterBeamParticles.emission;
-            emission.rateOverTime = currentBeamStrength*2;
+            emission.rateOverTime = beamStrength*2;
         }
 
         private void OnValidate()
         {
-            var main = waterBeamParticles.main;
-            main.startSpeed = beamStrength;
-            var emission = waterBeamParticles.emission;
-            emission.rateOverTime = beamStrength * 2;
+            UpdateParticlesSpeed();
+        }
+
+        public void Play()
+        {
+            waterBeamParticles.Play();
+        }
+
+        public void Stop()
+        {
+            waterBeamParticles.Stop();
+        }
+
+        private void OnParticleSystemStopped()
+        {
+            onParticleSystemStopped?.Invoke();
         }
     }
 }

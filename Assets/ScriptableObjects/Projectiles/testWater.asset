@@ -9,9 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c723db066414e5439667761a0149e0c, type: 3}
-  m_Name: AvailableProjectiles
+  m_Script: {fileID: 11500000, guid: 2322cd28bd6d20949ad54d1bf2888fa5, type: 3}
+  m_Name: testWater
   m_EditorClassIdentifier: 
-  items:
-  - {fileID: 11400000, guid: 64d419158ad1a90418b1ab58078640a5, type: 2}
-  - {fileID: 11400000, guid: 044943dabfdc3e143a93dea50e495cc9, type: 2}
+  id: testWater
+  prefab: {fileID: 0}
+  speed: 0
+  travelDuration: 0
+  damageType: 0
+  beamDuration: 0.5
+  beamCooldown: 0.1
+  damagePerSecond: 10
+  beamStrength: 20

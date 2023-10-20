@@ -1,4 +1,5 @@
 using OperationPlayground.Managers;
+using OperationPlayground.ScriptableObjects;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,17 +12,19 @@ namespace OperationPlayground
         private Transform shootTransform;
 
         [SerializeField]
-        private float waterStrength;
-
-        [SerializeField]
-        private float waterDamage;
+        private WaterProjectileScriptableObject projectileSo;
 
         private GameObject waterBeamPrefab;
 
-        private ParticleSystem currentBeam;
+        private WaterBeam waterBeam;
 
         [System.NonSerialized]
         public ObjectHealth parentShooter;
+
+        private bool triggerDown;
+        private bool canShoot;
+
+        private float currentCooldown;
 
         private void Awake()
         {
@@ -31,13 +34,22 @@ namespace OperationPlayground
             beamGameObject.transform.SetParent(shootTransform, false);
             beamGameObject.transform.localPosition = Vector3.zero;
 
-            currentBeam = beamGameObject.GetComponent<ParticleSystem>();
+            waterBeam = beamGameObject.GetComponent<WaterBeam>();
+            waterBeam.SetBeamStrength(projectileSo.beamStrength);
+            waterBeam.SetBeamDuration(projectileSo.beamDuration);
 
-            var waterBeam = beamGameObject.GetComponent<WaterBeam>();
-            waterBeam.SetBeamStrength(waterStrength);
+            waterBeam.onParticleSystemStopped += () =>
+            {
+                if (projectileSo.IsSingleFire) return;
+
+                currentCooldown = projectileSo.beamCooldown;
+                canShoot = false;
+            };
+
+            canShoot = true;
 
             var damageParticles = beamGameObject.GetComponent<DamageParticles>();
-            damageParticles.damagePerSecond = waterDamage;
+            damageParticles.damagePerSecond = projectileSo.damagePerSecond;
             damageParticles.shooter = parentShooter;
 
             StopShooting();
@@ -45,14 +57,27 @@ namespace OperationPlayground
 
         public void StartShoot()
         {
-            currentBeam.Play();
+            waterBeam.Play();
+            triggerDown = true;
         }
 
         public void StopShooting()
         {
-            if (!currentBeam) return;
+            waterBeam.Stop();
+            triggerDown = false;
+        }
 
-            currentBeam.Stop();
+        private void Update()
+        {
+            if(triggerDown && !canShoot && currentCooldown <= 0)
+            {
+                Debug.Log("shoot");
+                canShoot = true;
+                waterBeam.Play();
+            }
+
+            currentCooldown -= Time.deltaTime;
+            currentCooldown = Mathf.Max(currentCooldown, 0);
         }
     }
 }

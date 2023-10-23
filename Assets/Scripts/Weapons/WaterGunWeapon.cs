@@ -18,7 +18,7 @@ namespace OperationPlayground
 
         private GameObject waterBeamPrefab;
 
-        private ParticleSystem currentBeam;
+        private WaterBeam currentBeam;
 
         [System.NonSerialized]
         public ObjectHealth parentShooter;
@@ -26,33 +26,33 @@ namespace OperationPlayground
         private void Awake()
         {
             waterBeamPrefab = PrefabsManager.Instance.data.waterBeamPrefab;
+        }
+
+        public void StartShoot()
+        {
+            Debug.Log("start");
+
+            StopShooting();
 
             var beamGameObject = Instantiate(waterBeamPrefab);
             beamGameObject.transform.SetParent(shootTransform, false);
             beamGameObject.transform.localPosition = Vector3.zero;
 
-            currentBeam = beamGameObject.GetComponent<ParticleSystem>();
-
-            var waterBeam = beamGameObject.GetComponent<WaterBeam>();
-            waterBeam.SetBeamStrength(waterStrength);
+            currentBeam = beamGameObject.GetComponent<WaterBeam>();
+            currentBeam.SetBeamStrength(waterStrength);
 
             var damageParticles = beamGameObject.GetComponent<DamageParticles>();
             damageParticles.damagePerSecond = waterDamage;
             damageParticles.shooter = parentShooter;
-
-            StopShooting();
-        }
-
-        public void StartShoot()
-        {
-            currentBeam.Play();
         }
 
         public void StopShooting()
         {
             if (!currentBeam) return;
+            Debug.Log("stop");
 
-            currentBeam.Stop();
+            currentBeam.GetComponent<ParticleSystem>().Stop();
+            currentBeam = null;
         }
     }
 }

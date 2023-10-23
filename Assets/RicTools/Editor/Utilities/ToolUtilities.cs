@@ -42,7 +42,7 @@ namespace RicTools.Editor.Utilities
             {
                 var genericTypeArguments = editorType.GetTypeInfo().BaseType.GetTypeInfo().GenericTypeArguments;
                 if (genericTypeArguments.Length == 0) continue;
-                if (genericTypeArguments[0] == type || type.IsSubclassOf(genericTypeArguments[0])) return editorType;
+                if (genericTypeArguments[0] == type) return editorType;
             }
 
             return null;
@@ -60,7 +60,7 @@ namespace RicTools.Editor.Utilities
             {
                 var genericTypeArguments = editorType.GetTypeInfo().BaseType.GetTypeInfo().GenericTypeArguments;
                 if (genericTypeArguments.Length == 0) continue;
-                if (genericTypeArguments[0] == type || type.IsSubclassOf(genericTypeArguments[0])) return editorType;
+                if (genericTypeArguments[0] == type) return editorType;
             }
 
             return null;

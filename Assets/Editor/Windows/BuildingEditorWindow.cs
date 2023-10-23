@@ -15,7 +15,7 @@ namespace OperationPlayground.Editor.Windows
         private EditorContainer<GameObject> prefab = new EditorContainer<GameObject>();
 
         [SerializeField]
-        private EditorContainer<float> health = new EditorContainer<float>(1);
+        private EditorContainer<int> health = new EditorContainer<int>(1);
 
         [SerializeField]
         private EditorContainer<BuildingType> buildingType = new EditorContainer<BuildingType>();
@@ -39,7 +39,7 @@ namespace OperationPlayground.Editor.Windows
             }
 
             {
-                var element = rootVisualElement.AddFloatField(health, "Health");
+                var element = rootVisualElement.AddIntField(health, "Health");
 
                 RegisterCheckCompletion(element);
                 RegisterLoadChange(element, health);

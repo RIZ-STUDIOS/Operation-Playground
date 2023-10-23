@@ -10,9 +10,9 @@ namespace OperationPlayground.SupplyCreates
         [SerializeField]
         [Rename("Max Health")]
         [MinValue(1)]
-        private float _maxHealth;
+        private int _maxHealth;
 
-        public override float MaxHealth => _maxHealth;
+        public override int MaxHealth => _maxHealth;
 
         public override bool IsPlayer => true;
 

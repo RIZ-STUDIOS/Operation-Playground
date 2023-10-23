@@ -14,7 +14,7 @@ namespace OperationPlayground.Buildings
         [System.NonSerialized]
         public BuildingScriptableObject buildingSo;
 
-        public override float MaxHealth => buildingSo.health;
+        public override int MaxHealth => buildingSo.health;
 
         protected override bool DoSpawnHealthBar => false;
 

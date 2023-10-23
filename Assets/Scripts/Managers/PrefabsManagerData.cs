@@ -9,6 +9,5 @@ namespace OperationPlayground.Managers
     {
         public GameObject healthBarPrefab;
         public GameObject supplyCratePrefab;
-        public GameObject waterBeamPrefab;
     }
 }

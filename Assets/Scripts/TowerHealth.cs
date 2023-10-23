@@ -10,9 +10,9 @@ namespace OperationPlayground
     public class TowerHealth : ObjectHealth
     {
         [SerializeField, MinValue(1), ReadOnly(AvailableMode.Play)]
-        private float maxHealth;
+        private int maxHealth;
 
-        public override float MaxHealth => maxHealth;
+        public override int MaxHealth => maxHealth;
 
         protected override bool DoSpawnHealthBar => false;
 

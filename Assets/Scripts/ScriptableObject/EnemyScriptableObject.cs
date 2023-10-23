@@ -9,7 +9,7 @@ namespace OperationPlayground.ScriptableObjects
     public class EnemyScriptableObject : GenericScriptableObject
     {
         public GameObject prefab;
-        public float health;
+        public int health;
         public DamageType[] damageTypes;
         public float attackRange;
         public float attackCooldown;

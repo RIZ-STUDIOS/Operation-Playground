@@ -9,16 +9,16 @@ namespace OperationPlayground
 {
     public abstract class ObjectHealth : MonoBehaviour
     {
-        private float health;
+        private int health;
 
-        public float Health { get { return health; } protected set { health = value; onHealthChange?.Invoke(); } }
+        public int Health { get { return health; } protected set { health = value; onHealthChange?.Invoke(); } }
 
-        public abstract float MaxHealth { get; }
+        public abstract int MaxHealth { get; }
 
         public event System.Action onHealthChange;
         public event System.Action onDeath;
 
-        public float HealthPer => Health / MaxHealth;
+        public float HealthPer => Health / (float)MaxHealth;
 
         protected virtual bool DoSpawnHealthBar => true;
 
@@ -40,7 +40,7 @@ namespace OperationPlayground
                 SpawnHealthBar();
         }
 
-        public void Damage(float amount)
+        public void Damage(int amount)
         {
             if (amount < 0)
                 return;
@@ -54,14 +54,12 @@ namespace OperationPlayground
             }
         }
 
-        public void Heal(float amount)
+        public void Heal(int amount)
         {
             if (amount < 0)
                 return;
 
             Health += amount;
-
-            if(Health > MaxHealth) Health = MaxHealth;
         }
 
         protected abstract void OnDeath();

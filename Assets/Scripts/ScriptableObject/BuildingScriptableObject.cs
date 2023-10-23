@@ -15,7 +15,7 @@ namespace OperationPlayground.ScriptableObjects
     public class BuildingScriptableObject : GenericScriptableObject
     {
         public GameObject prefab;
-        public float health;
+        public int health;
         public float placementDistance;
         public BuildingType buildingType;
         public Vector3 boundsToCheck;

@@ -22,7 +22,7 @@ namespace OperationPlayground.Player
         {
             Debug.Log($"Player {input.playerIndex} has joined the session!");
 
-            var playerManager = input.gameObject.GetOrAddComponent<PlayerManager>();
+            var playerManager = input.gameObject.GetComponentInChildren<PlayerManager>();
             playerManager.gamepad = input.GetDevice<Gamepad>();
             playerManager.GetData();
             GameObject player = input.gameObject;

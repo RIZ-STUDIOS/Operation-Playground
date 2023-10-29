@@ -26,7 +26,7 @@ namespace OperationPlayground.Player
 
         private void Awake()
         {
-            playerInputManager = GetComponent<PlayerManager>();
+            playerInputManager = GetComponentInChildren<PlayerManager>();
             controller = GetComponent<CharacterController>();
         }
 
@@ -126,7 +126,7 @@ namespace OperationPlayground.Player
 
         public void SetPosition(Vector3 position)
         {
-            if (!controller) controller = GetComponent<CharacterController>();
+            if (!controller) controller = GetComponentInParent<CharacterController>();
             controller.enabled = false;
             transform.position = position;
             controller.enabled = true;

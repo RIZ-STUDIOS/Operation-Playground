@@ -1008,6 +1008,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1635813153133403817, guid: 6030d5cb74ae68448b7566b3f2ac5089,
         type: 3}
+      propertyPath: m_SplitScreen
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1635813153133403817, guid: 6030d5cb74ae68448b7566b3f2ac5089,
+        type: 3}
       propertyPath: m_FixedNumberOfSplitScreens
       value: -1
       objectReference: {fileID: 0}

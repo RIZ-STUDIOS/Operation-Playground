@@ -70,7 +70,7 @@ namespace OperationPlayground.Player
             playerInput = new OPPlayerInput();
             playerInput.Enable();
 
-            playerMovement = GetComponent<PlayerMovement>();
+            playerMovement = GetComponentInParent<PlayerMovement>();
             playerShooting = GetComponent<PlayerShooting>();
             playerHealth = GetComponent<PlayerHealth>();
             playerInteraction = GetComponent<PlayerInteraction>();

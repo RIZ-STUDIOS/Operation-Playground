@@ -1,3 +1,5 @@
+using OperationPlayground.Loading;
+using OperationPlayground.Managers;
 using RicTools.Managers;
 using RicTools.Utilities;
 using System.Collections;
@@ -7,72 +9,66 @@ using UnityEngine.InputSystem;
 
 namespace OperationPlayground.Player
 {
+    [DisallowMultipleComponent]
     public class PlayerSpawnManager : GenericManager<PlayerSpawnManager>
     {
-        [System.NonSerialized]
-        public List<PlayerManager> players = new List<PlayerManager>();
-        public event System.Action<PlayerManager> onPlayerJoined;
+        private List<PlayerManager> players = new List<PlayerManager>();
 
-        [SerializeField]
-        private Transform[] spawnLocations;
+        public bool AnyPlayersJoined => players.Count > 0;
 
-        private int respawnTimer = 5;
-
-        private void OnPlayerJoined(PlayerInput input)
+        protected override void Awake()
         {
-            Debug.Log($"Player {input.playerIndex} has joined the session!");
-
-            var playerManager = input.gameObject.GetComponentInChildren<PlayerManager>();
-            playerManager.gamepad = input.GetDevice<Gamepad>();
-            playerManager.GetData();
-            GameObject player = input.gameObject;
-
-            playerManager.rumbleController.DoRumble(0, 0.2f, 0.2f);
-
-            playerManager.devices = input.devices;
-            playerManager.playerIndex = input.playerIndex;
-
-            players.Add(playerManager);
-            playerManager.playerHealth.onDeath += () => { StartCoroutine(RespawnPlayer(playerManager)); };
-
-            SpawnPlayer(playerManager);
-
-            onPlayerJoined?.Invoke(playerManager);
+            base.Awake();
+            if(Instance == this)
+                DontDestroyOnLoad(gameObject);
         }
 
-        private IEnumerator RespawnPlayer(PlayerManager playerManager)
+        public void OnPlayerJoined(PlayerInput playerInput)
         {
-            playerManager.RemoveAllPlayerStates();
+            Debug.Log($"Player {playerInput.playerIndex} has joined the session!");
 
-            float timer = 0;
+            DontDestroyOnLoad(playerInput.gameObject);
 
-            while (timer < respawnTimer)
-            {
-                timer += Time.deltaTime;
-                yield return null;
-            }
+            var playerManager = playerInput.GetComponent<PlayerManager>();
+            playerManager.InitializePlayer();
+            playerManager.playerInput.devices = playerInput.devices;
+            playerManager.gamepad = playerInput.GetDevice<Gamepad>();
+            playerManager.playerIndex = playerInput.playerIndex;
 
             playerManager.AddDefaultPlayerStates();
+            playerManager.RemoveAllPlayerStates();
 
-            var ph = playerManager.playerHealth;
-            ph.Heal(ph.MaxHealth);
-
-            SpawnPlayer(playerManager);
+            players.Add(playerManager);
         }
 
-        private void SpawnPlayer(PlayerManager playerManager)
+        public void OnPlayerLeft(PlayerInput playerInput)
         {
-            playerManager.playerMovement.SetPosition(spawnLocations[playerManager.playerIndex].position);
-            //playerManager.transform.position = new Vector3(200, 0, 0);
-            //playerManager.transform.position = spawnLocations[playerManager.playerIndex].position;
+            Debug.Log($"Player {playerInput.playerIndex} has left the session!");
+
+            var playerManager = playerInput.GetComponent<PlayerManager>();
+
+            players.Remove(playerManager);
         }
 
-        private void OnDrawGizmosSelected()
+        public void StartGame()
         {
-            Gizmos.color = Color.blue;
-            foreach (var transform in spawnLocations)
+            PlayerInputManager.instance.DisableJoining();
+            LevelLoader.LoadScene("Game", OnGameSceneLoad);
+        }
+
+        private void OnGameSceneLoad()
+        {
+            List<Transform> takenSpawnLocations = new List<Transform>();
+            foreach(var player in players)
             {
-                Gizmos.DrawWireSphere(transform.position, 2);
+                player.AddDefaultPlayerStates();
+                Transform spawnLocation;
+                do
+                {
+                    spawnLocation = GameManager.Instance.gameLevelData.spawnLocations.GetRandomElement();
+                } while (takenSpawnLocations.Contains(spawnLocation));
+                player.SetPosition(spawnLocation.position);
+                takenSpawnLocations.Add(spawnLocation);
             }
         }
     }

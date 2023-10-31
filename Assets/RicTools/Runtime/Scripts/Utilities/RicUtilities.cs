@@ -98,14 +98,21 @@ namespace RicTools.Utilities
             return (T)array.GetValue(Random.Range(0, array.Length));
         }
 
-        public static T GetOrAddComponent<T>(this GameObject gameObject) where T : Component
+        public static IEnumerator FadeInCanvasGroup(CanvasGroup canvasGroup, float time)
         {
-            var component = gameObject.GetComponent<T>();
-            if (!component)
+            float alpha = canvasGroup.alpha;
+
+            canvasGroup.blocksRaycasts = false;
+            while (alpha < 1)
             {
-                component = gameObject.AddComponent<T>();
+                alpha += Time.unscaledDeltaTime / time;
+                canvasGroup.alpha = alpha;
+                yield return null;
             }
-            return component;
+
+            alpha = 1;
+            canvasGroup.alpha = alpha;
+            canvasGroup.blocksRaycasts = true;
         }
     }
 }

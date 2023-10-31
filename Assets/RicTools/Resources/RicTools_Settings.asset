@@ -15,19 +15,7 @@ MonoBehaviour:
   m_singletonManagers:
   - manager:
       GuidAssignmentFailed: 0
-      GUID: a8cb771531411294d87f43509e82e044
+      GUID: 5f32b430818ae624392c08f95e5eb1ac
       _typeNameAndAssembly: OperationPlayground.Managers.GameManager, OperationPlayground
       _suppressLogs: 0
     data: {fileID: 0}
-  - manager:
-      GuidAssignmentFailed: 0
-      GUID: 250048cc632358d4c9a731a797a9c208
-      _typeNameAndAssembly: OperationPlayground.Managers.MaterialsManager, OperationPlayground
-      _suppressLogs: 0
-    data: {fileID: 11400000, guid: df3ce74d5581b3c44b9ca7fee0f06fef, type: 2}
-  - manager:
-      GuidAssignmentFailed: 0
-      GUID: 966ddb1ab584cdb459f16371a9ff8706
-      _typeNameAndAssembly: OperationPlayground.Managers.PrefabsManager, OperationPlayground
-      _suppressLogs: 0
-    data: {fileID: 11400000, guid: aa8c8139c6d55104cbc1e8ed2fd2e76a, type: 2}

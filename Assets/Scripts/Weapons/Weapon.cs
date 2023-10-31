@@ -1,6 +1,3 @@
-using OperationPlayground.Interactables;
-using OperationPlayground.Player;
-using OperationPlayground.Projectiles;
 using OperationPlayground.ScriptableObjects;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,82 +7,29 @@ namespace OperationPlayground.Weapons
 {
     public class Weapon : MonoBehaviour
     {
-        [SerializeField]
-        private ProjectileScriptableObject projectileSo;
-
-        public float reloadTime;
-
-        public Vector3 offset;
+        private WeaponScriptableObject weaponSo;
 
         [SerializeField]
-        private Transform fireTransform;
+        private int startAmmo;
 
         [SerializeField]
         private bool infiniteAmmo;
 
-        [SerializeField]
-        private int ammoCount;
+        private int currentAmmo;
 
-        [SerializeField]
-        private Interactable interactable;
+        private float shootCooldown;
 
-        private float cooldownTimer;
-
-        public event System.Action onAmmoEnd;
-
-        [System.NonSerialized]
-        public ObjectHealth parentShooter;
-
-        private void Awake()
+        public static GameObject CreateWeapon(WeaponScriptableObject weaponScriptableObject)
         {
-            if (interactable != null)
-            {
-                interactable.onInteract += Pickup;
-            }
-        }
-
-        private void Pickup(PlayerManager playerManager)
-        {
-            if (playerManager.playerShooting.EquipWeapon(this))
-            {
-                Destroy(interactable);
-                //Destroy(interactable.sphereCollider);
-            }
+            return null;
         }
 
         public bool Shoot()
         {
-            if (cooldownTimer <= 0 && (ammoCount > 0 || infiniteAmmo))
-            {
-                cooldownTimer = reloadTime;
-                ShootProjectile();
-                return true;
-            }
+            if (currentAmmo <= 0 && !infiniteAmmo) return false;
+            if(shootCooldown < weaponSo.cooldown) return false;
 
-            cooldownTimer -= Time.deltaTime;
-            cooldownTimer = Mathf.Max(0, cooldownTimer);
-            return false;
-        }
-
-        private void ShootProjectile()
-        {
-            var gameObject = Instantiate(projectileSo.prefab);
-
-            gameObject.transform.position = fireTransform.position;
-            gameObject.transform.forward = fireTransform.forward;
-
-            var projectile = gameObject.AddComponent<Projectile>();
-            projectile.projectileSo = projectileSo;
-            projectile.parentShooter = parentShooter;
-            if (!infiniteAmmo)
-            {
-                ammoCount--;
-
-                if (ammoCount <= 0)
-                {
-                    onAmmoEnd?.Invoke();
-                }
-            }
+            return true;
         }
     }
 }

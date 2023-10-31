@@ -7,16 +7,10 @@ namespace OperationPlayground.Player.PlayerCapabilities
     public enum PlayerCapabilityType
     {
         None,
-        Movement,
-        Building,
-        Shooting,
-        EnemyTarget,
-        InvalidPlacement,
-        HealthBar,
-        Looking,
-        Interaction,
+        Camera,
         Graphics,
-        Collision
+        Collision,
+        Movement
     }
 
     public abstract class PlayerCapability
@@ -33,26 +27,14 @@ namespace OperationPlayground.Player.PlayerCapabilities
         {
             switch (stateType)
             {
-                case PlayerCapabilityType.Movement:
-                    return new MovementPlayerCapability();
-                case PlayerCapabilityType.Building:
-                    return new BuildingPlayerCapability();
-                case PlayerCapabilityType.Shooting:
-                    return new ShootingPlayerCapability();
-                case PlayerCapabilityType.EnemyTarget:
-                    return new EnemyTargetPlayerCapability();
-                case PlayerCapabilityType.InvalidPlacement:
-                    return new InvalidPlacementPlayerCapability();
-                case PlayerCapabilityType.HealthBar:
-                    return new HealthBarPlayerCapability();
-                case PlayerCapabilityType.Looking:
-                    return new LookingPlayerCapability();
-                case PlayerCapabilityType.Interaction:
-                    return new InteractionPlayerCapability();
+                case PlayerCapabilityType.Camera:
+                    return new CameraPlayerCapability();
                 case PlayerCapabilityType.Graphics:
                     return new GraphicsPlayerCapability();
                 case PlayerCapabilityType.Collision:
                     return new CollisionPlayerCapability();
+                case PlayerCapabilityType.Movement:
+                    return new MovementPlayerCapability();
             }
 
             throw new System.Exception($"No set state for {stateType}");

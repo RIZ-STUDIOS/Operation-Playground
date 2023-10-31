@@ -10,7 +10,7 @@ namespace OperationPlayground.Player.PlayerCapabilities
 
         public override void OnStateEnter()
         {
-            foreach (var collider in playerManager.playerColliders)
+            foreach (var collider in playerManager.PlayerColliders)
             {
                 collider.enabled = true;
             }
@@ -18,7 +18,7 @@ namespace OperationPlayground.Player.PlayerCapabilities
 
         public override void OnStateLeave()
         {
-            foreach (var collider in playerManager.playerColliders)
+            foreach (var collider in playerManager.PlayerColliders)
             {
                 collider.enabled = false;
             }

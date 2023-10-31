@@ -1,4 +1,3 @@
-using OperationPlayground.Managers;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,33 +5,26 @@ using UnityEngine.InputSystem;
 
 namespace OperationPlayground.Player
 {
-    //[RequireComponent(typeof(PlayerInput))]
     public class PlayerMovement : MonoBehaviour
     {
-
         [SerializeField]
         private float maxSpeed = 6;
 
+        private PlayerManager playerManager;
+
         private CharacterController controller;
 
-        private Vector3 moveDirection;
-
-        private GameCamera gameCamera;
-
-        private PlayerManager playerInputManager;
-
-        private bool movementEnabled;
-        private bool lookingEnabled;
+        private Vector2 moveDirection;
 
         private void Awake()
         {
-            playerInputManager = GetComponentInChildren<PlayerManager>();
+            playerManager = GetComponentInParent<PlayerManager>();
             controller = GetComponent<CharacterController>();
-        }
 
-        private void Start()
-        {
-            gameCamera = GameManager.Instance.gameCamera;
+            playerManager.playerInput.Movement.Move.performed += OnMovePerformed;
+            playerManager.playerInput.Movement.Move.canceled += OnMoveCanceled;
+
+            playerManager.playerInput.Movement.Look.performed += OnLookPerformed;
         }
 
         private void Update()
@@ -42,59 +34,10 @@ namespace OperationPlayground.Player
 
         private void MoveCharacter()
         {
-            var direction = gameCamera.WorldToCameraVector(moveDirection) * maxSpeed;
+            if (!controller.enabled) return;
+            var direction = playerManager.PlayerCamera.WorldToCameraVector(moveDirection) * maxSpeed;
 
             controller.SimpleMove(direction);
-        }
-
-        private void OnEnable()
-        {
-            EnableInput();
-        }
-
-        private void OnDisable()
-        {
-            DisableInput();
-        }
-
-        public void EnableMovement()
-        {
-            playerInputManager.playerInput.Player.Move.performed += OnMovePerformed;
-            playerInputManager.playerInput.Player.Move.canceled += OnMoveCanceled;
-            movementEnabled = true;
-        }
-
-        public void DisableMovement()
-        {
-            playerInputManager.playerInput.Player.Move.performed -= OnMovePerformed;
-            playerInputManager.playerInput.Player.Move.canceled -= OnMoveCanceled;
-            movementEnabled = false;
-            moveDirection = Vector3.zero;
-        }
-
-        public void EnableLooking()
-        {
-            playerInputManager.playerInput.Player.Look.performed += OnLookPerformed;
-        }
-
-        public void DisableLooking()
-        {
-            playerInputManager.playerInput.Player.Look.performed -= OnLookPerformed;
-            lookingEnabled = false;
-        }
-
-        private void EnableInput()
-        {
-            if (movementEnabled)
-                EnableMovement();
-            if (lookingEnabled)
-                EnableLooking();
-        }
-
-        private void DisableInput()
-        {
-            DisableMovement();
-            DisableLooking();
         }
 
         /// <summary>
@@ -108,7 +51,7 @@ namespace OperationPlayground.Player
 
         private void OnMoveCanceled(InputAction.CallbackContext value)
         {
-            moveDirection = Vector3.zero;
+            moveDirection = value.ReadValue<Vector2>();
         }
 
         /// <summary>
@@ -120,16 +63,17 @@ namespace OperationPlayground.Player
             var vector = value.ReadValue<Vector2>();
             if (vector.magnitude > 0.1f)
             {
-                transform.rotation = Quaternion.LookRotation(gameCamera.WorldToCameraVector(vector), Vector3.up);
+                playerManager.playerTransform.rotation = Quaternion.LookRotation(playerManager.PlayerCamera.WorldToCameraVector(vector), Vector3.up);
             }
         }
 
         public void SetPosition(Vector3 position)
         {
             if (!controller) controller = GetComponentInParent<CharacterController>();
+            var enabled = controller.enabled;
             controller.enabled = false;
             transform.position = position;
-            controller.enabled = true;
+            controller.enabled = enabled;
         }
     }
 }

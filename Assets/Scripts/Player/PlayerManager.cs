@@ -1,87 +1,64 @@
-using OperationPlayground.Buildings;
-using OperationPlayground.Player;
 using OperationPlayground.Player.PlayerCapabilities;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Utilities;
 
 namespace OperationPlayground.Player
 {
     public class PlayerManager : MonoBehaviour
     {
-        [NonSerialized]
-        public ReadOnlyArray<InputDevice> devices;
-
-        [NonSerialized]
-        public int playerIndex;
+        public Gamepad gamepad;
 
         public OPPlayerInput playerInput;
-        public Gamepad gamepad;
+
+        [System.NonSerialized]
+        public int playerIndex;
+
+        public Transform playerTransform;
+
+        public PlayerCamera PlayerCamera => GetIfNull(ref _playerCamera);
+
+        public Renderer[] PlayerRenderers => GetIfNull(ref _playerRenderers);
+
+        public Collider[] PlayerColliders => GetIfNull(ref _playerColliders);
+
+        public PlayerMovement PlayerMovement => GetIfNull(ref _playerMovement);
+
+        private PlayerCamera _playerCamera;
+        private Renderer[] _playerRenderers;
+        private Collider[] _playerColliders;
+
+        private PlayerMovement _playerMovement;
 
         private List<PlayerCapability> playerStates = new List<PlayerCapability>();
 
-        [NonSerialized]
-        public PlayerMovement playerMovement;
-
-        [NonSerialized]
-        public PlayerShooting playerShooting;
-
-        [NonSerialized]
-        public PlayerHealth playerHealth;
-
-        [NonSerialized]
-        public PlayerInteraction playerInteraction;
-
-        [NonSerialized]
-        public EnemyTarget enemyTarget;
-
-        [NonSerialized]
-        public PlayerBuilding playerBuilding;
-
-        [NonSerialized]
-        public InvalidPlacement invalidPlacement;
-
-        [NonSerialized]
-        public Renderer[] playerRenderers;
-
-        [NonSerialized]
-        public Collider[] playerColliders;
-
-        public RumbleController rumbleController;
-
         private void Awake()
         {
-            GetData();
+            InitializePlayer();
         }
 
-        private void Start()
-        {
-            playerInput.devices = devices;
-
-            AddDefaultPlayerStates();
-        }
-
-        public void GetData()
+        public void InitializePlayer()
         {
             if (playerInput != null) return;
             playerInput = new OPPlayerInput();
             playerInput.Enable();
+        }
 
-            playerMovement = GetComponentInParent<PlayerMovement>();
-            playerShooting = GetComponent<PlayerShooting>();
-            playerHealth = GetComponent<PlayerHealth>();
-            playerInteraction = GetComponent<PlayerInteraction>();
-            enemyTarget = GetComponent<EnemyTarget>();
-            playerBuilding = GetComponent<PlayerBuilding>();
-            invalidPlacement = GetComponent<InvalidPlacement>();
+        private T GetIfNull<T>(ref T component)
+        {
+            if (component == null)
+                component = GetComponentInChildren<T>();
 
-            playerRenderers = transform.GetChild(0).GetComponentsInChildren<Renderer>();
-            playerColliders = transform.GetChild(1).GetComponentsInChildren<Collider>();
+            return component;
+        }
 
-            rumbleController = new RumbleController(this);
+        private T[] GetIfNull<T>(ref T[] component)
+        {
+            if (component == null)
+                component = GetComponentsInChildren<T>();
+
+            return component;
         }
 
         public void AddPlayerState(PlayerCapabilityType playerStateType)
@@ -111,16 +88,10 @@ namespace OperationPlayground.Player
 
         public void AddDefaultPlayerStates()
         {
-            AddPlayerState(PlayerCapabilityType.Movement);
-            AddPlayerState(PlayerCapabilityType.HealthBar);
-            AddPlayerState(PlayerCapabilityType.Looking);
-            AddPlayerState(PlayerCapabilityType.Shooting);
-            AddPlayerState(PlayerCapabilityType.Building);
-            AddPlayerState(PlayerCapabilityType.InvalidPlacement);
-            AddPlayerState(PlayerCapabilityType.EnemyTarget);
-            AddPlayerState(PlayerCapabilityType.Interaction);
+            AddPlayerState(PlayerCapabilityType.Camera);
             AddPlayerState(PlayerCapabilityType.Graphics);
             AddPlayerState(PlayerCapabilityType.Collision);
+            AddPlayerState(PlayerCapabilityType.Movement);
         }
 
         private PlayerCapability GetPlayerState(PlayerCapabilityType playerStateType)
@@ -141,14 +112,9 @@ namespace OperationPlayground.Player
             }
         }
 
-        private void OnDisable()
+        public void SetPosition(Vector3 position)
         {
-            rumbleController.StopRumble();
-        }
-
-        private void OnDestroy()
-        {
-            rumbleController.StopRumble();
+            PlayerMovement.SetPosition(position);
         }
     }
 }

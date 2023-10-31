@@ -244,6 +244,16 @@ namespace RicTools.Editor.Windows
             control.RegisterValueChangedCallback(CheckCompletionCallback);
         }
 
+        public void RegisterCheckCompletion(PropertyField control)
+        {
+            control.RegisterValueChangeCallback((callback) => CheckCompletion());
+        }
+
+        public void RegisterCheckCompletion(Button button)
+        {
+            button.clicked += CheckCompletion;
+        }
+
         public void UnregisterCheckCompletion<TValueType>(INotifyValueChanged<TValueType> control)
         {
             control.UnregisterValueChangedCallback(CheckCompletionCallback);
@@ -252,11 +262,6 @@ namespace RicTools.Editor.Windows
         private void CheckCompletionCallback<TValueType>(ChangeEvent<TValueType> callback)
         {
             CheckCompletion();
-        }
-
-        public void RegisterCheckCompletion(Button button)
-        {
-            button.clicked += CheckCompletion;
         }
 
         public void RegisterLoadChange<TValueType>(BaseField<TValueType> element, EditorContainer<TValueType> editorContainer)

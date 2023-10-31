@@ -87,11 +87,6 @@ namespace RicTools.Editor.Windows
                 {
                     rect.y += EditorGUIUtility.singleLineHeight + 2;
                     EditorGUI.LabelField(new Rect(rect.x, rect.y, labelWidth, EditorGUIUtility.singleLineHeight), "Data");
-                    var dataType = manager.BaseType.GenericTypeArguments[1];
-                    if (settings.m_singletonManagers[index].data != null && settings.m_singletonManagers[index].data.GetType() != dataType)
-                    {
-                        settings.m_singletonManagers[index].data = null;
-                    }
                     GUI.enabled = settings.m_singletonManagers[index].data == null;
                     if (settings.m_singletonManagers[index].data == null)
                     {

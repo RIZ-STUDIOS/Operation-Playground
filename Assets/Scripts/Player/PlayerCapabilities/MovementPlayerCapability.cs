@@ -10,12 +10,12 @@ namespace OperationPlayground.Player.PlayerCapabilities
 
         public override void OnStateEnter()
         {
-            playerManager.playerMovement.EnableMovement();
+            playerManager.playerInput.Movement.Enable();
         }
 
         public override void OnStateLeave()
         {
-            playerManager.playerMovement.DisableMovement();
+            playerManager.playerInput.Movement.Disable();
         }
     }
 }

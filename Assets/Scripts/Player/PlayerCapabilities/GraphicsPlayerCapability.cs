@@ -10,7 +10,7 @@ namespace OperationPlayground.Player.PlayerCapabilities
 
         public override void OnStateEnter()
         {
-            foreach (var renderer in playerManager.playerRenderers)
+            foreach (var renderer in playerManager.PlayerRenderers)
             {
                 renderer.enabled = true;
             }
@@ -18,7 +18,7 @@ namespace OperationPlayground.Player.PlayerCapabilities
 
         public override void OnStateLeave()
         {
-            foreach (var renderer in playerManager.playerRenderers)
+            foreach (var renderer in playerManager.PlayerRenderers)
             {
                 renderer.enabled = false;
             }

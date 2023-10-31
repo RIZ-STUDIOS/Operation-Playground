@@ -26,36 +26,9 @@ namespace OperationPlayground
     ""name"": ""OPPlayerInput"",
     ""maps"": [
         {
-            ""name"": ""Player"",
+            ""name"": ""Basic"",
             ""id"": ""b3ae7ac2-cac0-48e4-ace3-bf4776d9f364"",
             ""actions"": [
-                {
-                    ""name"": ""Move"",
-                    ""type"": ""Value"",
-                    ""id"": ""81436f33-c3bb-4143-a8a9-e02bf5f6bc0f"",
-                    ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""Look"",
-                    ""type"": ""Value"",
-                    ""id"": ""ac6e4206-73b3-40a0-8807-063957940e59"",
-                    ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""Fire"",
-                    ""type"": ""Button"",
-                    ""id"": ""b00f31f9-c10c-4543-9b73-9292c8a88a35"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
                 {
                     ""name"": ""ToggleBuild"",
                     ""type"": ""Button"",
@@ -76,57 +49,15 @@ namespace OperationPlayground
                 },
                 {
                     ""name"": ""Interact"",
-                    ""type"": ""Value"",
+                    ""type"": ""Button"",
                     ""id"": ""810eebab-daca-47f4-9b78-6662b83d422b"",
-                    ""expectedControlType"": ""Vector2"",
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""Cycle"",
-                    ""type"": ""Value"",
-                    ""id"": ""6735c462-9977-4d08-9790-273316b62401"",
-                    ""expectedControlType"": ""Axis"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""978bfe49-cc26-4a3d-ab7b-7d7a29327403"",
-                    ""path"": ""<Gamepad>/leftStick"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Gamepad"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""c1f7a91b-d0fd-4a62-997e-7fb9b69bf235"",
-                    ""path"": ""<Gamepad>/rightStick"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Gamepad"",
-                    ""action"": ""Look"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""143bb1cd-cc10-4eca-a2f0-a3664166fe91"",
-                    ""path"": ""<Gamepad>/rightTrigger"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Gamepad"",
-                    ""action"": ""Fire"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
                 {
                     ""name"": """",
                     ""id"": ""3d49bd1f-2c31-4d20-a159-0347028e39f9"",
@@ -137,61 +68,6 @@ namespace OperationPlayground
                     ""action"": ""Join"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""2D Vector"",
-                    ""id"": ""9760861f-a0f7-4416-bd9e-acac77dc7797"",
-                    ""path"": ""2DVector"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Interact"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""up"",
-                    ""id"": ""6f175e37-0cd9-4ac6-aba0-c6674d3e3a8f"",
-                    ""path"": ""<Gamepad>/buttonNorth"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Interact"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""down"",
-                    ""id"": ""14d62f69-bf31-4306-886d-8e066e3bfcfc"",
-                    ""path"": ""<Gamepad>/buttonSouth"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Interact"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""left"",
-                    ""id"": ""d5dfc3c5-bcc5-4509-b94e-eb500176b83d"",
-                    ""path"": ""<Gamepad>/buttonWest"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Interact"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""right"",
-                    ""id"": ""c5beb185-9e77-4e02-8653-f54767bde125"",
-                    ""path"": ""<Gamepad>/buttonEast"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Interact"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
                 },
                 {
                     ""name"": """",
@@ -205,8 +81,214 @@ namespace OperationPlayground
                     ""isPartOfComposite"": false
                 },
                 {
+                    ""name"": """",
+                    ""id"": ""b4e23b53-016b-4992-9eb4-5cfc39eaafb8"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Movement"",
+            ""id"": ""3f6f24cf-c975-4176-9900-f47863534d89"",
+            ""actions"": [
+                {
+                    ""name"": ""Move"",
+                    ""type"": ""Value"",
+                    ""id"": ""3e264214-20df-44fe-9406-54e40ab7ffd3"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Look"",
+                    ""type"": ""Value"",
+                    ""id"": ""ad8b0fd2-32eb-4646-8e9f-1966ef9e7c4c"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""22623b64-1568-49ed-9399-a8ae378888ea"",
+                    ""path"": ""<Gamepad>/leftStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""2D Vector"",
+                    ""id"": ""f1f47732-6475-4c73-96d1-f2981512633e"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""42ac5d95-0444-4b32-ba12-912c4eb42a5f"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""997e0f59-f8ac-4541-bab7-21d9918a30f5"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""995c5cc1-9af5-4f74-92b6-6443b48f223c"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""82c31ffe-7816-4cb5-9a26-631ed31e8b04"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ee49e41b-c579-4697-a8d6-730a11cce133"",
+                    ""path"": ""<Gamepad>/rightStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Look"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""2D Vector"",
+                    ""id"": ""ef0fd739-aae5-430c-b27c-8b03d0d2e932"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Look"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""1027c3a2-7520-47f5-8957-f5ff56be1e8d"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Look"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""d3828219-1db1-498d-a4bf-c824753dbe40"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Look"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""0a77e609-acec-4976-bbeb-352ccca75d27"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Look"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""e44c37a3-413e-47fc-b8c7-eab41c48fa41"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Look"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                }
+            ]
+        },
+        {
+            ""name"": ""Shoot"",
+            ""id"": ""60c2cb69-6fb2-4eba-810f-f26d72680381"",
+            ""actions"": [
+                {
+                    ""name"": ""Fire"",
+                    ""type"": ""Button"",
+                    ""id"": ""ea5bafc2-5f86-4f85-8ec4-2f77323211ee"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Cycle"",
+                    ""type"": ""Value"",
+                    ""id"": ""89640c30-434f-4aea-a638-eca45d802518"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""1ce08cb9-0561-4bfa-bbe9-10c55d555d0c"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Fire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
                     ""name"": ""1D Axis"",
-                    ""id"": ""874b22a6-db7c-4155-bf54-aab098ae7212"",
+                    ""id"": ""dc970c1d-c432-4983-8177-402cb0f62ef6"",
                     ""path"": ""1DAxis"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -217,7 +299,7 @@ namespace OperationPlayground
                 },
                 {
                     ""name"": ""negative"",
-                    ""id"": ""918faece-c16c-402b-9a3e-3b96578bb889"",
+                    ""id"": ""6c0e88ea-d589-4414-b170-27fa6a45a203"",
                     ""path"": ""<Gamepad>/leftShoulder"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -228,7 +310,7 @@ namespace OperationPlayground
                 },
                 {
                     ""name"": ""positive"",
-                    ""id"": ""7798180a-f357-4c26-a25e-53a2d3ed7db4"",
+                    ""id"": ""7bb286b1-eabf-4c97-90b0-4f832f56b0b5"",
                     ""path"": ""<Gamepad>/rightShoulder"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -819,15 +901,19 @@ namespace OperationPlayground
         }
     ]
 }");
-            // Player
-            m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
-            m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
-            m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
-            m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
-            m_Player_ToggleBuild = m_Player.FindAction("ToggleBuild", throwIfNotFound: true);
-            m_Player_Join = m_Player.FindAction("Join", throwIfNotFound: true);
-            m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
-            m_Player_Cycle = m_Player.FindAction("Cycle", throwIfNotFound: true);
+            // Basic
+            m_Basic = asset.FindActionMap("Basic", throwIfNotFound: true);
+            m_Basic_ToggleBuild = m_Basic.FindAction("ToggleBuild", throwIfNotFound: true);
+            m_Basic_Join = m_Basic.FindAction("Join", throwIfNotFound: true);
+            m_Basic_Interact = m_Basic.FindAction("Interact", throwIfNotFound: true);
+            // Movement
+            m_Movement = asset.FindActionMap("Movement", throwIfNotFound: true);
+            m_Movement_Move = m_Movement.FindAction("Move", throwIfNotFound: true);
+            m_Movement_Look = m_Movement.FindAction("Look", throwIfNotFound: true);
+            // Shoot
+            m_Shoot = asset.FindActionMap("Shoot", throwIfNotFound: true);
+            m_Shoot_Fire = m_Shoot.FindAction("Fire", throwIfNotFound: true);
+            m_Shoot_Cycle = m_Shoot.FindAction("Cycle", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -898,45 +984,28 @@ namespace OperationPlayground
             return asset.FindBinding(bindingMask, out action);
         }
 
-        // Player
-        private readonly InputActionMap m_Player;
-        private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
-        private readonly InputAction m_Player_Move;
-        private readonly InputAction m_Player_Look;
-        private readonly InputAction m_Player_Fire;
-        private readonly InputAction m_Player_ToggleBuild;
-        private readonly InputAction m_Player_Join;
-        private readonly InputAction m_Player_Interact;
-        private readonly InputAction m_Player_Cycle;
-        public struct PlayerActions
+        // Basic
+        private readonly InputActionMap m_Basic;
+        private List<IBasicActions> m_BasicActionsCallbackInterfaces = new List<IBasicActions>();
+        private readonly InputAction m_Basic_ToggleBuild;
+        private readonly InputAction m_Basic_Join;
+        private readonly InputAction m_Basic_Interact;
+        public struct BasicActions
         {
             private @OPPlayerInput m_Wrapper;
-            public PlayerActions(@OPPlayerInput wrapper) { m_Wrapper = wrapper; }
-            public InputAction @Move => m_Wrapper.m_Player_Move;
-            public InputAction @Look => m_Wrapper.m_Player_Look;
-            public InputAction @Fire => m_Wrapper.m_Player_Fire;
-            public InputAction @ToggleBuild => m_Wrapper.m_Player_ToggleBuild;
-            public InputAction @Join => m_Wrapper.m_Player_Join;
-            public InputAction @Interact => m_Wrapper.m_Player_Interact;
-            public InputAction @Cycle => m_Wrapper.m_Player_Cycle;
-            public InputActionMap Get() { return m_Wrapper.m_Player; }
+            public BasicActions(@OPPlayerInput wrapper) { m_Wrapper = wrapper; }
+            public InputAction @ToggleBuild => m_Wrapper.m_Basic_ToggleBuild;
+            public InputAction @Join => m_Wrapper.m_Basic_Join;
+            public InputAction @Interact => m_Wrapper.m_Basic_Interact;
+            public InputActionMap Get() { return m_Wrapper.m_Basic; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
             public bool enabled => Get().enabled;
-            public static implicit operator InputActionMap(PlayerActions set) { return set.Get(); }
-            public void AddCallbacks(IPlayerActions instance)
+            public static implicit operator InputActionMap(BasicActions set) { return set.Get(); }
+            public void AddCallbacks(IBasicActions instance)
             {
-                if (instance == null || m_Wrapper.m_PlayerActionsCallbackInterfaces.Contains(instance)) return;
-                m_Wrapper.m_PlayerActionsCallbackInterfaces.Add(instance);
-                @Move.started += instance.OnMove;
-                @Move.performed += instance.OnMove;
-                @Move.canceled += instance.OnMove;
-                @Look.started += instance.OnLook;
-                @Look.performed += instance.OnLook;
-                @Look.canceled += instance.OnLook;
-                @Fire.started += instance.OnFire;
-                @Fire.performed += instance.OnFire;
-                @Fire.canceled += instance.OnFire;
+                if (instance == null || m_Wrapper.m_BasicActionsCallbackInterfaces.Contains(instance)) return;
+                m_Wrapper.m_BasicActionsCallbackInterfaces.Add(instance);
                 @ToggleBuild.started += instance.OnToggleBuild;
                 @ToggleBuild.performed += instance.OnToggleBuild;
                 @ToggleBuild.canceled += instance.OnToggleBuild;
@@ -946,22 +1015,10 @@ namespace OperationPlayground
                 @Interact.started += instance.OnInteract;
                 @Interact.performed += instance.OnInteract;
                 @Interact.canceled += instance.OnInteract;
-                @Cycle.started += instance.OnCycle;
-                @Cycle.performed += instance.OnCycle;
-                @Cycle.canceled += instance.OnCycle;
             }
 
-            private void UnregisterCallbacks(IPlayerActions instance)
+            private void UnregisterCallbacks(IBasicActions instance)
             {
-                @Move.started -= instance.OnMove;
-                @Move.performed -= instance.OnMove;
-                @Move.canceled -= instance.OnMove;
-                @Look.started -= instance.OnLook;
-                @Look.performed -= instance.OnLook;
-                @Look.canceled -= instance.OnLook;
-                @Fire.started -= instance.OnFire;
-                @Fire.performed -= instance.OnFire;
-                @Fire.canceled -= instance.OnFire;
                 @ToggleBuild.started -= instance.OnToggleBuild;
                 @ToggleBuild.performed -= instance.OnToggleBuild;
                 @ToggleBuild.canceled -= instance.OnToggleBuild;
@@ -971,26 +1028,131 @@ namespace OperationPlayground
                 @Interact.started -= instance.OnInteract;
                 @Interact.performed -= instance.OnInteract;
                 @Interact.canceled -= instance.OnInteract;
+            }
+
+            public void RemoveCallbacks(IBasicActions instance)
+            {
+                if (m_Wrapper.m_BasicActionsCallbackInterfaces.Remove(instance))
+                    UnregisterCallbacks(instance);
+            }
+
+            public void SetCallbacks(IBasicActions instance)
+            {
+                foreach (var item in m_Wrapper.m_BasicActionsCallbackInterfaces)
+                    UnregisterCallbacks(item);
+                m_Wrapper.m_BasicActionsCallbackInterfaces.Clear();
+                AddCallbacks(instance);
+            }
+        }
+        public BasicActions @Basic => new BasicActions(this);
+
+        // Movement
+        private readonly InputActionMap m_Movement;
+        private List<IMovementActions> m_MovementActionsCallbackInterfaces = new List<IMovementActions>();
+        private readonly InputAction m_Movement_Move;
+        private readonly InputAction m_Movement_Look;
+        public struct MovementActions
+        {
+            private @OPPlayerInput m_Wrapper;
+            public MovementActions(@OPPlayerInput wrapper) { m_Wrapper = wrapper; }
+            public InputAction @Move => m_Wrapper.m_Movement_Move;
+            public InputAction @Look => m_Wrapper.m_Movement_Look;
+            public InputActionMap Get() { return m_Wrapper.m_Movement; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(MovementActions set) { return set.Get(); }
+            public void AddCallbacks(IMovementActions instance)
+            {
+                if (instance == null || m_Wrapper.m_MovementActionsCallbackInterfaces.Contains(instance)) return;
+                m_Wrapper.m_MovementActionsCallbackInterfaces.Add(instance);
+                @Move.started += instance.OnMove;
+                @Move.performed += instance.OnMove;
+                @Move.canceled += instance.OnMove;
+                @Look.started += instance.OnLook;
+                @Look.performed += instance.OnLook;
+                @Look.canceled += instance.OnLook;
+            }
+
+            private void UnregisterCallbacks(IMovementActions instance)
+            {
+                @Move.started -= instance.OnMove;
+                @Move.performed -= instance.OnMove;
+                @Move.canceled -= instance.OnMove;
+                @Look.started -= instance.OnLook;
+                @Look.performed -= instance.OnLook;
+                @Look.canceled -= instance.OnLook;
+            }
+
+            public void RemoveCallbacks(IMovementActions instance)
+            {
+                if (m_Wrapper.m_MovementActionsCallbackInterfaces.Remove(instance))
+                    UnregisterCallbacks(instance);
+            }
+
+            public void SetCallbacks(IMovementActions instance)
+            {
+                foreach (var item in m_Wrapper.m_MovementActionsCallbackInterfaces)
+                    UnregisterCallbacks(item);
+                m_Wrapper.m_MovementActionsCallbackInterfaces.Clear();
+                AddCallbacks(instance);
+            }
+        }
+        public MovementActions @Movement => new MovementActions(this);
+
+        // Shoot
+        private readonly InputActionMap m_Shoot;
+        private List<IShootActions> m_ShootActionsCallbackInterfaces = new List<IShootActions>();
+        private readonly InputAction m_Shoot_Fire;
+        private readonly InputAction m_Shoot_Cycle;
+        public struct ShootActions
+        {
+            private @OPPlayerInput m_Wrapper;
+            public ShootActions(@OPPlayerInput wrapper) { m_Wrapper = wrapper; }
+            public InputAction @Fire => m_Wrapper.m_Shoot_Fire;
+            public InputAction @Cycle => m_Wrapper.m_Shoot_Cycle;
+            public InputActionMap Get() { return m_Wrapper.m_Shoot; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(ShootActions set) { return set.Get(); }
+            public void AddCallbacks(IShootActions instance)
+            {
+                if (instance == null || m_Wrapper.m_ShootActionsCallbackInterfaces.Contains(instance)) return;
+                m_Wrapper.m_ShootActionsCallbackInterfaces.Add(instance);
+                @Fire.started += instance.OnFire;
+                @Fire.performed += instance.OnFire;
+                @Fire.canceled += instance.OnFire;
+                @Cycle.started += instance.OnCycle;
+                @Cycle.performed += instance.OnCycle;
+                @Cycle.canceled += instance.OnCycle;
+            }
+
+            private void UnregisterCallbacks(IShootActions instance)
+            {
+                @Fire.started -= instance.OnFire;
+                @Fire.performed -= instance.OnFire;
+                @Fire.canceled -= instance.OnFire;
                 @Cycle.started -= instance.OnCycle;
                 @Cycle.performed -= instance.OnCycle;
                 @Cycle.canceled -= instance.OnCycle;
             }
 
-            public void RemoveCallbacks(IPlayerActions instance)
+            public void RemoveCallbacks(IShootActions instance)
             {
-                if (m_Wrapper.m_PlayerActionsCallbackInterfaces.Remove(instance))
+                if (m_Wrapper.m_ShootActionsCallbackInterfaces.Remove(instance))
                     UnregisterCallbacks(instance);
             }
 
-            public void SetCallbacks(IPlayerActions instance)
+            public void SetCallbacks(IShootActions instance)
             {
-                foreach (var item in m_Wrapper.m_PlayerActionsCallbackInterfaces)
+                foreach (var item in m_Wrapper.m_ShootActionsCallbackInterfaces)
                     UnregisterCallbacks(item);
-                m_Wrapper.m_PlayerActionsCallbackInterfaces.Clear();
+                m_Wrapper.m_ShootActionsCallbackInterfaces.Clear();
                 AddCallbacks(instance);
             }
         }
-        public PlayerActions @Player => new PlayerActions(this);
+        public ShootActions @Shoot => new ShootActions(this);
 
         // UI
         private readonly InputActionMap m_UI;
@@ -1154,14 +1316,20 @@ namespace OperationPlayground
                 return asset.controlSchemes[m_XRSchemeIndex];
             }
         }
-        public interface IPlayerActions
+        public interface IBasicActions
         {
-            void OnMove(InputAction.CallbackContext context);
-            void OnLook(InputAction.CallbackContext context);
-            void OnFire(InputAction.CallbackContext context);
             void OnToggleBuild(InputAction.CallbackContext context);
             void OnJoin(InputAction.CallbackContext context);
             void OnInteract(InputAction.CallbackContext context);
+        }
+        public interface IMovementActions
+        {
+            void OnMove(InputAction.CallbackContext context);
+            void OnLook(InputAction.CallbackContext context);
+        }
+        public interface IShootActions
+        {
+            void OnFire(InputAction.CallbackContext context);
             void OnCycle(InputAction.CallbackContext context);
         }
         public interface IUIActions

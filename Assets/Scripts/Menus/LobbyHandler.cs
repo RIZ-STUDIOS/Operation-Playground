@@ -1,3 +1,5 @@
+using OperationPlayground.Player;
+using RicTools.Attributes;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -6,28 +8,34 @@ namespace OperationPlayground.Menus
 {
     public class LobbyHandler : MonoBehaviour
     {
-        public List<PlayerMenuData> players;
+        //public List<PlayerMenuData> players;
 
         private SlotHandler[] playerSlots;
-        private PlayerInputManager playerInputManager;
+
+        [SerializeField, MinValue(1)]
+        private int playersNeedForGame = 2;
 
         private void Awake()
         {
-            players = new List<PlayerMenuData>();
-            playerInputManager = GetComponent<PlayerInputManager>();
+            //players = new List<PlayerMenuData>();
             playerSlots = GetComponentsInChildren<SlotHandler>();
             
             for (int i = 0; i < playerSlots.Length; i++)
             {
-                if (i == 0) playerSlots[i].onPlayerExit += EndLobby;
-                else playerSlots[i].onPlayerExit += UpdatePlayers;
+                //if (i == 0) playerSlots[i].onPlayerExit += EndLobby;
+                playerSlots[i].onPlayerExit += UpdatePlayers;
                 playerSlots[i].onPlayerReady += ReadyCheck;
             }
         }
 
+        private void Start()
+        {
+            PlayerSpawnManager.Instance.onPlayerJoin += OnPlayerJoin;
+        }
+
         public void StartLobby()
         {
-            playerInputManager.EnableJoining();
+            PlayerSpawnManager.Instance.EnableJoining();
 
             if (playerSlots[0].currentPlayer) playerSlots[0].ListenForJoin();
         }
@@ -38,12 +46,12 @@ namespace OperationPlayground.Menus
             {
                 slot.ClearSlot();
             }
-            
-            playerInputManager.DisableJoining();
+
+            PlayerSpawnManager.Instance.DisableJoining();
             MainMenu.Instance.HideLobby();
         }
 
-        private void ReadyCheck()
+        private void ReadyCheck(PlayerManager playerManager)
         {
             int currentPlayers = 0;
             int readyPlayers = 0;
@@ -53,15 +61,21 @@ namespace OperationPlayground.Menus
                 if (slot.playerReady) readyPlayers++;
             }
 
-            if (currentPlayers > 2 && currentPlayers == readyPlayers) StartGame();
+            if (currentPlayers >= playersNeedForGame && currentPlayers == readyPlayers) PlayerSpawnManager.Instance.StartGame();
         }
 
-        private void UpdatePlayers()
+        private void UpdatePlayers(PlayerManager playerManager)
         {
-            players.RemoveAll(player => player == null);
+            if(!PlayerSpawnManager.Instance.AnyPlayersJoined) EndLobby();
+            //players.RemoveAll(player => player == null);
         }
 
-        private void OnPlayerJoined(PlayerInput playerInput)
+        private void OnPlayerJoin(PlayerManager playerManager)
+        {
+            playerSlots[playerManager.playerIndex].JoinSlot(playerManager);
+        }
+
+        /*private void OnPlayerJoined(PlayerInput playerInput)
         {
             PlayerMenuData pMD = playerInput.GetComponent<PlayerMenuData>();
             pMD.lobbyIndex = playerInput.playerIndex;
@@ -71,7 +85,7 @@ namespace OperationPlayground.Menus
             pMD.playerInput.devices = playerInput.devices;
 
             playerSlots[pMD.lobbyIndex].JoinSlot(pMD);
-        }
+        }*/
 
         private void StartGame()
         {

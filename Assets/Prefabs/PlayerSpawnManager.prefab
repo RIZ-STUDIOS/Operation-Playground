@@ -56,7 +56,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_JoinAction:
-    m_UseReference: 0
+    m_UseReference: 1
     m_Action:
       m_Name: Join
       m_Type: 1
@@ -82,7 +82,8 @@ MonoBehaviour:
         m_Action: Join
         m_Flags: 0
       m_Flags: 0
-    m_Reference: {fileID: 0}
+    m_Reference: {fileID: 425828474024865185, guid: bfe3c9ef6992b5d498f8ffd75584ae0b,
+      type: 3}
   m_PlayerPrefab: {fileID: 2420707843782067168, guid: 0a1b9ac1b5adacf4b948cac40c273cd8,
     type: 3}
   m_SplitScreen: 1

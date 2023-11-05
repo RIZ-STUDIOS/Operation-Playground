@@ -14,6 +14,9 @@ namespace OperationPlayground.Player
     {
         private List<PlayerManager> players = new List<PlayerManager>();
 
+        public event System.Action<PlayerManager> onPlayerJoin;
+        public event System.Action<PlayerManager> onPlayerLeave;
+
         public bool AnyPlayersJoined => players.Count > 0;
 
         protected override void Awake()
@@ -23,7 +26,7 @@ namespace OperationPlayground.Player
                 DontDestroyOnLoad(gameObject);
         }
 
-        public void OnPlayerJoined(PlayerInput playerInput)
+        private void OnPlayerJoined(PlayerInput playerInput)
         {
             Debug.Log($"Player {playerInput.playerIndex} has joined the session!");
 
@@ -39,15 +42,19 @@ namespace OperationPlayground.Player
             playerManager.RemoveAllPlayerStates();
 
             players.Add(playerManager);
+
+            onPlayerJoin?.Invoke(playerManager);
         }
 
-        public void OnPlayerLeft(PlayerInput playerInput)
+        private void OnPlayerLeft(PlayerInput playerInput)
         {
             Debug.Log($"Player {playerInput.playerIndex} has left the session!");
 
             var playerManager = playerInput.GetComponent<PlayerManager>();
 
             players.Remove(playerManager);
+
+            onPlayerLeave?.Invoke(playerManager);
         }
 
         public void StartGame()

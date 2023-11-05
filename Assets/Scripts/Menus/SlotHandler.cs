@@ -1,3 +1,4 @@
+using OperationPlayground.Player;
 using OperationPlayground.ScriptableObjects;
 using TMPro;
 using UnityEngine;
@@ -9,15 +10,16 @@ namespace OperationPlayground.Menus
 {
     public class SlotHandler : MonoBehaviour
     {
-        public PlayerMenuData currentPlayer;
+        //public PlayerMenuData currentPlayer;
+        public PlayerManager currentPlayer;
         public GameObject playerSlot;
         public bool playerReady;
-        public CharacterScriptableObject selectedCharacter;
+        //public CharacterScriptableObject selectedCharacter;
 
-        public delegate void OnPlayerReady();
+        public delegate void OnPlayerReady(PlayerManager playerManager);
         public OnPlayerReady onPlayerReady;
 
-        public delegate void OnPlayerExit();
+        public delegate void OnPlayerExit(PlayerManager playerManager);
         public OnPlayerExit onPlayerExit;
 
         [SerializeField] private GameObject characterSelect;
@@ -39,10 +41,10 @@ namespace OperationPlayground.Menus
             currentPlayer.playerInput.UI.Cancel.performed += OnCancel;
         }
 
-        public void JoinSlot(PlayerMenuData joiningPlayer)
+        public void JoinSlot(PlayerManager joiningPlayer)
         {
             currentPlayer = joiningPlayer;
-            currentPlayer.transform.parent = playerSlot.transform;
+            //currentPlayer.transform.parent = playerSlot.transform;
 
             ToggleCharacterSelect(true);
             ToggleInput(true);
@@ -54,11 +56,8 @@ namespace OperationPlayground.Menus
             {
                 ToggleInput(false);
 
-                if (currentPlayer.lobbyIndex != 0)
-                {
-                    Destroy(currentPlayer.gameObject);
-                    currentPlayer = null;
-                }
+                Destroy(currentPlayer.gameObject);
+                currentPlayer = null;
             }
 
             ToggleCharacterSelect(false);
@@ -70,31 +69,29 @@ namespace OperationPlayground.Menus
             {
                 ToggleInput(false);
 
-                if (currentPlayer.lobbyIndex != 0)
-                {
-                    Destroy(currentPlayer.gameObject);
-                    currentPlayer = null;
-                }
+                Destroy(currentPlayer.gameObject);
+                currentPlayer = null;
             }
 
-            onPlayerExit?.Invoke();
-            
+            onPlayerExit?.Invoke(currentPlayer);
+
             ToggleCharacterSelect(false);
         }
 
         private void ReadyUp()
         {
             currentPlayer.playerInput.UI.Navigate.performed -= OnNavigate;
-            selectedCharacter = availableCharacters[artIndex];
+            //selectedCharacter = availableCharacters[artIndex];
 
             playerReady = true;
+            onPlayerReady?.Invoke(currentPlayer);
             UpdateCharacterSelect();
         }
 
         private void Unready()
         {
             currentPlayer.playerInput.UI.Navigate.performed += OnNavigate;
-            selectedCharacter = null;
+            //selectedCharacter = null;
 
             playerReady = false;
             UpdateCharacterSelect();

@@ -47,6 +47,17 @@
                 },
                 {
                     "name": "",
+                    "id": "26778a8a-1ea6-4360-8eff-fb53c3e2bc1f",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Join",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "41ab6d86-a0b6-4130-963e-b12586cc8a0f",
                     "path": "<Gamepad>/leftTrigger",
                     "interactions": "",

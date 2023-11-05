@@ -25,11 +25,14 @@ namespace OperationPlayground.Player
 
         public PlayerMovement PlayerMovement => GetIfNull(ref _playerMovement);
 
+        public PlayerShooting PlayerShooting => GetIfNull(ref _playerShooting);
+
         private PlayerCamera _playerCamera;
         private Renderer[] _playerRenderers;
         private Collider[] _playerColliders;
 
         private PlayerMovement _playerMovement;
+        private PlayerShooting _playerShooting;
 
         private List<PlayerCapability> playerStates = new List<PlayerCapability>();
 
@@ -92,6 +95,7 @@ namespace OperationPlayground.Player
             AddPlayerState(PlayerCapabilityType.Graphics);
             AddPlayerState(PlayerCapabilityType.Collision);
             AddPlayerState(PlayerCapabilityType.Movement);
+            AddPlayerState(PlayerCapabilityType.Shooting);
         }
 
         private PlayerCapability GetPlayerState(PlayerCapabilityType playerStateType)

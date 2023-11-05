@@ -97,5 +97,10 @@ namespace OperationPlayground.Editor.Windows
         {
             maxRangeFloatField.ToggleClass("hidden", projectileType != ProjectileType.Arc);
         }
+
+        protected override IEnumerable<CompleteCriteria> GetCompleteCriteria()
+        {
+            yield return new CompleteCriteria(!prefab.IsNull(), "Need prefab");
+        }
     }
 }

@@ -10,7 +10,8 @@ namespace OperationPlayground.Player.PlayerCapabilities
         Camera,
         Graphics,
         Collision,
-        Movement
+        Movement,
+        Shooting
     }
 
     public abstract class PlayerCapability
@@ -35,6 +36,8 @@ namespace OperationPlayground.Player.PlayerCapabilities
                     return new CollisionPlayerCapability();
                 case PlayerCapabilityType.Movement:
                     return new MovementPlayerCapability();
+                case PlayerCapabilityType.Shooting:
+                    return new ShootingPlayerCapability();
             }
 
             throw new System.Exception($"No set state for {stateType}");

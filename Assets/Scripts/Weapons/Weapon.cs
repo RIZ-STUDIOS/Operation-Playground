@@ -1,3 +1,4 @@
+using OperationPlayground.Projectiles;
 using OperationPlayground.ScriptableObjects;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace OperationPlayground.Weapons
         private WeaponScriptableObject weaponSo;
 
         [SerializeField]
-        private int startAmmo;
+        private Transform shootTransform;
 
         [SerializeField]
         private bool infiniteAmmo;
@@ -19,17 +20,80 @@ namespace OperationPlayground.Weapons
 
         private float shootCooldown;
 
-        public static GameObject CreateWeapon(WeaponScriptableObject weaponScriptableObject)
+        private GenericShooter shooter;
+
+        public static GameObject CreateWeapon(WeaponScriptableObject weaponScriptableObject, Transform parentTransform = null)
         {
-            return null;
+            GameObject weaponObject = Instantiate(weaponScriptableObject.prefab);
+            var weapon = weaponObject.GetComponent<Weapon>();
+            if (!weapon) throw new System.Exception($"No Weapon component in weapon's prefab '{weaponScriptableObject.id}'");
+
+            weaponObject.transform.SetParent(parentTransform, true);
+
+            weapon.weaponSo = weaponScriptableObject;
+
+            weapon.ApplyOffset();
+
+            return weaponObject;
+        }
+
+        private void Start()
+        {
+            currentAmmo = weaponSo.maxAmmo;
+        }
+
+        private void Update()
+        {
+            shootCooldown -= Time.deltaTime;
+
+            if (shootCooldown < 0)
+            {
+                shootCooldown = 0;
+            }
         }
 
         public bool Shoot()
         {
-            if (currentAmmo <= 0 && !infiniteAmmo) return false;
-            if(shootCooldown < weaponSo.cooldown) return false;
+            if(!shooter) return false;
+            if (!HasAmmo()) return false;
+            if(shootCooldown > 0) return false;
+
+            shootCooldown = weaponSo.cooldown;
+
+            var projectileObject = Projectile.CreateProjectile(weaponSo.projectileScriptableObject, shooter);
+
+            projectileObject.transform.position = shootTransform.position;
+            projectileObject.transform.forward = shootTransform.forward;
 
             return true;
+        }
+
+        public void ApplyOffset()
+        {
+            transform.localPosition = weaponSo.slotOffset;
+        }
+
+        public bool HasAmmo()
+        {
+            return currentAmmo > 0 || infiniteAmmo;
+        }
+
+        public int AddAmmo(int amount)
+        {
+            if (currentAmmo >= weaponSo.maxAmmo) return amount;
+            currentAmmo += amount;
+            var diff = 0;
+            if (currentAmmo > weaponSo.maxAmmo)
+            {
+                diff = currentAmmo - weaponSo.maxAmmo;
+                currentAmmo = weaponSo.maxAmmo;
+            }
+            return diff;
+        }
+
+        public void SetShooter(GenericShooter shooter)
+        {
+            this.shooter = shooter;
         }
     }
 }

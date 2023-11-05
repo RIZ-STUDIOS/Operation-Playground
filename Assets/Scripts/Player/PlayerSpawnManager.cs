@@ -52,7 +52,7 @@ namespace OperationPlayground.Player
 
         public void StartGame()
         {
-            PlayerInputManager.instance.DisableJoining();
+            DisableJoining();
             LevelLoader.LoadScene("Game", OnGameSceneLoad);
         }
 
@@ -70,6 +70,16 @@ namespace OperationPlayground.Player
                 player.SetPosition(spawnLocation.position);
                 takenSpawnLocations.Add(spawnLocation);
             }
+        }
+
+        public void EnableJoining()
+        {
+            PlayerInputManager.instance.EnableJoining();
+        }
+
+        public void DisableJoining()
+        {
+            PlayerInputManager.instance.DisableJoining();
         }
     }
 }

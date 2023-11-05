@@ -3,12 +3,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace OperationPlayground.Editor.CustomEditors
 {
     [CustomEditor(typeof(PlayerSpawnManager))]
     public class PlayerSpawnManagerCustomEditor : UnityEditor.Editor
     {
+        PlayerInputManager playerInputManager;
+
+        private void OnEnable()
+        {
+            playerInputManager = FindObjectOfType<PlayerInputManager>();
+        }
+
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
@@ -20,6 +28,25 @@ namespace OperationPlayground.Editor.CustomEditors
             {
                 playerSpawnManager.StartGame();
             }
+
+            GUI.enabled = Application.isPlaying;
+
+            EditorGUI.BeginChangeCheck();
+
+            var value = GUILayout.Toggle(playerInputManager.joiningEnabled, "Allow players to join");
+
+            if(EditorGUI.EndChangeCheck() )
+            {
+                if (value)
+                {
+                    playerInputManager.EnableJoining();
+                }
+                else
+                {
+                    playerInputManager.DisableJoining();
+                }
+            }
+
             GUI.enabled = true;
         }
     }

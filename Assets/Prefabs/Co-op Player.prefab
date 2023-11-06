@@ -16,6 +16,8 @@ GameObject:
   - component: {fileID: 7530822698935942977}
   - component: {fileID: 1370434865088146647}
   - component: {fileID: 3776001987222309030}
+  - component: {fileID: 9215421070147255643}
+  - component: {fileID: 2497369843031807928}
   m_Layer: 0
   m_Name: Co-op Player
   m_TagString: Untagged
@@ -164,6 +166,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bd02296cbed0d740b64b22e945dc2f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &9215421070147255643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2420707843782067168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73483a6a138fc8b4a88703489dab6888, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buildTime: 0.5
+--- !u!114 &2497369843031807928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2420707843782067168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1ff3a5bd416b8b46b778b636f92522f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  invalid: 1
 --- !u!1 &3115131928635973694
 GameObject:
   m_ObjectHideFlags: 0

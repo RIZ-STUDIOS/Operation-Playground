@@ -38,7 +38,7 @@ namespace OperationPlayground.Player
             playerManager.gamepad = playerInput.GetDevice<Gamepad>();
             playerManager.playerIndex = playerInput.playerIndex;
 
-            playerManager.AddDefaultPlayerStates();
+            playerManager.AddAllPlayerStates();
             playerManager.RemoveAllPlayerStates();
 
             players.Add(playerManager);

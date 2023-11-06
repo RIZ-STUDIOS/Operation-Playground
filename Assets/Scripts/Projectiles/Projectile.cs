@@ -7,7 +7,7 @@ using UnityEngine;
 namespace OperationPlayground.Projectiles
 {
     [RequireComponent(typeof(Collider))]
-    public class Projectile : MonoBehaviour
+    public abstract class Projectile : MonoBehaviour
     {
         private ProjectileScriptableObject projectileSo;
 
@@ -35,9 +35,11 @@ namespace OperationPlayground.Projectiles
             return projectileObject;
         }
 
-        public virtual void Move()
-        {
+        public abstract void Move();
 
+        private void Update()
+        {
+            Move();
         }
     }
 }

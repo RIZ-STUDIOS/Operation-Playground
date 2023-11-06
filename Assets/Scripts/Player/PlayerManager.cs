@@ -1,3 +1,4 @@
+using OperationPlayground.EntityData;
 using OperationPlayground.Player.PlayerCapabilities;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,7 +7,7 @@ using UnityEngine.InputSystem;
 
 namespace OperationPlayground.Player
 {
-    public class PlayerManager : MonoBehaviour
+    public class PlayerManager : GenericEntity
     {
         public Gamepad gamepad;
 
@@ -17,26 +18,37 @@ namespace OperationPlayground.Player
 
         public Transform playerTransform;
 
-        public PlayerCamera PlayerCamera => GetIfNull(ref _playerCamera);
+        public PlayerCamera PlayerCamera => this.GetIfNull(ref _playerCamera);
 
-        public Renderer[] PlayerRenderers => GetIfNull(ref _playerRenderers);
+        public Renderer[] PlayerRenderers => this.GetIfNull(ref _playerRenderers);
 
-        public Collider[] PlayerColliders => GetIfNull(ref _playerColliders);
+        public Collider[] PlayerColliders => this.GetIfNull(ref _playerColliders);
 
-        public PlayerMovement PlayerMovement => GetIfNull(ref _playerMovement);
+        public PlayerMovement PlayerMovement => this.GetIfNull(ref _playerMovement);
 
-        public PlayerShooting PlayerShooting => GetIfNull(ref _playerShooting);
+        public PlayerShooter PlayerShooter => this.GetIfNull(ref _playerShooter);
+
+        public PlayerHealth PlayerHealth => this.GetIfNull(ref _playerHealth);
+
+        public PlayerInteraction PlayerInteraction => this.GetIfNull(ref _playerInteraction);
 
         private PlayerCamera _playerCamera;
         private Renderer[] _playerRenderers;
         private Collider[] _playerColliders;
 
         private PlayerMovement _playerMovement;
-        private PlayerShooting _playerShooting;
+        private PlayerShooter _playerShooter;
+        private PlayerHealth _playerHealth;
+        private PlayerInteraction _playerInteraction;
+
+        public override GameTeam Team => GameTeam.TeamA;
+
+        public override GenericHealth Health => PlayerHealth;
+        public override GenericShooter Shooter => PlayerShooter;
 
         private List<PlayerCapability> playerStates = new List<PlayerCapability>();
 
-        private void Awake()
+        protected override void Awake()
         {
             InitializePlayer();
         }
@@ -46,22 +58,8 @@ namespace OperationPlayground.Player
             if (playerInput != null) return;
             playerInput = new OPPlayerInput();
             playerInput.Enable();
-        }
 
-        private T GetIfNull<T>(ref T component)
-        {
-            if (component == null)
-                component = GetComponentInChildren<T>();
-
-            return component;
-        }
-
-        private T[] GetIfNull<T>(ref T[] component)
-        {
-            if (component == null)
-                component = GetComponentsInChildren<T>();
-
-            return component;
+            SetParentEntity();
         }
 
         public void AddPlayerState(PlayerCapabilityType playerStateType)
@@ -95,7 +93,9 @@ namespace OperationPlayground.Player
             AddPlayerState(PlayerCapabilityType.Graphics);
             AddPlayerState(PlayerCapabilityType.Collision);
             AddPlayerState(PlayerCapabilityType.Movement);
-            AddPlayerState(PlayerCapabilityType.Shooting);
+            AddPlayerState(PlayerCapabilityType.Shooter);
+            AddPlayerState(PlayerCapabilityType.Health);
+            AddPlayerState(PlayerCapabilityType.Interaction);
         }
 
         private PlayerCapability GetPlayerState(PlayerCapabilityType playerStateType)

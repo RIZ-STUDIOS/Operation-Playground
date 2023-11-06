@@ -6,8 +6,6 @@ namespace OperationPlayground.Player.PlayerCapabilities
 {
     public class CollisionPlayerCapability : PlayerCapability
     {
-        public override PlayerCapabilityType CapabilityType => PlayerCapabilityType.Collision;
-
         public override void OnStateEnter()
         {
             foreach (var collider in playerManager.PlayerColliders)

@@ -35,6 +35,14 @@ namespace OperationPlayground.Menus
             UpdateCharacterSelect();
         }
 
+        private void OnDestroy()
+        {
+            if (!currentPlayer) return;
+            currentPlayer.playerInput.Basic.Join.performed -= OnJoin;
+            currentPlayer.playerInput.UI.Cancel.performed -= OnCancel;
+            ToggleInput(false);
+        }
+
         public void ListenForJoin()
         {
             currentPlayer.playerInput.Basic.Join.performed += OnJoin;

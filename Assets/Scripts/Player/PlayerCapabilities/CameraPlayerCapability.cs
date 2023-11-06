@@ -6,8 +6,6 @@ namespace OperationPlayground.Player.PlayerCapabilities
 {
     public class CameraPlayerCapability : PlayerCapability
     {
-        public override PlayerCapabilityType CapabilityType => PlayerCapabilityType.Camera;
-
         public override void OnStateEnter()
         {
             playerManager.PlayerCamera.enabled = true;

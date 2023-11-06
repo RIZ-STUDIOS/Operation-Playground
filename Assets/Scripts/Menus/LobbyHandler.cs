@@ -19,7 +19,7 @@ namespace OperationPlayground.Menus
         {
             //players = new List<PlayerMenuData>();
             playerSlots = GetComponentsInChildren<SlotHandler>();
-            
+
             for (int i = 0; i < playerSlots.Length; i++)
             {
                 //if (i == 0) playerSlots[i].onPlayerExit += EndLobby;
@@ -66,7 +66,7 @@ namespace OperationPlayground.Menus
 
         private void UpdatePlayers(PlayerManager playerManager)
         {
-            if(!PlayerSpawnManager.Instance.AnyPlayersJoined) EndLobby();
+            if (!PlayerSpawnManager.Instance.AnyPlayersJoined) EndLobby();
             //players.RemoveAll(player => player == null);
         }
 

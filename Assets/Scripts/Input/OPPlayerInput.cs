@@ -46,15 +46,6 @@ namespace OperationPlayground
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Interact"",
-                    ""type"": ""Button"",
-                    ""id"": ""810eebab-daca-47f4-9b78-6662b83d422b"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -88,17 +79,6 @@ namespace OperationPlayground
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""ToggleBuild"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""b4e23b53-016b-4992-9eb4-5cfc39eaafb8"",
-                    ""path"": ""<Gamepad>/buttonSouth"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -329,6 +309,34 @@ namespace OperationPlayground
                     ""action"": ""Cycle"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                }
+            ]
+        },
+        {
+            ""name"": ""Interaction"",
+            ""id"": ""54578b1c-ad3f-4743-8648-47961ac62212"",
+            ""actions"": [
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""e58a9058-3372-4194-92dd-1132ffcaa7fc"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""4d938171-5c32-4aa5-bc9b-c7d24ca22821"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -817,7 +825,6 @@ namespace OperationPlayground
             m_Basic = asset.FindActionMap("Basic", throwIfNotFound: true);
             m_Basic_ToggleBuild = m_Basic.FindAction("ToggleBuild", throwIfNotFound: true);
             m_Basic_Join = m_Basic.FindAction("Join", throwIfNotFound: true);
-            m_Basic_Interact = m_Basic.FindAction("Interact", throwIfNotFound: true);
             // Movement
             m_Movement = asset.FindActionMap("Movement", throwIfNotFound: true);
             m_Movement_Move = m_Movement.FindAction("Move", throwIfNotFound: true);
@@ -826,6 +833,9 @@ namespace OperationPlayground
             m_Shoot = asset.FindActionMap("Shoot", throwIfNotFound: true);
             m_Shoot_Fire = m_Shoot.FindAction("Fire", throwIfNotFound: true);
             m_Shoot_Cycle = m_Shoot.FindAction("Cycle", throwIfNotFound: true);
+            // Interaction
+            m_Interaction = asset.FindActionMap("Interaction", throwIfNotFound: true);
+            m_Interaction_Interact = m_Interaction.FindAction("Interact", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -901,14 +911,12 @@ namespace OperationPlayground
         private List<IBasicActions> m_BasicActionsCallbackInterfaces = new List<IBasicActions>();
         private readonly InputAction m_Basic_ToggleBuild;
         private readonly InputAction m_Basic_Join;
-        private readonly InputAction m_Basic_Interact;
         public struct BasicActions
         {
             private @OPPlayerInput m_Wrapper;
             public BasicActions(@OPPlayerInput wrapper) { m_Wrapper = wrapper; }
             public InputAction @ToggleBuild => m_Wrapper.m_Basic_ToggleBuild;
             public InputAction @Join => m_Wrapper.m_Basic_Join;
-            public InputAction @Interact => m_Wrapper.m_Basic_Interact;
             public InputActionMap Get() { return m_Wrapper.m_Basic; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -924,9 +932,6 @@ namespace OperationPlayground
                 @Join.started += instance.OnJoin;
                 @Join.performed += instance.OnJoin;
                 @Join.canceled += instance.OnJoin;
-                @Interact.started += instance.OnInteract;
-                @Interact.performed += instance.OnInteract;
-                @Interact.canceled += instance.OnInteract;
             }
 
             private void UnregisterCallbacks(IBasicActions instance)
@@ -937,9 +942,6 @@ namespace OperationPlayground
                 @Join.started -= instance.OnJoin;
                 @Join.performed -= instance.OnJoin;
                 @Join.canceled -= instance.OnJoin;
-                @Interact.started -= instance.OnInteract;
-                @Interact.performed -= instance.OnInteract;
-                @Interact.canceled -= instance.OnInteract;
             }
 
             public void RemoveCallbacks(IBasicActions instance)
@@ -1065,6 +1067,52 @@ namespace OperationPlayground
             }
         }
         public ShootActions @Shoot => new ShootActions(this);
+
+        // Interaction
+        private readonly InputActionMap m_Interaction;
+        private List<IInteractionActions> m_InteractionActionsCallbackInterfaces = new List<IInteractionActions>();
+        private readonly InputAction m_Interaction_Interact;
+        public struct InteractionActions
+        {
+            private @OPPlayerInput m_Wrapper;
+            public InteractionActions(@OPPlayerInput wrapper) { m_Wrapper = wrapper; }
+            public InputAction @Interact => m_Wrapper.m_Interaction_Interact;
+            public InputActionMap Get() { return m_Wrapper.m_Interaction; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(InteractionActions set) { return set.Get(); }
+            public void AddCallbacks(IInteractionActions instance)
+            {
+                if (instance == null || m_Wrapper.m_InteractionActionsCallbackInterfaces.Contains(instance)) return;
+                m_Wrapper.m_InteractionActionsCallbackInterfaces.Add(instance);
+                @Interact.started += instance.OnInteract;
+                @Interact.performed += instance.OnInteract;
+                @Interact.canceled += instance.OnInteract;
+            }
+
+            private void UnregisterCallbacks(IInteractionActions instance)
+            {
+                @Interact.started -= instance.OnInteract;
+                @Interact.performed -= instance.OnInteract;
+                @Interact.canceled -= instance.OnInteract;
+            }
+
+            public void RemoveCallbacks(IInteractionActions instance)
+            {
+                if (m_Wrapper.m_InteractionActionsCallbackInterfaces.Remove(instance))
+                    UnregisterCallbacks(instance);
+            }
+
+            public void SetCallbacks(IInteractionActions instance)
+            {
+                foreach (var item in m_Wrapper.m_InteractionActionsCallbackInterfaces)
+                    UnregisterCallbacks(item);
+                m_Wrapper.m_InteractionActionsCallbackInterfaces.Clear();
+                AddCallbacks(instance);
+            }
+        }
+        public InteractionActions @Interaction => new InteractionActions(this);
 
         // UI
         private readonly InputActionMap m_UI;
@@ -1232,7 +1280,6 @@ namespace OperationPlayground
         {
             void OnToggleBuild(InputAction.CallbackContext context);
             void OnJoin(InputAction.CallbackContext context);
-            void OnInteract(InputAction.CallbackContext context);
         }
         public interface IMovementActions
         {
@@ -1243,6 +1290,10 @@ namespace OperationPlayground
         {
             void OnFire(InputAction.CallbackContext context);
             void OnCycle(InputAction.CallbackContext context);
+        }
+        public interface IInteractionActions
+        {
+            void OnInteract(InputAction.CallbackContext context);
         }
         public interface IUIActions
         {

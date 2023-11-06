@@ -9,7 +9,7 @@ namespace OperationPlayground
     public class BillboardObject : MonoBehaviour
     {
         [SerializeField]
-        private bool inverseLookAt;
+        private bool inverseLookAt = true;
 
         private void OnEnable()
         {

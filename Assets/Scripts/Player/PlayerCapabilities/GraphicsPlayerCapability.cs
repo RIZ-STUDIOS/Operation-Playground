@@ -6,8 +6,6 @@ namespace OperationPlayground.Player.PlayerCapabilities
 {
     public class GraphicsPlayerCapability : PlayerCapability
     {
-        public override PlayerCapabilityType CapabilityType => PlayerCapabilityType.Graphics;
-
         public override void OnStateEnter()
         {
             foreach (var renderer in playerManager.PlayerRenderers)

@@ -22,7 +22,7 @@ namespace OperationPlayground.Player
         protected override void Awake()
         {
             base.Awake();
-            if(Instance == this)
+            if (Instance == this)
                 DontDestroyOnLoad(gameObject);
         }
 
@@ -66,7 +66,7 @@ namespace OperationPlayground.Player
         private void OnGameSceneLoad()
         {
             List<Transform> takenSpawnLocations = new List<Transform>();
-            foreach(var player in players)
+            foreach (var player in players)
             {
                 player.AddDefaultPlayerStates();
                 Transform spawnLocation;

@@ -1,3 +1,6 @@
+using OperationPlayground.EntityData;
+using OperationPlayground.Interactables;
+using OperationPlayground.Player;
 using OperationPlayground.Projectiles;
 using OperationPlayground.ScriptableObjects;
 using System.Collections;
@@ -8,7 +11,10 @@ namespace OperationPlayground.Weapons
 {
     public class Weapon : MonoBehaviour
     {
-        private WeaponScriptableObject weaponSo;
+        public WeaponScriptableObject weaponSo;
+
+        [System.NonSerialized]
+        public Interactable interactable;
 
         [SerializeField]
         private Transform shootTransform;
@@ -37,6 +43,16 @@ namespace OperationPlayground.Weapons
             return weaponObject;
         }
 
+        private void Awake()
+        {
+            interactable = GetComponent<Interactable>();
+
+            if (interactable)
+            {
+                interactable.onInteract += OnInteract;
+            }
+        }
+
         private void Start()
         {
             currentAmmo = weaponSo.maxAmmo;
@@ -54,9 +70,9 @@ namespace OperationPlayground.Weapons
 
         public bool Shoot()
         {
-            if(!shooter) return false;
+            if (!shooter) return false;
             if (!HasAmmo()) return false;
-            if(shootCooldown > 0) return false;
+            if (shootCooldown > 0) return false;
 
             shootCooldown = weaponSo.cooldown;
 
@@ -64,6 +80,11 @@ namespace OperationPlayground.Weapons
 
             projectileObject.transform.position = shootTransform.position;
             projectileObject.transform.forward = shootTransform.forward;
+
+            if (!infiniteAmmo)
+            {
+                currentAmmo--;
+            }
 
             return true;
         }
@@ -94,6 +115,16 @@ namespace OperationPlayground.Weapons
         public void SetShooter(GenericShooter shooter)
         {
             this.shooter = shooter;
+        }
+
+        public bool CompareScriptableObject(WeaponScriptableObject weaponScriptableObject)
+        {
+            return weaponScriptableObject == weaponSo;
+        }
+
+        private void OnInteract(PlayerManager playerManager)
+        {
+            playerManager.PlayerShooter.AddWeapon(this);
         }
     }
 }

@@ -6,8 +6,6 @@ namespace OperationPlayground.Player.PlayerCapabilities
 {
     public class ShootingPlayerCapability : PlayerCapability
     {
-        public override PlayerCapabilityType CapabilityType => PlayerCapabilityType.Shooting;
-
         public override void OnStateEnter()
         {
             playerManager.playerInput.Shoot.Enable();

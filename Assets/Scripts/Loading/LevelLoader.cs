@@ -17,7 +17,7 @@ namespace OperationPlayground.Loading
         private TextMeshProUGUI errorText;
 
         [SerializeField]
-        private CanvasGroup fadeCanvasGroup;    
+        private CanvasGroup fadeCanvasGroup;
 
         [SerializeField]
         private float fakeDurationLength = 0.15f;

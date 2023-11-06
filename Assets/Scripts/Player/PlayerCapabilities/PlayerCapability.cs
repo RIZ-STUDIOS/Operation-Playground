@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,12 +12,25 @@ namespace OperationPlayground.Player.PlayerCapabilities
         Graphics,
         Collision,
         Movement,
-        Shooting
+        Shooter,
+        Health,
+        Interaction
     }
 
     public abstract class PlayerCapability
     {
-        public abstract PlayerCapabilityType CapabilityType { get; }
+        private static Dictionary<PlayerCapabilityType, System.Type> capabilitiesDictionary = new Dictionary<PlayerCapabilityType, System.Type>()
+        {
+            {PlayerCapabilityType.Camera, typeof(CameraPlayerCapability) },
+            {PlayerCapabilityType.Graphics, typeof(GraphicsPlayerCapability) },
+            {PlayerCapabilityType.Collision, typeof(CollisionPlayerCapability) },
+            {PlayerCapabilityType.Movement, typeof(MovementPlayerCapability) },
+            {PlayerCapabilityType.Shooter, typeof(ShootingPlayerCapability) },
+            {PlayerCapabilityType.Health, typeof(HealthPlayerCapability) },
+            {PlayerCapabilityType.Interaction, typeof(InteractablePlayerCapability) }
+        };
+
+        public PlayerCapabilityType CapabilityType { get; private set; }
 
         public PlayerManager playerManager;
 
@@ -26,21 +40,12 @@ namespace OperationPlayground.Player.PlayerCapabilities
 
         public static PlayerCapability CreatePlayerCapability(PlayerCapabilityType stateType)
         {
-            switch (stateType)
-            {
-                case PlayerCapabilityType.Camera:
-                    return new CameraPlayerCapability();
-                case PlayerCapabilityType.Graphics:
-                    return new GraphicsPlayerCapability();
-                case PlayerCapabilityType.Collision:
-                    return new CollisionPlayerCapability();
-                case PlayerCapabilityType.Movement:
-                    return new MovementPlayerCapability();
-                case PlayerCapabilityType.Shooting:
-                    return new ShootingPlayerCapability();
-            }
+            if (!capabilitiesDictionary.TryGetValue(stateType, out var capabilitiesType))
+                throw new System.Exception($"No set state for {stateType}");
 
-            throw new System.Exception($"No set state for {stateType}");
+            var capability = (PlayerCapability)Activator.CreateInstance(capabilitiesType);
+            capability.CapabilityType = stateType;
+            return capability;
         }
     }
 }

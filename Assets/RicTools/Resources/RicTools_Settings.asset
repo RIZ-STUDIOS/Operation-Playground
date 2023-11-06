@@ -19,3 +19,9 @@ MonoBehaviour:
       _typeNameAndAssembly: OperationPlayground.Managers.GameManager, OperationPlayground
       _suppressLogs: 0
     data: {fileID: 0}
+  - manager:
+      GuidAssignmentFailed: 0
+      GUID: 1c22651fe20745c419330acc8047d08c
+      _typeNameAndAssembly: OperationPlayground.Managers.PrefabsManager, OperationPlayground
+      _suppressLogs: 0
+    data: {fileID: 11400000, guid: 10ed5235f3812424cb4998ddf62698dc, type: 2}

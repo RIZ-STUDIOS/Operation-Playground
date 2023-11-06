@@ -6,8 +6,6 @@ namespace OperationPlayground.Player.PlayerCapabilities
 {
     public class MovementPlayerCapability : PlayerCapability
     {
-        public override PlayerCapabilityType CapabilityType => PlayerCapabilityType.Movement;
-
         public override void OnStateEnter()
         {
             playerManager.playerInput.Movement.Enable();

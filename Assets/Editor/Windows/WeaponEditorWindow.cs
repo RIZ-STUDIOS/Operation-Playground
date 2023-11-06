@@ -1,12 +1,12 @@
+using OperationPlayground.ScriptableObjects;
+using OperationPlayground.ScriptableObjects.Projectiles;
+using RicTools;
+using RicTools.Editor.Utilities;
+using RicTools.Editor.Windows;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using RicTools;
-using RicTools.Editor.Windows;
 using UnityEditor;
-using OperationPlayground.ScriptableObjects;
-using RicTools.Editor.Utilities;
-using OperationPlayground.ScriptableObjects.Projectiles;
+using UnityEngine;
 
 namespace OperationPlayground.Editor.Windows
 {
@@ -19,7 +19,7 @@ namespace OperationPlayground.Editor.Windows
         public EditorContainer<Vector3> slotOffset;
 
         [MenuItem("Operation Playground/Weapon Editor")]
-    	public static WeaponEditorWindow ShowWindow()
+        public static WeaponEditorWindow ShowWindow()
         {
             return GetWindow<WeaponEditorWindow>("Weapon Editor");
         }
@@ -58,7 +58,7 @@ namespace OperationPlayground.Editor.Windows
 
         protected override void LoadScriptableObject(WeaponScriptableObject so, bool isNull)
         {
-            if(isNull)
+            if (isNull)
             {
                 cooldown.Reset();
                 prefab.Reset();

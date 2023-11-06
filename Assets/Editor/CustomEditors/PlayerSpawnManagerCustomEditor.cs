@@ -10,7 +10,7 @@ namespace OperationPlayground.Editor.CustomEditors
     [CustomEditor(typeof(PlayerSpawnManager))]
     public class PlayerSpawnManagerCustomEditor : UnityEditor.Editor
     {
-        PlayerInputManager playerInputManager;
+        private PlayerInputManager playerInputManager;
 
         private void OnEnable()
         {
@@ -24,7 +24,7 @@ namespace OperationPlayground.Editor.CustomEditors
             var playerSpawnManager = (target as PlayerSpawnManager);
 
             GUI.enabled = Application.isPlaying && playerSpawnManager.AnyPlayersJoined;
-            if(GUILayout.Button("Start Game"))
+            if (GUILayout.Button("Start Game"))
             {
                 playerSpawnManager.StartGame();
             }
@@ -35,7 +35,7 @@ namespace OperationPlayground.Editor.CustomEditors
 
             var value = GUILayout.Toggle(playerInputManager.joiningEnabled, "Allow players to join");
 
-            if(EditorGUI.EndChangeCheck() )
+            if (EditorGUI.EndChangeCheck())
             {
                 if (value)
                 {

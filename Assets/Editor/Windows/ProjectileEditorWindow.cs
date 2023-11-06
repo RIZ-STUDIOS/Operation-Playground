@@ -1,12 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using RicTools;
-using RicTools.Editor.Windows;
-using UnityEditor;
 using OperationPlayground.ScriptableObjects;
 using OperationPlayground.ScriptableObjects.Projectiles;
+using RicTools;
 using RicTools.Editor.Utilities;
+using RicTools.Editor.Windows;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEditor;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace OperationPlayground.Editor.Windows
@@ -21,9 +21,10 @@ namespace OperationPlayground.Editor.Windows
         public EditorContainer<DamageType> damageType;
 
         private FloatField maxRangeFloatField;
+        private FloatField timeAliveFloatField;
 
         [MenuItem("Operation Playground/Projectile Editor")]
-    	public static ProjectileEditorWindow ShowWindow()
+        public static ProjectileEditorWindow ShowWindow()
         {
             return GetWindow<ProjectileEditorWindow>("Projectile Editor");
         }
@@ -47,8 +48,8 @@ namespace OperationPlayground.Editor.Windows
             }
 
             {
-                var element = rootVisualElement.AddFloatField(aliveTime, "Time Alive");
-                RegisterLoadChange(element, aliveTime);
+                timeAliveFloatField = rootVisualElement.AddFloatField(aliveTime, "Time Alive");
+                RegisterLoadChange(timeAliveFloatField, aliveTime);
             }
 
             {
@@ -66,15 +67,29 @@ namespace OperationPlayground.Editor.Windows
 
         protected override void LoadScriptableObject(ProjectileScriptableObject so, bool isNull)
         {
-            if(isNull)
+            if (isNull)
             {
                 prefab.Reset();
                 projectileType.Reset();
+                damageType.Reset();
+                maxRange.Reset();
+                speed.Reset();
+                aliveTime.Reset();
             }
             else
             {
                 prefab.Value = so.prefab;
                 projectileType.Value = so.projectileType;
+                damageType.Value = so.damageType;
+                speed.Value = so.speed;
+                if (so is ArcProjectileScriptableObject arcProj)
+                {
+                    maxRange.Value = arcProj.maxRange;
+                }
+                else if (so is StraightProjectileScriptableObject straightProj)
+                {
+                    aliveTime.Value = straightProj.aliveTime;
+                }
             }
 
             UpdateVisibleFields();
@@ -82,20 +97,35 @@ namespace OperationPlayground.Editor.Windows
 
         protected override void CreateAsset(ref ProjectileScriptableObject asset)
         {
-            if(projectileType == ProjectileType.Arc)
+            if (projectileType == ProjectileType.Arc)
             {
-                var projectileAsset = ScriptableObject.CreateInstance<ArcProjectileScriptableObject>();
+                if (asset is not ArcProjectileScriptableObject projectileAsset)
+                    projectileAsset = ScriptableObject.CreateInstance<ArcProjectileScriptableObject>();
+
+                projectileAsset.maxRange = maxRange;
+
+                asset = projectileAsset;
+            }
+            else
+            {
+                if (asset is not StraightProjectileScriptableObject projectileAsset)
+                    projectileAsset = ScriptableObject.CreateInstance<StraightProjectileScriptableObject>();
+
+                projectileAsset.aliveTime = aliveTime;
 
                 asset = projectileAsset;
             }
 
             asset.prefab = prefab;
             asset.projectileType = projectileType;
+            asset.damageType = damageType;
+            asset.speed = speed;
         }
 
         private void UpdateVisibleFields()
         {
             maxRangeFloatField.ToggleClass("hidden", projectileType != ProjectileType.Arc);
+            timeAliveFloatField.ToggleClass("hidden", projectileType != ProjectileType.Straight);
         }
 
         protected override IEnumerable<CompleteCriteria> GetCompleteCriteria()

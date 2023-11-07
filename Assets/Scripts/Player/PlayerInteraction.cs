@@ -26,7 +26,14 @@ namespace OperationPlayground.Player
                 currentInteractable.RemovePlayer(playerManager);
             }
             currentInteractable = interactable;
-            currentInteractable.AddPlayer(playerManager);
+            if (interactable)
+                currentInteractable.AddPlayer(playerManager);
+        }
+
+        public void UpdateInteractable()
+        {
+            if (!currentInteractable) return;
+            currentInteractable.UpdateOutlines();
         }
 
         private void OnInteractPerformed(UnityEngine.InputSystem.InputAction.CallbackContext obj)

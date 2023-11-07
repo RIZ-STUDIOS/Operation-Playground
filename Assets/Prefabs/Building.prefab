@@ -117,6 +117,9 @@ GameObject:
   - component: {fileID: 5093902119799595681}
   - component: {fileID: 1642929211766740350}
   - component: {fileID: 1540543369487966895}
+  - component: {fileID: 5242999662230574695}
+  - component: {fileID: 4813430752336110086}
+  - component: {fileID: 4035035934633382386}
   m_Layer: 0
   m_Name: Building
   m_TagString: Untagged
@@ -211,3 +214,53 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!135 &5242999662230574695
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7599571061544888827}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 2.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4813430752336110086
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7599571061544888827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e8321b549e645242a30188af8e60017, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactRadius: 2.5
+  interactionTime: 0
+  destroyOnInteract: 0
+  radialBarOffset: {x: 0, y: 1.25, z: 0}
+  _canInteractWith: 1
+--- !u!114 &4035035934633382386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7599571061544888827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55bd9c3cfdc6153439c260f388ba72a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

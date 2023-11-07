@@ -75,7 +75,7 @@ namespace OperationPlayground
                     ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Join"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -354,6 +354,17 @@ namespace OperationPlayground
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""31b519ff-a649-49b2-911f-d0d24481c172"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -874,6 +885,34 @@ namespace OperationPlayground
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""InBuild"",
+            ""id"": ""836c9a96-991f-4ab3-a8d0-ee1c28474d37"",
+            ""actions"": [
+                {
+                    ""name"": ""Leave"",
+                    ""type"": ""Button"",
+                    ""id"": ""47c6fe00-fa89-415e-879a-fcccad784fd6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""8cb9227d-929f-4427-b6eb-ffe0addc7304"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Leave"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -974,6 +1013,9 @@ namespace OperationPlayground
             m_UI_RightClick = m_UI.FindAction("RightClick", throwIfNotFound: true);
             m_UI_TrackedDevicePosition = m_UI.FindAction("TrackedDevicePosition", throwIfNotFound: true);
             m_UI_TrackedDeviceOrientation = m_UI.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
+            // InBuild
+            m_InBuild = asset.FindActionMap("InBuild", throwIfNotFound: true);
+            m_InBuild_Leave = m_InBuild.FindAction("Leave", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -1465,6 +1507,52 @@ namespace OperationPlayground
             }
         }
         public UIActions @UI => new UIActions(this);
+
+        // InBuild
+        private readonly InputActionMap m_InBuild;
+        private List<IInBuildActions> m_InBuildActionsCallbackInterfaces = new List<IInBuildActions>();
+        private readonly InputAction m_InBuild_Leave;
+        public struct InBuildActions
+        {
+            private @OPPlayerInput m_Wrapper;
+            public InBuildActions(@OPPlayerInput wrapper) { m_Wrapper = wrapper; }
+            public InputAction @Leave => m_Wrapper.m_InBuild_Leave;
+            public InputActionMap Get() { return m_Wrapper.m_InBuild; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(InBuildActions set) { return set.Get(); }
+            public void AddCallbacks(IInBuildActions instance)
+            {
+                if (instance == null || m_Wrapper.m_InBuildActionsCallbackInterfaces.Contains(instance)) return;
+                m_Wrapper.m_InBuildActionsCallbackInterfaces.Add(instance);
+                @Leave.started += instance.OnLeave;
+                @Leave.performed += instance.OnLeave;
+                @Leave.canceled += instance.OnLeave;
+            }
+
+            private void UnregisterCallbacks(IInBuildActions instance)
+            {
+                @Leave.started -= instance.OnLeave;
+                @Leave.performed -= instance.OnLeave;
+                @Leave.canceled -= instance.OnLeave;
+            }
+
+            public void RemoveCallbacks(IInBuildActions instance)
+            {
+                if (m_Wrapper.m_InBuildActionsCallbackInterfaces.Remove(instance))
+                    UnregisterCallbacks(instance);
+            }
+
+            public void SetCallbacks(IInBuildActions instance)
+            {
+                foreach (var item in m_Wrapper.m_InBuildActionsCallbackInterfaces)
+                    UnregisterCallbacks(item);
+                m_Wrapper.m_InBuildActionsCallbackInterfaces.Clear();
+                AddCallbacks(instance);
+            }
+        }
+        public InBuildActions @InBuild => new InBuildActions(this);
         private int m_KeyboardMouseSchemeIndex = -1;
         public InputControlScheme KeyboardMouseScheme
         {
@@ -1551,6 +1639,10 @@ namespace OperationPlayground
             void OnRightClick(InputAction.CallbackContext context);
             void OnTrackedDevicePosition(InputAction.CallbackContext context);
             void OnTrackedDeviceOrientation(InputAction.CallbackContext context);
+        }
+        public interface IInBuildActions
+        {
+            void OnLeave(InputAction.CallbackContext context);
         }
     }
 }

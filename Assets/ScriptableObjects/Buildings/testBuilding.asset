@@ -18,3 +18,4 @@ MonoBehaviour:
   timerOffset: {x: 0, y: 1.25, z: 0}
   placementDistance: 2
   boundsToCheck: {x: 1.5, y: 2.095499, z: 1.5}
+  resourceCost: 10

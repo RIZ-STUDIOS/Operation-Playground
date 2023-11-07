@@ -64,5 +64,17 @@ namespace OperationPlayground.EntityData
         {
             return true;
         }
+
+        public void HideWeapon()
+        {
+            if (!currentWeapon) return;
+            currentWeapon.gameObject.SetActive(false);
+        }
+
+        public void ShowWeapon()
+        {
+            if (!currentWeapon) return;
+            currentWeapon.gameObject.SetActive(true);
+        }
     }
 }

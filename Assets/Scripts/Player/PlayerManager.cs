@@ -105,6 +105,7 @@ namespace OperationPlayground.Player
             AddPlayerState(PlayerCapabilityType.Shooter);
             AddPlayerState(PlayerCapabilityType.Health);
             AddPlayerState(PlayerCapabilityType.Interaction);
+            AddPlayerState(PlayerCapabilityType.InvalidPlacement);
         }
 
         public void AddAllPlayerStates()

@@ -16,11 +16,18 @@ namespace OperationPlayground.Player
         [SerializeField, MinValue(0.001f)]
         private float buildTime;
 
+        [SerializeField, ColorUsage(false)]
+        private Color allowedPlacementColor;
+
+        [SerializeField, ColorUsage(false)]
+        private Color invalidPlacementColor;
+
         private float timer;
 
         private PlayerManager playerManager;
 
         private GameObject currentBuildingObject;
+        private Renderer[] currentBuildingRenderers;
         private BuildingScriptableObject currentBuilding;
 
         private int selectedIndex;
@@ -34,6 +41,8 @@ namespace OperationPlayground.Player
         bool hasPlayerShootingCapability;
 
         private RadialBarUI timerUI;
+
+        private bool cachedCanPlace;
 
         private void Awake()
         {
@@ -127,6 +136,8 @@ namespace OperationPlayground.Player
             if (currentBuildingObject)
                 Destroy(currentBuildingObject);
             currentBuilding = null;
+            currentBuildingObject = null;
+            currentBuildingRenderers = null;
         }
 
         private void SelectBuilding(int index)
@@ -140,11 +151,24 @@ namespace OperationPlayground.Player
             currentBuildingObject.transform.localPosition = Vector3.forward * currentBuilding.placementDistance;
             timerUI.transform.SetParent(currentBuildingObject.transform, false);
             timerUI.transform.localPosition = currentBuilding.timerOffset;
+
+            currentBuildingRenderers = currentBuildingObject.GetComponentsInChildren<Renderer>();
+
+            foreach(var renderer in currentBuildingRenderers)
+            {
+                renderer.material = MaterialsManager.Instance.data.placementMaterial;
+            }
+
+            cachedCanPlace = CanPlace();
+
+            UpdateVisualMaterial();
         }
 
         private void Update()
         {
-            if (triggerDown)
+            cachedCanPlace = CanPlace();
+            UpdateVisualMaterial();
+            if (triggerDown && cachedCanPlace)
             {
                 timer += Time.deltaTime;
 
@@ -154,9 +178,17 @@ namespace OperationPlayground.Player
                 {
                     var buildingObject = Instantiate(currentBuilding.prefab);
                     buildingObject.transform.position = currentBuildingObject.transform.position;
+
+                    var invalidPlacement = buildingObject.GetOrAddComponent<InvalidPlacement>();
+                    invalidPlacement.invalid = true;
+
                     triggerDown = false;
                     UpdateTimerUI();
                 }
+            }else if(triggerDown && !cachedCanPlace)
+            {
+                timer = 0;
+                UpdateTimerUI();
             }
         }
 
@@ -179,6 +211,30 @@ namespace OperationPlayground.Player
                 invalidPlacements.RemoveAt(playerIndex);
 
             return invalidPlacements.Count == 0;
+        }
+
+        private void UpdateVisualMaterial()
+        {
+            if (currentBuildingRenderers == null) return;
+
+            if (cachedCanPlace)
+            {
+                var color = allowedPlacementColor;
+                color.a = 0.5f;
+                foreach(var renderer in currentBuildingRenderers)
+                {
+                    renderer.material.SetColor("_BaseColor", color);
+                }
+            }
+            else
+            {
+                var color = invalidPlacementColor;
+                color.a = 0.5f;
+                foreach (var renderer in currentBuildingRenderers)
+                {
+                    renderer.material.SetColor("_BaseColor", color);
+                }
+            }
         }
     }
 }

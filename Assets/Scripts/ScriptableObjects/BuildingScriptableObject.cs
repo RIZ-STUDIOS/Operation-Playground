@@ -13,5 +13,6 @@ namespace OperationPlayground.ScriptableObjects
         public Vector3 timerOffset;
         public float placementDistance;
         public Vector3 boundsToCheck;
+        public int resourceCost;
     }
 }

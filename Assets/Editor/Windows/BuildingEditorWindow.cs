@@ -17,6 +17,8 @@ namespace OperationPlayground.Editor.Windows
         public EditorContainer<Vector3> timerOffset;
         public EditorContainer<float> placementDistance = new EditorContainer<float>(1);
 
+        public EditorContainer<int> resourceCost;
+
         [MenuItem("Operation Playground/Building Editor")]
     	public static BuildingEditorWindow ShowWindow()
         {
@@ -54,6 +56,13 @@ namespace OperationPlayground.Editor.Windows
             }
 
             {
+                var element = rootVisualElement.AddIntField(resourceCost, "Resource Cost");
+
+                RegisterCheckCompletion(element);
+                RegisterLoadChange(element, resourceCost);
+            }
+
+            {
                 var element = rootVisualElement.AddVector3Field(timerOffset, "Placement Distance");
 
                 RegisterLoadChange(element, timerOffset);
@@ -68,6 +77,7 @@ namespace OperationPlayground.Editor.Windows
                 placementDistance.Reset();
                 visual.Reset();
                 timerOffset.Reset();
+                resourceCost.Reset();
             }
             else
             {
@@ -75,6 +85,7 @@ namespace OperationPlayground.Editor.Windows
                 placementDistance.Value = so.placementDistance;
                 visual.Value = so.visual;
                 timerOffset.Value = so.timerOffset;
+                resourceCost.Value = so.resourceCost;
             }
         }
 
@@ -84,6 +95,7 @@ namespace OperationPlayground.Editor.Windows
             asset.placementDistance = placementDistance;
             asset.visual = visual;
             asset.timerOffset = timerOffset;
+            asset.resourceCost = resourceCost;
 
             var gameObject = new GameObject();
             var prefabCreated = GameObject.Instantiate(prefab.Value);

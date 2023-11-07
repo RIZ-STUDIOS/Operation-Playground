@@ -16,7 +16,8 @@ namespace OperationPlayground.Player.PlayerCapabilities
         Health,
         Interaction,
         Building,
-        InvalidPlacement
+        InvalidPlacement,
+        Map
     }
 
     public abstract class PlayerCapability
@@ -32,6 +33,7 @@ namespace OperationPlayground.Player.PlayerCapabilities
             {PlayerCapabilityType.Interaction, typeof(InteractablePlayerCapability) },
             {PlayerCapabilityType.Building, typeof(BuildingPlayerCapability) },
             {PlayerCapabilityType.InvalidPlacement, typeof(InvalidPlacementPlayerCapability) },
+            {PlayerCapabilityType.Map, typeof(MapPlayerCapability) },
         };
 
         public PlayerCapabilityType CapabilityType { get; private set; }

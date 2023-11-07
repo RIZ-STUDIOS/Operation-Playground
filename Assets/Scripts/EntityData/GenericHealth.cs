@@ -63,6 +63,11 @@ namespace OperationPlayground.EntityData
             Health += amount;
         }
 
+        public void FullyHeal()
+        {
+            Heal(MaxHealth);
+        }
+
         protected void CreateHealthBar()
         {
             if (healthBar) return;

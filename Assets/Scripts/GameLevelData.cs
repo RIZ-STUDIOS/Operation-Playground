@@ -8,6 +8,7 @@ namespace OperationPlayground
     public class GameLevelData : MonoBehaviour
     {
         public Transform[] spawnLocations;
+        public Transform mapCamera;
 
         private void Awake()
         {

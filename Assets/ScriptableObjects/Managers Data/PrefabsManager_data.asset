@@ -16,3 +16,5 @@ MonoBehaviour:
     type: 3}
   radialBarUIPrefab: {fileID: 1931877130537435884, guid: 8cd17c1545746054fa37fac380aab18f,
     type: 3}
+  progressBarUIPrefab: {fileID: 4158095908958382573, guid: 05054dc68eef6714d9e9c07c410b1fb2,
+    type: 3}

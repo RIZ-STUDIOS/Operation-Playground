@@ -16,6 +16,7 @@ namespace OperationPlayground.Player.PlayerCapabilities
         Health,
         Interaction,
         Building,
+        ToggleBuilding,
         InvalidPlacement,
         Map
     }
@@ -32,6 +33,7 @@ namespace OperationPlayground.Player.PlayerCapabilities
             {PlayerCapabilityType.Health, typeof(HealthPlayerCapability) },
             {PlayerCapabilityType.Interaction, typeof(InteractablePlayerCapability) },
             {PlayerCapabilityType.Building, typeof(BuildingPlayerCapability) },
+            {PlayerCapabilityType.ToggleBuilding, typeof(ToggleBuildingPlayerCapability) },
             {PlayerCapabilityType.InvalidPlacement, typeof(InvalidPlacementPlayerCapability) },
             {PlayerCapabilityType.Map, typeof(MapPlayerCapability) },
         };

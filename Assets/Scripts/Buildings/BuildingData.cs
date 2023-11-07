@@ -48,6 +48,7 @@ namespace OperationPlayground.Buildings
             currentPlayer.RemovePlayerState(PlayerCapabilityType.Graphics);
             currentPlayer.RemovePlayerState(PlayerCapabilityType.Health);
             currentPlayer.RemovePlayerState(PlayerCapabilityType.InvalidPlacement);
+            currentPlayer.RemovePlayerState(PlayerCapabilityType.ToggleBuilding);
 
             playerPosition = playerManager.transform.position;
             currentPlayer.SetPosition(transform.position);
@@ -74,6 +75,7 @@ namespace OperationPlayground.Buildings
             currentPlayer.AddPlayerState(PlayerCapabilityType.Graphics);
             currentPlayer.AddPlayerState(PlayerCapabilityType.Health);
             currentPlayer.AddPlayerState(PlayerCapabilityType.InvalidPlacement);
+            currentPlayer.AddPlayerState(PlayerCapabilityType.ToggleBuilding);
 
             currentPlayer.SetPosition(playerPosition);
             currentPlayer = null;

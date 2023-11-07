@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ProgressBar
+  m_Name: HealthBar
   m_Shader: {fileID: -6465566751694194690, guid: 66652d6d58e775649b2bedb3ce483fcb,
     type: 3}
   m_Parent: {fileID: 0}

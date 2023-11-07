@@ -10,17 +10,12 @@ namespace OperationPlayground.Menus
 {
     public class SlotHandler : MonoBehaviour
     {
-        //public PlayerMenuData currentPlayer;
         public PlayerManager currentPlayer;
         public GameObject playerSlot;
         public bool playerReady;
-        //public CharacterScriptableObject selectedCharacter;
 
-        public delegate void OnPlayerReady(PlayerManager playerManager);
-        public OnPlayerReady onPlayerReady;
-
-        public delegate void OnPlayerExit(PlayerManager playerManager);
-        public OnPlayerExit onPlayerExit;
+        public event System.Action<PlayerManager> onPlayerReady;
+        public event System.Action<PlayerManager> onPlayerExit;
 
         [SerializeField] private GameObject characterSelect;
         [SerializeField] private TextMeshProUGUI joinPrompt;
@@ -52,7 +47,6 @@ namespace OperationPlayground.Menus
         public void JoinSlot(PlayerManager joiningPlayer)
         {
             currentPlayer = joiningPlayer;
-            //currentPlayer.transform.parent = playerSlot.transform;
 
             ToggleCharacterSelect(true);
             ToggleInput(true);
@@ -89,7 +83,6 @@ namespace OperationPlayground.Menus
         private void ReadyUp()
         {
             currentPlayer.playerInput.UI.Navigate.performed -= OnNavigate;
-            //selectedCharacter = availableCharacters[artIndex];
 
             playerReady = true;
             onPlayerReady?.Invoke(currentPlayer);
@@ -99,7 +92,6 @@ namespace OperationPlayground.Menus
         private void Unready()
         {
             currentPlayer.playerInput.UI.Navigate.performed += OnNavigate;
-            //selectedCharacter = null;
 
             playerReady = false;
             UpdateCharacterSelect();

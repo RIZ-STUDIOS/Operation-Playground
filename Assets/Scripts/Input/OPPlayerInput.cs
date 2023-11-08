@@ -30,18 +30,27 @@ namespace OperationPlayground
             ""id"": ""b3ae7ac2-cac0-48e4-ace3-bf4776d9f364"",
             ""actions"": [
                 {
-                    ""name"": ""ToggleBuild"",
+                    ""name"": ""Join"",
                     ""type"": ""Button"",
-                    ""id"": ""114a8538-bf19-430a-991a-0e8146c7429f"",
+                    ""id"": ""ddc50ff4-bd20-4ad1-8ad5-dec10cfd47ff"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Join"",
+                    ""name"": ""ZoomMap"",
                     ""type"": ""Button"",
-                    ""id"": ""ddc50ff4-bd20-4ad1-8ad5-dec10cfd47ff"",
+                    ""id"": ""c305b17b-6aea-4958-a945-28b858431a55"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ToggleBuild"",
+                    ""type"": ""Button"",
+                    ""id"": ""9b026b38-5c03-4703-bdf4-751401b8746b"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -66,15 +75,26 @@ namespace OperationPlayground
                     ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Join"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""41ab6d86-a0b6-4130-963e-b12586cc8a0f"",
-                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""id"": ""1c3a3d14-5f18-4623-a57a-cd38728c5605"",
+                    ""path"": ""<Gamepad>/dpad/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""ZoomMap"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b7cc0e14-1ccd-4966-bd20-baef611cb68e"",
+                    ""path"": ""<Gamepad>/dpad/up"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
@@ -335,6 +355,115 @@ namespace OperationPlayground
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""31b519ff-a649-49b2-911f-d0d24481c172"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Building"",
+            ""id"": ""b84af7d6-ce6a-4bf1-a62b-e5eff4e88462"",
+            ""actions"": [
+                {
+                    ""name"": ""Place"",
+                    ""type"": ""Button"",
+                    ""id"": ""49556005-1ef9-4808-86f5-150687b93c93"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Cycle"",
+                    ""type"": ""Value"",
+                    ""id"": ""463fc5fe-f13f-4a63-b105-34e0db54f3b5"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": ""1D Axis"",
+                    ""id"": ""56d3e8c5-350c-4d1e-8c65-7a0898e23aae"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Cycle"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""a8053fbb-e9ac-4d7a-ae7f-fca73b76019e"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Cycle"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""05615b0e-4d42-45fd-a756-ca2d1b3f9be1"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Cycle"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""69675485-7c31-4503-ad73-727469501497"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Place"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""RadioShop"",
+            ""id"": ""23a131e8-11e9-4a4a-8ec5-f2d136982465"",
+            ""actions"": [
+                {
+                    ""name"": ""Open"",
+                    ""type"": ""Button"",
+                    ""id"": ""374de6ec-a7a5-498e-be59-7103e51ed635"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""10cf9aa0-4302-4056-b600-b83a3c5c3e56"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Open"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -756,6 +885,34 @@ namespace OperationPlayground
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""InBuild"",
+            ""id"": ""836c9a96-991f-4ab3-a8d0-ee1c28474d37"",
+            ""actions"": [
+                {
+                    ""name"": ""Leave"",
+                    ""type"": ""Button"",
+                    ""id"": ""47c6fe00-fa89-415e-879a-fcccad784fd6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""8cb9227d-929f-4427-b6eb-ffe0addc7304"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Leave"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -823,8 +980,9 @@ namespace OperationPlayground
 }");
             // Basic
             m_Basic = asset.FindActionMap("Basic", throwIfNotFound: true);
-            m_Basic_ToggleBuild = m_Basic.FindAction("ToggleBuild", throwIfNotFound: true);
             m_Basic_Join = m_Basic.FindAction("Join", throwIfNotFound: true);
+            m_Basic_ZoomMap = m_Basic.FindAction("ZoomMap", throwIfNotFound: true);
+            m_Basic_ToggleBuild = m_Basic.FindAction("ToggleBuild", throwIfNotFound: true);
             // Movement
             m_Movement = asset.FindActionMap("Movement", throwIfNotFound: true);
             m_Movement_Move = m_Movement.FindAction("Move", throwIfNotFound: true);
@@ -836,6 +994,13 @@ namespace OperationPlayground
             // Interaction
             m_Interaction = asset.FindActionMap("Interaction", throwIfNotFound: true);
             m_Interaction_Interact = m_Interaction.FindAction("Interact", throwIfNotFound: true);
+            // Building
+            m_Building = asset.FindActionMap("Building", throwIfNotFound: true);
+            m_Building_Place = m_Building.FindAction("Place", throwIfNotFound: true);
+            m_Building_Cycle = m_Building.FindAction("Cycle", throwIfNotFound: true);
+            // RadioShop
+            m_RadioShop = asset.FindActionMap("RadioShop", throwIfNotFound: true);
+            m_RadioShop_Open = m_RadioShop.FindAction("Open", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -848,6 +1013,9 @@ namespace OperationPlayground
             m_UI_RightClick = m_UI.FindAction("RightClick", throwIfNotFound: true);
             m_UI_TrackedDevicePosition = m_UI.FindAction("TrackedDevicePosition", throwIfNotFound: true);
             m_UI_TrackedDeviceOrientation = m_UI.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
+            // InBuild
+            m_InBuild = asset.FindActionMap("InBuild", throwIfNotFound: true);
+            m_InBuild_Leave = m_InBuild.FindAction("Leave", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -909,14 +1077,16 @@ namespace OperationPlayground
         // Basic
         private readonly InputActionMap m_Basic;
         private List<IBasicActions> m_BasicActionsCallbackInterfaces = new List<IBasicActions>();
-        private readonly InputAction m_Basic_ToggleBuild;
         private readonly InputAction m_Basic_Join;
+        private readonly InputAction m_Basic_ZoomMap;
+        private readonly InputAction m_Basic_ToggleBuild;
         public struct BasicActions
         {
             private @OPPlayerInput m_Wrapper;
             public BasicActions(@OPPlayerInput wrapper) { m_Wrapper = wrapper; }
-            public InputAction @ToggleBuild => m_Wrapper.m_Basic_ToggleBuild;
             public InputAction @Join => m_Wrapper.m_Basic_Join;
+            public InputAction @ZoomMap => m_Wrapper.m_Basic_ZoomMap;
+            public InputAction @ToggleBuild => m_Wrapper.m_Basic_ToggleBuild;
             public InputActionMap Get() { return m_Wrapper.m_Basic; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -926,22 +1096,28 @@ namespace OperationPlayground
             {
                 if (instance == null || m_Wrapper.m_BasicActionsCallbackInterfaces.Contains(instance)) return;
                 m_Wrapper.m_BasicActionsCallbackInterfaces.Add(instance);
-                @ToggleBuild.started += instance.OnToggleBuild;
-                @ToggleBuild.performed += instance.OnToggleBuild;
-                @ToggleBuild.canceled += instance.OnToggleBuild;
                 @Join.started += instance.OnJoin;
                 @Join.performed += instance.OnJoin;
                 @Join.canceled += instance.OnJoin;
+                @ZoomMap.started += instance.OnZoomMap;
+                @ZoomMap.performed += instance.OnZoomMap;
+                @ZoomMap.canceled += instance.OnZoomMap;
+                @ToggleBuild.started += instance.OnToggleBuild;
+                @ToggleBuild.performed += instance.OnToggleBuild;
+                @ToggleBuild.canceled += instance.OnToggleBuild;
             }
 
             private void UnregisterCallbacks(IBasicActions instance)
             {
-                @ToggleBuild.started -= instance.OnToggleBuild;
-                @ToggleBuild.performed -= instance.OnToggleBuild;
-                @ToggleBuild.canceled -= instance.OnToggleBuild;
                 @Join.started -= instance.OnJoin;
                 @Join.performed -= instance.OnJoin;
                 @Join.canceled -= instance.OnJoin;
+                @ZoomMap.started -= instance.OnZoomMap;
+                @ZoomMap.performed -= instance.OnZoomMap;
+                @ZoomMap.canceled -= instance.OnZoomMap;
+                @ToggleBuild.started -= instance.OnToggleBuild;
+                @ToggleBuild.performed -= instance.OnToggleBuild;
+                @ToggleBuild.canceled -= instance.OnToggleBuild;
             }
 
             public void RemoveCallbacks(IBasicActions instance)
@@ -1114,6 +1290,106 @@ namespace OperationPlayground
         }
         public InteractionActions @Interaction => new InteractionActions(this);
 
+        // Building
+        private readonly InputActionMap m_Building;
+        private List<IBuildingActions> m_BuildingActionsCallbackInterfaces = new List<IBuildingActions>();
+        private readonly InputAction m_Building_Place;
+        private readonly InputAction m_Building_Cycle;
+        public struct BuildingActions
+        {
+            private @OPPlayerInput m_Wrapper;
+            public BuildingActions(@OPPlayerInput wrapper) { m_Wrapper = wrapper; }
+            public InputAction @Place => m_Wrapper.m_Building_Place;
+            public InputAction @Cycle => m_Wrapper.m_Building_Cycle;
+            public InputActionMap Get() { return m_Wrapper.m_Building; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(BuildingActions set) { return set.Get(); }
+            public void AddCallbacks(IBuildingActions instance)
+            {
+                if (instance == null || m_Wrapper.m_BuildingActionsCallbackInterfaces.Contains(instance)) return;
+                m_Wrapper.m_BuildingActionsCallbackInterfaces.Add(instance);
+                @Place.started += instance.OnPlace;
+                @Place.performed += instance.OnPlace;
+                @Place.canceled += instance.OnPlace;
+                @Cycle.started += instance.OnCycle;
+                @Cycle.performed += instance.OnCycle;
+                @Cycle.canceled += instance.OnCycle;
+            }
+
+            private void UnregisterCallbacks(IBuildingActions instance)
+            {
+                @Place.started -= instance.OnPlace;
+                @Place.performed -= instance.OnPlace;
+                @Place.canceled -= instance.OnPlace;
+                @Cycle.started -= instance.OnCycle;
+                @Cycle.performed -= instance.OnCycle;
+                @Cycle.canceled -= instance.OnCycle;
+            }
+
+            public void RemoveCallbacks(IBuildingActions instance)
+            {
+                if (m_Wrapper.m_BuildingActionsCallbackInterfaces.Remove(instance))
+                    UnregisterCallbacks(instance);
+            }
+
+            public void SetCallbacks(IBuildingActions instance)
+            {
+                foreach (var item in m_Wrapper.m_BuildingActionsCallbackInterfaces)
+                    UnregisterCallbacks(item);
+                m_Wrapper.m_BuildingActionsCallbackInterfaces.Clear();
+                AddCallbacks(instance);
+            }
+        }
+        public BuildingActions @Building => new BuildingActions(this);
+
+        // RadioShop
+        private readonly InputActionMap m_RadioShop;
+        private List<IRadioShopActions> m_RadioShopActionsCallbackInterfaces = new List<IRadioShopActions>();
+        private readonly InputAction m_RadioShop_Open;
+        public struct RadioShopActions
+        {
+            private @OPPlayerInput m_Wrapper;
+            public RadioShopActions(@OPPlayerInput wrapper) { m_Wrapper = wrapper; }
+            public InputAction @Open => m_Wrapper.m_RadioShop_Open;
+            public InputActionMap Get() { return m_Wrapper.m_RadioShop; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(RadioShopActions set) { return set.Get(); }
+            public void AddCallbacks(IRadioShopActions instance)
+            {
+                if (instance == null || m_Wrapper.m_RadioShopActionsCallbackInterfaces.Contains(instance)) return;
+                m_Wrapper.m_RadioShopActionsCallbackInterfaces.Add(instance);
+                @Open.started += instance.OnOpen;
+                @Open.performed += instance.OnOpen;
+                @Open.canceled += instance.OnOpen;
+            }
+
+            private void UnregisterCallbacks(IRadioShopActions instance)
+            {
+                @Open.started -= instance.OnOpen;
+                @Open.performed -= instance.OnOpen;
+                @Open.canceled -= instance.OnOpen;
+            }
+
+            public void RemoveCallbacks(IRadioShopActions instance)
+            {
+                if (m_Wrapper.m_RadioShopActionsCallbackInterfaces.Remove(instance))
+                    UnregisterCallbacks(instance);
+            }
+
+            public void SetCallbacks(IRadioShopActions instance)
+            {
+                foreach (var item in m_Wrapper.m_RadioShopActionsCallbackInterfaces)
+                    UnregisterCallbacks(item);
+                m_Wrapper.m_RadioShopActionsCallbackInterfaces.Clear();
+                AddCallbacks(instance);
+            }
+        }
+        public RadioShopActions @RadioShop => new RadioShopActions(this);
+
         // UI
         private readonly InputActionMap m_UI;
         private List<IUIActions> m_UIActionsCallbackInterfaces = new List<IUIActions>();
@@ -1231,6 +1507,52 @@ namespace OperationPlayground
             }
         }
         public UIActions @UI => new UIActions(this);
+
+        // InBuild
+        private readonly InputActionMap m_InBuild;
+        private List<IInBuildActions> m_InBuildActionsCallbackInterfaces = new List<IInBuildActions>();
+        private readonly InputAction m_InBuild_Leave;
+        public struct InBuildActions
+        {
+            private @OPPlayerInput m_Wrapper;
+            public InBuildActions(@OPPlayerInput wrapper) { m_Wrapper = wrapper; }
+            public InputAction @Leave => m_Wrapper.m_InBuild_Leave;
+            public InputActionMap Get() { return m_Wrapper.m_InBuild; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(InBuildActions set) { return set.Get(); }
+            public void AddCallbacks(IInBuildActions instance)
+            {
+                if (instance == null || m_Wrapper.m_InBuildActionsCallbackInterfaces.Contains(instance)) return;
+                m_Wrapper.m_InBuildActionsCallbackInterfaces.Add(instance);
+                @Leave.started += instance.OnLeave;
+                @Leave.performed += instance.OnLeave;
+                @Leave.canceled += instance.OnLeave;
+            }
+
+            private void UnregisterCallbacks(IInBuildActions instance)
+            {
+                @Leave.started -= instance.OnLeave;
+                @Leave.performed -= instance.OnLeave;
+                @Leave.canceled -= instance.OnLeave;
+            }
+
+            public void RemoveCallbacks(IInBuildActions instance)
+            {
+                if (m_Wrapper.m_InBuildActionsCallbackInterfaces.Remove(instance))
+                    UnregisterCallbacks(instance);
+            }
+
+            public void SetCallbacks(IInBuildActions instance)
+            {
+                foreach (var item in m_Wrapper.m_InBuildActionsCallbackInterfaces)
+                    UnregisterCallbacks(item);
+                m_Wrapper.m_InBuildActionsCallbackInterfaces.Clear();
+                AddCallbacks(instance);
+            }
+        }
+        public InBuildActions @InBuild => new InBuildActions(this);
         private int m_KeyboardMouseSchemeIndex = -1;
         public InputControlScheme KeyboardMouseScheme
         {
@@ -1278,8 +1600,9 @@ namespace OperationPlayground
         }
         public interface IBasicActions
         {
-            void OnToggleBuild(InputAction.CallbackContext context);
             void OnJoin(InputAction.CallbackContext context);
+            void OnZoomMap(InputAction.CallbackContext context);
+            void OnToggleBuild(InputAction.CallbackContext context);
         }
         public interface IMovementActions
         {
@@ -1295,6 +1618,15 @@ namespace OperationPlayground
         {
             void OnInteract(InputAction.CallbackContext context);
         }
+        public interface IBuildingActions
+        {
+            void OnPlace(InputAction.CallbackContext context);
+            void OnCycle(InputAction.CallbackContext context);
+        }
+        public interface IRadioShopActions
+        {
+            void OnOpen(InputAction.CallbackContext context);
+        }
         public interface IUIActions
         {
             void OnNavigate(InputAction.CallbackContext context);
@@ -1307,6 +1639,10 @@ namespace OperationPlayground
             void OnRightClick(InputAction.CallbackContext context);
             void OnTrackedDevicePosition(InputAction.CallbackContext context);
             void OnTrackedDeviceOrientation(InputAction.CallbackContext context);
+        }
+        public interface IInBuildActions
+        {
+            void OnLeave(InputAction.CallbackContext context);
         }
     }
 }

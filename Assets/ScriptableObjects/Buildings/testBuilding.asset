@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0805d88393376934a91c995d3836db1c, type: 3}
+  m_Name: testBuilding
+  m_EditorClassIdentifier: 
+  id: testBuilding
+  visual: {fileID: 6317504765244646545, guid: 3df41de02166bac46aa9c9207e56e12e, type: 3}
+  prefab: {fileID: 7599571061544888827, guid: e970e9e7ec400324ea6e0684e8f0691b, type: 3}
+  timerOffset: {x: 0, y: 1.25, z: 0}
+  placementDistance: 2
+  boundsToCheck: {x: 1.5, y: 2.095499, z: 1.5}
+  resourceCost: 10

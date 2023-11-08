@@ -9,5 +9,6 @@ namespace OperationPlayground.Managers
     {
         public GameObject playerPrefab;
         public GameObject radialBarUIPrefab;
+        public GameObject progressBarUIPrefab;
     }
 }

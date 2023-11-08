@@ -1,3 +1,4 @@
+using OperationPlayground.Buildings;
 using OperationPlayground.EntityData;
 using OperationPlayground.Player.PlayerCapabilities;
 using System.Collections;
@@ -32,6 +33,12 @@ namespace OperationPlayground.Player
 
         public PlayerInteraction PlayerInteraction => this.GetIfNull(ref _playerInteraction);
 
+        public InvalidPlacement InvaidPlacement => this.GetIfNull(ref _invalidPlacement);
+
+        public PlayerBuilding PlayerBuilding => this.GetIfNull(ref _playerBuilding);
+
+        public PlayerMap PlayerMap => this.GetIfNull(ref _playerMap);
+
         private PlayerCamera _playerCamera;
         private Renderer[] _playerRenderers;
         private Collider[] _playerColliders;
@@ -40,6 +47,9 @@ namespace OperationPlayground.Player
         private PlayerShooter _playerShooter;
         private PlayerHealth _playerHealth;
         private PlayerInteraction _playerInteraction;
+        private PlayerBuilding _playerBuilding;
+        private InvalidPlacement _invalidPlacement;
+        private PlayerMap _playerMap;
 
         public override GameTeam Team => GameTeam.TeamA;
 
@@ -75,15 +85,17 @@ namespace OperationPlayground.Player
             state.OnStateEnter();
         }
 
-        public void RemovePlayerState(PlayerCapabilityType playerStateType)
+        public bool RemovePlayerState(PlayerCapabilityType playerStateType)
         {
-            if (!HasPlayerState(playerStateType)) return;
+            if (!HasPlayerState(playerStateType)) return false;
 
             var state = GetPlayerState(playerStateType);
 
             playerStates.Remove(state);
 
             state.OnStateLeave();
+
+            return true;
 
         }
 
@@ -94,8 +106,21 @@ namespace OperationPlayground.Player
             AddPlayerState(PlayerCapabilityType.Collision);
             AddPlayerState(PlayerCapabilityType.Movement);
             AddPlayerState(PlayerCapabilityType.Shooter);
+            AddPlayerState(PlayerCapabilityType.ToggleBuilding);
             AddPlayerState(PlayerCapabilityType.Health);
             AddPlayerState(PlayerCapabilityType.Interaction);
+            AddPlayerState(PlayerCapabilityType.InvalidPlacement);
+            AddPlayerState(PlayerCapabilityType.Map);
+        }
+
+        public void AddAllPlayerStates()
+        {
+            var values = System.Enum.GetValues(typeof(PlayerCapabilityType));
+            for (int i = 1; i < values.Length; i++)
+            {
+                var value = values.GetValue(i);
+                AddPlayerState((PlayerCapabilityType)value);
+            }
         }
 
         private PlayerCapability GetPlayerState(PlayerCapabilityType playerStateType)

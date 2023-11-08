@@ -9,11 +9,13 @@ namespace OperationPlayground.Player.PlayerCapabilities
         public override void OnStateEnter()
         {
             playerManager.playerInput.Interaction.Enable();
+            playerManager.PlayerInteraction.UpdateInteractable();
         }
 
         public override void OnStateLeave()
         {
             playerManager.playerInput.Interaction.Disable();
+            playerManager.PlayerInteraction.UpdateInteractable();
         }
     }
 }

@@ -24,6 +24,11 @@ namespace OperationPlayground.Interactables
         [SerializeField]
         private Vector3 radialBarOffset;
 
+        [SerializeField]
+        private bool _canInteractWith = true;
+
+        public bool CanInteractWith { get { return _canInteractWith; } set { _canInteractWith = value; UpdateOutlineColors(); } }
+
         private SphereCollider sphereCollider;
 
         private List<Outline> outlines = new List<Outline>();
@@ -64,6 +69,8 @@ namespace OperationPlayground.Interactables
             radialBarUI = radialBarUIObject.GetComponent<RadialBarUI>();
 
             UpdateRadialBar();
+
+            CanInteractWith = _canInteractWith;
         }
 
         private void OnDestroy()
@@ -113,7 +120,7 @@ namespace OperationPlayground.Interactables
             UpdateOutlines();
         }
 
-        private void UpdateOutlines()
+        public void UpdateOutlines()
         {
             var enableOutlines = enabled && AnyPlayersNearby();
 
@@ -167,7 +174,7 @@ namespace OperationPlayground.Interactables
 
         private void Update()
         {
-            if (!currentPlayerInteracting || interactedWith) return;
+            if (!CanInteractWith || !currentPlayerInteracting || interactedWith) return;
 
             timer += Time.deltaTime;
             UpdateRadialBar();
@@ -182,6 +189,14 @@ namespace OperationPlayground.Interactables
                 {
                     Destroy(this);
                 }
+            }
+        }
+
+        private void UpdateOutlineColors()
+        {
+            foreach(var outline in outlines)
+            {
+                outline.OutlineColor = _canInteractWith ? Color.green : Color.red;
             }
         }
     }

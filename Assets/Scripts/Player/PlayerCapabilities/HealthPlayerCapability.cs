@@ -8,12 +8,12 @@ namespace OperationPlayground.Player.PlayerCapabilities
     {
         public override void OnStateEnter()
         {
-            base.OnStateEnter();
+            playerManager.PlayerHealth.VisibleHealthBar = true;
         }
 
         public override void OnStateLeave()
         {
-            base.OnStateLeave();
+            playerManager.PlayerHealth.VisibleHealthBar = false;
         }
     }
 }

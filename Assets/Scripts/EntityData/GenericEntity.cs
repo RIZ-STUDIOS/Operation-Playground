@@ -26,8 +26,10 @@ namespace OperationPlayground.EntityData
 
         protected void SetParentEntity()
         {
-            Health.parentEntity = this;
-            Shooter.parentEntity = this;
+            if (Health)
+                Health.parentEntity = this;
+            if (Shooter)
+                Shooter.parentEntity = this;
         }
     }
 }

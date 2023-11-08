@@ -1,3 +1,5 @@
+using OperationPlayground.Managers;
+using OperationPlayground.UI;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,8 +26,15 @@ namespace OperationPlayground.EntityData
 
         protected virtual bool DestroyOnDeath => true;
 
-        private void Awake()
+        private ProgressBarUI healthBar;
+
+        private bool visibleHealthBar = true;
+
+        public bool VisibleHealthBar { get { return visibleHealthBar; } set { visibleHealthBar = value; UpdateHealthbarVisibility(); } }
+
+        protected virtual void Awake()
         {
+            CreateHealthBar();
             Health = MaxHealth;
         }
 
@@ -35,8 +44,6 @@ namespace OperationPlayground.EntityData
                 return;
 
             Health -= amount;
-
-            Debug.Log("Damage");
 
             if (health <= 0)
             {
@@ -54,6 +61,31 @@ namespace OperationPlayground.EntityData
                 return;
 
             Health += amount;
+        }
+
+        public void FullyHeal()
+        {
+            Heal(MaxHealth);
+        }
+
+        protected void CreateHealthBar()
+        {
+            if (healthBar) return;
+            var healthBarObject = Instantiate(PrefabsManager.Instance.data.progressBarUIPrefab, transform);
+            healthBarObject.transform.localPosition = HealthBarSpawnOffset;
+            healthBar = healthBarObject.GetComponent<ProgressBarUI>();
+            onHealthChanged += () =>
+            {
+                healthBar.PercentFilled = HealthPer;
+            };
+
+            UpdateHealthbarVisibility();
+        }
+
+        private void UpdateHealthbarVisibility()
+        {
+            if (!healthBar) return;
+            healthBar.gameObject.SetActive(visibleHealthBar);
         }
     }
 }

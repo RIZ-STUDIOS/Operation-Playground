@@ -14,5 +14,12 @@ namespace OperationPlayground.Player
         public override int MaxHealth => maxHealth;
 
         protected override bool DestroyOnDeath => false;
+
+        private PlayerManager playerManager;
+
+        protected override void Awake()
+        {
+            base.Awake();
+        }
     }
 }

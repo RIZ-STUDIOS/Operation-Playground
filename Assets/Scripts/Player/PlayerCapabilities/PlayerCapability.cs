@@ -14,7 +14,11 @@ namespace OperationPlayground.Player.PlayerCapabilities
         Movement,
         Shooter,
         Health,
-        Interaction
+        Interaction,
+        Building,
+        ToggleBuilding,
+        InvalidPlacement,
+        Map
     }
 
     public abstract class PlayerCapability
@@ -27,7 +31,11 @@ namespace OperationPlayground.Player.PlayerCapabilities
             {PlayerCapabilityType.Movement, typeof(MovementPlayerCapability) },
             {PlayerCapabilityType.Shooter, typeof(ShootingPlayerCapability) },
             {PlayerCapabilityType.Health, typeof(HealthPlayerCapability) },
-            {PlayerCapabilityType.Interaction, typeof(InteractablePlayerCapability) }
+            {PlayerCapabilityType.Interaction, typeof(InteractablePlayerCapability) },
+            {PlayerCapabilityType.Building, typeof(BuildingPlayerCapability) },
+            {PlayerCapabilityType.ToggleBuilding, typeof(ToggleBuildingPlayerCapability) },
+            {PlayerCapabilityType.InvalidPlacement, typeof(InvalidPlacementPlayerCapability) },
+            {PlayerCapabilityType.Map, typeof(MapPlayerCapability) },
         };
 
         public PlayerCapabilityType CapabilityType { get; private set; }

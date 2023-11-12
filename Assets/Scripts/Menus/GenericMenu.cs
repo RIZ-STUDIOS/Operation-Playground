@@ -5,7 +5,7 @@ namespace OperationPlayground.Menus
 {
     public class GenericMenu : MonoBehaviour
     {
-        public IEnumerator TransitionMenu(CanvasGroup menu, bool isEntering, Vector2 direction, float speed)
+        public IEnumerator TransitionMenu(CanvasGroup menu, bool isEntering, Vector2 direction, float speed = 2)
         {
             if (direction.x > 0) direction.x = Mathf.Ceil(direction.x);
             else direction.x = Mathf.Floor(direction.x);

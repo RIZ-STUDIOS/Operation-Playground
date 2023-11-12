@@ -48,8 +48,11 @@ namespace OperationPlayground.Menus
         {
             currentPlayer = joiningPlayer;
 
-            ToggleCharacterSelect(true);
-            ToggleInput(true);
+            if (MainMenu.Instance.ActiveMenu == MainMenu.Instance.lobbyMenu)
+            {
+                ToggleCharacterSelect(true);
+                ToggleInput(true);
+            }
         }
 
         public void ClearSlot()
@@ -67,13 +70,12 @@ namespace OperationPlayground.Menus
 
         private void ExitSlot()
         {
-            if (currentPlayer)
+            if (currentPlayer && currentPlayer.playerIndex != 0)
             {
-                ToggleInput(false);
-
                 Destroy(currentPlayer.gameObject);
                 currentPlayer = null;
             }
+            ToggleInput(false);
 
             onPlayerExit?.Invoke(currentPlayer);
 

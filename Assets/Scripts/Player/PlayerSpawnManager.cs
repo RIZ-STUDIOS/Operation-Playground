@@ -18,6 +18,7 @@ namespace OperationPlayground.Player
         public event System.Action<PlayerManager> onPlayerLeave;
 
         public bool AnyPlayersJoined => players.Count > 0;
+        public int TotalPlayers => players.Count;
 
         protected override void Awake()
         {

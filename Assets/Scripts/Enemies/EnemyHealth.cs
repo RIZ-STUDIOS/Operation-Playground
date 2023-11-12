@@ -1,4 +1,5 @@
 using OperationPlayground.EntityData;
+using OperationPlayground.Rounds;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,5 +20,19 @@ namespace OperationPlayground.Enemies
         }
 
         public override int MaxHealth => parentEntity.enemyScriptableObject.maxHealth;
+
+        protected override void Awake()
+        {
+            onDeath += () =>
+            {
+                RoundManager.Instance.EnemyKilled();
+            };
+        }
+
+        private void Start()
+        {
+            CreateHealthBar();
+            Health = MaxHealth;
+        }
     }
 }

@@ -21,5 +21,21 @@ namespace OperationPlayground.Enemies
         public override GenericHealth Health => EnemyHealth;
 
         public override GenericShooter Shooter => EnemyShooter;
+
+        public static EnemyEntity SpawnEnemy(EnemyScriptableObject enemyScriptableObject)
+        {
+            var enemyObject = Instantiate(enemyScriptableObject.prefab);
+
+            var enemy = enemyObject.GetComponent<EnemyEntity>();
+
+            if (!enemy)
+                throw new System.Exception();
+
+            enemy.enemyScriptableObject = enemyScriptableObject;
+
+            enemy.Shooter.AddWeapon(enemyScriptableObject.weaponScriptableObject);
+
+            return null;
+        }
     }
 }

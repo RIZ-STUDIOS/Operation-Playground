@@ -9,12 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be9437efb527018439c427d41e49088d, type: 3}
+  m_Script: {fileID: 11500000, guid: 444aa95fe13dd61478978fd226b19b40, type: 3}
   m_Name: test
   m_EditorClassIdentifier: 
   id: test
-  prefab: {fileID: 873115996186226530, guid: ddd7fdf7305cd534392ca5b6775c8b49, type: 3}
-  maxHealth: 5
-  vulnerableDamageTypes: 
-  weaponScriptableObject: {fileID: 11400000, guid: 5a8cd0839c0ac164ba4fe2e6d2f74337,
-    type: 2}
+  minEnemies: 5
+  maxEnemies: 10
+  spawnDelay: 0.5
+  enemies:
+  - minEnemies: 0
+    enemySo: {fileID: 11400000, guid: c36d09db48bdeed4893371e978b44bfd, type: 2}

@@ -10,8 +10,9 @@ namespace OperationPlayground.Player
     public class PlayerCanvas : MonoBehaviour
     {
         public CanvasGroup interactCG;
+        public CanvasGroup supplyShopCG;
 
-        private PlayerManager pM;
+        public PlayerManager pM;
 
         private Coroutine fadeCoroutine;
 
@@ -26,26 +27,33 @@ namespace OperationPlayground.Player
             if (fadeCoroutine != null) StopCoroutine(fadeCoroutine);
 
             if (interactable)
-                fadeCoroutine = StartCoroutine(FadeCanvasElement(interactCG, true));
+                fadeCoroutine = StartCoroutine(ToggleCanvasElement(interactCG, true));
             else 
-                fadeCoroutine = StartCoroutine(FadeCanvasElement(interactCG, false));
+                fadeCoroutine = StartCoroutine(ToggleCanvasElement(interactCG, false));
         }
 
-        public IEnumerator FadeCanvasElement(CanvasGroup cg, bool isFadeIn, float fadeSpeed = 2)
+        public IEnumerator ToggleCanvasElement(CanvasGroup cG, bool isFadeIn, bool interactable = false, float fadeSpeed = 2)
         {
             Vector2 fadeVector;
-            if (isFadeIn) fadeVector = new Vector2(cg.alpha, 1);
-            else fadeVector = new Vector2(cg.alpha, 0);
+
+            if (isFadeIn) fadeVector = new Vector2(cG.alpha, 1);
+            else fadeVector = new Vector2(cG.alpha, 0);
 
             float progress = 0;
             while (progress < 1)
             {
                 progress += Time.deltaTime * fadeSpeed;
-                cg.alpha = Mathf.Lerp(fadeVector.x, fadeVector.y, progress);
+                cG.alpha = Mathf.Lerp(fadeVector.x, fadeVector.y, progress);
 
                 yield return null;
             }
-            cg.alpha = fadeVector.y;
+            cG.alpha = fadeVector.y;
+
+            if (interactable)
+            {
+                if (isFadeIn) cG.interactable = true;
+                else cG.interactable = false;
+            }
 
             fadeCoroutine = null;
         }

@@ -1,17 +1,28 @@
+using OperationPlayground.Player;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 namespace OperationPlayground.Menus
 {
     public class MainMenu : GenericMenu
     {
         public static MainMenu Instance => _instance;
-
-        public CanvasGroup mainMenu;
-        public CanvasGroup lobbyMenu;
-        public CanvasGroup settingsMenu;
-        public CanvasGroup creditsMenu;
-
         private static MainMenu _instance;
+
+        public MainSubMenu ActiveMenu { get; private set; }
+        public MainSubMenu mainMenu;
+        public MainSubMenu lobbyMenu;
+        public MainSubMenu settingsMenu;
+        public MainSubMenu creditsMenu;
+
+        public Button lobbyButton;
+        public Button settingsButton;
+        public Button creditsButton;
+        public Button quitButton;
+
+        private PlayerManager firstPlayer;
+        private LobbyHandler lobby;
 
         private void Awake()
         {
@@ -23,43 +34,78 @@ namespace OperationPlayground.Menus
             _instance = this;
         }
 
-        public void ShowLobby()
+        private void Start()
         {
-            StartCoroutine(TransitionMenu(mainMenu, false, new Vector2(0, -1), 2));
-            StartCoroutine(TransitionMenu(lobbyMenu, true, new Vector2(0, 1), 2));
+            InitMainMenu();
         }
 
-        public void HideLobby()
+        private void InitMainMenu()
         {
-            StartCoroutine(TransitionMenu(lobbyMenu, false, new Vector2(0, 1), 2));
-            StartCoroutine(TransitionMenu(mainMenu, true, new Vector2(0, -1), 2));
+            lobby = GetComponentInChildren<LobbyHandler>();
+            lobby.onLobbyEnded += OnLobbyEnded;
+
+            PlayerSpawnManager.Instance.onPlayerJoin += OnPlayerJoin;
+            PlayerSpawnManager.Instance.GetComponent<PlayerInputManager>().EnableJoining();
+            PlayerSpawnManager.Instance.GetComponent<PlayerInputManager>().joinBehavior = PlayerJoinBehavior.JoinPlayersWhenButtonIsPressed;
+
+            lobbyButton.onClick.AddListener(OnLobbyButton);
+            settingsButton.onClick.AddListener(OnSettingsButton);
+            creditsButton.onClick.AddListener(OnCreditsButton);
+            quitButton.onClick.AddListener(OnQuitButton);
         }
 
-        public void ShowSettings()
+        private void OnPlayerJoin(PlayerManager player)
         {
-            StartCoroutine(TransitionMenu(mainMenu, false, new Vector2(1, 0), 2));
-            StartCoroutine(TransitionMenu(settingsMenu, true, new Vector2(-1, 0), 2));
+            firstPlayer = player;
+            firstPlayer.playerInput.UI.Cancel.performed += OnCancel;
+            PlayerSpawnManager.Instance.onPlayerJoin -= OnPlayerJoin;
+            PlayerSpawnManager.Instance.GetComponent<PlayerInputManager>().DisableJoining();
+            PlayerSpawnManager.Instance.GetComponent<PlayerInputManager>().joinBehavior = PlayerJoinBehavior.JoinPlayersWhenJoinActionIsTriggered;
         }
 
-        public void HideSettings()
+        private void OnCancel(InputAction.CallbackContext input)
         {
-            StartCoroutine(TransitionMenu(settingsMenu, false, new Vector2(-1, 0), 2));
-            StartCoroutine(TransitionMenu(mainMenu, true, new Vector2(1, 0), 2));
+            ReturnToMainMenu();
         }
 
-        public void ShowCredits()
+        private void OnLobbyEnded()
         {
-            StartCoroutine(TransitionMenu(mainMenu, false, new Vector2(-1, 0), 2));
-            StartCoroutine(TransitionMenu(creditsMenu, true, new Vector2(1, 0), 2));
+            firstPlayer.playerInput.UI.Cancel.performed += OnCancel;
+            ReturnToMainMenu();
         }
 
-        public void HideCredits()
+        private void ReturnToMainMenu()
         {
-            StartCoroutine(TransitionMenu(creditsMenu, false, new Vector2(1, 0), 2));
-            StartCoroutine(TransitionMenu(mainMenu, true, new Vector2(-1, 0), 2));
+            if (ActiveMenu == mainMenu) return;
+            StartCoroutine(TransitionMenu(ActiveMenu.canvasGroup, false, ActiveMenu.entryDirection));
+            StartCoroutine(TransitionMenu(mainMenu.canvasGroup, true, -ActiveMenu.entryDirection));
+            ActiveMenu = mainMenu;
         }
 
-        public void QuitGame()
+        private void OnLobbyButton()
+        {
+            StartCoroutine(TransitionMenu(mainMenu.canvasGroup, false, -lobbyMenu.entryDirection));
+            StartCoroutine(TransitionMenu(lobbyMenu.canvasGroup, true, lobbyMenu.entryDirection));
+            firstPlayer.playerInput.UI.Cancel.performed -= OnCancel;
+            ActiveMenu = lobbyMenu;
+            lobby.StartLobby();
+        }
+
+        private void OnSettingsButton()
+        {
+            StartCoroutine(TransitionMenu(mainMenu.canvasGroup, false, -settingsMenu.entryDirection));
+            StartCoroutine(TransitionMenu(settingsMenu.canvasGroup, true, settingsMenu.entryDirection));
+            ActiveMenu = settingsMenu;
+        }
+
+        private void OnCreditsButton()
+        {
+            StartCoroutine(TransitionMenu(mainMenu.canvasGroup, false, -creditsMenu.entryDirection));
+            StartCoroutine(TransitionMenu(creditsMenu.canvasGroup, true, creditsMenu.entryDirection));
+            ActiveMenu = creditsMenu;
+        }
+
+        public void OnQuitButton()
         {
             Application.Quit();
         }

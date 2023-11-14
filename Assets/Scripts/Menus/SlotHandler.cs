@@ -10,17 +10,12 @@ namespace OperationPlayground.Menus
 {
     public class SlotHandler : MonoBehaviour
     {
-        //public PlayerMenuData currentPlayer;
         public PlayerManager currentPlayer;
         public GameObject playerSlot;
         public bool playerReady;
-        //public CharacterScriptableObject selectedCharacter;
 
-        public delegate void OnPlayerReady(PlayerManager playerManager);
-        public OnPlayerReady onPlayerReady;
-
-        public delegate void OnPlayerExit(PlayerManager playerManager);
-        public OnPlayerExit onPlayerExit;
+        public event System.Action<PlayerManager> onPlayerReady;
+        public event System.Action<PlayerManager> onPlayerExit;
 
         [SerializeField] private GameObject characterSelect;
         [SerializeField] private TextMeshProUGUI joinPrompt;
@@ -52,10 +47,12 @@ namespace OperationPlayground.Menus
         public void JoinSlot(PlayerManager joiningPlayer)
         {
             currentPlayer = joiningPlayer;
-            //currentPlayer.transform.parent = playerSlot.transform;
 
-            ToggleCharacterSelect(true);
-            ToggleInput(true);
+            if (MainMenu.Instance.ActiveMenu == MainMenu.Instance.lobbyMenu)
+            {
+                ToggleCharacterSelect(true);
+                ToggleInput(true);
+            }
         }
 
         public void ClearSlot()
@@ -73,13 +70,12 @@ namespace OperationPlayground.Menus
 
         private void ExitSlot()
         {
-            if (currentPlayer)
+            if (currentPlayer && currentPlayer.playerIndex != 0)
             {
-                ToggleInput(false);
-
                 Destroy(currentPlayer.gameObject);
                 currentPlayer = null;
             }
+            ToggleInput(false);
 
             onPlayerExit?.Invoke(currentPlayer);
 
@@ -89,7 +85,6 @@ namespace OperationPlayground.Menus
         private void ReadyUp()
         {
             currentPlayer.playerInput.UI.Navigate.performed -= OnNavigate;
-            //selectedCharacter = availableCharacters[artIndex];
 
             playerReady = true;
             onPlayerReady?.Invoke(currentPlayer);
@@ -99,7 +94,6 @@ namespace OperationPlayground.Menus
         private void Unready()
         {
             currentPlayer.playerInput.UI.Navigate.performed += OnNavigate;
-            //selectedCharacter = null;
 
             playerReady = false;
             UpdateCharacterSelect();

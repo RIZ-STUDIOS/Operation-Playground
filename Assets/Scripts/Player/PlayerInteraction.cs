@@ -7,6 +7,8 @@ namespace OperationPlayground.Player
 {
     public class PlayerInteraction : MonoBehaviour
     {
+        public System.Action<Interactable> onSetInteractable;
+
         private PlayerManager playerManager;
 
         private Interactable currentInteractable;
@@ -28,6 +30,8 @@ namespace OperationPlayground.Player
             currentInteractable = interactable;
             if (interactable)
                 currentInteractable.AddPlayer(playerManager);
+
+            onSetInteractable?.Invoke(interactable);
         }
 
         public void UpdateInteractable()

@@ -9,6 +9,7 @@ namespace OperationPlayground.Menus
     public class LobbyHandler : MonoBehaviour
     {
         //public List<PlayerMenuData> players;
+        public System.Action onLobbyEnded;
 
         private SlotHandler[] playerSlots;
 
@@ -44,11 +45,14 @@ namespace OperationPlayground.Menus
         {
             foreach (SlotHandler slot in playerSlots)
             {
-                slot.ClearSlot();
+                if (slot.currentPlayer && slot.currentPlayer.playerIndex != 0)
+                {
+                    slot.ClearSlot();
+                }
             }
 
             PlayerSpawnManager.Instance.DisableJoining();
-            MainMenu.Instance.HideLobby();
+            onLobbyEnded?.Invoke();
         }
 
         private void ReadyCheck(PlayerManager playerManager)
@@ -66,7 +70,7 @@ namespace OperationPlayground.Menus
 
         private void UpdatePlayers(PlayerManager playerManager)
         {
-            if (!PlayerSpawnManager.Instance.AnyPlayersJoined) EndLobby();
+            if (PlayerSpawnManager.Instance.TotalPlayers <= 1) EndLobby();
             //players.RemoveAll(player => player == null);
         }
 

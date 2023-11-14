@@ -5,72 +5,67 @@ namespace OperationPlayground.Menus
 {
     public class GenericMenu : MonoBehaviour
     {
-        public IEnumerator TransitionMenu(CanvasGroup menu, bool isEntering, Vector2 direction, float speed)
+        public IEnumerator TransitionMenu(CanvasGroup menuCG, bool isEntering, Vector2 direction, float speed = 2)
         {
-            if (direction.x > 0) direction.x = Mathf.Ceil(direction.x);
-            else direction.x = Mathf.Floor(direction.x);
+            RectTransform menuRT = menuCG.GetComponent<RectTransform>();
 
-            if (direction.y > 0) direction.y = Mathf.Ceil(direction.y);
-            else direction.y = Mathf.Floor(direction.y);
+            Vector2 refRes, newPos, xDirection, yDirection, alphaDirection;
 
-            RectTransform menuRT = menu.GetComponent<RectTransform>();
+            refRes = new Vector2(Screen.width, Screen.height);
+            refRes.x *= direction.x;
+            refRes.y *= direction.y;
 
-            Vector2 refRes = new Vector2(Screen.width, Screen.height);
-
-            refRes.x *= Vector3.Normalize(direction).x;
-            refRes.y *= Vector3.Normalize(direction).y;
-
-            Vector2 newPos;
-
+            #region Assign Vectors
             if (isEntering)
             {
                 menuRT.anchoredPosition = refRes;
+                menuCG.alpha = 0;
 
-                menu.alpha = 0;
-                float progress = 0;
-
-
-                while (menu.alpha < 1)
-                {
-                    progress += Time.deltaTime * speed;
-
-                    menu.alpha = progress;
-
-                    newPos.x = Mathf.Lerp(refRes.x, 0, progress);
-                    newPos.y = Mathf.Lerp(refRes.y, 0, progress);
-                    menuRT.anchoredPosition = newPos;
-
-                    yield return null;
-                }
-
-                menuRT.anchoredPosition = Vector2.zero;
-                menu.alpha = 1;
-                menu.blocksRaycasts = true;
-                menu.interactable = true;
+                xDirection = new Vector2(refRes.x, 0);
+                yDirection = new Vector2(refRes.y, 0);
+                alphaDirection = new Vector2(menuCG.alpha, 1);                
             }
             else
             {
-                menu.alpha = 1;
-                float progress = 0;
+                menuCG.alpha = 1;
 
-                while (menu.alpha > 0)
-                {
-                    progress += Time.deltaTime * speed;
-
-                    menu.alpha = 1 - progress;
-
-                    newPos.x = Mathf.Lerp(0, refRes.x, progress);
-                    newPos.y = Mathf.Lerp(0, refRes.y, progress);
-                    menuRT.anchoredPosition = newPos;
-
-                    yield return null;
-                }
-
-                menuRT.anchoredPosition = refRes;
-                menu.alpha = 0;
-                menu.blocksRaycasts = false;
-                menu.interactable = false;
+                xDirection = new Vector2(0, refRes.x);
+                yDirection = new Vector2(0, refRes.y);
+                alphaDirection = new Vector2(menuCG.alpha, 0);
             }
+            #endregion
+
+            #region Lerp Vectors
+            float progress = 0;
+            while (progress < 1)
+            {
+                progress += Time.deltaTime * speed;
+
+                newPos.x = Mathf.Lerp(xDirection.x, xDirection.y, progress);
+                newPos.y = Mathf.Lerp(yDirection.x, yDirection.y, progress);
+                menuCG.alpha = Mathf.Lerp(alphaDirection.x, alphaDirection.y, progress);
+                menuRT.anchoredPosition = newPos;
+
+                yield return null;
+            }
+            #endregion
+
+            #region Assign Absolutes
+            if (isEntering)
+            {
+                menuRT.anchoredPosition = Vector2.zero;
+                menuCG.alpha = 1;
+                menuCG.blocksRaycasts = true;
+                menuCG.interactable = true;
+            }
+            else
+            {
+                menuRT.anchoredPosition = refRes;
+                menuCG.alpha = 0;
+                menuCG.blocksRaycasts = false;
+                menuCG.interactable = false;
+            }
+            #endregion
         }
     }
 }

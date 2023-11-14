@@ -15,6 +15,7 @@ namespace OperationPlayground.Editor.Windows
     public class EnemyEditorWindow : GenericEditorWindow<EnemyScriptableObject, AvailableEnemiesScriptableObject>
     {
         public EditorContainer<GameObject> prefab;
+        public EditorContainer<float> speed;
         public EditorContainer<int> maxHealth;
         public EditorContainer<WeaponScriptableObject> weaponScriptableObject;
 
@@ -48,6 +49,11 @@ namespace OperationPlayground.Editor.Windows
             }
 
             {
+                var element = rootVisualElement.AddFloatField(speed, "Speed");
+                RegisterLoadChange(element, speed);
+            }
+
+            {
                 var element = rootVisualElement.AddObjectField(weaponScriptableObject, "Weapon");
                 RegisterLoadChange(element, weaponScriptableObject);
             }
@@ -65,6 +71,7 @@ namespace OperationPlayground.Editor.Windows
                 weaponScriptableObject.Reset();
                 prefab.Reset();
                 damageTypes = new DamageType[] { };
+                speed.Reset();
             }
             else
             {
@@ -72,6 +79,7 @@ namespace OperationPlayground.Editor.Windows
                 weaponScriptableObject.Value = so.weaponScriptableObject;
                 prefab.Value = so.prefab;
                 damageTypes = so.vulnerableDamageTypes.Copy();
+                speed.Value = so.speed;
             }
         }
 
@@ -81,6 +89,7 @@ namespace OperationPlayground.Editor.Windows
             asset.maxHealth = maxHealth;
             asset.prefab = prefab;
             asset.vulnerableDamageTypes = damageTypes.Copy();
+            asset.speed = speed;
         }
 
         protected override IEnumerable<CompleteCriteria> GetCompleteCriteria()

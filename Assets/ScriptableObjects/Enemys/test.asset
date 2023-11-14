@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: test
   m_EditorClassIdentifier: 
   id: test
-  prefab: {fileID: 873115996186226530, guid: ddd7fdf7305cd534392ca5b6775c8b49, type: 3}
+  prefab: {fileID: 242933109357955558, guid: ddd7fdf7305cd534392ca5b6775c8b49, type: 3}
   maxHealth: 5
   vulnerableDamageTypes: 
+  speed: 5
   weaponScriptableObject: {fileID: 11400000, guid: 5a8cd0839c0ac164ba4fe2e6d2f74337,
     type: 2}

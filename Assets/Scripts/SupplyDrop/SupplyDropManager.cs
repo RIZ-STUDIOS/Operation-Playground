@@ -74,7 +74,7 @@ namespace OperationPlayground.SupplyDrop
                 tries++;
             } while (location.HasCrate() && tries < 5);
 
-            if (tries >= 5)
+            if (tries < 5)
             {
                 location.SpawnCrate();
             }

@@ -79,6 +79,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 6264905289984083809}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f0d1a48a3f366c34bb2453e330025b68,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8032412858161045035}
   m_SourcePrefab: {fileID: 100100000, guid: f0d1a48a3f366c34bb2453e330025b68, type: 3}
 --- !u!1 &4518226669146760187 stripped
 GameObject:
@@ -151,3 +155,24 @@ MonoBehaviour:
   parachuteGameObjects:
   - {fileID: 6457839543070109077}
   - {fileID: 4518226669146760187}
+--- !u!65 &8032412858161045035
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8257343781488228297}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0.5, z: 0}

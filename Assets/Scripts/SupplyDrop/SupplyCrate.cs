@@ -38,6 +38,8 @@ namespace OperationPlayground.SupplyDrop
         private void OnInteract(PlayerManager playerManager)
         {
             ResourceManager.Instance.Supplies += supplyAmount;
+
+            Destroy(gameObject);
         }
     }
 }

@@ -59,6 +59,7 @@ namespace OperationPlayground.Pathfinding
 
         public void RecalculatePath()
         {
+            seeker.CancelCurrentPathRequest();
             if (currentPathWaypoint == null)
                 path = null;
             seeker.StartPath(transform.position, currentPathWaypoint.GetRandomPoint(), OnPathComplete);

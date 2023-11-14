@@ -1,3 +1,4 @@
+using OperationPlayground.ScriptableObjects;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -18,7 +19,7 @@ namespace OperationPlayground.Shop
         {
             shopItem = newShopItem;
             itemImage.sprite = shopItem.itemSprite;
-            itemName.text = shopItem.itemName;
+            itemName.text = shopItem.id;
             itemCost.text = shopItem.itemCost.ToString();
             GetComponent<Button>().onClick.AddListener(OnClick);
         }

@@ -26,6 +26,15 @@ namespace OperationPlayground.Buildings
 
         private GameObject playerPositionInvalidPlacement;
 
+        public event System.Action<PlayerManager> onPlayerEnterBuilding;
+        public event System.Action<PlayerManager> onPlayerLeaveBuilding;
+
+        public event System.Action<InputAction.CallbackContext> onFirePerformed;
+        public event System.Action<InputAction.CallbackContext> onFireCanceled;
+
+        public event System.Action<InputAction.CallbackContext> onLookPerformed;
+        public event System.Action<InputAction.CallbackContext> onLookCanceled;
+
         protected override void Awake()
         {
             base.Awake();
@@ -55,6 +64,12 @@ namespace OperationPlayground.Buildings
 
             currentPlayer.playerInput.InBuild.Leave.performed += OnLeavePerformed;
 
+            currentPlayer.playerInput.InBuild.Fire.performed += OnFirePerformed;
+            currentPlayer.playerInput.InBuild.Fire.canceled += OnFireCanceled;
+
+            currentPlayer.playerInput.InBuild.Look.performed += OnLookPerformed;
+            currentPlayer.playerInput.InBuild.Look.canceled += OnLookCanceled;
+
             interactable.CanInteractWith = false;
 
             playerPositionInvalidPlacement = new GameObject();
@@ -62,11 +77,19 @@ namespace OperationPlayground.Buildings
             playerPositionInvalidPlacement.transform.position = playerPosition;
             playerPositionInvalidPlacement.AddComponent<BoxCollider>();
             playerPositionInvalidPlacement.AddComponent<InvalidPlacement>();
+
+            onPlayerEnterBuilding?.Invoke(playerManager);
         }
 
         private void OnLeavePerformed(InputAction.CallbackContext context)
         {
             currentPlayer.playerInput.InBuild.Leave.performed -= OnLeavePerformed;
+
+            currentPlayer.playerInput.InBuild.Fire.performed -= OnFirePerformed;
+            currentPlayer.playerInput.InBuild.Fire.canceled -= OnFireCanceled;
+
+            currentPlayer.playerInput.InBuild.Look.performed -= OnLookPerformed;
+            currentPlayer.playerInput.InBuild.Look.canceled -= OnLookCanceled;
 
             currentPlayer.AddPlayerState(PlayerCapabilityType.Movement);
             currentPlayer.AddPlayerState(PlayerCapabilityType.Interaction);
@@ -78,10 +101,33 @@ namespace OperationPlayground.Buildings
             currentPlayer.AddPlayerState(PlayerCapabilityType.ToggleBuilding);
 
             currentPlayer.SetPosition(playerPosition);
+
+            onPlayerLeaveBuilding?.Invoke(currentPlayer);
+
             currentPlayer = null;
             interactable.CanInteractWith = true;
 
             Destroy(playerPositionInvalidPlacement);
+        }
+
+        private void OnFirePerformed(InputAction.CallbackContext callback)
+        {
+            onFirePerformed?.Invoke(callback);
+        }
+
+        private void OnFireCanceled(InputAction.CallbackContext callback)
+        {
+            onFireCanceled?.Invoke(callback);
+        }
+
+        private void OnLookPerformed(InputAction.CallbackContext callback)
+        {
+            onLookPerformed?.Invoke(callback);
+        }
+
+        private void OnLookCanceled(InputAction.CallbackContext callback)
+        {
+            onLookCanceled?.Invoke(callback);
         }
     }
 }

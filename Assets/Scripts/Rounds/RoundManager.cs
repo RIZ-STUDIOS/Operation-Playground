@@ -46,6 +46,11 @@ namespace OperationPlayground.Rounds
             roundList = new List<RoundScriptableObject>(rounds);
         }
 
+        private void Start()
+        {
+            StartRounds();
+        }
+
         private void Update()
         {
             if (roundStatus == RoundStatus.PreRound)

@@ -18,3 +18,5 @@ MonoBehaviour:
     type: 3}
   progressBarUIPrefab: {fileID: 4158095908958382573, guid: 05054dc68eef6714d9e9c07c410b1fb2,
     type: 3}
+  cratePrefab: {fileID: 8257343781488228297, guid: 73c955d684a9a9c48a3e85c4a1f3c6b3,
+    type: 3}

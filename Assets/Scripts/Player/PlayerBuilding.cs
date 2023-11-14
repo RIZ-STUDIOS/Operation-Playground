@@ -178,6 +178,7 @@ namespace OperationPlayground.Player
                 {
                     var buildingObject = Instantiate(currentBuilding.prefab);
                     buildingObject.transform.position = currentBuildingObject.transform.position;
+                    buildingObject.transform.rotation = currentBuildingObject.transform.rotation;
 
                     var invalidPlacement = buildingObject.GetOrAddComponent<InvalidPlacement>();
                     invalidPlacement.invalid = true;

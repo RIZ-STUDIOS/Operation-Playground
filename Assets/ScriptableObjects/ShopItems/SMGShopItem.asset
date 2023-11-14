@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f86e05ed5b55ecf4aaa8e17ea223d88f, type: 3}
   m_Name: SMGShopItem
   m_EditorClassIdentifier: 
-  itemSprite: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
-  itemName: SMG
-  itemCost: 15
+  id: SMGShopItem
+  itemSprite: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
+  itemCost: 30
+  availableInTruckShop: 1
+  availableInRadioShop: 0

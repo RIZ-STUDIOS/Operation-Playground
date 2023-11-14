@@ -1,4 +1,5 @@
 using OperationPlayground.ScriptableObjects;
+using OperationPlayground.SupplyDrop;
 using RicTools.Managers;
 using RicTools.Utilities;
 using System.Collections;
@@ -11,6 +12,7 @@ namespace OperationPlayground.Managers
     {
         public GameLevelData gameLevelData;
         public AvailableBuildingsScriptableObject availableBuildingsScriptableObject;
+        public SupplyDropManager supplyDropManager;
 
         protected override void OnCreation()
         {

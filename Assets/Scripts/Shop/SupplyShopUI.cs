@@ -1,5 +1,6 @@
 using OperationPlayground.Player;
 using OperationPlayground.Player.PlayerCapabilities;
+using OperationPlayground.ScriptableObjects;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

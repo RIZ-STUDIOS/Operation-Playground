@@ -2,6 +2,7 @@ using OperationPlayground.Buildings;
 using OperationPlayground.Interactables;
 using OperationPlayground.Player;
 using OperationPlayground.Player.PlayerCapabilities;
+using OperationPlayground.ScriptableObjects;
 using OperationPlayground.Shop;
 using System.Collections;
 using System.Collections.Generic;

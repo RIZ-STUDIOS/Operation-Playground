@@ -12,14 +12,14 @@ namespace OperationPlayground.Player
         public CanvasGroup interactCG;
         public CanvasGroup supplyShopCG;
 
-        public PlayerManager pM;
+        public PlayerManager playerManager;
 
         private Coroutine fadeCoroutine;
 
         private void Awake()
         {
-            pM = GetComponentInParent<PlayerManager>();
-            pM.PlayerInteraction.onSetInteractable += OnSetInteractable;
+            playerManager = GetComponentInParent<PlayerManager>();
+            playerManager.PlayerInteraction.onSetInteractable += OnSetInteractable;
         }
 
         private void OnSetInteractable(Interactable interactable)
@@ -32,27 +32,27 @@ namespace OperationPlayground.Player
                 fadeCoroutine = StartCoroutine(ToggleCanvasElement(interactCG, false));
         }
 
-        public IEnumerator ToggleCanvasElement(CanvasGroup cG, bool isFadeIn, bool interactable = false, float fadeSpeed = 2)
+        public IEnumerator ToggleCanvasElement(CanvasGroup canvasGroup, bool isFadeIn, bool interactable = false, float fadeSpeed = 2)
         {
             Vector2 fadeVector;
 
-            if (isFadeIn) fadeVector = new Vector2(cG.alpha, 1);
-            else fadeVector = new Vector2(cG.alpha, 0);
+            if (isFadeIn) fadeVector = new Vector2(canvasGroup.alpha, 1);
+            else fadeVector = new Vector2(canvasGroup.alpha, 0);
 
             float progress = 0;
             while (progress < 1)
             {
                 progress += Time.deltaTime * fadeSpeed;
-                cG.alpha = Mathf.Lerp(fadeVector.x, fadeVector.y, progress);
+                canvasGroup.alpha = Mathf.Lerp(fadeVector.x, fadeVector.y, progress);
 
                 yield return null;
             }
-            cG.alpha = fadeVector.y;
+            canvasGroup.alpha = fadeVector.y;
 
             if (interactable)
             {
-                if (isFadeIn) cG.interactable = true;
-                else cG.interactable = false;
+                if (isFadeIn) canvasGroup.interactable = true;
+                else canvasGroup.interactable = false;
             }
 
             fadeCoroutine = null;

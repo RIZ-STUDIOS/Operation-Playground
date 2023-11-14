@@ -15,3 +15,4 @@ MonoBehaviour:
   itemSprite: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
   itemName: SMG
   itemCost: 15
+  itemType: 1

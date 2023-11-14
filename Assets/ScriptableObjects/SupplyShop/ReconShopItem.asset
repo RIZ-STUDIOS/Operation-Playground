@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f86e05ed5b55ecf4aaa8e17ea223d88f, type: 3}
-  m_Name: ShotgunShopItem
+  m_Name: ReconShopItem
   m_EditorClassIdentifier: 
-  itemSprite: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
-  itemName: SHOTGUN
-  itemCost: 30
-  itemType: 1
+  itemSprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  itemName: RECON
+  itemCost: 50
+  itemType: 2

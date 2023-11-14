@@ -1,5 +1,6 @@
 using OperationPlayground.Player;
 using OperationPlayground.Player.PlayerCapabilities;
+using OperationPlayground.ScriptableObjects;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,26 +14,24 @@ namespace OperationPlayground.Shop
         public GameObject shopButtonPrefab;
         public GameObject scrollShop;
 
-        private PlayerCanvas pC;
-        private CanvasGroup cG;
+        private PlayerCanvas playerCanvas;
+        private CanvasGroup canvasGroup;
 
         private void Awake()
         {
-            pC = GetComponentInParent<PlayerCanvas>();
-            cG = GetComponent<CanvasGroup>();
+            playerCanvas = GetComponentInParent<PlayerCanvas>();
+            canvasGroup = GetComponent<CanvasGroup>();
         }
 
         public void OpenShop(ShopItemScriptableObject[] shopItems)
         {
-            pC.pM.RemovePlayerState(PlayerCapabilityType.Movement);
-            pC.pM.RemovePlayerState(PlayerCapabilityType.Interaction);
-            pC.pM.RemovePlayerState(PlayerCapabilityType.Building);
-            pC.pM.RemovePlayerState(PlayerCapabilityType.Shooter);
-            pC.pM.RemovePlayerState(PlayerCapabilityType.Health);
-            pC.pM.RemovePlayerState(PlayerCapabilityType.InvalidPlacement);
-            pC.pM.RemovePlayerState(PlayerCapabilityType.ToggleBuilding);
+            playerCanvas.playerManager.RemovePlayerState(PlayerCapabilityType.Movement);
+            playerCanvas.playerManager.RemovePlayerState(PlayerCapabilityType.Interaction);
+            playerCanvas.playerManager.RemovePlayerState(PlayerCapabilityType.Building);
+            playerCanvas.playerManager.RemovePlayerState(PlayerCapabilityType.Shooter);
+            playerCanvas.playerManager.RemovePlayerState(PlayerCapabilityType.ToggleBuilding);
 
-            StartCoroutine(pC.ToggleCanvasElement(cG, true, true));
+            StartCoroutine(playerCanvas.ToggleCanvasElement(canvasGroup, true, true));
 
             if (shopItems.Length > 0)
             {
@@ -49,7 +48,7 @@ namespace OperationPlayground.Shop
                 scrollShop.transform.GetChild(0).GetComponent<Button>().Select();
             }
 
-            pC.pM.playerInput.UI.Cancel.performed += CloseShop;
+            playerCanvas.playerManager.playerInput.UI.Cancel.performed += CloseShop;
         }
 
         public void CloseShop(InputAction.CallbackContext value)
@@ -59,15 +58,12 @@ namespace OperationPlayground.Shop
                 Destroy(child.gameObject);
             }
 
-            StartCoroutine(pC.ToggleCanvasElement(cG, false, true));
+            StartCoroutine(playerCanvas.ToggleCanvasElement(canvasGroup, false, true));
 
-            pC.pM.AddPlayerState(PlayerCapabilityType.Movement);
-            pC.pM.AddPlayerState(PlayerCapabilityType.Interaction);
-            pC.pM.AddPlayerState(PlayerCapabilityType.Building);
-            pC.pM.AddPlayerState(PlayerCapabilityType.Shooter);
-            pC.pM.AddPlayerState(PlayerCapabilityType.Health);
-            pC.pM.AddPlayerState(PlayerCapabilityType.InvalidPlacement);
-            pC.pM.AddPlayerState(PlayerCapabilityType.ToggleBuilding);
+            playerCanvas.playerManager.AddPlayerState(PlayerCapabilityType.Movement);
+            playerCanvas.playerManager.AddPlayerState(PlayerCapabilityType.Interaction);
+            playerCanvas.playerManager.AddPlayerState(PlayerCapabilityType.Shooter);
+            playerCanvas.playerManager.AddPlayerState(PlayerCapabilityType.ToggleBuilding);
         }
     }
 }

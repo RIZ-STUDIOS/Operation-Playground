@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 2575088086997124408}
   - component: {fileID: 2672817053557055547}
   - component: {fileID: 4553904067173318499}
+  - component: {fileID: -3321143499473240436}
   m_Layer: 0
   m_Name: TestEnemy
   m_TagString: Untagged
@@ -135,7 +136,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyScriptableObject: {fileID: 0}
-  nextWaypointDistance: 3
 --- !u!143 &4553904067173318499
 CharacterController:
   m_ObjectHideFlags: 0
@@ -162,6 +162,19 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &-3321143499473240436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 242933109357955558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb438dd092042814aa317788b2b0b786, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextWaypointDistance: 3
 --- !u!1 &3838027667123969601
 GameObject:
   m_ObjectHideFlags: 0

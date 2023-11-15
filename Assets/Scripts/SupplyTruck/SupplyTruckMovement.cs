@@ -1,5 +1,7 @@
+using OperationPlayground.Rounds;
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using UnityEngine;
 using UnityEngine.Splines;
 
@@ -17,18 +19,32 @@ namespace OperationPlayground.SupplyTruck
         private void Start()
         {
             splineAnimate = GetComponent<SplineAnimate>();
+            RoundManager.Instance.onPreRoundStart += TruckEnter;
+            RoundManager.Instance.onPreRoundEnd += TruckExit;
         }
 
-        private void Update()
+        /*private void Update()
         {
             if (Input.GetKeyDown(KeyCode.I)) MoveTruck(entranceSpline);
             if (Input.GetKeyDown(KeyCode.O)) MoveTruck(exitSpline);
+        }*/
+
+        private void TruckEnter()
+        {
+            Debug.Log("TRUCK INCOMING!");
+            moveCoroutine ??= StartCoroutine(MoveTruckOnSpline(entranceSpline));
         }
 
-        private void MoveTruck(SplineContainer spline)
+        private void TruckExit()
+        {
+            Debug.Log("TRUCK HEADING OUT!");
+            moveCoroutine ??= StartCoroutine(MoveTruckOnSpline(exitSpline));
+        }
+
+        /*private void MoveTruck(SplineContainer spline)
         {
             moveCoroutine ??= StartCoroutine(MoveTruckOnSpline(spline));
-        }
+        }*/
 
         private IEnumerator MoveTruckOnSpline(SplineContainer spline)
         {

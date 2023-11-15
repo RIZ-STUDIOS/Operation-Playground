@@ -48,6 +48,7 @@ namespace OperationPlayground.Shop
                 scrollShop.transform.GetChild(0).GetComponent<Button>().Select();
             }
 
+            playerCanvas.playerManager.playerInput.Basic.Disable();
             playerCanvas.playerManager.playerInput.UI.Cancel.performed += CloseShop;
         }
 
@@ -64,6 +65,8 @@ namespace OperationPlayground.Shop
             playerCanvas.playerManager.AddPlayerState(PlayerCapabilityType.Interaction);
             playerCanvas.playerManager.AddPlayerState(PlayerCapabilityType.Shooter);
             playerCanvas.playerManager.AddPlayerState(PlayerCapabilityType.ToggleBuilding);
+
+            playerCanvas.playerManager.playerInput.Basic.Enable();
         }
     }
 }

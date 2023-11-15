@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: test
   prefab: {fileID: 5672386898822300190, guid: cdb46d5ee91560c428df2da850bb6e87, type: 3}
-  cooldown: 1
+  cooldown: 0.5
   maxAmmo: 5
   projectileScriptableObject: {fileID: 11400000, guid: 4534e876758ed43419a0c0f1b93aa578,
     type: 2}

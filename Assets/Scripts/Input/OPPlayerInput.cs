@@ -898,6 +898,24 @@ namespace OperationPlayground
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Look"",
+                    ""type"": ""Value"",
+                    ""id"": ""c0673e84-a5f1-4439-b226-8317504c3899"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Fire"",
+                    ""type"": ""Button"",
+                    ""id"": ""075d96ae-fbe9-4c7d-a172-cfb548074bd5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -909,6 +927,83 @@ namespace OperationPlayground
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""Leave"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3986f3f0-f2ff-4872-8541-6204a843e8a7"",
+                    ""path"": ""<Gamepad>/rightStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Look"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""2D Vector"",
+                    ""id"": ""9b4350fd-ecc1-4fe1-ab04-4205734efbae"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Look"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""8e0f4db5-d8c3-481f-9fd5-1ce5981181b8"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Look"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""204c18ab-989e-4cad-80f9-ba72e940d8f6"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Look"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""6572d185-e510-45f1-b62f-07cba1264856"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Look"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""71be2b6e-c207-43c6-ae49-9cc8220ba21e"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Look"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b15ead50-9eb4-4ec4-bf88-7365168307ad"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Fire"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1016,6 +1111,8 @@ namespace OperationPlayground
             // InBuild
             m_InBuild = asset.FindActionMap("InBuild", throwIfNotFound: true);
             m_InBuild_Leave = m_InBuild.FindAction("Leave", throwIfNotFound: true);
+            m_InBuild_Look = m_InBuild.FindAction("Look", throwIfNotFound: true);
+            m_InBuild_Fire = m_InBuild.FindAction("Fire", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -1512,11 +1609,15 @@ namespace OperationPlayground
         private readonly InputActionMap m_InBuild;
         private List<IInBuildActions> m_InBuildActionsCallbackInterfaces = new List<IInBuildActions>();
         private readonly InputAction m_InBuild_Leave;
+        private readonly InputAction m_InBuild_Look;
+        private readonly InputAction m_InBuild_Fire;
         public struct InBuildActions
         {
             private @OPPlayerInput m_Wrapper;
             public InBuildActions(@OPPlayerInput wrapper) { m_Wrapper = wrapper; }
             public InputAction @Leave => m_Wrapper.m_InBuild_Leave;
+            public InputAction @Look => m_Wrapper.m_InBuild_Look;
+            public InputAction @Fire => m_Wrapper.m_InBuild_Fire;
             public InputActionMap Get() { return m_Wrapper.m_InBuild; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -1529,6 +1630,12 @@ namespace OperationPlayground
                 @Leave.started += instance.OnLeave;
                 @Leave.performed += instance.OnLeave;
                 @Leave.canceled += instance.OnLeave;
+                @Look.started += instance.OnLook;
+                @Look.performed += instance.OnLook;
+                @Look.canceled += instance.OnLook;
+                @Fire.started += instance.OnFire;
+                @Fire.performed += instance.OnFire;
+                @Fire.canceled += instance.OnFire;
             }
 
             private void UnregisterCallbacks(IInBuildActions instance)
@@ -1536,6 +1643,12 @@ namespace OperationPlayground
                 @Leave.started -= instance.OnLeave;
                 @Leave.performed -= instance.OnLeave;
                 @Leave.canceled -= instance.OnLeave;
+                @Look.started -= instance.OnLook;
+                @Look.performed -= instance.OnLook;
+                @Look.canceled -= instance.OnLook;
+                @Fire.started -= instance.OnFire;
+                @Fire.performed -= instance.OnFire;
+                @Fire.canceled -= instance.OnFire;
             }
 
             public void RemoveCallbacks(IInBuildActions instance)
@@ -1643,6 +1756,8 @@ namespace OperationPlayground
         public interface IInBuildActions
         {
             void OnLeave(InputAction.CallbackContext context);
+            void OnLook(InputAction.CallbackContext context);
+            void OnFire(InputAction.CallbackContext context);
         }
     }
 }

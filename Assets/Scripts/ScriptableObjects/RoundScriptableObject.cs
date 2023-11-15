@@ -18,6 +18,8 @@ namespace OperationPlayground.ScriptableObjects
     public class RoundEnemyData
     {
         public int minEnemies;
+        [System.NonSerialized]
+        public int spawned;
         public EnemyScriptableObject enemySo;
     }
 }

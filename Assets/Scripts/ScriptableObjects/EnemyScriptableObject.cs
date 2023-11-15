@@ -12,6 +12,7 @@ namespace OperationPlayground.ScriptableObjects
         public GameObject prefab;
         public int maxHealth;
         public DamageType[] vulnerableDamageTypes;
+        public float speed;
         public WeaponScriptableObject weaponScriptableObject;
     }
 }

@@ -1,5 +1,7 @@
 using OperationPlayground.EntityData;
+using OperationPlayground.Pathfinding;
 using OperationPlayground.ScriptableObjects;
+using Pathfinding;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,7 +24,7 @@ namespace OperationPlayground.Enemies
 
         public override GenericShooter Shooter => EnemyShooter;
 
-        public static EnemyEntity SpawnEnemy(EnemyScriptableObject enemyScriptableObject)
+        public static GameObject SpawnEnemy(EnemyScriptableObject enemyScriptableObject, Vector3 spawnLocation = default)
         {
             var enemyObject = Instantiate(enemyScriptableObject.prefab);
 
@@ -35,7 +37,20 @@ namespace OperationPlayground.Enemies
 
             enemy.Shooter.AddWeapon(enemyScriptableObject.weaponScriptableObject);
 
-            return null;
+            var followPath = enemyObject.GetComponent<FollowWaypoints>();
+            if (followPath)
+            {
+                followPath.SetPosition(spawnLocation);
+                followPath.SetSpeed(enemyScriptableObject.speed);
+                followPath.onEndPathReached += () =>
+                {
+                    enemy.Health.Damage(1000);
+                };
+            }
+            else
+                enemy.transform.position = spawnLocation;
+
+            return enemyObject;
         }
     }
 }

@@ -48,6 +48,7 @@ namespace OperationPlayground.Interactables
         private void Awake()
         {
             sphereCollider = GetComponent<SphereCollider>();
+            sphereCollider.isTrigger = true;
 
             var renderers = GetComponentsInChildren<Renderer>();
 
@@ -108,6 +109,7 @@ namespace OperationPlayground.Interactables
         {
             var collider = GetComponent<SphereCollider>();
             collider.radius = interactRadius;
+            collider.isTrigger = true;
         }
 
         private void OnEnable()
@@ -198,6 +200,11 @@ namespace OperationPlayground.Interactables
             {
                 outline.OutlineColor = _canInteractWith ? Color.green : Color.red;
             }
+        }
+
+        private void OnDrawGizmosSelected()
+        {
+            Gizmos.DrawCube(transform.position + radialBarOffset, new Vector3(0.5f, 0.5f, 0.5f));
         }
     }
 }

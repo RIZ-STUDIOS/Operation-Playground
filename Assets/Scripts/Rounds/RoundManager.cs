@@ -1,4 +1,5 @@
 using OperationPlayground.Enemies;
+using OperationPlayground.Pathfinding;
 using OperationPlayground.ScriptableObjects;
 using RicTools.Attributes;
 using RicTools.Managers;
@@ -16,7 +17,7 @@ namespace OperationPlayground.Rounds
         private float preRoundTimer;
 
         [SerializeField]
-        private SplineContainer splineToFollow;
+        private PathWaypointList waypointList;
 
         public float PreRoundTimer => preRoundTimer;
 
@@ -43,6 +44,11 @@ namespace OperationPlayground.Rounds
         {
             base.Awake();
             roundList = new List<RoundScriptableObject>(rounds);
+        }
+
+        private void Start()
+        {
+            StartRounds();
         }
 
         private void Update()
@@ -142,7 +148,22 @@ namespace OperationPlayground.Rounds
         {
             var enemySo = CurrentRound.enemies.GetRandomElement();
 
-            var enemy = EnemyEntity.SpawnEnemy(enemySo.enemySo);
+            var position = waypointList.GetFirstWaypoint().GetRandomPoint();
+
+            if (Physics.Raycast(new Vector3(position.x, 100, position.z), Vector3.down, out var hitInfo, 1000f, LayerMask.GetMask("Ground"), QueryTriggerInteraction.Ignore))
+            {
+                position.y = hitInfo.point.y;
+            }
+
+            var enemy = EnemyEntity.SpawnEnemy(enemySo.enemySo, position);
+
+            var followPath = enemy.GetComponent<FollowWaypoints>();
+
+            if (followPath)
+            {
+                followPath.SetWaypointList(waypointList);
+                followPath.NextWaypoint();
+            }
 
             CurrentRound.spawnEnemies++;
         }

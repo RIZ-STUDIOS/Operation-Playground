@@ -1,16 +1,15 @@
-using OperationPlayground.Shop;
+using RicTools.ScriptableObjects;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace OperationPlayground.ScriptableObjects
 {
-    [CreateAssetMenu(fileName = "ShopItemSO", menuName = "1543493/ShopItem")]
-    public class ShopItemScriptableObject : ScriptableObject
+    public class ShopItemScriptableObject : GenericScriptableObject
     {
         public Sprite itemSprite;
-        public string itemName;
         public int itemCost;
-        public ShopItemType itemType;
+        public bool availableInTruckShop;
+        public bool availableInRadioShop;
     }
 }

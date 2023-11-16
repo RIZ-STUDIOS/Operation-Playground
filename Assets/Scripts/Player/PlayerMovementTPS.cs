@@ -19,17 +19,10 @@ namespace OperationPlayground
         private CharacterController controller;
 
         private Vector2 moveDirection;
-        private Vector3 rotateDirection;
 
-        #region Rotation Experiment
-
-        private Camera playerCamera;
-        private Transform playerTransform;
-        private OPPlayerInput.MovementActions playerMovement;
+        // Rotation inputs
         private float rotX;
         private float rotY;
-
-        #endregion
 
         private bool isLooking;
 
@@ -38,16 +31,11 @@ namespace OperationPlayground
             playerManager = GetComponentInParent<PlayerManager>();
             controller = GetComponent<CharacterController>();
 
-            playerTransform = playerManager.playerTransform;
-            playerMovement = playerManager.playerInput.Movement;
-
             playerManager.playerInput.Movement.Move.performed += OnMovePerformed;
             playerManager.playerInput.Movement.Move.canceled += OnMoveCanceled;
 
             playerManager.playerInput.Movement.Look.performed += OnLookPerformed;
             playerManager.playerInput.Movement.Look.canceled += OnLookCanceled;
-
-            playerCamera = GetComponentInChildren<Camera>();
         }
 
         private void Update()
@@ -96,14 +84,14 @@ namespace OperationPlayground
 
         private void RotateCharacter()
         {
-            Vector2 rotValue = playerMovement.Look.ReadValue<Vector2>();
+            Vector2 rotValue = playerManager.playerInput.Movement.Look.ReadValue<Vector2>();
             
             rotY += rotValue.x * Time.deltaTime * lookSensitivity;
             rotX -= rotValue.y * Time.deltaTime * lookSensitivity;
 
             rotX = Mathf.Clamp(rotX, -90f, 90f);
 
-            playerTransform.rotation = Quaternion.Euler(0, rotY, 0);
+            playerManager.playerTransform.rotation = Quaternion.Euler(0, rotY, 0);
         }
 
         public void SetPosition(Vector3 position)

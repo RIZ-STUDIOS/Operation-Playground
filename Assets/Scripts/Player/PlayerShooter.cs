@@ -107,7 +107,22 @@ namespace OperationPlayground.Player
             SwitchWeapon(heldWeapons[index]);
         }
 
-        private void Update()
+        /*private void Update()
+        {
+            if (triggerDown)
+            {
+                if (!currentWeapon) return;
+                if (currentWeapon.Shoot())
+                {
+                    if (!currentWeapon.HasAmmo())
+                    {
+                        //var newWeapon = FindWeaponWithAmmo();
+                    }
+                }
+            }
+        }*/
+
+        private void LateUpdate()
         {
             if (triggerDown)
             {

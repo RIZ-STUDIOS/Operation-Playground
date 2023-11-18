@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5470021394671835577}
   - component: {fileID: 7876186988448012281}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Weapon_SMG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponSo: {fileID: 0}
-  shootTransform: {fileID: 4463709162312353674}
+  _shootTransform: {fileID: 0}
   infiniteAmmo: 1
 --- !u!135 &5470021394671835577
 SphereCollider:
@@ -139,6 +139,7 @@ MonoBehaviour:
   interactionTime: 0
   destroyOnInteract: 1
   radialBarOffset: {x: 0, y: 0.5, z: 0}
+  _canInteractWith: 1
 --- !u!1 &8715562398917051509
 GameObject:
   m_ObjectHideFlags: 0
@@ -149,7 +150,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4463709162312353674}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: ShootTransform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

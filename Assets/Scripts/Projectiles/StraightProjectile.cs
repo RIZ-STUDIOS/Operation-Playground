@@ -1,3 +1,4 @@
+using OperationPlayground.EntityData;
 using OperationPlayground.ScriptableObjects.Projectiles;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,16 +12,76 @@ namespace OperationPlayground.Projectiles
 
         private float timer;
 
+        private float gravityForce = 9.8f;
+
+        Vector3 startPosition;
+        Vector3 startPositionForward;
+
+        Vector3 currentPoint;
+        Vector3 previousPoint;
+
+        private void Start()
+        {
+            startPosition = shooter.CurrentWeapon.ShootTransform.position;
+            startPositionForward = shooter.CurrentWeapon.ShootTransform.forward.normalized;
+
+            currentPoint = startPosition;
+            previousPoint = startPosition;
+        }
+
         protected override void Update()
         {
             base.Update();
 
-            timer += Time.deltaTime;
+            transform.position = FindPointOnParabola();
         }
 
-        public override void Move()
+        private void FixedUpdate()
         {
-            transform.position += transform.forward * projectileSo.speed * Time.deltaTime;
+            timer += Time.fixedDeltaTime;
+            
+            MoveCurrentPoint();
+            if (CastRayBetweenPoints(currentPoint, previousPoint, out RaycastHit hit))
+            {
+                HitQuery(hit);
+            }
+
+            previousPoint = currentPoint;
+        }
+
+        public override void MoveCurrentPoint()
+        {
+            currentPoint = FindPointOnParabola();
+        }
+
+        private Vector3 FindPointOnParabola()
+        {
+            Vector3 point = startPosition + (startPositionForward * projectileSo.speed * timer);
+            Vector3 gravityVector = Vector3.down * gravityForce * timer * timer;
+            return point + gravityVector;
+        }
+
+        private bool CastRayBetweenPoints(Vector3 startPoint, Vector3 endPoint, out RaycastHit hit)
+        {
+            Debug.DrawRay(startPoint, endPoint - startPoint, Color.green, 5);
+            return Physics.Raycast(startPoint, endPoint - startPoint, out hit, (endPoint - startPoint).magnitude);
+        }
+
+        private void HitQuery(RaycastHit hit)
+        {
+            if (hit.collider.isTrigger) return;
+            var entity = hit.collider.GetComponent<GenericEntity>();
+
+            if (DestroyOnCollision(hit.collider, entity))
+            {
+                //onCollision?.Invoke(hit.collider);
+                Destroy();
+            }
+
+            if (!entity) return;
+            if (entity.Team == shooter.parentEntity.Team) return;
+
+            entity.Health.Damage();
         }
 
         protected override bool KeepAlive()

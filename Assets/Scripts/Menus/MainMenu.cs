@@ -44,7 +44,7 @@ namespace OperationPlayground.Menus
             lobby = GetComponentInChildren<LobbyHandler>();
             lobby.onLobbyEnded += OnLobbyEnded;
 
-            PlayerSpawnManager.Instance.onPlayerJoin += OnPlayerJoin;
+            PlayerSpawnManager.Instance.OnPlayerJoin += OnPlayerJoin;
             PlayerSpawnManager.Instance.GetComponent<PlayerInputManager>().EnableJoining();
             PlayerSpawnManager.Instance.GetComponent<PlayerInputManager>().joinBehavior = PlayerJoinBehavior.JoinPlayersWhenButtonIsPressed;
 
@@ -58,7 +58,7 @@ namespace OperationPlayground.Menus
         {
             firstPlayer = player;
             firstPlayer.playerInput.UI.Cancel.performed += OnCancel;
-            PlayerSpawnManager.Instance.onPlayerJoin -= OnPlayerJoin;
+            PlayerSpawnManager.Instance.OnPlayerJoin -= OnPlayerJoin;
             PlayerSpawnManager.Instance.GetComponent<PlayerInputManager>().DisableJoining();
             PlayerSpawnManager.Instance.GetComponent<PlayerInputManager>().joinBehavior = PlayerJoinBehavior.JoinPlayersWhenJoinActionIsTriggered;
         }

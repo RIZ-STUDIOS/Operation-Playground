@@ -31,7 +31,7 @@ namespace OperationPlayground.Menus
 
         private void Start()
         {
-            PlayerSpawnManager.Instance.onPlayerJoin += OnPlayerJoin;
+            PlayerSpawnManager.Instance.OnPlayerJoin += OnPlayerJoin;
         }
 
         public void StartLobby()

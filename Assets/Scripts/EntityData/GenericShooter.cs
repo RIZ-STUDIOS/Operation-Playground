@@ -12,7 +12,8 @@ namespace OperationPlayground.EntityData
         [System.NonSerialized]
         public GenericEntity parentEntity;
 
-        protected Weapon currentWeapon;
+        protected Weapon _currentWeapon;
+        public Weapon CurrentWeapon { get { return _currentWeapon; } }
 
         [SerializeField]
         private Transform weaponHoldTransform;
@@ -24,15 +25,15 @@ namespace OperationPlayground.EntityData
         {
             if (weapon.interactable)
                 Destroy(weapon.interactable);
-            if (currentWeapon)
+            if (_currentWeapon)
             {
-                currentWeapon.gameObject.SetActive(false);
-                currentWeapon.SetShooter(null);
+                _currentWeapon.gameObject.SetActive(false);
+                _currentWeapon.SetShooter(null);
             }
-            currentWeapon = weapon;
-            currentWeapon.gameObject.SetActive(true);
-            currentWeapon.SetShooter(this);
-            onWeaponSwitch?.Invoke(currentWeapon);
+            _currentWeapon = weapon;
+            _currentWeapon.gameObject.SetActive(true);
+            _currentWeapon.SetShooter(this);
+            onWeaponSwitch?.Invoke(_currentWeapon);
         }
 
         public bool AddWeapon(WeaponScriptableObject weaponSo)
@@ -67,14 +68,14 @@ namespace OperationPlayground.EntityData
 
         public void HideWeapon()
         {
-            if (!currentWeapon) return;
-            currentWeapon.gameObject.SetActive(false);
+            if (!_currentWeapon) return;
+            _currentWeapon.gameObject.SetActive(false);
         }
 
         public void ShowWeapon()
         {
-            if (!currentWeapon) return;
-            currentWeapon.gameObject.SetActive(true);
+            if (!_currentWeapon) return;
+            _currentWeapon.gameObject.SetActive(true);
         }
     }
 }

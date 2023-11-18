@@ -71,7 +71,7 @@ namespace OperationPlayground.Player
         private bool RemoveWeapon(Weapon weapon)
         {
             if (weapon == heldWeapons[0]) return false;
-            if (currentWeapon == weapon)
+            if (_currentWeapon == weapon)
             {
                 SwitchWeapon(heldWeapons[0]);
             }
@@ -126,10 +126,10 @@ namespace OperationPlayground.Player
         {
             if (triggerDown)
             {
-                if (!currentWeapon) return;
-                if (currentWeapon.Shoot())
+                if (!_currentWeapon) return;
+                if (_currentWeapon.Shoot())
                 {
-                    if (!currentWeapon.HasAmmo())
+                    if (!_currentWeapon.HasAmmo())
                     {
                         //var newWeapon = FindWeaponWithAmmo();
                     }

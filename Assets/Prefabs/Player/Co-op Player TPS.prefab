@@ -318,7 +318,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3824972928520216411
 Transform:
   m_ObjectHideFlags: 0
@@ -433,7 +433,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponHoldTransform: {fileID: 7898335944874745302}
   maxWeaponSlots: 4
-  defaultWeaponScriptableObject: {fileID: 11400000, guid: 5a8cd0839c0ac164ba4fe2e6d2f74337,
+  defaultWeaponScriptableObject: {fileID: 11400000, guid: a89cd43c3ae93cb43b6c91078a2399b7,
     type: 2}
 --- !u!114 &1370434865088146647
 MonoBehaviour:
@@ -579,7 +579,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 70}
+  m_AnchoredPosition: {x: 0, y: 75}
   m_SizeDelta: {x: 64, y: 64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1664130769124546902

@@ -17,6 +17,13 @@ namespace OperationPlayground.Projectiles
 
         public event System.Action<Collider> onCollision;
 
+        protected Rigidbody rb;
+
+        protected virtual void Awake()
+        {
+            rb = GetComponent<Rigidbody>();
+        }
+
         public static GameObject CreateProjectile(ProjectileScriptableObject projectileScriptableObject, GenericShooter shooter)
         {
             var projectileObject = Instantiate(projectileScriptableObject.prefab);
@@ -38,12 +45,10 @@ namespace OperationPlayground.Projectiles
             return projectileObject;
         }
 
-        public abstract void Move();
+        public abstract void MoveCurrentPoint();
 
         protected virtual void Update()
         {
-            Move();
-
             if (!KeepAlive())
             {
                 Destroy();
@@ -55,7 +60,7 @@ namespace OperationPlayground.Projectiles
             Destroy(gameObject);
         }
 
-        private void OnTriggerEnter(Collider other)
+        /*private void OnTriggerEnter(Collider other)
         {
             if (other.isTrigger) return;
             var entity = other.GetComponent<GenericEntity>();
@@ -70,7 +75,7 @@ namespace OperationPlayground.Projectiles
             if (entity.Team == shooter.parentEntity.Team) return;
 
             entity.Health.Damage();
-        }
+        }*/
 
         protected virtual bool DestroyOnCollision(Collider other, GenericEntity hitEntity)
         {

@@ -14,11 +14,13 @@ namespace OperationPlayground.Player
     {
         private List<PlayerManager> players = new List<PlayerManager>();
 
-        public event System.Action<PlayerManager> onPlayerJoin;
-        public event System.Action<PlayerManager> onPlayerLeave;
+        public event System.Action<PlayerManager> OnPlayerJoin;
+        public event System.Action<PlayerManager> OnPlayerLeave;
 
         public bool AnyPlayersJoined => players.Count > 0;
         public int TotalPlayers => players.Count;
+
+        public bool isGameScene;
 
         protected override void Awake()
         {
@@ -40,11 +42,11 @@ namespace OperationPlayground.Player
             playerManager.playerIndex = playerInput.playerIndex;
 
             playerManager.AddAllPlayerStates();
-            playerManager.RemoveAllPlayerStates();
+            if (!isGameScene) playerManager.RemoveAllPlayerStates();
 
             players.Add(playerManager);
 
-            onPlayerJoin?.Invoke(playerManager);
+            OnPlayerJoin?.Invoke(playerManager);
         }
 
         private void OnPlayerLeft(PlayerInput playerInput)
@@ -55,7 +57,7 @@ namespace OperationPlayground.Player
 
             players.Remove(playerManager);
 
-            onPlayerLeave?.Invoke(playerManager);
+            OnPlayerLeave?.Invoke(playerManager);
         }
 
         public void StartGame()

@@ -17,7 +17,8 @@ namespace OperationPlayground.Weapons
         public Interactable interactable;
 
         [SerializeField]
-        private Transform shootTransform;
+        private Transform _shootTransform;
+        public Transform ShootTransform { get { return _shootTransform; } }
 
         [SerializeField]
         private bool infiniteAmmo;
@@ -78,8 +79,8 @@ namespace OperationPlayground.Weapons
 
             var projectileObject = Projectile.CreateProjectile(weaponSo.projectileScriptableObject, shooter);
 
-            projectileObject.transform.position = shootTransform.position;
-            projectileObject.transform.forward = shootTransform.forward;
+            projectileObject.transform.position = _shootTransform.position;
+            projectileObject.transform.forward = _shootTransform.forward;
 
             if (!infiniteAmmo)
             {

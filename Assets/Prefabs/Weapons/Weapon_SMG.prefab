@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponSo: {fileID: 0}
-  _shootTransform: {fileID: 0}
+  _shootTransform: {fileID: 4463709162312353674}
   infiniteAmmo: 1
 --- !u!135 &5470021394671835577
 SphereCollider:

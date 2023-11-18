@@ -41,9 +41,18 @@ namespace OperationPlayground.Projectiles
             timer += Time.fixedDeltaTime;
             
             MoveCurrentPoint();
-            if (CastRayBetweenPoints(currentPoint, previousPoint, out RaycastHit hit))
+
+            if (previousPoint != currentPoint)
             {
-                HitQuery(hit);
+                if (CastRayBetweenPoints(currentPoint, previousPoint, out RaycastHit prevHit))
+                {
+                    HitQuery(prevHit);
+                }
+            }
+
+            if (CastRayBetweenPoints(currentPoint, previousPoint, out RaycastHit currHit))
+            {
+                HitQuery(currHit);
             }
 
             previousPoint = currentPoint;
@@ -58,12 +67,12 @@ namespace OperationPlayground.Projectiles
         {
             Vector3 point = startPosition + (startPositionForward * projectileSo.speed * timer);
             Vector3 gravityVector = Vector3.down * gravityForce * timer * timer;
+
             return point + gravityVector;
         }
 
         private bool CastRayBetweenPoints(Vector3 startPoint, Vector3 endPoint, out RaycastHit hit)
         {
-            Debug.DrawRay(startPoint, endPoint - startPoint, Color.green, 5);
             return Physics.Raycast(startPoint, endPoint - startPoint, out hit, (endPoint - startPoint).magnitude);
         }
 

@@ -1635,6 +1635,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Co-op Player TPS
       objectReference: {fileID: 0}
+    - target: {fileID: 2420707843782067168, guid: 5e4578428daafbd4c81846adb57fbe70,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3824972928520216411, guid: 5e4578428daafbd4c81846adb57fbe70,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1923,24 +1928,11 @@ PrefabInstance:
       propertyPath: m_Target
       value: 
       objectReference: {fileID: 98074349}
-    - target: {fileID: 4113791780378100443, guid: 578985c9553bb514ea52394444c33f89,
+    - target: {fileID: 4257401126383780503, guid: 578985c9553bb514ea52394444c33f89,
         type: 3}
-      propertyPath: shopItems.Array.data[0]
-      value: 
-      objectReference: {fileID: 11400000, guid: 460c4e7742babb84baed498395b0570a,
-        type: 2}
-    - target: {fileID: 4113791780378100443, guid: 578985c9553bb514ea52394444c33f89,
-        type: 3}
-      propertyPath: shopItems.Array.data[1]
-      value: 
-      objectReference: {fileID: 11400000, guid: a9c9b6aba595b23459091aa93d9e56a7,
-        type: 2}
-    - target: {fileID: 4113791780378100443, guid: 578985c9553bb514ea52394444c33f89,
-        type: 3}
-      propertyPath: shopItems.Array.data[2]
-      value: 
-      objectReference: {fileID: 11400000, guid: c9c07a6c8e3281f44abde8e7d0fa2563,
-        type: 2}
+      propertyPath: m_IncludeLayers.m_Bits
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6166018692381653285, guid: 578985c9553bb514ea52394444c33f89,
         type: 3}
       propertyPath: m_LocalPosition.x

@@ -2,9 +2,10 @@ using OperationPlayground.Player;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations;
 using UnityEngine.InputSystem;
 
-namespace OperationPlayground
+namespace OperationPlayground.Player
 {
     public class PlayerMovementTPS : MonoBehaviour
     {
@@ -26,6 +27,14 @@ namespace OperationPlayground
 
         private bool isLooking;
 
+        [SerializeField]
+        private Transform cameraTarget;
+
+        [SerializeField]
+        private Transform _aimTransform;
+
+        public Transform AimTransform { get { return _aimTransform; } }
+
         private void Awake()
         {
             playerManager = GetComponentInParent<PlayerManager>();
@@ -43,6 +52,11 @@ namespace OperationPlayground
             MoveCharacter();
 
             if (isLooking) RotateCharacter();
+        }
+
+        private void FixedUpdate()
+        {
+            SetAimPosition();
         }
 
 
@@ -87,11 +101,27 @@ namespace OperationPlayground
             Vector2 rotValue = playerManager.playerInput.Movement.Look.ReadValue<Vector2>();
             
             rotY += rotValue.x * Time.deltaTime * lookSensitivity;
-            rotX -= rotValue.y * Time.deltaTime * lookSensitivity;
+            rotX -= rotValue.y * Time.deltaTime * (lookSensitivity / 2);
 
             rotX = Mathf.Clamp(rotX, -90f, 90f);
 
             playerManager.playerTransform.rotation = Quaternion.Euler(0, rotY, 0);
+            cameraTarget.rotation = Quaternion.Euler(rotX, rotY, 0);
+        }
+
+        private void SetAimPosition()
+        {
+            var screenPos = new Vector3(Screen.width / 2, Screen.height / 2, 10f);
+            Ray ray = playerManager.PlayerCamera.camera.ScreenPointToRay(screenPos);
+
+            if (Physics.Raycast(ray, out RaycastHit hit, 999, 0, QueryTriggerInteraction.Ignore))
+            {
+                _aimTransform.position = hit.point;
+            }
+            else
+            {
+                _aimTransform.position = playerManager.PlayerCamera.camera.transform.position + playerManager.PlayerCamera.camera.transform.forward * 200f;
+            }
         }
 
         public void SetPosition(Vector3 position)

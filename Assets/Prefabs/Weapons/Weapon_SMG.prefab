@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: -6650606241826977914}
   - component: {fileID: 5470021394671835577}
   - component: {fileID: 7876186988448012281}
+  - component: {fileID: 241396369366889291}
   m_Layer: 0
   m_Name: Weapon_SMG
   m_TagString: Untagged
@@ -140,6 +141,24 @@ MonoBehaviour:
   destroyOnInteract: 1
   radialBarOffset: {x: 0, y: 0.5, z: 0}
   _canInteractWith: 1
+--- !u!1183024399 &241396369366889291
+LookAtConstraint:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5672386898822300190}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Weight: 1
+  m_RotationAtRest: {x: 0, y: 0, z: 0}
+  m_RotationOffset: {x: 0, y: 0, z: 0}
+  m_Roll: 0
+  m_WorldUpObject: {fileID: 0}
+  m_UseUpObject: 0
+  m_Active: 0
+  m_IsLocked: 1
+  m_Sources: []
 --- !u!1 &8715562398917051509
 GameObject:
   m_ObjectHideFlags: 0

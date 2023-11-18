@@ -25,7 +25,7 @@ namespace OperationPlayground.Player
 
         public Collider[] PlayerColliders => this.GetIfNull(ref _playerColliders);
 
-        public PlayerMovement PlayerMovement => this.GetIfNull(ref _playerMovement);
+        public PlayerMovementTPS PlayerMovement => this.GetIfNull(ref _playerMovement);
 
         public PlayerShooter PlayerShooter => this.GetIfNull(ref _playerShooter);
 
@@ -43,7 +43,7 @@ namespace OperationPlayground.Player
         private Renderer[] _playerRenderers;
         private Collider[] _playerColliders;
 
-        private PlayerMovement _playerMovement;
+        private PlayerMovementTPS _playerMovement;
         private PlayerShooter _playerShooter;
         private PlayerHealth _playerHealth;
         private PlayerInteraction _playerInteraction;

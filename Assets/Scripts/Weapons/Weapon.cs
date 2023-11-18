@@ -6,6 +6,7 @@ using OperationPlayground.ScriptableObjects;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations;
 
 namespace OperationPlayground.Weapons
 {
@@ -28,6 +29,8 @@ namespace OperationPlayground.Weapons
         private float shootCooldown;
 
         private GenericShooter shooter;
+
+        private LookAtConstraint lookAtConstraint;
 
         public static GameObject CreateWeapon(WeaponScriptableObject weaponScriptableObject, Transform parentTransform = null)
         {
@@ -52,6 +55,8 @@ namespace OperationPlayground.Weapons
             {
                 interactable.onInteract += OnInteract;
             }
+
+            if (GetComponent<LookAtConstraint>()) lookAtConstraint = GetComponent<LookAtConstraint>();
         }
 
         private void Start()
@@ -116,6 +121,19 @@ namespace OperationPlayground.Weapons
         public void SetShooter(GenericShooter shooter)
         {
             this.shooter = shooter;
+
+            if (lookAtConstraint)
+            {
+                lookAtConstraint.constraintActive = true;
+                if (shooter.GetComponent<PlayerManager>())
+                {
+                    var constraintSource = new ConstraintSource();
+                    constraintSource.sourceTransform = shooter.GetComponent<PlayerManager>().PlayerMovement.AimTransform;
+                    constraintSource.weight = 1;
+
+                    lookAtConstraint.AddSource(constraintSource);
+                }
+            }            
         }
 
         public bool CompareScriptableObject(WeaponScriptableObject weaponScriptableObject)

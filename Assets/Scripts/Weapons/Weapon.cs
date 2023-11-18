@@ -122,18 +122,18 @@ namespace OperationPlayground.Weapons
         {
             this.shooter = shooter;
 
-            if (lookAtConstraint)
+            /*if (lookAtConstraint)
             {
                 lookAtConstraint.constraintActive = true;
                 if (shooter.GetComponent<PlayerManager>())
                 {
                     var constraintSource = new ConstraintSource();
-                    constraintSource.sourceTransform = shooter.GetComponent<PlayerManager>().PlayerMovement.AimTransform;
+                    constraintSource.sourceTransform = shooter.GetComponent<PlayerManager>().PlayerMovementTPS.AimTransform;
                     constraintSource.weight = 1;
 
                     lookAtConstraint.AddSource(constraintSource);
                 }
-            }            
+            }*/            
         }
 
         public bool CompareScriptableObject(WeaponScriptableObject weaponScriptableObject)

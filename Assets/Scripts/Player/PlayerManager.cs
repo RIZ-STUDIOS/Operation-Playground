@@ -25,7 +25,9 @@ namespace OperationPlayground.Player
 
         public Collider[] PlayerColliders => this.GetIfNull(ref _playerColliders);
 
-        public PlayerMovementTPS PlayerMovement => this.GetIfNull(ref _playerMovement);
+        public PlayerMovement PlayerMovement => this.GetIfNull(ref _playerMovement);
+
+        public PlayerMovementTPS PlayerMovementTPS => this.GetIfNull(ref _playerMovementTPS);
 
         public PlayerShooter PlayerShooter => this.GetIfNull(ref _playerShooter);
 
@@ -43,7 +45,9 @@ namespace OperationPlayground.Player
         private Renderer[] _playerRenderers;
         private Collider[] _playerColliders;
 
-        private PlayerMovementTPS _playerMovement;
+        [SerializeField]
+        private PlayerMovement _playerMovement;
+        private PlayerMovementTPS _playerMovementTPS;
         private PlayerShooter _playerShooter;
         private PlayerHealth _playerHealth;
         private PlayerInteraction _playerInteraction;
@@ -143,7 +147,8 @@ namespace OperationPlayground.Player
 
         public void SetPosition(Vector3 position)
         {
-            PlayerMovement.SetPosition(position);
+            if (PlayerMovement.isActiveAndEnabled) PlayerMovement.SetPosition(position);
+            else if (PlayerMovementTPS.isActiveAndEnabled) PlayerMovementTPS.SetPosition(position);
         }
     }
 }

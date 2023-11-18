@@ -14,6 +14,8 @@ namespace OperationPlayground.Player
         private Vector3 storedPosition;
         private Quaternion storedRotation;
 
+        public GameObject tpsCamera;
+
         private void Awake()
         {
             camera = GetComponent<Camera>();

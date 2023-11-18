@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace OperationPlayground.Player
 {
@@ -11,6 +12,7 @@ namespace OperationPlayground.Player
     {
         public CanvasGroup interactCG;
         public CanvasGroup supplyShopCG;
+        public GameObject reticle;
 
         public PlayerManager playerManager;
 
@@ -20,6 +22,8 @@ namespace OperationPlayground.Player
         {
             playerManager = GetComponentInParent<PlayerManager>();
             playerManager.PlayerInteraction.onSetInteractable += OnSetInteractable;
+
+            playerManager.playerInput.Basic.ZoomMap.performed += ToggleReticle;
         }
 
         private void OnSetInteractable(Interactable interactable)
@@ -30,6 +34,11 @@ namespace OperationPlayground.Player
                 fadeCoroutine = StartCoroutine(ToggleCanvasElement(interactCG, true));
             else 
                 fadeCoroutine = StartCoroutine(ToggleCanvasElement(interactCG, false));
+        }
+
+        private void ToggleReticle(InputAction.CallbackContext value)
+        {
+            reticle.SetActive(!reticle.activeSelf);
         }
 
         public IEnumerator ToggleCanvasElement(CanvasGroup canvasGroup, bool isFadeIn, bool interactable = false, float fadeSpeed = 2)

@@ -91,7 +91,7 @@ namespace OperationPlayground.Player
 
             currentPlayerWeapon = playerManager.Shooter.CurrentWeapon;
 
-            playerCamera = playerManager.PlayerCamera.camera;
+            playerCamera = playerManager.PlayerCamera.Camera;
         }
 
         public IEnumerator ToggleCanvasElement(CanvasGroup canvasGroup, bool isFadeIn, bool interactable = false, float fadeSpeed = 2)

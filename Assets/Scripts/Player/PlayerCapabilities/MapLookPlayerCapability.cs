@@ -4,16 +4,16 @@ using UnityEngine;
 
 namespace OperationPlayground.Player.PlayerCapabilities
 {
-    public class MovementInputPlayerCapability : PlayerCapability
+    public class MapLookPlayerCapability : PlayerCapability
     {
         public override void OnStateEnter()
         {
-            playerManager.playerInput.Movement.Enable();
+            playerManager.PlayerLook.enabled = true;
         }
 
         public override void OnStateLeave()
         {
-            playerManager.playerInput.Movement.Disable();
+            playerManager.PlayerLook.enabled = false;
         }
     }
 }

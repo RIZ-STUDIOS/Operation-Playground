@@ -16,9 +16,6 @@ namespace OperationPlayground.Player
 
         private bool isZoomedOut;
 
-        [SerializeField]
-        private GameObject mapCamera;
-
         private void Awake()
         {
             playerManager = GetComponent<PlayerManager>();
@@ -27,11 +24,6 @@ namespace OperationPlayground.Player
             cameraRotation = playerManager.PlayerCamera.transform.rotation;
 
             playerManager.playerInput.Basic.ZoomMap.performed += OnZoomMapPerformed;
-        }
-
-        private void Start()
-        {
-            mapCamera = GameManager.Instance.gameLevelData.mapCamera.gameObject;
         }
 
         private void OnZoomMapPerformed(InputAction.CallbackContext context)
@@ -46,8 +38,8 @@ namespace OperationPlayground.Player
                 playerManager.PlayerCamera.transform.position = GameManager.Instance.gameLevelData.mapCamera.position;
                 playerManager.PlayerCamera.transform.rotation = GameManager.Instance.gameLevelData.mapCamera.rotation;
 
-                playerManager.RemovePlayerState(PlayerCapabilityType.TPSMovement);
-                playerManager.AddPlayerState(PlayerCapabilityType.MapMovement);
+                playerManager.RemovePlayerState(PlayerCapabilityType.TPSLook);
+                playerManager.AddPlayerState(PlayerCapabilityType.MapLook);
             }
             else
             {
@@ -57,8 +49,8 @@ namespace OperationPlayground.Player
 
         private void ResetZoom()
         {
-            playerManager.RemovePlayerState(PlayerCapabilityType.MapMovement);
-            playerManager.AddPlayerState(PlayerCapabilityType.TPSMovement);
+            playerManager.RemovePlayerState(PlayerCapabilityType.MapLook);
+            playerManager.AddPlayerState(PlayerCapabilityType.TPSLook);
 
             playerManager.PlayerCamera.cameraBrain.enabled = true;
 

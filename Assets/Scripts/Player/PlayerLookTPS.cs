@@ -7,20 +7,13 @@ using UnityEngine.InputSystem;
 
 namespace OperationPlayground.Player
 {
-    public class PlayerMovementTPS : MonoBehaviour
+    public class PlayerLookTPS : MonoBehaviour
     {
-        [SerializeField]
-        private float maxSpeed = 6;
-
         [SerializeField]
         private float lookSensitivity = 12;
 
         private PlayerManager playerManager;
-        private Camera playerCamera => playerManager.PlayerCamera.camera;
-
-        private CharacterController controller;
-
-        private Vector2 moveDirection;
+        private Camera playerCamera => playerManager.PlayerCamera.Camera;
 
         // Rotation inputs
         private float rotX;
@@ -40,23 +33,16 @@ namespace OperationPlayground.Player
         private void Awake()
         {
             playerManager = GetComponentInParent<PlayerManager>();
-            controller = GetComponent<CharacterController>();
         }
 
         private void EnableInput()
         {
-            playerManager.playerInput.Movement.Move.performed += OnMovePerformed;
-            playerManager.playerInput.Movement.Move.canceled += OnMoveCanceled;
-
             playerManager.playerInput.Movement.Look.performed += OnLookPerformed;
             playerManager.playerInput.Movement.Look.canceled += OnLookCanceled;
         }
 
         private void DisableInput()
         {
-            playerManager.playerInput.Movement.Move.performed -= OnMovePerformed;
-            playerManager.playerInput.Movement.Move.canceled -= OnMoveCanceled;
-
             playerManager.playerInput.Movement.Look.performed -= OnLookPerformed;
             playerManager.playerInput.Movement.Look.canceled -= OnLookCanceled;
         }
@@ -73,37 +59,12 @@ namespace OperationPlayground.Player
 
         private void Update()
         {
-            MoveCharacter();
-
             if (isLooking) RotateCharacter();
         }
 
         private void FixedUpdate()
         {
             SetAimPosition();
-        }
-
-
-        private void MoveCharacter()
-        {
-            if (!controller.enabled) return;
-            var direction = playerManager.PlayerCamera.WorldToCameraVector(moveDirection) * maxSpeed;
-
-            controller.SimpleMove(direction);
-        }
-
-        /// <summary>
-        /// Left stick moves the player relative to the camera.
-        /// </summary>
-        /// <param name="value"></param>
-        private void OnMovePerformed(InputAction.CallbackContext value)
-        {
-            moveDirection = value.ReadValue<Vector2>();
-        }
-
-        private void OnMoveCanceled(InputAction.CallbackContext value)
-        {
-            moveDirection = value.ReadValue<Vector2>();
         }
 
         /// <summary>
@@ -136,7 +97,7 @@ namespace OperationPlayground.Player
         private void SetAimPosition()
         {
             var screenPos = new Vector3(Screen.width / 2, Screen.height / 2, 10f);
-            Ray ray = playerManager.PlayerCamera.camera.ScreenPointToRay(screenPos);
+            Ray ray = playerManager.PlayerCamera.Camera.ScreenPointToRay(screenPos);
 
             if (Physics.Raycast(ray, out RaycastHit hit, 999, 1, QueryTriggerInteraction.Ignore))
             {

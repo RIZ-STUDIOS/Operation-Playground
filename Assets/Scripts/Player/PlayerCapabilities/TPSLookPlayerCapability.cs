@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace OperationPlayground.Player.PlayerCapabilities
 {
-    public class TPSMovementPlayerCapability : PlayerCapability
+    public class TPSLookPlayerCapability : PlayerCapability
     {
         public override void OnStateEnter()
         {

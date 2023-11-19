@@ -28,7 +28,7 @@ namespace OperationPlayground.Player
 
         public PlayerMovement PlayerMovement => this.GetIfNull(ref _playerMovement);
 
-        public PlayerMovementTPS PlayerMovementTPS => this.GetIfNull(ref _playerMovementTPS);
+        public PlayerLookTPS PlayerMovementTPS => this.GetIfNull(ref _playerMovementTPS);
 
         public PlayerShooter PlayerShooter => this.GetIfNull(ref _playerShooter);
 
@@ -46,12 +46,14 @@ namespace OperationPlayground.Player
 
         public CharacterController CharacterController => this.GetIfNull(ref _characterController);
 
+        public PlayerLookMap PlayerLook => this.GetIfNull(ref _playerLook);
+
         private PlayerCamera _playerCamera;
         private Renderer[] _playerRenderers;
         private Collider[] _playerColliders;
 
         private PlayerMovement _playerMovement;
-        private PlayerMovementTPS _playerMovementTPS;
+        private PlayerLookTPS _playerMovementTPS;
         private PlayerShooter _playerShooter;
         private PlayerHealth _playerHealth;
         private PlayerInteraction _playerInteraction;
@@ -60,6 +62,7 @@ namespace OperationPlayground.Player
         private PlayerMap _playerMap;
         private PlayerCanvas _playerCanvas;
         private CharacterController _characterController;
+        private PlayerLookMap _playerLook;
 
         public override GameTeam Team => GameTeam.TeamA;
 
@@ -114,13 +117,14 @@ namespace OperationPlayground.Player
             AddPlayerState(PlayerCapabilityType.Camera);
             AddPlayerState(PlayerCapabilityType.Graphics);
             AddPlayerState(PlayerCapabilityType.Collision);
-            AddPlayerState(PlayerCapabilityType.MovementInput);
+            AddPlayerState(PlayerCapabilityType.Movement);
             AddPlayerState(PlayerCapabilityType.Shooter);
             AddPlayerState(PlayerCapabilityType.ToggleBuilding);
             AddPlayerState(PlayerCapabilityType.Health);
             AddPlayerState(PlayerCapabilityType.Interaction);
             AddPlayerState(PlayerCapabilityType.InvalidPlacement);
-            AddPlayerState(PlayerCapabilityType.MapView);
+            AddPlayerState(PlayerCapabilityType.MapViewInput);
+            AddPlayerState(PlayerCapabilityType.TPSLook);
         }
 
         public void AddAllPlayerStates()
@@ -157,6 +161,24 @@ namespace OperationPlayground.Player
             CharacterController.enabled = false;
             transform.position = position;
             CharacterController.enabled = enabled;
+        }
+
+        public void SetLayer(int layer)
+        {
+            PlayerCamera.Camera.cullingMask |= 1 << layer;
+            PlayerCamera.playerOverlayCamera.cullingMask ^= 1 << layer;
+
+            SetLayer(gameObject, layer);
+        }
+
+        private void SetLayer(GameObject gameObject, int layer)
+        {
+            gameObject.layer = layer;
+
+            foreach(Transform transform in gameObject.transform)
+            {
+                SetLayer(transform.gameObject, layer);
+            }
         }
     }
 }

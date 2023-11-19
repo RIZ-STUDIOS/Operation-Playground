@@ -24,7 +24,12 @@ namespace OperationPlayground.Editor.CustomEditors
             var playerSpawnManager = (target as PlayerSpawnManager);
 
             GUI.enabled = Application.isPlaying && playerSpawnManager.AnyPlayersJoined;
-            if (GUILayout.Button("Start Game"))
+            if (GUILayout.Button("Setup Players"))
+            {
+                playerSpawnManager.SetupPlayers();
+            }
+
+            if (GUILayout.Button("Load into scene"))
             {
                 playerSpawnManager.StartGame();
             }

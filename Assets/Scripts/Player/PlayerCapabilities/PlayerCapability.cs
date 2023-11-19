@@ -11,16 +11,16 @@ namespace OperationPlayground.Player.PlayerCapabilities
         Camera,
         Graphics,
         Collision,
-        MovementInput,
+        Movement,
         Shooter,
         Health,
         Interaction,
         Building,
         ToggleBuilding,
         InvalidPlacement,
-        MapView,
-        MapMovement,
-        TPSMovement
+        MapViewInput,
+        MapLook,
+        TPSLook
     }
 
     public abstract class PlayerCapability
@@ -30,16 +30,16 @@ namespace OperationPlayground.Player.PlayerCapabilities
             {PlayerCapabilityType.Camera, typeof(CameraPlayerCapability) },
             {PlayerCapabilityType.Graphics, typeof(GraphicsPlayerCapability) },
             {PlayerCapabilityType.Collision, typeof(CollisionPlayerCapability) },
-            {PlayerCapabilityType.MovementInput, typeof(MovementInputPlayerCapability) },
+            {PlayerCapabilityType.Movement, typeof(MovementPlayerCapability) },
             {PlayerCapabilityType.Shooter, typeof(ShootingPlayerCapability) },
             {PlayerCapabilityType.Health, typeof(HealthPlayerCapability) },
             {PlayerCapabilityType.Interaction, typeof(InteractablePlayerCapability) },
             {PlayerCapabilityType.Building, typeof(BuildingPlayerCapability) },
             {PlayerCapabilityType.ToggleBuilding, typeof(ToggleBuildingPlayerCapability) },
             {PlayerCapabilityType.InvalidPlacement, typeof(InvalidPlacementPlayerCapability) },
-            {PlayerCapabilityType.MapView, typeof(MapViewPlayerCapability) },
-            {PlayerCapabilityType.MapMovement, typeof(MapMovementPlayerCapability) },
-            {PlayerCapabilityType.TPSMovement, typeof(MapViewPlayerCapability) },
+            {PlayerCapabilityType.MapViewInput, typeof(MapViewPlayerCapability) },
+            {PlayerCapabilityType.MapLook, typeof(MapLookPlayerCapability) },
+            {PlayerCapabilityType.TPSLook, typeof(TPSLookPlayerCapability) },
         };
 
         public PlayerCapabilityType CapabilityType { get; private set; }

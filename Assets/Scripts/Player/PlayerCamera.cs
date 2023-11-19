@@ -7,8 +7,11 @@ namespace OperationPlayground.Player
 {
     public class PlayerCamera : MonoBehaviour
     {
-        [System.NonSerialized]
-        public new Camera camera;
+        public Camera Camera => this.GetIfNull(ref _camera);
+        private Camera _camera;
+
+        public Camera playerOverlayCamera;
+
         private Vector3 cForwardNorm;
         private Vector3 cRightNorm;
 
@@ -20,7 +23,6 @@ namespace OperationPlayground.Player
 
         private void Awake()
         {
-            camera = GetComponent<Camera>();
             UpdateNormalizedCameraVectors();
 
             cameraBrain = GetComponent<CinemachineBrain>();
@@ -56,17 +58,17 @@ namespace OperationPlayground.Player
             Vector3 rightRelativeDir = vector.x * cRightNorm;
 
             Vector3 relativeMoveDir = forwardRelativeDir + rightRelativeDir;
-            return relativeMoveDir;
+            return new Vector3(vector.x, 0, vector.y);
         }
 
         private void OnEnable()
         {
-            camera.enabled = true;
+            Camera.enabled = true;
         }
 
         private void OnDisable()
         {
-            camera.enabled = false;
+            Camera.enabled = false;
         }
     }
 }

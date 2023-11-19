@@ -41,6 +41,8 @@ namespace OperationPlayground.Player
             playerManager.gamepad = playerInput.GetDevice<Gamepad>();
             playerManager.playerIndex = playerInput.playerIndex;
 
+            playerManager.SetLayer(LayerMask.NameToLayer($"Player{playerManager.playerIndex}"));
+
             playerManager.AddAllPlayerStates();
             if (!isGameScene) playerManager.RemoveAllPlayerStates();
 
@@ -63,7 +65,20 @@ namespace OperationPlayground.Player
         public void StartGame()
         {
             DisableJoining();
+            LoadIntoLevel();
+        }
+
+        public void LoadIntoLevel()
+        {
             LevelLoader.LoadScene("Game", OnGameSceneLoad);
+        }
+
+        public void SetupPlayers()
+        {
+            foreach(var player in players)
+            {
+                player.AddDefaultPlayerStates();
+            }
         }
 
         private void OnGameSceneLoad()
@@ -71,7 +86,6 @@ namespace OperationPlayground.Player
             List<Transform> takenSpawnLocations = new List<Transform>();
             foreach (var player in players)
             {
-                player.AddDefaultPlayerStates();
                 Transform spawnLocation;
                 do
                 {
@@ -80,6 +94,7 @@ namespace OperationPlayground.Player
                 player.SetPosition(spawnLocation.position);
                 takenSpawnLocations.Add(spawnLocation);
             }
+            SetupPlayers();
         }
 
         public void EnableJoining()

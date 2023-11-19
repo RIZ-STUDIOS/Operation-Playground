@@ -99,10 +99,15 @@ namespace OperationPlayground.Projectiles
             {
                 //StartCoroutine(DestroyAfterFX(impactGround));
                 Destroy();
+                return;
                 //return;
             }
 
-            if (entity.Team == shooter.parentEntity.Team) Destroy();
+            if (entity.Team == shooter.parentEntity.Team)
+            {
+                Destroy();
+                return;
+            }
 
             entity.Health.Damage();
             Destroy();

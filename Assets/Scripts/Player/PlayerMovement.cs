@@ -26,16 +26,12 @@ namespace OperationPlayground.Player
         {
             playerManager.playerInput.Movement.Move.performed += OnMovePerformed;
             playerManager.playerInput.Movement.Move.canceled += OnMoveCanceled;
-
-            playerManager.playerInput.Movement.Look.performed += OnLookPerformed;
         }
 
         private void DisableInput()
         {
             playerManager.playerInput.Movement.Move.performed -= OnMovePerformed;
             playerManager.playerInput.Movement.Move.canceled -= OnMoveCanceled;
-
-            playerManager.playerInput.Movement.Look.performed -= OnLookPerformed;
         }
 
         private void OnEnable()
@@ -56,9 +52,9 @@ namespace OperationPlayground.Player
         private void MoveCharacter()
         {
             if (!controller.enabled) return;
-            var direction = playerManager.PlayerCamera.WorldToCameraVector(moveDirection) * maxSpeed;
+            var direction = (playerManager.playerTransform.forward * moveDirection.y) + (playerManager.playerTransform.right * moveDirection.x);
 
-            controller.SimpleMove(direction);
+            controller.SimpleMove(direction * maxSpeed);
         }
 
         /// <summary>
@@ -73,19 +69,6 @@ namespace OperationPlayground.Player
         private void OnMoveCanceled(InputAction.CallbackContext value)
         {
             moveDirection = value.ReadValue<Vector2>();
-        }
-
-        /// <summary>
-        /// Right stick rotates the player relative to the camera.
-        /// </summary>
-        /// <param name="value"></param>
-        private void OnLookPerformed(InputAction.CallbackContext value)
-        {
-            var vector = value.ReadValue<Vector2>();
-            if (vector.magnitude > 0.1f)
-            {
-                playerManager.playerTransform.rotation = Quaternion.LookRotation(playerManager.PlayerCamera.WorldToCameraVector(vector), Vector3.up);
-            }
         }
     }
 }

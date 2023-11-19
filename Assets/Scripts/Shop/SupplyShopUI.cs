@@ -25,7 +25,7 @@ namespace OperationPlayground.Shop
 
         public void OpenShop(ShopItemScriptableObject[] shopItems)
         {
-            playerCanvas.playerManager.RemovePlayerState(PlayerCapabilityType.Movement);
+            playerCanvas.playerManager.RemovePlayerState(PlayerCapabilityType.MovementInput);
             playerCanvas.playerManager.RemovePlayerState(PlayerCapabilityType.Interaction);
             playerCanvas.playerManager.RemovePlayerState(PlayerCapabilityType.Building);
             playerCanvas.playerManager.RemovePlayerState(PlayerCapabilityType.Shooter);
@@ -61,7 +61,7 @@ namespace OperationPlayground.Shop
 
             StartCoroutine(playerCanvas.ToggleCanvasElement(canvasGroup, false, true));
 
-            playerCanvas.playerManager.AddPlayerState(PlayerCapabilityType.Movement);
+            playerCanvas.playerManager.AddPlayerState(PlayerCapabilityType.MovementInput);
             playerCanvas.playerManager.AddPlayerState(PlayerCapabilityType.Interaction);
             playerCanvas.playerManager.AddPlayerState(PlayerCapabilityType.Shooter);
             playerCanvas.playerManager.AddPlayerState(PlayerCapabilityType.ToggleBuilding);

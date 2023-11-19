@@ -20,11 +20,32 @@ namespace OperationPlayground.Player
         {
             playerManager = GetComponentInParent<PlayerManager>();
             controller = GetComponent<CharacterController>();
+        }
 
+        private void EnableInput()
+        {
             playerManager.playerInput.Movement.Move.performed += OnMovePerformed;
             playerManager.playerInput.Movement.Move.canceled += OnMoveCanceled;
 
             playerManager.playerInput.Movement.Look.performed += OnLookPerformed;
+        }
+
+        private void DisableInput()
+        {
+            playerManager.playerInput.Movement.Move.performed -= OnMovePerformed;
+            playerManager.playerInput.Movement.Move.canceled -= OnMoveCanceled;
+
+            playerManager.playerInput.Movement.Look.performed -= OnLookPerformed;
+        }
+
+        private void OnEnable()
+        {
+            EnableInput();
+        }
+
+        private void OnDisable()
+        {
+            DisableInput();
         }
 
         private void Update()
@@ -65,15 +86,6 @@ namespace OperationPlayground.Player
             {
                 playerManager.playerTransform.rotation = Quaternion.LookRotation(playerManager.PlayerCamera.WorldToCameraVector(vector), Vector3.up);
             }
-        }
-
-        public void SetPosition(Vector3 position)
-        {
-            if (!controller) controller = GetComponentInParent<CharacterController>();
-            var enabled = controller.enabled;
-            controller.enabled = false;
-            transform.position = position;
-            controller.enabled = enabled;
         }
     }
 }

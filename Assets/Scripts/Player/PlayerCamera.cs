@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,12 +15,15 @@ namespace OperationPlayground.Player
         private Vector3 storedPosition;
         private Quaternion storedRotation;
 
-        public GameObject tpsCamera;
+        [System.NonSerialized]
+        public CinemachineBrain cameraBrain;
 
         private void Awake()
         {
             camera = GetComponent<Camera>();
             UpdateNormalizedCameraVectors();
+
+            cameraBrain = GetComponent<CinemachineBrain>();
         }
 
         private void Update()

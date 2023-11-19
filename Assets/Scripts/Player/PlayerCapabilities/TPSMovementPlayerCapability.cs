@@ -4,16 +4,16 @@ using UnityEngine;
 
 namespace OperationPlayground.Player.PlayerCapabilities
 {
-    public class MovementPlayerCapability : PlayerCapability
+    public class TPSMovementPlayerCapability : PlayerCapability
     {
         public override void OnStateEnter()
         {
-            playerManager.playerInput.Movement.Enable();
+            playerManager.PlayerMovementTPS.enabled = true;
         }
 
         public override void OnStateLeave()
         {
-            playerManager.playerInput.Movement.Disable();
+            playerManager.PlayerMovementTPS.enabled = false;
         }
     }
 }

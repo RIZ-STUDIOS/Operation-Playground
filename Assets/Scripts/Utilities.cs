@@ -10,7 +10,7 @@ namespace OperationPlayground
         public static T GetIfNull<T>(this Behaviour script, ref T component)
         {
             if (component == null)
-                component = script.GetComponentInChildren<T>();
+                component = script.GetComponentInChildren<T>(true);
 
             return component;
         }
@@ -18,7 +18,7 @@ namespace OperationPlayground
         public static T[] GetIfNull<T>(this Behaviour script, ref T[] component)
         {
             if (component == null)
-                component = script.GetComponentsInChildren<T>();
+                component = script.GetComponentsInChildren<T>(true);
 
             return component;
         }

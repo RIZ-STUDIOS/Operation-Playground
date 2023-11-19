@@ -39,12 +39,34 @@ namespace OperationPlayground.Player
         {
             playerManager = GetComponentInParent<PlayerManager>();
             controller = GetComponent<CharacterController>();
+        }
 
+        private void EnableInput()
+        {
             playerManager.playerInput.Movement.Move.performed += OnMovePerformed;
             playerManager.playerInput.Movement.Move.canceled += OnMoveCanceled;
 
             playerManager.playerInput.Movement.Look.performed += OnLookPerformed;
             playerManager.playerInput.Movement.Look.canceled += OnLookCanceled;
+        }
+
+        private void DisableInput()
+        {
+            playerManager.playerInput.Movement.Move.performed -= OnMovePerformed;
+            playerManager.playerInput.Movement.Move.canceled -= OnMoveCanceled;
+
+            playerManager.playerInput.Movement.Look.performed -= OnLookPerformed;
+            playerManager.playerInput.Movement.Look.canceled -= OnLookCanceled;
+        }
+
+        private void OnEnable()
+        {
+            EnableInput();
+        }
+
+        private void OnDisable()
+        {
+            DisableInput();
         }
 
         private void Update()
@@ -122,15 +144,6 @@ namespace OperationPlayground.Player
             {
                 _aimTransform.position = playerManager.PlayerCamera.camera.transform.position + playerManager.PlayerCamera.camera.transform.forward * 200f;
             }
-        }
-
-        public void SetPosition(Vector3 position)
-        {
-            if (!controller) controller = GetComponentInParent<CharacterController>();
-            var enabled = controller.enabled;
-            controller.enabled = false;
-            transform.position = position;
-            controller.enabled = enabled;
         }
     }
 }

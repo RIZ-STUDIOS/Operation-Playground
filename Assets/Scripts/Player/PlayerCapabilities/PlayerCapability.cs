@@ -11,14 +11,16 @@ namespace OperationPlayground.Player.PlayerCapabilities
         Camera,
         Graphics,
         Collision,
-        Movement,
+        MovementInput,
         Shooter,
         Health,
         Interaction,
         Building,
         ToggleBuilding,
         InvalidPlacement,
-        Map
+        MapView,
+        MapMovement,
+        TPSMovement
     }
 
     public abstract class PlayerCapability
@@ -28,14 +30,16 @@ namespace OperationPlayground.Player.PlayerCapabilities
             {PlayerCapabilityType.Camera, typeof(CameraPlayerCapability) },
             {PlayerCapabilityType.Graphics, typeof(GraphicsPlayerCapability) },
             {PlayerCapabilityType.Collision, typeof(CollisionPlayerCapability) },
-            {PlayerCapabilityType.Movement, typeof(MovementPlayerCapability) },
+            {PlayerCapabilityType.MovementInput, typeof(MovementInputPlayerCapability) },
             {PlayerCapabilityType.Shooter, typeof(ShootingPlayerCapability) },
             {PlayerCapabilityType.Health, typeof(HealthPlayerCapability) },
             {PlayerCapabilityType.Interaction, typeof(InteractablePlayerCapability) },
             {PlayerCapabilityType.Building, typeof(BuildingPlayerCapability) },
             {PlayerCapabilityType.ToggleBuilding, typeof(ToggleBuildingPlayerCapability) },
             {PlayerCapabilityType.InvalidPlacement, typeof(InvalidPlacementPlayerCapability) },
-            {PlayerCapabilityType.Map, typeof(MapPlayerCapability) },
+            {PlayerCapabilityType.MapView, typeof(MapViewPlayerCapability) },
+            {PlayerCapabilityType.MapMovement, typeof(MapMovementPlayerCapability) },
+            {PlayerCapabilityType.TPSMovement, typeof(MapViewPlayerCapability) },
         };
 
         public PlayerCapabilityType CapabilityType { get; private set; }

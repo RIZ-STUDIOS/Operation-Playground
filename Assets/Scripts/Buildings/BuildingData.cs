@@ -49,7 +49,7 @@ namespace OperationPlayground.Buildings
             if (currentPlayer) return;
             currentPlayer = playerManager;
 
-            currentPlayer.RemovePlayerState(PlayerCapabilityType.Movement);
+            currentPlayer.RemovePlayerState(PlayerCapabilityType.MovementInput);
             currentPlayer.RemovePlayerState(PlayerCapabilityType.Interaction);
             currentPlayer.RemovePlayerState(PlayerCapabilityType.Building);
             currentPlayer.RemovePlayerState(PlayerCapabilityType.Shooter);
@@ -91,7 +91,7 @@ namespace OperationPlayground.Buildings
             currentPlayer.playerInput.InBuild.Look.performed -= OnLookPerformed;
             currentPlayer.playerInput.InBuild.Look.canceled -= OnLookCanceled;
 
-            currentPlayer.AddPlayerState(PlayerCapabilityType.Movement);
+            currentPlayer.AddPlayerState(PlayerCapabilityType.MovementInput);
             currentPlayer.AddPlayerState(PlayerCapabilityType.Interaction);
             currentPlayer.AddPlayerState(PlayerCapabilityType.Shooter);
             currentPlayer.AddPlayerState(PlayerCapabilityType.Collision);

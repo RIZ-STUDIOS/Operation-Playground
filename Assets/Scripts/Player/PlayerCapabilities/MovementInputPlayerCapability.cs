@@ -4,16 +4,16 @@ using UnityEngine;
 
 namespace OperationPlayground.Player.PlayerCapabilities
 {
-    public class MapPlayerCapability : PlayerCapability
+    public class MovementInputPlayerCapability : PlayerCapability
     {
         public override void OnStateEnter()
         {
-            playerManager.playerInput.Basic.ZoomMap.Enable();
+            playerManager.playerInput.Movement.Enable();
         }
 
         public override void OnStateLeave()
         {
-            playerManager.playerInput.Basic.ZoomMap.Disable();
+            playerManager.playerInput.Movement.Disable();
         }
     }
 }

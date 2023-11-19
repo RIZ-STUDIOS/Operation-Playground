@@ -1,4 +1,5 @@
 using OperationPlayground.Managers;
+using OperationPlayground.Player.PlayerCapabilities;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -26,7 +27,10 @@ namespace OperationPlayground.Player
             cameraRotation = playerManager.PlayerCamera.transform.rotation;
 
             playerManager.playerInput.Basic.ZoomMap.performed += OnZoomMapPerformed;
+        }
 
+        private void Start()
+        {
             mapCamera = GameManager.Instance.gameLevelData.mapCamera.gameObject;
         }
 
@@ -36,14 +40,14 @@ namespace OperationPlayground.Player
 
             if (isZoomedOut)
             {
-                playerManager.PlayerCamera.tpsCamera.SetActive(false);
-                mapCamera.SetActive(true);
+                playerManager.PlayerCamera.cameraBrain.enabled = false;
 
-                playerManager.PlayerMovementTPS.enabled = false;
-                playerManager.PlayerMovement.enabled = true;
-                /*playerManager.PlayerCamera.transform.parent = null;
+                playerManager.PlayerCamera.transform.parent = null;
                 playerManager.PlayerCamera.transform.position = GameManager.Instance.gameLevelData.mapCamera.position;
-                playerManager.PlayerCamera.transform.rotation = GameManager.Instance.gameLevelData.mapCamera.rotation;*/
+                playerManager.PlayerCamera.transform.rotation = GameManager.Instance.gameLevelData.mapCamera.rotation;
+
+                playerManager.RemovePlayerState(PlayerCapabilityType.TPSMovement);
+                playerManager.AddPlayerState(PlayerCapabilityType.MapMovement);
             }
             else
             {
@@ -53,15 +57,14 @@ namespace OperationPlayground.Player
 
         private void ResetZoom()
         {
-            mapCamera.SetActive(false);
-            playerManager.PlayerCamera.tpsCamera.SetActive(true);
+            playerManager.RemovePlayerState(PlayerCapabilityType.MapMovement);
+            playerManager.AddPlayerState(PlayerCapabilityType.TPSMovement);
 
-            playerManager.PlayerMovement.enabled = false;
-            playerManager.PlayerMovementTPS.enabled = true;
+            playerManager.PlayerCamera.cameraBrain.enabled = true;
 
-            /*playerManager.PlayerCamera.transform.parent = playerManager.transform;
+            playerManager.PlayerCamera.transform.parent = playerManager.transform;
             playerManager.PlayerCamera.transform.localPosition = cameraOffset;
-            playerManager.PlayerCamera.transform.rotation = cameraRotation;*/
+            playerManager.PlayerCamera.transform.rotation = cameraRotation;
             isZoomedOut = false;
         }
     }

@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.XR;
 
 namespace OperationPlayground.Player
 {
@@ -43,11 +44,12 @@ namespace OperationPlayground.Player
 
         public PlayerCanvas PlayerCanvas => this.GetIfNull(ref _playerCanvas);
 
+        public CharacterController CharacterController => this.GetIfNull(ref _characterController);
+
         private PlayerCamera _playerCamera;
         private Renderer[] _playerRenderers;
         private Collider[] _playerColliders;
 
-        [SerializeField]
         private PlayerMovement _playerMovement;
         private PlayerMovementTPS _playerMovementTPS;
         private PlayerShooter _playerShooter;
@@ -57,6 +59,7 @@ namespace OperationPlayground.Player
         private InvalidPlacement _invalidPlacement;
         private PlayerMap _playerMap;
         private PlayerCanvas _playerCanvas;
+        private CharacterController _characterController;
 
         public override GameTeam Team => GameTeam.TeamA;
 
@@ -111,13 +114,13 @@ namespace OperationPlayground.Player
             AddPlayerState(PlayerCapabilityType.Camera);
             AddPlayerState(PlayerCapabilityType.Graphics);
             AddPlayerState(PlayerCapabilityType.Collision);
-            AddPlayerState(PlayerCapabilityType.Movement);
+            AddPlayerState(PlayerCapabilityType.MovementInput);
             AddPlayerState(PlayerCapabilityType.Shooter);
             AddPlayerState(PlayerCapabilityType.ToggleBuilding);
             AddPlayerState(PlayerCapabilityType.Health);
             AddPlayerState(PlayerCapabilityType.Interaction);
             AddPlayerState(PlayerCapabilityType.InvalidPlacement);
-            AddPlayerState(PlayerCapabilityType.Map);
+            AddPlayerState(PlayerCapabilityType.MapView);
         }
 
         public void AddAllPlayerStates()
@@ -149,9 +152,11 @@ namespace OperationPlayground.Player
         }
 
         public void SetPosition(Vector3 position)
-        {
-            if (PlayerMovement.isActiveAndEnabled) PlayerMovement.SetPosition(position);
-            else if (PlayerMovementTPS.isActiveAndEnabled) PlayerMovementTPS.SetPosition(position);
+        {   
+            var enabled = CharacterController.enabled;
+            CharacterController.enabled = false;
+            transform.position = position;
+            CharacterController.enabled = enabled;
         }
     }
 }

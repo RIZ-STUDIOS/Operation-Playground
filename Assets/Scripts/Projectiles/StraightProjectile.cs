@@ -14,11 +14,19 @@ namespace OperationPlayground.Projectiles
 
         private float gravityForce = 9.8f;
 
-        Vector3 startPosition;
-        Vector3 startPositionForward;
+        private Vector3 startPosition;
+        private Vector3 startPositionForward;
 
-        Vector3 currentPoint;
-        Vector3 previousPoint;
+        private Vector3 currentPoint;
+        private Vector3 previousPoint;
+
+        [SerializeField]
+        private ParticleSystem impactGround;
+
+        [SerializeField]
+        private ParticleSystem impactBlood;
+
+        private bool hasCollided;
 
         private void Start()
         {
@@ -38,24 +46,27 @@ namespace OperationPlayground.Projectiles
 
         private void FixedUpdate()
         {
-            timer += Time.fixedDeltaTime;
-            
-            MoveCurrentPoint();
-
-            if (previousPoint != currentPoint)
+            if (!hasCollided)
             {
-                if (CastRayBetweenPoints(currentPoint, previousPoint, out RaycastHit prevHit))
+                timer += Time.fixedDeltaTime;
+
+                MoveCurrentPoint();
+
+                if (previousPoint != currentPoint)
                 {
-                    HitQuery(prevHit);
+                    if (CastRayBetweenPoints(currentPoint, previousPoint, out RaycastHit prevHit))
+                    {
+                        HitQuery(prevHit);
+                    }
                 }
-            }
 
-            if (CastRayBetweenPoints(currentPoint, previousPoint, out RaycastHit currHit))
-            {
-                HitQuery(currHit);
-            }
+                if (CastRayBetweenPoints(currentPoint, previousPoint, out RaycastHit currHit))
+                {
+                    HitQuery(currHit);
+                }
 
-            previousPoint = currentPoint;
+                previousPoint = currentPoint;
+            }
         }
 
         public override void MoveCurrentPoint()
@@ -79,18 +90,32 @@ namespace OperationPlayground.Projectiles
         private void HitQuery(RaycastHit hit)
         {
             if (hit.collider.isTrigger) return;
+
+            hasCollided = true;
+
             var entity = hit.collider.GetComponent<GenericEntity>();
 
-            if (DestroyOnCollision(hit.collider, entity))
+            if (!entity)
             {
-                //onCollision?.Invoke(hit.collider);
+                //StartCoroutine(DestroyAfterFX(impactGround));
                 Destroy();
+                //return;
             }
 
-            if (!entity) return;
-            if (entity.Team == shooter.parentEntity.Team) return;
+            if (entity.Team == shooter.parentEntity.Team) Destroy();
 
             entity.Health.Damage();
+            Destroy();
+            //StartCoroutine(DestroyAfterFX(impactBlood));
+        }
+
+        private IEnumerator DestroyAfterFX(ParticleSystem fx)
+        {
+            fx.Play();
+
+            while (fx.isPlaying) yield return null;
+
+            Destroy();
         }
 
         protected override bool KeepAlive()

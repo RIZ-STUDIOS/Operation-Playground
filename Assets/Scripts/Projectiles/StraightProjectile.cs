@@ -8,11 +8,11 @@ namespace OperationPlayground.Projectiles
 {
     public class StraightProjectile : Projectile
     {
+        private const float FORCE_GRAVITY = 9.8f;
+
         private new StraightProjectileScriptableObject projectileSo => base.projectileSo as StraightProjectileScriptableObject;
 
         private float timer;
-
-        private float gravityForce = 9.8f;
 
         private Vector3 startPosition;
         private Vector3 startPositionForward;
@@ -25,6 +25,9 @@ namespace OperationPlayground.Projectiles
 
         [SerializeField]
         private ParticleSystem impactBlood;
+
+        [SerializeField]
+        private MeshRenderer bulletRender;
 
         private bool hasCollided;
 
@@ -40,8 +43,6 @@ namespace OperationPlayground.Projectiles
         protected override void Update()
         {
             base.Update();
-
-            transform.position = FindPointOnParabola();
         }
 
         private void FixedUpdate()
@@ -50,19 +51,21 @@ namespace OperationPlayground.Projectiles
             {
                 timer += Time.fixedDeltaTime;
 
+
                 MoveCurrentPoint();
+                transform.position = currentPoint;
 
                 if (previousPoint != currentPoint)
                 {
-                    if (CastRayBetweenPoints(currentPoint, previousPoint, out RaycastHit prevHit))
+                    if (CastRayBetweenTwoPoints(previousPoint, currentPoint, out RaycastHit previousHit))
                     {
-                        HitQuery(prevHit);
+                        HitQuery(previousHit);
                     }
                 }
 
-                if (CastRayBetweenPoints(currentPoint, previousPoint, out RaycastHit currHit))
+                if (CastRayBetweenTwoPoints(previousPoint, currentPoint, out RaycastHit currentHit))
                 {
-                    HitQuery(currHit);
+                    HitQuery(currentHit);
                 }
 
                 previousPoint = currentPoint;
@@ -76,13 +79,13 @@ namespace OperationPlayground.Projectiles
 
         private Vector3 FindPointOnParabola()
         {
-            Vector3 point = startPosition + (startPositionForward * projectileSo.speed * timer);
-            Vector3 gravityVector = Vector3.down * gravityForce * timer * timer;
+            Vector3 point = startPosition + (projectileSo.speed * timer * startPositionForward);
+            Vector3 gravityVector = FORCE_GRAVITY * timer * timer * Vector3.down;
 
             return point + gravityVector;
         }
 
-        private bool CastRayBetweenPoints(Vector3 startPoint, Vector3 endPoint, out RaycastHit hit)
+        private bool CastRayBetweenTwoPoints(Vector3 startPoint, Vector3 endPoint, out RaycastHit hit)
         {
             return Physics.Raycast(startPoint, endPoint - startPoint, out hit, (endPoint - startPoint).magnitude);
         }
@@ -90,17 +93,17 @@ namespace OperationPlayground.Projectiles
         private void HitQuery(RaycastHit hit)
         {
             if (hit.collider.isTrigger) return;
+            if (hit.collider.CompareTag("Player")) return;
 
             hasCollided = true;
+            transform.position = hit.point;
 
             var entity = hit.collider.GetComponent<GenericEntity>();
 
             if (!entity)
             {
-                //StartCoroutine(DestroyAfterFX(impactGround));
-                Destroy();
+                StartCoroutine(DestroyAfterFX(impactGround));
                 return;
-                //return;
             }
 
             if (entity.Team == shooter.parentEntity.Team)
@@ -110,12 +113,13 @@ namespace OperationPlayground.Projectiles
             }
 
             entity.Health.Damage();
-            Destroy();
-            //StartCoroutine(DestroyAfterFX(impactBlood));
+            StartCoroutine(DestroyAfterFX(impactBlood));
         }
 
         private IEnumerator DestroyAfterFX(ParticleSystem fx)
         {
+            bulletRender.enabled = false;
+
             fx.Play();
 
             while (fx.isPlaying) yield return null;

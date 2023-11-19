@@ -158,7 +158,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 0.2
+  m_Time: 0.05
   m_PreviewTimeScale: 1
   m_Parameters:
     serializedVersion: 3
@@ -176,7 +176,7 @@ TrailRenderer:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.2
+        time: 0.05
         value: 0
         inSlope: 0
         outSlope: 0
@@ -224,7 +224,7 @@ TrailRenderer:
     textureScale: {x: 1, y: 1}
     shadowBias: 0.5
     generateLightingData: 0
-  m_MinVertexDistance: 0.1
+  m_MinVertexDistance: 0.05
   m_MaskInteraction: 0
   m_Autodestruct: 0
   m_Emitting: 1
@@ -277,6 +277,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   impactGround: {fileID: 7680220201629096496}
   impactBlood: {fileID: 6306600701858283043}
+  bulletRender: {fileID: 1662833852781805389}
 --- !u!1 &7873901980065479427
 GameObject:
   m_ObjectHideFlags: 0

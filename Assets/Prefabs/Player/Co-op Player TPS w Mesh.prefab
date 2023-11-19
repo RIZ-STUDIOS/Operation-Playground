@@ -397,7 +397,7 @@ GameObject:
   - component: {fileID: 6177291057596857722}
   m_Layer: 0
   m_Name: Co-op Player TPS w Mesh
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -434,7 +434,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTransform: {fileID: 6748503849070154669}
-  _playerMovement: {fileID: 4612857918736629849}
 --- !u!114 &3103014847358538872
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -573,7 +572,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac4059e9cf5496b44b01a459cbead9ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapCamera: {fileID: 0}
 --- !u!114 &4612857918736629849
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -581,7 +579,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2420707843782067168}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 40cec5f6a8d636a4d82e2039bd287179, type: 3}
   m_Name: 
@@ -599,7 +597,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 068bf9b9348189546943f62c3c5bd03c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 6
   lookSensitivity: 100
   cameraTarget: {fileID: 8133766173864622686}
   _aimTransform: {fileID: 8304968258579590846}
@@ -1336,7 +1333,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10f03f365547ff544a7f949e5aa91f59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tpsCamera: {fileID: 8196651820151356592}
+  playerOverlayCamera: {fileID: 0}
 --- !u!114 &1629385701554049768
 MonoBehaviour:
   m_ObjectHideFlags: 0

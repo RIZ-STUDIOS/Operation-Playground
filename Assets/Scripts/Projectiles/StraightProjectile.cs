@@ -51,7 +51,6 @@ namespace OperationPlayground.Projectiles
             {
                 timer += Time.fixedDeltaTime;
 
-
                 MoveCurrentPoint();
                 transform.position = currentPoint;
 
@@ -93,7 +92,6 @@ namespace OperationPlayground.Projectiles
         private void HitQuery(RaycastHit hit)
         {
             if (hit.collider.isTrigger) return;
-            if (hit.collider.CompareTag("Player")) return;
 
             hasCollided = true;
             transform.position = hit.point;

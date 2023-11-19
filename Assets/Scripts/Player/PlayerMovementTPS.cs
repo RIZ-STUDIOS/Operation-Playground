@@ -16,6 +16,7 @@ namespace OperationPlayground.Player
         private float lookSensitivity = 12;
 
         private PlayerManager playerManager;
+        private Camera playerCamera => playerManager.PlayerCamera.camera;
 
         private CharacterController controller;
 
@@ -32,8 +33,9 @@ namespace OperationPlayground.Player
 
         [SerializeField]
         private Transform _aimTransform;
-
         public Transform AimTransform { get { return _aimTransform; } }
+
+        private Vector3 smoothVelocity = Vector3.zero;
 
         private void Awake()
         {
@@ -138,11 +140,11 @@ namespace OperationPlayground.Player
 
             if (Physics.Raycast(ray, out RaycastHit hit, 999, 1, QueryTriggerInteraction.Ignore))
             {
-                _aimTransform.position = hit.point;
+                _aimTransform.position = Vector3.SmoothDamp(_aimTransform.position, hit.point, ref smoothVelocity, 0.1f);
             }
             else
             {
-                _aimTransform.position = playerManager.PlayerCamera.camera.transform.position + playerManager.PlayerCamera.camera.transform.forward * 200f;
+                _aimTransform.position = Vector3.SmoothDamp(_aimTransform.position, playerCamera.transform.position + playerCamera.transform.forward * 200f, ref smoothVelocity, 0.1f);
             }
         }
     }

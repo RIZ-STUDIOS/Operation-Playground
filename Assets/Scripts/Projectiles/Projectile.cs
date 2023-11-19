@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace OperationPlayground.Projectiles
 {
-    [RequireComponent(typeof(Collider))]
+    //[RequireComponent(typeof(Collider))]
     public abstract class Projectile : MonoBehaviour
     {
         protected ProjectileScriptableObject projectileSo;
@@ -34,13 +34,13 @@ namespace OperationPlayground.Projectiles
             projectile.projectileSo = projectileScriptableObject;
             projectile.shooter = shooter;
 
-            var rb = projectileObject.GetComponent<Rigidbody>();
+            /*var rb = projectileObject.GetComponent<Rigidbody>();
             if (!rb) projectileObject.AddComponent<Rigidbody>();
 
             rb.isKinematic = true;
 
             var collider = projectileObject.GetComponent<Collider>();
-            collider.isTrigger = true;
+            collider.isTrigger = true;*/
 
             return projectileObject;
         }

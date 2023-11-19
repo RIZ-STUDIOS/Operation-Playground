@@ -46,7 +46,7 @@ namespace OperationPlayground.Player
 
         public CharacterController CharacterController => this.GetIfNull(ref _characterController);
 
-        public PlayerLookMap PlayerLook => this.GetIfNull(ref _playerLook);
+        public PlayerLookMap PlayerLookMap => this.GetIfNull(ref _playerLook);
 
         private PlayerCamera _playerCamera;
         private Renderer[] _playerRenderers;
@@ -166,9 +166,8 @@ namespace OperationPlayground.Player
         public void SetLayer(int layer)
         {
             PlayerCamera.Camera.cullingMask |= 1 << layer;
-            PlayerCamera.playerOverlayCamera.cullingMask ^= 1 << layer;
 
-            SetLayer(gameObject, layer);
+            SetLayer(PlayerCamera.Camera.gameObject, layer);
         }
 
         private void SetLayer(GameObject gameObject, int layer)

@@ -10,22 +10,19 @@ namespace OperationPlayground.Player
         public Camera Camera => this.GetIfNull(ref _camera);
         private Camera _camera;
 
-        public Camera playerOverlayCamera;
-
         private Vector3 cForwardNorm;
         private Vector3 cRightNorm;
 
         private Vector3 storedPosition;
         private Quaternion storedRotation;
 
-        [System.NonSerialized]
-        public CinemachineBrain cameraBrain;
+        public CinemachineBrain CameraBrain => this.GetIfNull(ref _brain);
+
+        private CinemachineBrain _brain;
 
         private void Awake()
         {
             UpdateNormalizedCameraVectors();
-
-            cameraBrain = GetComponent<CinemachineBrain>();
         }
 
         private void Update()
@@ -63,11 +60,13 @@ namespace OperationPlayground.Player
 
         private void OnEnable()
         {
+            CameraBrain.enabled = true;
             Camera.enabled = true;
         }
 
         private void OnDisable()
         {
+            CameraBrain.enabled = false;
             Camera.enabled = false;
         }
     }

@@ -46,11 +46,11 @@ namespace OperationPlayground.Player
             playerManager.AddAllPlayerStates();
             playerManager.RemoveAllPlayerStates();
 
-            if (isGameScene) playerManager.AddDefaultPlayerStates();
-
             players.Add(playerManager);
 
             OnPlayerJoin?.Invoke(playerManager);
+
+            if (isGameScene) SetupPlayer(playerManager);
         }
 
         private void OnPlayerLeft(PlayerInput playerInput)
@@ -79,8 +79,13 @@ namespace OperationPlayground.Player
         {
             foreach(var player in players)
             {
-                player.AddDefaultPlayerStates();
+                SetupPlayer(player);
             }
+        }
+
+        private void SetupPlayer(PlayerManager playerManager)
+        {
+            playerManager.AddDefaultPlayerStates();
         }
 
         private void OnGameSceneLoad()

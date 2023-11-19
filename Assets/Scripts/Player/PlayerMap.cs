@@ -32,7 +32,7 @@ namespace OperationPlayground.Player
 
             if (isZoomedOut)
             {
-                playerManager.PlayerCamera.cameraBrain.enabled = false;
+                playerManager.PlayerCamera.CameraBrain.enabled = false;
 
                 playerManager.PlayerCamera.transform.parent = null;
                 playerManager.PlayerCamera.transform.position = GameManager.Instance.gameLevelData.mapCamera.position;
@@ -52,7 +52,7 @@ namespace OperationPlayground.Player
             playerManager.RemovePlayerState(PlayerCapabilityType.MapLook);
             playerManager.AddPlayerState(PlayerCapabilityType.TPSLook);
 
-            playerManager.PlayerCamera.cameraBrain.enabled = true;
+            playerManager.PlayerCamera.CameraBrain.enabled = true;
 
             playerManager.PlayerCamera.transform.parent = playerManager.transform;
             playerManager.PlayerCamera.transform.localPosition = cameraOffset;

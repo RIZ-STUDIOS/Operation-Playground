@@ -8,12 +8,12 @@ namespace OperationPlayground.Player.PlayerCapabilities
     {
         public override void OnStateEnter()
         {
-            playerManager.PlayerLook.enabled = true;
+            playerManager.PlayerLookMap.enabled = true;
         }
 
         public override void OnStateLeave()
         {
-            playerManager.PlayerLook.enabled = false;
+            playerManager.PlayerLookMap.enabled = false;
         }
     }
 }

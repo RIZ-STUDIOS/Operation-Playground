@@ -44,7 +44,9 @@ namespace OperationPlayground.Player
             playerManager.SetLayer(LayerMask.NameToLayer($"Player{playerManager.playerIndex}"));
 
             playerManager.AddAllPlayerStates();
-            if (!isGameScene) playerManager.RemoveAllPlayerStates();
+            playerManager.RemoveAllPlayerStates();
+
+            if (isGameScene) playerManager.AddDefaultPlayerStates();
 
             players.Add(playerManager);
 

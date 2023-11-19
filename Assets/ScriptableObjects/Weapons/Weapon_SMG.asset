@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Weapon_SMG
   m_EditorClassIdentifier: 
   id: Weapon_SMG
-  prefab: {fileID: 5672386898822300190, guid: 219706f1b817b424586fe0cab970d8da, type: 3}
+  prefab: {fileID: 5672386898822300190, guid: 3eaf8f225bb55434897f4c72942b2c95, type: 3}
   cooldown: 0.072
   maxAmmo: 71
   projectileScriptableObject: {fileID: 11400000, guid: f7d21e1f409980549aa3ce2fafe8ae64,

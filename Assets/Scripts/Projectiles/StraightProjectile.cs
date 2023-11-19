@@ -22,8 +22,8 @@ namespace OperationPlayground.Projectiles
 
         private void Start()
         {
-            startPosition = shooter.CurrentWeapon.ShootTransform.position;
-            startPositionForward = shooter.CurrentWeapon.ShootTransform.forward.normalized;
+            startPosition = shooter.CurrentWeapon.FirePointTransform.position;
+            startPositionForward = shooter.CurrentWeapon.FirePointTransform.forward.normalized;
 
             currentPoint = startPosition;
             previousPoint = startPosition;

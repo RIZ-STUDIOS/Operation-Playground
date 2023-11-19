@@ -18,8 +18,8 @@ namespace OperationPlayground.Weapons
         public Interactable interactable;
 
         [SerializeField]
-        private Transform _shootTransform;
-        public Transform ShootTransform { get { return _shootTransform; } }
+        private Transform _firePointTransform;
+        public Transform FirePointTransform { get { return _firePointTransform; } }
 
         [SerializeField]
         private bool infiniteAmmo;
@@ -29,8 +29,6 @@ namespace OperationPlayground.Weapons
         private float shootCooldown;
 
         private GenericShooter shooter;
-
-        private LookAtConstraint lookAtConstraint;
 
         public static GameObject CreateWeapon(WeaponScriptableObject weaponScriptableObject, Transform parentTransform = null)
         {
@@ -55,8 +53,6 @@ namespace OperationPlayground.Weapons
             {
                 interactable.onInteract += OnInteract;
             }
-
-            if (GetComponent<LookAtConstraint>()) lookAtConstraint = GetComponent<LookAtConstraint>();
         }
 
         private void Start()
@@ -84,8 +80,8 @@ namespace OperationPlayground.Weapons
 
             var projectileObject = Projectile.CreateProjectile(weaponSo.projectileScriptableObject, shooter);
 
-            projectileObject.transform.position = _shootTransform.position;
-            projectileObject.transform.forward = _shootTransform.forward;
+            projectileObject.transform.position = _firePointTransform.position;
+            projectileObject.transform.forward = _firePointTransform.forward;
 
             if (!infiniteAmmo)
             {
@@ -120,20 +116,7 @@ namespace OperationPlayground.Weapons
 
         public void SetShooter(GenericShooter shooter)
         {
-            this.shooter = shooter;
-
-            /*if (lookAtConstraint)
-            {
-                lookAtConstraint.constraintActive = true;
-                if (shooter.GetComponent<PlayerManager>())
-                {
-                    var constraintSource = new ConstraintSource();
-                    constraintSource.sourceTransform = shooter.GetComponent<PlayerManager>().PlayerMovementTPS.AimTransform;
-                    constraintSource.weight = 1;
-
-                    lookAtConstraint.AddSource(constraintSource);
-                }
-            }*/            
+            this.shooter = shooter;        
         }
 
         public bool CompareScriptableObject(WeaponScriptableObject weaponScriptableObject)

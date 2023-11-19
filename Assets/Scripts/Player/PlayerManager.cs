@@ -41,6 +41,8 @@ namespace OperationPlayground.Player
 
         public PlayerMap PlayerMap => this.GetIfNull(ref _playerMap);
 
+        public PlayerCanvas PlayerCanvas => this.GetIfNull(ref _playerCanvas);
+
         private PlayerCamera _playerCamera;
         private Renderer[] _playerRenderers;
         private Collider[] _playerColliders;
@@ -54,6 +56,7 @@ namespace OperationPlayground.Player
         private PlayerBuilding _playerBuilding;
         private InvalidPlacement _invalidPlacement;
         private PlayerMap _playerMap;
+        private PlayerCanvas _playerCanvas;
 
         public override GameTeam Team => GameTeam.TeamA;
 

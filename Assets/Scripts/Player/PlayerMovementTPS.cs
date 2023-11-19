@@ -114,7 +114,7 @@ namespace OperationPlayground.Player
             var screenPos = new Vector3(Screen.width / 2, Screen.height / 2, 10f);
             Ray ray = playerManager.PlayerCamera.camera.ScreenPointToRay(screenPos);
 
-            if (Physics.Raycast(ray, out RaycastHit hit, 999, 0, QueryTriggerInteraction.Ignore))
+            if (Physics.Raycast(ray, out RaycastHit hit, 999, 1, QueryTriggerInteraction.Ignore))
             {
                 _aimTransform.position = hit.point;
             }

@@ -17,6 +17,7 @@ namespace OperationPlayground.Editor.Windows
         public EditorContainer<int> maxAmmo = new EditorContainer<int>(1);
         public EditorContainer<ProjectileScriptableObject> projectileSo;
         public EditorContainer<Vector3> slotOffset;
+        public EditorContainer<Sprite> weaponSprite = new EditorContainer<Sprite>();
 
         [MenuItem("Operation Playground/Weapon Editor")]
         public static WeaponEditorWindow ShowWindow()
@@ -29,6 +30,12 @@ namespace OperationPlayground.Editor.Windows
             {
                 var element = rootVisualElement.AddObjectField(prefab, "Prefab");
                 RegisterLoadChange(element, prefab);
+                RegisterCheckCompletion(element);
+            }
+
+            {
+                var element = rootVisualElement.AddObjectField(weaponSprite, "Sprite");
+                RegisterLoadChange(element, weaponSprite);
                 RegisterCheckCompletion(element);
             }
 
@@ -65,6 +72,7 @@ namespace OperationPlayground.Editor.Windows
                 projectileSo.Reset();
                 slotOffset.Reset();
                 maxAmmo.Reset();
+                weaponSprite.Reset();
             }
             else
             {
@@ -73,6 +81,7 @@ namespace OperationPlayground.Editor.Windows
                 projectileSo.Value = so.projectileScriptableObject;
                 slotOffset.Value = so.slotOffset;
                 maxAmmo.Value = so.maxAmmo;
+                weaponSprite.Value = so.weaponSprite;
             }
         }
 
@@ -83,6 +92,7 @@ namespace OperationPlayground.Editor.Windows
             asset.projectileScriptableObject = projectileSo;
             asset.slotOffset = slotOffset;
             asset.maxAmmo = maxAmmo;
+            asset.weaponSprite = weaponSprite;
         }
 
         protected override IEnumerable<CompleteCriteria> GetCompleteCriteria()

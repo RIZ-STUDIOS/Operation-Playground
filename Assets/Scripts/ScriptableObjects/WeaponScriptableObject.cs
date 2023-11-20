@@ -14,5 +14,6 @@ namespace OperationPlayground.ScriptableObjects
         public int maxAmmo;
         public ProjectileScriptableObject projectileScriptableObject;
         public Vector3 slotOffset;
+        public Sprite weaponSprite;
     }
 }

@@ -17,5 +17,7 @@ MonoBehaviour:
   prefab: {fileID: 7599571061544888827, guid: e970e9e7ec400324ea6e0684e8f0691b, type: 3}
   timerOffset: {x: 0, y: 1.25, z: 0}
   placementDistance: 2
-  boundsToCheck: {x: 1.5, y: 2.095499, z: 1.5}
+  boundsToCheck: {x: 1.5, y: 1.6500006, z: 2.25}
   resourceCost: 10
+  buildingSprite: {fileID: 0}
+  health: 10

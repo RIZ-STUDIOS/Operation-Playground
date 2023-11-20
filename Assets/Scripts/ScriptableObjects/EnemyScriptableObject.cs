@@ -14,5 +14,6 @@ namespace OperationPlayground.ScriptableObjects
         public DamageType[] vulnerableDamageTypes;
         public float speed;
         public WeaponScriptableObject weaponScriptableObject;
+        public Sprite enemySprite;
     }
 }

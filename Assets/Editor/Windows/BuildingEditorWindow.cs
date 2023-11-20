@@ -17,7 +17,10 @@ namespace OperationPlayground.Editor.Windows
         public EditorContainer<Vector3> timerOffset;
         public EditorContainer<float> placementDistance = new EditorContainer<float>(1);
 
+        public EditorContainer<int> health = new EditorContainer<int>(1);
+
         public EditorContainer<int> resourceCost;
+        public EditorContainer<Sprite> buildingSprite = new EditorContainer<Sprite>();
 
         [MenuItem("Operation Playground/Building Editor")]
     	public static BuildingEditorWindow ShowWindow()
@@ -41,12 +44,19 @@ namespace OperationPlayground.Editor.Windows
                 RegisterLoadChange(element, visual);
             }
 
-            /*{
+            {
+                var element = rootVisualElement.AddObjectField(buildingSprite, "Sprite");
+
+                RegisterCheckCompletion(element);
+                RegisterLoadChange(element, buildingSprite);
+            }
+
+            {
                 var element = rootVisualElement.AddIntField(health, "Health");
 
                 RegisterCheckCompletion(element);
                 RegisterLoadChange(element, health);
-            }*/
+            }
 
             {
                 var element = rootVisualElement.AddFloatField(placementDistance, "Placement Distance");
@@ -78,6 +88,8 @@ namespace OperationPlayground.Editor.Windows
                 visual.Reset();
                 timerOffset.Reset();
                 resourceCost.Reset();
+                health.Reset();
+                buildingSprite.Reset();
             }
             else
             {
@@ -86,6 +98,8 @@ namespace OperationPlayground.Editor.Windows
                 visual.Value = so.visual;
                 timerOffset.Value = so.timerOffset;
                 resourceCost.Value = so.resourceCost;
+                health.Value = so.health;
+                buildingSprite.Value = so.buildingSprite;
             }
         }
 
@@ -96,6 +110,8 @@ namespace OperationPlayground.Editor.Windows
             asset.visual = visual;
             asset.timerOffset = timerOffset;
             asset.resourceCost = resourceCost;
+            asset.health = health;
+            asset.buildingSprite = buildingSprite;
 
             var gameObject = new GameObject();
             var prefabCreated = GameObject.Instantiate(prefab.Value);

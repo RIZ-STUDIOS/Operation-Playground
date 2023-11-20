@@ -56,6 +56,8 @@ namespace OperationPlayground.Player
 
         private void MatchReticleToMuzzleTrajectory()
         {
+            if (!currentPlayerWeapon) return;
+
             Ray firepointRay = new Ray
                 (
                     currentPlayerWeapon.FirePointTransform.position,
@@ -88,7 +90,7 @@ namespace OperationPlayground.Player
 
             playerManager.playerInput.Basic.ZoomMap.performed += ToggleReticle;
 
-            currentPlayerWeapon = playerManager.Shooter.CurrentWeapon;
+            playerManager.PlayerShooter.onWeaponSwitch += (weapon) => currentPlayerWeapon = weapon;
 
             playerCamera = playerManager.PlayerCamera.Camera;
         }

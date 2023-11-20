@@ -14,5 +14,7 @@ namespace OperationPlayground.ScriptableObjects
         public float placementDistance;
         public Vector3 boundsToCheck;
         public int resourceCost;
+        public Sprite buildingSprite;
+        public int health;
     }
 }

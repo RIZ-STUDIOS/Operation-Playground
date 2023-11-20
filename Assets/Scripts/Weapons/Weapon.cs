@@ -24,11 +24,17 @@ namespace OperationPlayground.Weapons
         [SerializeField]
         private bool infiniteAmmo;
 
+        public bool InfiniteAmmo => infiniteAmmo;
+
         private int currentAmmo;
+
+        public int CurrentAmmo => currentAmmo;
 
         private float shootCooldown;
 
         private GenericShooter shooter;
+
+        public event System.Action onAmmoChange;
 
         public static GameObject CreateWeapon(WeaponScriptableObject weaponScriptableObject, Transform parentTransform = null)
         {
@@ -58,6 +64,7 @@ namespace OperationPlayground.Weapons
         private void Start()
         {
             currentAmmo = weaponSo.maxAmmo;
+            onAmmoChange?.Invoke();
         }
 
         private void Update()
@@ -87,6 +94,7 @@ namespace OperationPlayground.Weapons
             {
                 currentAmmo--;
             }
+            onAmmoChange?.Invoke();
 
             return true;
         }
@@ -111,6 +119,7 @@ namespace OperationPlayground.Weapons
                 diff = currentAmmo - weaponSo.maxAmmo;
                 currentAmmo = weaponSo.maxAmmo;
             }
+            onAmmoChange?.Invoke();
             return diff;
         }
 

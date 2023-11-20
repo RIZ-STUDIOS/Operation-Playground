@@ -1,5 +1,6 @@
 using OperationPlayground.Buildings;
 using OperationPlayground.Managers;
+using OperationPlayground.Resources;
 using OperationPlayground.ScriptableObjects;
 using OperationPlayground.UI;
 using RicTools.Attributes;
@@ -21,6 +22,9 @@ namespace OperationPlayground.Player
 
         [SerializeField, ColorUsage(false)]
         private Color invalidPlacementColor;
+
+        [SerializeField, ColorUsage(false)]
+        private Color notEnoughSuppliesColor;
 
         private float timer;
 
@@ -202,6 +206,7 @@ namespace OperationPlayground.Player
         private bool CanPlace()
         {
             if (!currentBuildingObject) return false;
+            if (ResourceManager.Instance.Supplies < currentBuilding.resourceCost) return false;
             var colliders = Physics.OverlapBox(currentBuildingObject.transform.position, currentBuilding.boundsToCheck / 2f, currentBuildingObject.transform.rotation, Physics.AllLayers, QueryTriggerInteraction.Ignore);
 
             var invalidPlacements = colliders.Select(c => c.GetComponentInParent<InvalidPlacement>()).ToList().FindAll(c => c != null && c.invalid);
@@ -217,6 +222,17 @@ namespace OperationPlayground.Player
         private void UpdateVisualMaterial()
         {
             if (currentBuildingRenderers == null) return;
+
+            if(ResourceManager.Instance.Supplies < currentBuilding.resourceCost)
+            {
+                var color = notEnoughSuppliesColor;
+                color.a = 0.5f;
+                foreach (var renderer in currentBuildingRenderers)
+                {
+                    renderer.material.SetColor("_BaseColor", color);
+                }
+                return;
+            }
 
             if (cachedCanPlace)
             {

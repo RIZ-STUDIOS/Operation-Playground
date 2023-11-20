@@ -1,3 +1,4 @@
+using RicTools.Attributes;
 using RicTools.Managers;
 using System.Collections;
 using System.Collections.Generic;
@@ -20,5 +21,17 @@ namespace OperationPlayground.Resources
         }
 
         public event System.Action onSupplyChange;
+
+        [ContextMenu("Add 100 supplies")]
+        private void AddResource()
+        {
+            Supplies += 100;
+        }
+
+        [ContextMenu("Add 100 supplies", true)]
+        private bool AddResourceValidate()
+        {
+            return Application.isPlaying;
+        }
     }
 }

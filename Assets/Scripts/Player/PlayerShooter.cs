@@ -36,7 +36,10 @@ namespace OperationPlayground.Player
 
             onWeaponAdded += OnWeaponAdded;
             onWeaponSwitch += OnWeaponSwitch;
+        }
 
+        private void Start()
+        {
             AddWeapon(defaultWeaponScriptableObject);
         }
 

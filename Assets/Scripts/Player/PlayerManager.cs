@@ -48,6 +48,8 @@ namespace OperationPlayground.Player
 
         public PlayerLookMap PlayerLookMap => this.GetIfNull(ref _playerLook);
 
+        public MapHighlight MapHighlight => this.GetIfNull(ref _mapHighlight);
+
         private PlayerCamera _playerCamera;
         private Renderer[] _playerRenderers;
         private Collider[] _playerColliders;
@@ -63,6 +65,7 @@ namespace OperationPlayground.Player
         private PlayerCanvas _playerCanvas;
         private CharacterController _characterController;
         private PlayerLookMap _playerLook;
+        private MapHighlight _mapHighlight;
 
         public override GameTeam Team => GameTeam.TeamA;
 
@@ -166,6 +169,8 @@ namespace OperationPlayground.Player
         public void SetLayer(int layer)
         {
             PlayerCamera.Camera.cullingMask |= 1 << layer;
+
+            MapHighlight.visibleLayerMask |= 1 << layer;
 
             SetLayer(PlayerCamera.Camera.gameObject, layer);
         }

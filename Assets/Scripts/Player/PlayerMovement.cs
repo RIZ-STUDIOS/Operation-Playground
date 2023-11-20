@@ -52,7 +52,9 @@ namespace OperationPlayground.Player
         private void MoveCharacter()
         {
             if (!controller.enabled) return;
-            var direction = (playerManager.playerTransform.forward * moveDirection.y) + (playerManager.playerTransform.right * moveDirection.x);
+            var direction = new Vector3(moveDirection.x, 0, moveDirection.y);
+            if (playerManager.HasPlayerState(PlayerCapabilities.PlayerCapabilityType.TPSLook))
+                direction = (playerManager.playerTransform.forward * moveDirection.y) + (playerManager.playerTransform.right * moveDirection.x);
 
             controller.SimpleMove(direction * maxSpeed);
         }

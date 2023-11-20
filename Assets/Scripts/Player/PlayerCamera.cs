@@ -18,7 +18,11 @@ namespace OperationPlayground.Player
 
         public CinemachineBrain CameraBrain => this.GetIfNull(ref _brain);
 
+        public CinemachineVirtualCamera VirtualCamera => this.GetIfNull(ref _virtualCamera);
+
         private CinemachineBrain _brain;
+
+        private CinemachineVirtualCamera _virtualCamera;
 
         private void Awake()
         {
@@ -61,12 +65,14 @@ namespace OperationPlayground.Player
         private void OnEnable()
         {
             CameraBrain.enabled = true;
+            VirtualCamera.enabled = true;
             Camera.enabled = true;
         }
 
         private void OnDisable()
         {
             CameraBrain.enabled = false;
+            VirtualCamera.enabled = false;
             Camera.enabled = false;
         }
     }

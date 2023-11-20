@@ -396,6 +396,7 @@ GameObject:
   - component: {fileID: 4612857918736629849}
   - component: {fileID: 6177291057596857722}
   - component: {fileID: -5214371361423765689}
+  - component: {fileID: 6431443443245766938}
   m_Layer: 0
   m_Name: Co-op Player TPS w Mesh
   m_TagString: Player
@@ -613,6 +614,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1fc1d138064ad541a70b9949e0e7ca2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6431443443245766938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2420707843782067168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94aafae48b393674b87e62b6d990820c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _highLightColor: {r: 0, g: 1, b: 0, a: 1}
+  visibleLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &2715955171352861599
 GameObject:
   m_ObjectHideFlags: 0

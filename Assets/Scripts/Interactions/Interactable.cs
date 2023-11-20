@@ -55,6 +55,7 @@ namespace OperationPlayground.Interactables
             foreach (var renderer in renderers)
             {
                 var outline = renderer.gameObject.AddComponent<Outline>();
+                if (!outline) continue;
                 outline.enabled = false;
                 outline.OutlineWidth = 7;
                 outline.OutlineMode = Outline.Mode.OutlineVisible;

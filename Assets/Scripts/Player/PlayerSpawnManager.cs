@@ -20,7 +20,10 @@ namespace OperationPlayground.Player
         public bool AnyPlayersJoined => players.Count > 0;
         public int TotalPlayers => players.Count;
 
-        public bool isGameScene;
+        public bool autoSetupPlayers;
+
+        [SerializeField]
+        private Color[] mapHighlightColors;
 
         protected override void Awake()
         {
@@ -46,11 +49,13 @@ namespace OperationPlayground.Player
             playerManager.AddAllPlayerStates();
             playerManager.RemoveAllPlayerStates();
 
+            playerManager.MapHighlight.HighLightColor = mapHighlightColors[playerManager.playerIndex];
+
             players.Add(playerManager);
 
             OnPlayerJoin?.Invoke(playerManager);
 
-            if (isGameScene) SetupPlayer(playerManager);
+            if (autoSetupPlayers) SetupPlayer(playerManager);
         }
 
         private void OnPlayerLeft(PlayerInput playerInput)

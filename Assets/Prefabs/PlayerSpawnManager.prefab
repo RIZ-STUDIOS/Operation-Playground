@@ -84,7 +84,7 @@ MonoBehaviour:
       m_Flags: 0
     m_Reference: {fileID: 425828474024865185, guid: bfe3c9ef6992b5d498f8ffd75584ae0b,
       type: 3}
-  m_PlayerPrefab: {fileID: 2420707843782067168, guid: 0a1b9ac1b5adacf4b948cac40c273cd8,
+  m_PlayerPrefab: {fileID: 2420707843782067168, guid: f6c40fc4d525fd84eab2788bf789e504,
     type: 3}
   m_SplitScreen: 1
   m_MaintainAspectRatioInSplitScreen: 0
@@ -107,3 +107,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0304c117ca59dc241a93b7cd421bdc31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  autoSetupPlayers: 0
+  mapHighlightColors:
+  - {r: 1, g: 0, b: 0, a: 1}
+  - {r: 0.27700067, g: 1, b: 0, a: 1}
+  - {r: 0, g: 0.67088604, b: 1, a: 1}
+  - {r: 0.95129585, g: 0, b: 1, a: 1}

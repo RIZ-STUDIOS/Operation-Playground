@@ -93,6 +93,17 @@ namespace OperationPlayground
                 },
                 {
                     ""name"": """",
+                    ""id"": ""dc8afae8-f56a-4080-a6a9-d1ac3744e74f"",
+                    ""path"": ""<Keyboard>/m"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""ZoomMap"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""b7cc0e14-1ccd-4966-bd20-baef611cb68e"",
                     ""path"": ""<Gamepad>/dpad/up"",
                     ""interactions"": """",

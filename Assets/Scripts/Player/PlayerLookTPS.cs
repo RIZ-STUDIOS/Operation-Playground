@@ -1,8 +1,4 @@
-using OperationPlayground.Player;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Animations;
 using UnityEngine.InputSystem;
 
 namespace OperationPlayground.Player
@@ -13,7 +9,7 @@ namespace OperationPlayground.Player
         private float lookSensitivity = 12;
 
         private PlayerManager playerManager;
-        private Camera playerCamera => playerManager.PlayerCamera.Camera;
+        private Camera PlayerCamera => playerManager.PlayerCamera.Camera;
 
         // Rotation inputs
         private float rotX;
@@ -84,7 +80,7 @@ namespace OperationPlayground.Player
         private void RotateCharacter()
         {
             Vector2 rotValue = playerManager.playerInput.Movement.Look.ReadValue<Vector2>();
-            
+
             rotY += rotValue.x * Time.deltaTime * lookSensitivity;
             rotX -= rotValue.y * Time.deltaTime * (lookSensitivity / 2);
 
@@ -96,16 +92,16 @@ namespace OperationPlayground.Player
 
         private void SetAimPosition()
         {
-            var screenPos = new Vector3(Screen.width / 2, Screen.height / 2, 10f);
-            Ray ray = playerManager.PlayerCamera.Camera.ScreenPointToRay(screenPos);
+            Vector3 fallbackVector = PlayerCamera.transform.position + PlayerCamera.transform.forward * 200f;
 
+            Ray ray = new Ray(PlayerCamera.transform.position, PlayerCamera.transform.forward);
             if (Physics.Raycast(ray, out RaycastHit hit, 999, 1, QueryTriggerInteraction.Ignore))
             {
                 _aimTransform.position = Vector3.SmoothDamp(_aimTransform.position, hit.point, ref smoothVelocity, 0.1f);
             }
             else
             {
-                _aimTransform.position = Vector3.SmoothDamp(_aimTransform.position, playerCamera.transform.position + playerCamera.transform.forward * 200f, ref smoothVelocity, 0.1f);
+                _aimTransform.position = Vector3.SmoothDamp(_aimTransform.position, fallbackVector, ref smoothVelocity, 0.1f);
             }
         }
     }

@@ -86,13 +86,11 @@ namespace OperationPlayground.Projectiles
 
         private bool CastRayBetweenTwoPoints(Vector3 startPoint, Vector3 endPoint, out RaycastHit hit)
         {
-            return Physics.Raycast(startPoint, endPoint - startPoint, out hit, (endPoint - startPoint).magnitude);
+            return Physics.Raycast(startPoint, endPoint - startPoint, out hit, (endPoint - startPoint).magnitude, 1, QueryTriggerInteraction.Ignore);
         }
 
         private void HitQuery(RaycastHit hit)
         {
-            if (hit.collider.isTrigger) return;
-
             hasCollided = true;
             transform.position = hit.point;
 

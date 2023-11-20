@@ -70,8 +70,7 @@ namespace OperationPlayground.Player
             }
             else
             {
-                screenPoint = currentPlayerWeapon.FirePointTransform.position + currentPlayerWeapon.FirePointTransform.forward * 200f;
-                Debug.DrawRay(currentPlayerWeapon.FirePointTransform.position, currentPlayerWeapon.FirePointTransform.forward * 200f, Color.green, 1);
+                screenPoint = playerCamera.WorldToScreenPoint(firepointRay.origin + firepointRay.direction * 200f);
             }
 
             screenPoint.z = 0;

@@ -850,6 +850,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 6
+  playerAnimator: {fileID: 6322325116801588287}
 --- !u!114 &6177291057596857722
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1831,7 +1832,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Weight: 1
   m_Data:
-    m_ConstrainedObject: {fileID: 6260357408461697917}
+    m_ConstrainedObject: {fileID: 6260295984542847025}
     m_SourceObjects:
       m_Length: 1
       m_Item0:
@@ -1861,8 +1862,8 @@ MonoBehaviour:
     m_Offset: {x: 0, y: 0, z: 0}
     m_MinLimit: -180
     m_MaxLimit: 180
-    m_AimAxis: 4
-    m_UpAxis: 2
+    m_AimAxis: 3
+    m_UpAxis: 1
     m_WorldUpType: 0
     m_WorldUpObject: {fileID: 0}
     m_WorldUpAxis: 2
@@ -3141,6 +3142,12 @@ Transform:
 --- !u!4 &6269003715402597993 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4785726240452098, guid: d3ba630fdb1a2dc4999c3f8793c36051,
+    type: 3}
+  m_PrefabInstance: {fileID: 6264218174667941995}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &6322325116801588287 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 95578414657696852, guid: d3ba630fdb1a2dc4999c3f8793c36051,
     type: 3}
   m_PrefabInstance: {fileID: 6264218174667941995}
   m_PrefabAsset: {fileID: 0}

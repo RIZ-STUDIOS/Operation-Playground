@@ -16,10 +16,19 @@ namespace OperationPlayground.Player
 
         private Vector2 moveDirection;
 
+        [SerializeField]
+        private Animator playerAnimator;
+
+        private int animVelocityXHash;
+        private int animVelocityYHash;
+
         private void Awake()
         {
             playerManager = GetComponentInParent<PlayerManager>();
             controller = GetComponent<CharacterController>();
+
+            animVelocityXHash = Animator.StringToHash("VelocityX");
+            animVelocityYHash = Animator.StringToHash("VelocityY");
         }
 
         private void EnableInput()
@@ -49,12 +58,20 @@ namespace OperationPlayground.Player
             MoveCharacter();
         }
 
+        private void UpdateAnimator(Vector2 moveVector)
+        {
+            playerAnimator.SetFloat(animVelocityXHash, moveVector.x);
+            playerAnimator.SetFloat(animVelocityYHash, moveVector.y);
+        }
+
         private void MoveCharacter()
         {
             if (!controller.enabled) return;
             var direction = new Vector3(moveDirection.x, 0, moveDirection.y);
             if (playerManager.HasPlayerState(PlayerCapabilities.PlayerCapabilityType.TPSLook))
                 direction = (playerManager.playerTransform.forward * moveDirection.y) + (playerManager.playerTransform.right * moveDirection.x);
+
+            UpdateAnimator(new Vector2(moveDirection.x, moveDirection.y));
 
             controller.SimpleMove(direction * maxSpeed);
         }

@@ -46,11 +46,17 @@ namespace OperationPlayground.Player
         private void OnEnable()
         {
             EnableInput();
+            UpdateRotation();
+            RotateCharacter();
+            SetAimPosition();
         }
 
         private void OnDisable()
         {
             DisableInput();
+            Vector3 aimPos = _aimTransform.localPosition;
+            aimPos.y = 0.1f;
+            _aimTransform.transform.localPosition = aimPos;
         }
 
         private void Update()
@@ -75,6 +81,12 @@ namespace OperationPlayground.Player
         private void OnLookCanceled(InputAction.CallbackContext value)
         {
             isLooking = false;
+        }
+
+        private void UpdateRotation()
+        {
+            rotX = playerManager.playerTransform.rotation.x;
+            rotY = playerManager.playerTransform.rotation.y;
         }
 
         private void RotateCharacter()

@@ -197,7 +197,7 @@ namespace OperationPlayground.Interactables
 
         private void UpdateOutlineColors()
         {
-            foreach(var outline in outlines)
+            foreach (var outline in outlines)
             {
                 outline.OutlineColor = _canInteractWith ? Color.green : Color.red;
             }

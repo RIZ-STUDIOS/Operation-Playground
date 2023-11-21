@@ -50,7 +50,7 @@ namespace OperationPlayground.Pathfinding
         {
             var previousWaypoint = currentPathWaypoint;
             currentPathWaypoint = waypointList.GetNextWaypoint(currentPathWaypoint);
-            if(currentPathWaypoint == previousWaypoint)
+            if (currentPathWaypoint == previousWaypoint)
             {
                 onEndPathReached?.Invoke();
             }

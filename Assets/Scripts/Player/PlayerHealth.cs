@@ -1,4 +1,5 @@
 using OperationPlayground.EntityData;
+using OperationPlayground.Managers;
 using RicTools.Attributes;
 using System.Collections;
 using System.Collections.Generic;
@@ -17,9 +18,20 @@ namespace OperationPlayground.Player
 
         private PlayerManager playerManager;
 
+        protected override Vector3 HealthBarSpawnOffset => new Vector3(0, 1, 0);
+
         protected override void Awake()
         {
             base.Awake();
+            playerManager = GetComponent<PlayerManager>();
+            onDeath += OnDeath;
+        }
+
+        private void OnDeath()
+        {
+            if (!GameManager.Instance.playerRespawnManager) return;
+
+            GameManager.Instance.playerRespawnManager.StartRespawnPlayer(playerManager);
         }
     }
 }

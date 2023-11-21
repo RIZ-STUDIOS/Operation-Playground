@@ -86,7 +86,7 @@ namespace OperationPlayground.Projectiles
 
         private bool CastRayBetweenTwoPoints(Vector3 startPoint, Vector3 endPoint, out RaycastHit hit)
         {
-            return Physics.Raycast(startPoint, endPoint - startPoint, out hit, (endPoint - startPoint).magnitude, 1, QueryTriggerInteraction.Ignore);
+            return Physics.Raycast(startPoint, endPoint - startPoint, out hit, (endPoint - startPoint).magnitude, Physics.AllLayers ^ LayerMask.GetMask("InvisibleInvalidPlacement", "EnemyPath"), QueryTriggerInteraction.Ignore);
         }
 
         private void HitQuery(RaycastHit hit)

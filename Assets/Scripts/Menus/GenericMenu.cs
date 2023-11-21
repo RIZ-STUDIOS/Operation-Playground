@@ -23,7 +23,7 @@ namespace OperationPlayground.Menus
 
                 xDirection = new Vector2(refRes.x, 0);
                 yDirection = new Vector2(refRes.y, 0);
-                alphaDirection = new Vector2(menuCG.alpha, 1);                
+                alphaDirection = new Vector2(menuCG.alpha, 1);
             }
             else
             {

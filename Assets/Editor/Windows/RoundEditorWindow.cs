@@ -1,13 +1,13 @@
+using OperationPlayground.ScriptableObjects;
+using RicTools;
+using RicTools.Editor.Utilities;
+using RicTools.Editor.Windows;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using RicTools;
-using RicTools.Editor.Windows;
 using UnityEditor;
-using OperationPlayground.ScriptableObjects;
-using RicTools.Editor.Utilities;
+using UnityEngine;
 using UnityEngine.UIElements;
-using System;
 
 namespace OperationPlayground.Editor.Windows
 {
@@ -23,7 +23,7 @@ namespace OperationPlayground.Editor.Windows
         private SerializedProperty enemiesProperty;
 
         [MenuItem("Operation Playground/Round Editor")]
-    	public static RoundEditorWindow ShowWindow()
+        public static RoundEditorWindow ShowWindow()
         {
             return GetWindow<RoundEditorWindow>("Round Editor");
         }

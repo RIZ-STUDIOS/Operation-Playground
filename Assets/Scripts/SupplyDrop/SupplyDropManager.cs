@@ -50,13 +50,13 @@ namespace OperationPlayground.SupplyDrop
 
             dropTime += Time.deltaTime;
 
-            if(dropTime >= dropCheckTimer)
+            if (dropTime >= dropCheckTimer)
             {
                 dropTime = 0;
 
                 var value = Random.value;
 
-                if(value < dropChance)
+                if (value < dropChance)
                 {
                     SpawnCrate();
                 }

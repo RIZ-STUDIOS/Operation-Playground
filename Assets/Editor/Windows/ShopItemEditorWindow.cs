@@ -47,7 +47,7 @@ namespace OperationPlayground.Editor.Windows
 
         protected override void LoadScriptableObject(ShopItemScriptableObject so, bool isNull)
         {
-            if(isNull)
+            if (isNull)
             {
                 itemSprite.Reset();
                 supplyCost.Reset();

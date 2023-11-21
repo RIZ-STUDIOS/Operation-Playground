@@ -29,7 +29,11 @@ namespace OperationPlayground.UI
 
                 currentWeapon = weapon;
 
-                currentWeapon.onAmmoChange += UpdateAmmoCount;
+                if (currentWeapon)
+                {
+                    currentWeapon.onAmmoChange += UpdateAmmoCount;
+                    UpdateAmmoCount();
+                }
             };
         }
 

@@ -14,6 +14,8 @@ namespace OperationPlayground.Player
     {
         private List<PlayerManager> players = new List<PlayerManager>();
 
+        public List<PlayerManager> Players => players;
+
         public event System.Action<PlayerManager> OnPlayerJoin;
         public event System.Action<PlayerManager> OnPlayerLeave;
 
@@ -82,7 +84,7 @@ namespace OperationPlayground.Player
 
         public void SetupPlayers()
         {
-            foreach(var player in players)
+            foreach (var player in players)
             {
                 SetupPlayer(player);
             }
@@ -95,17 +97,7 @@ namespace OperationPlayground.Player
 
         private void OnGameSceneLoad()
         {
-            List<Transform> takenSpawnLocations = new List<Transform>();
-            foreach (var player in players)
-            {
-                Transform spawnLocation;
-                do
-                {
-                    spawnLocation = GameManager.Instance.gameLevelData.spawnLocations.GetRandomElement();
-                } while (takenSpawnLocations.Contains(spawnLocation));
-                player.SetPosition(spawnLocation.position);
-                takenSpawnLocations.Add(spawnLocation);
-            }
+            GameManager.Instance.playerRespawnManager.SpawnPlayers();
             SetupPlayers();
         }
 

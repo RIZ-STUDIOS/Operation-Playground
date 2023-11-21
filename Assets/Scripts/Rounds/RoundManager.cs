@@ -57,7 +57,7 @@ namespace OperationPlayground.Rounds
             {
                 preRoundTime += Time.deltaTime;
 
-                if(preRoundTime >= preRoundTimer)
+                if (preRoundTime >= preRoundTimer)
                 {
                     Debug.Log("Ended Pre Round");
                     onPreRoundEnd?.Invoke();
@@ -113,7 +113,7 @@ namespace OperationPlayground.Rounds
         {
             CurrentRound.killedEnemies++;
 
-            if(CurrentRound.killedEnemies == CurrentRound.enemyCount)
+            if (CurrentRound.killedEnemies == CurrentRound.enemyCount)
             {
                 Debug.Log("Ended Round");
                 onRoundEnd?.Invoke();
@@ -130,11 +130,11 @@ namespace OperationPlayground.Rounds
 
         private IEnumerator SpawnEnemiesRoundCoroutine()
         {
-            while(CurrentRound.spawnEnemies < CurrentRound.enemyCount)
+            while (CurrentRound.spawnEnemies < CurrentRound.enemyCount)
             {
                 float timer = 0;
 
-                while(timer < CurrentRound.spawnDelay)
+                while (timer < CurrentRound.spawnDelay)
                 {
                     timer += Time.deltaTime;
                     yield return null;

@@ -13,7 +13,17 @@ namespace OperationPlayground.EntityData
 
         private int health;
 
-        public int Health { get { return health; } protected set { health = value; onHealthChanged?.Invoke(); } }
+        public int Health
+        {
+            get { return health; }
+            protected set
+            {
+                health = value;
+                if (health > MaxHealth) health = MaxHealth;
+                UpdateHealthbarVisibility();
+                onHealthChanged?.Invoke();
+            }
+        }
 
         public abstract int MaxHealth { get; }
 
@@ -24,13 +34,19 @@ namespace OperationPlayground.EntityData
 
         protected virtual Vector3 HealthBarSpawnOffset => new Vector3(0, 2.5f, 0);
 
+        protected virtual Vector3 HealthBarSize => new Vector3(1, 0.25f, 1);
+
         protected virtual bool DestroyOnDeath => true;
 
         private ProgressBarUI healthBar;
 
         private bool visibleHealthBar = true;
 
+        private bool forceVisibleHealthBar;
+
         public bool VisibleHealthBar { get { return visibleHealthBar; } set { visibleHealthBar = value; UpdateHealthbarVisibility(); } }
+
+        public bool ForceVisibleHealthBar { get { return forceVisibleHealthBar; } set { forceVisibleHealthBar = value; UpdateHealthbarVisibility(); } }
 
         protected virtual void Awake()
         {
@@ -55,6 +71,12 @@ namespace OperationPlayground.EntityData
             }
         }
 
+        [ContextMenu("Kill Entity")]
+        public void Kill()
+        {
+            Damage(MaxHealth);
+        }
+
         public void Heal(int amount)
         {
             if (amount < 0)
@@ -72,6 +94,7 @@ namespace OperationPlayground.EntityData
         {
             if (healthBar) return;
             var healthBarObject = Instantiate(PrefabsManager.Instance.data.progressBarUIPrefab, transform);
+            healthBarObject.transform.localScale = HealthBarSize;
             healthBarObject.transform.localPosition = HealthBarSpawnOffset;
             healthBar = healthBarObject.GetComponent<ProgressBarUI>();
             onHealthChanged += () =>
@@ -85,7 +108,16 @@ namespace OperationPlayground.EntityData
         private void UpdateHealthbarVisibility()
         {
             if (!healthBar) return;
-            healthBar.gameObject.SetActive(visibleHealthBar);
+            healthBar.gameObject.SetActive(forceVisibleHealthBar || (visibleHealthBar && Health < MaxHealth));
+        }
+
+        private void OnDrawGizmos()
+        {
+            try
+            {
+                Gizmos.DrawCube(transform.position + HealthBarSpawnOffset, Vector3.one);
+            }
+            catch { }
         }
     }
 }

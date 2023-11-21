@@ -125,7 +125,7 @@ namespace OperationPlayground.Weapons
 
         public void SetShooter(GenericShooter shooter)
         {
-            this.shooter = shooter;        
+            this.shooter = shooter;
         }
 
         public bool CompareScriptableObject(WeaponScriptableObject weaponScriptableObject)

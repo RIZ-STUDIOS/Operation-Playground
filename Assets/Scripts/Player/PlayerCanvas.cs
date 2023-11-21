@@ -45,7 +45,7 @@ namespace OperationPlayground.Player
 
             if (interactable)
                 fadeCoroutine = StartCoroutine(ToggleCanvasElement(interactCG, true));
-            else 
+            else
                 fadeCoroutine = StartCoroutine(ToggleCanvasElement(interactCG, false));
         }
 

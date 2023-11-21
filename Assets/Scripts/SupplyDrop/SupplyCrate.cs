@@ -29,7 +29,7 @@ namespace OperationPlayground.SupplyDrop
         {
             interactable.enabled = true;
 
-            foreach(var obj in parachuteGameObjects)
+            foreach (var obj in parachuteGameObjects)
             {
                 obj.SetActive(false);
             }

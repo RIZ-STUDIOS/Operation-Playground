@@ -1,192 +1,223 @@
 using System.Collections.Generic;
 
-namespace Pathfinding.Util {
-	/// <summary>
-	/// Holds a lookup datastructure to quickly find objects inside rectangles.
-	/// Objects of type T occupy an integer rectangle in the grid and they can be
-	/// moved efficiently. You can query for all objects that touch a specified
-	/// rectangle that runs in O(m*k+r) time where m is the number of objects that
-	/// the query returns, k is the average number of cells that an object
-	/// occupies and r is the area of the rectangle query.
-	///
-	/// All objects must be contained within a rectangle with one point at the origin
-	/// (inclusive) and one at <see cref="size"/> (exclusive) that is specified in the constructor.
-	/// </summary>
-	public class GridLookup<T> where T : class {
-		Int2 size;
-		Item[] cells;
-		/// <summary>
-		/// Linked list of all items.
-		/// Note that the first item in the list is a dummy item and does not contain any data.
-		/// </summary>
-		Root all = new Root();
-		Dictionary<T, Root> rootLookup = new Dictionary<T, Root>();
-		Stack<Item> itemPool = new Stack<Item>();
+namespace Pathfinding.Util
+{
+    /// <summary>
+    /// Holds a lookup datastructure to quickly find objects inside rectangles.
+    /// Objects of type T occupy an integer rectangle in the grid and they can be
+    /// moved efficiently. You can query for all objects that touch a specified
+    /// rectangle that runs in O(m*k+r) time where m is the number of objects that
+    /// the query returns, k is the average number of cells that an object
+    /// occupies and r is the area of the rectangle query.
+    ///
+    /// All objects must be contained within a rectangle with one point at the origin
+    /// (inclusive) and one at <see cref="size"/> (exclusive) that is specified in the constructor.
+    /// </summary>
+    public class GridLookup<T> where T : class
+    {
+        private Int2 size;
+        private Item[] cells;
 
-		public GridLookup (Int2 size) {
-			this.size = size;
-			cells = new Item[size.x*size.y];
-			for (int i = 0; i < cells.Length; i++) cells[i] = new Item();
-		}
+        /// <summary>
+        /// Linked list of all items.
+        /// Note that the first item in the list is a dummy item and does not contain any data.
+        /// </summary>
+        private Root all = new Root();
+        private Dictionary<T, Root> rootLookup = new Dictionary<T, Root>();
+        private Stack<Item> itemPool = new Stack<Item>();
 
-		internal class Item {
-			public Root root;
-			public Item prev, next;
-		}
+        public GridLookup(Int2 size)
+        {
+            this.size = size;
+            cells = new Item[size.x * size.y];
+            for (int i = 0; i < cells.Length; i++) cells[i] = new Item();
+        }
 
-		public class Root {
-			/// <summary>Underlying object</summary>
-			public T obj;
-			/// <summary>Next item in the linked list of all roots</summary>
-			public Root next;
-			/// <summary>Previous item in the linked list of all roots</summary>
-			internal Root prev;
-			internal IntRect previousBounds = new IntRect(0, 0, -1, -1);
-			/// <summary>References to an item in each grid cell that this object is contained inside</summary>
-			internal List<Item> items = new List<Item>();
-			internal bool flag;
-		}
+        internal class Item
+        {
+            public Root root;
+            public Item prev, next;
+        }
 
-		/// <summary>Linked list of all items</summary>
-		public Root AllItems {
-			get {
-				return all.next;
-			}
-		}
+        public class Root
+        {
+            /// <summary>Underlying object</summary>
+            public T obj;
+            /// <summary>Next item in the linked list of all roots</summary>
+            public Root next;
+            /// <summary>Previous item in the linked list of all roots</summary>
+            internal Root prev;
+            internal IntRect previousBounds = new IntRect(0, 0, -1, -1);
+            /// <summary>References to an item in each grid cell that this object is contained inside</summary>
+            internal List<Item> items = new List<Item>();
+            internal bool flag;
+        }
 
-		public void Clear () {
-			rootLookup.Clear();
-			all.next = null;
-			foreach (var item in cells) item.next = null;
-		}
+        /// <summary>Linked list of all items</summary>
+        public Root AllItems
+        {
+            get
+            {
+                return all.next;
+            }
+        }
 
-		public Root GetRoot (T item) {
-			Root root;
+        public void Clear()
+        {
+            rootLookup.Clear();
+            all.next = null;
+            foreach (var item in cells) item.next = null;
+        }
 
-			rootLookup.TryGetValue(item, out root);
-			return root;
-		}
+        public Root GetRoot(T item)
+        {
+            Root root;
 
-		/// <summary>
-		/// Add an object to the lookup data structure.
-		/// Returns: A handle which can be used for Move operations
-		/// </summary>
-		public Root Add (T item, IntRect bounds) {
-			var root = new Root {
-				obj = item,
-				prev = all,
-				next = all.next
-			};
+            rootLookup.TryGetValue(item, out root);
+            return root;
+        }
 
-			all.next = root;
-			if (root.next != null) root.next.prev = root;
+        /// <summary>
+        /// Add an object to the lookup data structure.
+        /// Returns: A handle which can be used for Move operations
+        /// </summary>
+        public Root Add(T item, IntRect bounds)
+        {
+            var root = new Root
+            {
+                obj = item,
+                prev = all,
+                next = all.next
+            };
 
-			rootLookup.Add(item, root);
-			Move(item, bounds);
-			return root;
-		}
+            all.next = root;
+            if (root.next != null) root.next.prev = root;
 
-		/// <summary>Removes an item from the lookup data structure</summary>
-		public void Remove (T item) {
-			Root root;
+            rootLookup.Add(item, root);
+            Move(item, bounds);
+            return root;
+        }
 
-			if (!rootLookup.TryGetValue(item, out root)) {
-				return;
-			}
+        /// <summary>Removes an item from the lookup data structure</summary>
+        public void Remove(T item)
+        {
+            Root root;
 
-			// Make the item occupy no cells at all
-			Move(item, new IntRect(0, 0, -1, -1));
-			rootLookup.Remove(item);
-			root.prev.next = root.next;
-			if (root.next != null) root.next.prev = root.prev;
-		}
+            if (!rootLookup.TryGetValue(item, out root))
+            {
+                return;
+            }
 
-		/// <summary>Move an object to occupy a new set of cells</summary>
-		public void Move (T item, IntRect bounds) {
-			Root root;
+            // Make the item occupy no cells at all
+            Move(item, new IntRect(0, 0, -1, -1));
+            rootLookup.Remove(item);
+            root.prev.next = root.next;
+            if (root.next != null) root.next.prev = root.prev;
+        }
 
-			if (!rootLookup.TryGetValue(item, out root)) {
-				throw new System.ArgumentException("The item has not been added to this object");
-			}
+        /// <summary>Move an object to occupy a new set of cells</summary>
+        public void Move(T item, IntRect bounds)
+        {
+            Root root;
 
-			var prev = root.previousBounds;
-			if (prev == bounds) return;
+            if (!rootLookup.TryGetValue(item, out root))
+            {
+                throw new System.ArgumentException("The item has not been added to this object");
+            }
 
-			// Remove all
-			for (int i = 0; i < root.items.Count; i++) {
-				Item ob = root.items[i];
-				ob.prev.next = ob.next;
-				if (ob.next != null) ob.next.prev = ob.prev;
-			}
+            var prev = root.previousBounds;
+            if (prev == bounds) return;
 
-			root.previousBounds = bounds;
-			int reusedItems = 0;
-			for (int z = bounds.ymin; z <= bounds.ymax; z++) {
-				for (int x = bounds.xmin; x <= bounds.xmax; x++) {
-					Item ob;
-					if (reusedItems < root.items.Count) {
-						ob = root.items[reusedItems];
-					} else {
-						ob = itemPool.Count > 0 ? itemPool.Pop() : new Item();
-						ob.root = root;
-						root.items.Add(ob);
-					}
-					reusedItems++;
+            // Remove all
+            for (int i = 0; i < root.items.Count; i++)
+            {
+                Item ob = root.items[i];
+                ob.prev.next = ob.next;
+                if (ob.next != null) ob.next.prev = ob.prev;
+            }
 
-					ob.prev = cells[x + z*size.x];
-					ob.next = ob.prev.next;
-					ob.prev.next = ob;
-					if (ob.next != null) ob.next.prev = ob;
-				}
-			}
+            root.previousBounds = bounds;
+            int reusedItems = 0;
+            for (int z = bounds.ymin; z <= bounds.ymax; z++)
+            {
+                for (int x = bounds.xmin; x <= bounds.xmax; x++)
+                {
+                    Item ob;
+                    if (reusedItems < root.items.Count)
+                    {
+                        ob = root.items[reusedItems];
+                    }
+                    else
+                    {
+                        ob = itemPool.Count > 0 ? itemPool.Pop() : new Item();
+                        ob.root = root;
+                        root.items.Add(ob);
+                    }
+                    reusedItems++;
 
-			for (int i = root.items.Count-1; i >= reusedItems; i--) {
-				Item ob = root.items[i];
-				ob.root = null;
-				ob.next = null;
-				ob.prev = null;
-				root.items.RemoveAt(i);
-				itemPool.Push(ob);
-			}
-		}
+                    ob.prev = cells[x + z * size.x];
+                    ob.next = ob.prev.next;
+                    ob.prev.next = ob;
+                    if (ob.next != null) ob.next.prev = ob;
+                }
+            }
 
-		/// <summary>
-		/// Returns all objects of a specific type inside the cells marked by the rectangle.
-		/// Note: For better memory usage, consider pooling the list using Pathfinding.Util.ListPool after you are done with it
-		/// </summary>
-		public List<U> QueryRect<U>(IntRect r) where U : class, T {
-			List<U> result = Pathfinding.Util.ListPool<U>.Claim();
+            for (int i = root.items.Count - 1; i >= reusedItems; i--)
+            {
+                Item ob = root.items[i];
+                ob.root = null;
+                ob.next = null;
+                ob.prev = null;
+                root.items.RemoveAt(i);
+                itemPool.Push(ob);
+            }
+        }
 
-			// Loop through tiles and check which objects are inside them
-			for (int z = r.ymin; z <= r.ymax; z++) {
-				var zs = z*size.x;
-				for (int x = r.xmin; x <= r.xmax; x++) {
-					Item c = cells[x + zs];
-					// Note, first item is a dummy, so it is ignored
-					while (c.next != null) {
-						c = c.next;
-						var obj = c.root.obj as U;
-						if (!c.root.flag && obj != null) {
-							c.root.flag = true;
-							result.Add(obj);
-						}
-					}
-				}
-			}
+        /// <summary>
+        /// Returns all objects of a specific type inside the cells marked by the rectangle.
+        /// Note: For better memory usage, consider pooling the list using Pathfinding.Util.ListPool after you are done with it
+        /// </summary>
+        public List<U> QueryRect<U>(IntRect r) where U : class, T
+        {
+            List<U> result = Pathfinding.Util.ListPool<U>.Claim();
 
-			// Reset flags
-			for (int z = r.ymin; z <= r.ymax; z++) {
-				var zs = z*size.x;
-				for (int x = r.xmin; x <= r.xmax; x++) {
-					Item c = cells[x + zs];
-					while (c.next != null) {
-						c = c.next;
-						c.root.flag = false;
-					}
-				}
-			}
+            // Loop through tiles and check which objects are inside them
+            for (int z = r.ymin; z <= r.ymax; z++)
+            {
+                var zs = z * size.x;
+                for (int x = r.xmin; x <= r.xmax; x++)
+                {
+                    Item c = cells[x + zs];
+                    // Note, first item is a dummy, so it is ignored
+                    while (c.next != null)
+                    {
+                        c = c.next;
+                        var obj = c.root.obj as U;
+                        if (!c.root.flag && obj != null)
+                        {
+                            c.root.flag = true;
+                            result.Add(obj);
+                        }
+                    }
+                }
+            }
 
-			return result;
-		}
-	}
+            // Reset flags
+            for (int z = r.ymin; z <= r.ymax; z++)
+            {
+                var zs = z * size.x;
+                for (int x = r.xmin; x <= r.xmax; x++)
+                {
+                    Item c = cells[x + zs];
+                    while (c.next != null)
+                    {
+                        c = c.next;
+                        c.root.flag = false;
+                    }
+                }
+            }
+
+            return result;
+        }
+    }
 }

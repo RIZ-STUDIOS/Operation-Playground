@@ -83,7 +83,7 @@ namespace OperationPlayground
 
         private void DisableOutlines()
         {
-            foreach(var outline in outlines)
+            foreach (var outline in outlines)
             {
                 outline.enabled = false;
             }

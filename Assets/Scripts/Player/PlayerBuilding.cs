@@ -42,7 +42,7 @@ namespace OperationPlayground.Player
 
         private AvailableBuildingsScriptableObject availableBuildings => GameManager.Instance.availableBuildingsScriptableObject;
 
-        bool hasPlayerShootingCapability;
+        private bool hasPlayerShootingCapability;
 
         private RadialBarUI timerUI;
 
@@ -76,7 +76,7 @@ namespace OperationPlayground.Player
         {
             isBuilding = !isBuilding;
 
-            if(!isBuilding)
+            if (!isBuilding)
             {
                 playerManager.RemovePlayerState(PlayerCapabilities.PlayerCapabilityType.Building);
             }
@@ -158,7 +158,7 @@ namespace OperationPlayground.Player
 
             currentBuildingRenderers = currentBuildingObject.GetComponentsInChildren<Renderer>();
 
-            foreach(var renderer in currentBuildingRenderers)
+            foreach (var renderer in currentBuildingRenderers)
             {
                 renderer.material = MaterialsManager.Instance.data.placementMaterial;
             }
@@ -178,11 +178,13 @@ namespace OperationPlayground.Player
 
                 UpdateTimerUI();
 
-                if(timer >= buildTime)
+                if (timer >= buildTime)
                 {
                     var buildingObject = Instantiate(currentBuilding.prefab);
                     buildingObject.transform.position = currentBuildingObject.transform.position;
                     buildingObject.transform.rotation = currentBuildingObject.transform.rotation;
+
+                    buildingObject.GetComponent<BuildingData>().buildingScriptableObject = currentBuilding;
 
                     var invalidPlacement = buildingObject.GetOrAddComponent<InvalidPlacement>();
                     invalidPlacement.invalid = true;
@@ -190,7 +192,8 @@ namespace OperationPlayground.Player
                     triggerDown = false;
                     UpdateTimerUI();
                 }
-            }else if(triggerDown && !cachedCanPlace)
+            }
+            else if (triggerDown && !cachedCanPlace)
             {
                 timer = 0;
                 UpdateTimerUI();
@@ -223,7 +226,7 @@ namespace OperationPlayground.Player
         {
             if (currentBuildingRenderers == null) return;
 
-            if(ResourceManager.Instance.Supplies < currentBuilding.resourceCost)
+            if (ResourceManager.Instance.Supplies < currentBuilding.resourceCost)
             {
                 var color = notEnoughSuppliesColor;
                 color.a = 0.5f;
@@ -238,7 +241,7 @@ namespace OperationPlayground.Player
             {
                 var color = allowedPlacementColor;
                 color.a = 0.5f;
-                foreach(var renderer in currentBuildingRenderers)
+                foreach (var renderer in currentBuildingRenderers)
                 {
                     renderer.material.SetColor("_BaseColor", color);
                 }

@@ -25,7 +25,7 @@ namespace OperationPlayground.Pathfinding
 
         public PathWaypoint GetNextWaypoint(PathWaypoint waypoint)
         {
-            if(waypoint == null) return GetFirstWaypoint();
+            if (waypoint == null) return GetFirstWaypoint();
 
             var index = waypoints.IndexOf(waypoint);
 

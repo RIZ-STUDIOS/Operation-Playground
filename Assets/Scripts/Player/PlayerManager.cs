@@ -159,7 +159,7 @@ namespace OperationPlayground.Player
         }
 
         public void SetPosition(Vector3 position)
-        {   
+        {
             var enabled = CharacterController.enabled;
             CharacterController.enabled = false;
             transform.position = position;
@@ -179,7 +179,7 @@ namespace OperationPlayground.Player
         {
             gameObject.layer = layer;
 
-            foreach(Transform transform in gameObject.transform)
+            foreach (Transform transform in gameObject.transform)
             {
                 SetLayer(transform.gameObject, layer);
             }

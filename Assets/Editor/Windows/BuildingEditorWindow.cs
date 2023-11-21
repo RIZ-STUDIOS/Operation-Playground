@@ -1,11 +1,11 @@
+using OperationPlayground.ScriptableObjects;
+using RicTools;
+using RicTools.Editor.Utilities;
+using RicTools.Editor.Windows;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using RicTools;
-using RicTools.Editor.Windows;
 using UnityEditor;
-using OperationPlayground.ScriptableObjects;
-using RicTools.Editor.Utilities;
+using UnityEngine;
 
 namespace OperationPlayground.Editor.Windows
 {
@@ -23,7 +23,7 @@ namespace OperationPlayground.Editor.Windows
         public EditorContainer<Sprite> buildingSprite = new EditorContainer<Sprite>();
 
         [MenuItem("Operation Playground/Building Editor")]
-    	public static BuildingEditorWindow ShowWindow()
+        public static BuildingEditorWindow ShowWindow()
         {
             return GetWindow<BuildingEditorWindow>("Building Editor");
         }
@@ -81,7 +81,7 @@ namespace OperationPlayground.Editor.Windows
 
         protected override void LoadScriptableObject(BuildingScriptableObject so, bool isNull)
         {
-            if(isNull)
+            if (isNull)
             {
                 prefab.Reset();
                 placementDistance.Reset();

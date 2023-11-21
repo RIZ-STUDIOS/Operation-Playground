@@ -1,4 +1,5 @@
 using OperationPlayground.EntityData;
+using OperationPlayground.Managers;
 using OperationPlayground.Pathfinding;
 using OperationPlayground.ScriptableObjects;
 using Pathfinding;
@@ -44,7 +45,8 @@ namespace OperationPlayground.Enemies
                 followPath.SetSpeed(enemyScriptableObject.speed);
                 followPath.onEndPathReached += () =>
                 {
-                    enemy.Health.Damage(1000);
+                    GameManager.Instance.defendPointData.Health.Damage(enemy.Health.Health);
+                    enemy.Health.Kill();
                 };
             }
             else

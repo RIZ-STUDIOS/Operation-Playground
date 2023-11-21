@@ -2,6 +2,7 @@ using OperationPlayground.EntityData;
 using OperationPlayground.Interactables;
 using OperationPlayground.Player;
 using OperationPlayground.Player.PlayerCapabilities;
+using OperationPlayground.ScriptableObjects;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,11 +11,18 @@ using UnityEngine.InputSystem;
 namespace OperationPlayground.Buildings
 {
     [RequireComponent(typeof(Interactable))]
+    [RequireComponent(typeof(BuildingHealth))]
     public class BuildingData : GenericEntity
     {
-        public override GenericHealth Health => null;
+        public BuildingScriptableObject buildingScriptableObject;
+
+        public override GenericHealth Health => BuildingHealth;
 
         public override GenericShooter Shooter => null;
+
+        public BuildingHealth BuildingHealth => this.GetIfNull(ref _buildingHealth);
+
+        private BuildingHealth _buildingHealth;
 
         private Interactable interactable;
 

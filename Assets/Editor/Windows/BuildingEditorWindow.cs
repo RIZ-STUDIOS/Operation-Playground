@@ -15,7 +15,7 @@ namespace OperationPlayground.Editor.Windows
         public EditorContainer<GameObject> visual;
 
         public EditorContainer<Vector3> timerOffset;
-        public EditorContainer<float> placementDistance = new EditorContainer<float>(1);
+        public EditorContainer<Vector3> placementDistance = new EditorContainer<Vector3>(new Vector3(0,0,1));
 
         public EditorContainer<int> health = new EditorContainer<int>(1);
 
@@ -59,7 +59,7 @@ namespace OperationPlayground.Editor.Windows
             }
 
             {
-                var element = rootVisualElement.AddFloatField(placementDistance, "Placement Distance");
+                var element = rootVisualElement.AddVector3Field(placementDistance, "Placement Offset");
 
                 RegisterCheckCompletion(element);
                 RegisterLoadChange(element, placementDistance);
@@ -73,7 +73,7 @@ namespace OperationPlayground.Editor.Windows
             }
 
             {
-                var element = rootVisualElement.AddVector3Field(timerOffset, "Placement Distance");
+                var element = rootVisualElement.AddVector3Field(timerOffset, "Timer Offset");
 
                 RegisterLoadChange(element, timerOffset);
             }
@@ -94,7 +94,7 @@ namespace OperationPlayground.Editor.Windows
             else
             {
                 prefab.Value = so.prefab;
-                placementDistance.Value = so.placementDistance;
+                placementDistance.Value = so.placementOffset;
                 visual.Value = so.visual;
                 timerOffset.Value = so.timerOffset;
                 resourceCost.Value = so.resourceCost;
@@ -106,7 +106,7 @@ namespace OperationPlayground.Editor.Windows
         protected override void CreateAsset(ref BuildingScriptableObject asset)
         {
             asset.prefab = prefab;
-            asset.placementDistance = placementDistance;
+            asset.placementOffset = placementDistance;
             asset.visual = visual;
             asset.timerOffset = timerOffset;
             asset.resourceCost = resourceCost;

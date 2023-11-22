@@ -118,6 +118,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactCG: {fileID: 8367876307186599339}
   supplyShopCG: {fileID: 8676543987340774189}
+  reticle: {fileID: 0}
   playerManager: {fileID: 0}
 --- !u!1 &2002911429062152086
 GameObject:
@@ -392,6 +393,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 6
+  playerAnimator: {fileID: 0}
 --- !u!143 &7248338613509730929
 CharacterController:
   m_ObjectHideFlags: 0
@@ -474,6 +476,7 @@ MonoBehaviour:
   buildTime: 0.5
   allowedPlacementColor: {r: 0.22606564, g: 1, b: 0, a: 0}
   invalidPlacementColor: {r: 1, g: 0, b: 0, a: 0}
+  notEnoughSuppliesColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &2497369843031807928
 MonoBehaviour:
   m_ObjectHideFlags: 0

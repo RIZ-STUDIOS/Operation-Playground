@@ -61,6 +61,12 @@ namespace OperationPlayground.EntityData
             return true;
         }
 
+        protected void SetWeapon(Weapon weapon)
+        {
+            onWeaponAdded?.Invoke(weapon);
+            SwitchWeapon(weapon);
+        }
+
         protected virtual bool CanAddWeapon(WeaponScriptableObject weaponSo)
         {
             return true;

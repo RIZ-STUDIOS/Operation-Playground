@@ -675,6 +675,7 @@ MonoBehaviour:
   buildTime: 0.5
   allowedPlacementColor: {r: 0.22606564, g: 1, b: 0, a: 0}
   invalidPlacementColor: {r: 1, g: 0, b: 0, a: 0}
+  notEnoughSuppliesColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &2497369843031807928
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -713,6 +714,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 6
+  playerAnimator: {fileID: 0}
 --- !u!114 &6177291057596857722
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1119,7 +1121,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10f03f365547ff544a7f949e5aa91f59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerOverlayCamera: {fileID: 6905726181617812611}
 --- !u!114 &1629385701554049768
 MonoBehaviour:
   m_ObjectHideFlags: 0

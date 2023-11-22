@@ -152,7 +152,7 @@ namespace OperationPlayground.Player
             selectedIndex = index;
 
             currentBuildingObject = Instantiate(currentBuilding.visual, playerManager.playerTransform);
-            currentBuildingObject.transform.localPosition = Vector3.forward * currentBuilding.placementDistance;
+            currentBuildingObject.transform.localPosition = currentBuilding.placementOffset;
             timerUI.transform.SetParent(currentBuildingObject.transform, false);
             timerUI.transform.localPosition = currentBuilding.timerOffset;
 
@@ -214,10 +214,12 @@ namespace OperationPlayground.Player
 
             var invalidPlacements = colliders.Select(c => c.GetComponentInParent<InvalidPlacement>()).ToList().FindAll(c => c != null && c.invalid);
 
-            var playerIndex = invalidPlacements.FindIndex(c => c.GetComponentInParent<PlayerManager>() == playerManager);
+            var playerStuff = invalidPlacements.FindAll(c => c.GetComponentInParent<PlayerManager>() == playerManager);
 
-            if (playerIndex >= 0)
-                invalidPlacements.RemoveAt(playerIndex);
+            foreach(var invalidPlacement in playerStuff)
+            {
+                invalidPlacements.Remove(invalidPlacement);
+            }
 
             return invalidPlacements.Count == 0;
         }

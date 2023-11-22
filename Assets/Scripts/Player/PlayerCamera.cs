@@ -20,13 +20,27 @@ namespace OperationPlayground.Player
 
         public CinemachineVirtualCamera VirtualCamera => this.GetIfNull(ref _virtualCamera);
 
+        public CinemachineCollider CameraCollider => this.GetIfNull(ref _cameraCollider);
+
         private CinemachineBrain _brain;
 
         private CinemachineVirtualCamera _virtualCamera;
 
+        private CinemachineCollider _cameraCollider;
+
+        private Transform defaultCameraTarget;
+
+        public Transform CameraTarget { get { return VirtualCamera.Follow; } set { VirtualCamera.Follow = value; VirtualCamera.LookAt = value; } }
+
         private void Awake()
         {
             UpdateNormalizedCameraVectors();
+            defaultCameraTarget = CameraTarget;
+        }
+
+        public void ResetCameraTarget()
+        {
+            CameraTarget = defaultCameraTarget;
         }
 
         private void Update()
@@ -59,7 +73,7 @@ namespace OperationPlayground.Player
             Vector3 rightRelativeDir = vector.x * cRightNorm;
 
             Vector3 relativeMoveDir = forwardRelativeDir + rightRelativeDir;
-            return new Vector3(vector.x, 0, vector.y);
+            return relativeMoveDir;
         }
 
         private void OnEnable()

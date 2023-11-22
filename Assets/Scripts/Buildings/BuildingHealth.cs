@@ -18,7 +18,7 @@ namespace OperationPlayground.Buildings
             }
         }
 
-        public override int MaxHealth => _buildingData.buildingScriptableObject.health;
+        public override int MaxHealth => parentEntity.buildingScriptableObject.health;
 
         protected override void Awake()
         {
@@ -27,8 +27,8 @@ namespace OperationPlayground.Buildings
 
         private void Start()
         {
-            CreateHealthBar();
             Health = MaxHealth;
+            CreateHealthBar();
         }
     }
 }

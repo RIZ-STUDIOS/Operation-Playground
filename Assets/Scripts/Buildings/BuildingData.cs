@@ -18,17 +18,22 @@ namespace OperationPlayground.Buildings
 
         public override GenericHealth Health => BuildingHealth;
 
-        public override GenericShooter Shooter => null;
+        public override GenericShooter Shooter => BuildingShooter;
 
         public BuildingHealth BuildingHealth => this.GetIfNull(ref _buildingHealth);
 
+        public BuildingShooter BuildingShooter => this.GetIfNull(ref _buildingShooter);
+
         private BuildingHealth _buildingHealth;
+
+        private BuildingShooter _buildingShooter;
 
         private Interactable interactable;
 
         private PlayerManager currentPlayer;
 
         private Vector3 playerPosition;
+        private Quaternion playerRotation;
 
         public override GameTeam Team => GameTeam.TeamA;
 
@@ -42,6 +47,9 @@ namespace OperationPlayground.Buildings
 
         public event System.Action<InputAction.CallbackContext> onLookPerformed;
         public event System.Action<InputAction.CallbackContext> onLookCanceled;
+
+        [SerializeField]
+        private Transform cameraTargetTransform;
 
         protected override void Awake()
         {
@@ -66,9 +74,18 @@ namespace OperationPlayground.Buildings
             currentPlayer.RemovePlayerState(PlayerCapabilityType.Health);
             currentPlayer.RemovePlayerState(PlayerCapabilityType.InvalidPlacement);
             currentPlayer.RemovePlayerState(PlayerCapabilityType.ToggleBuilding);
+            currentPlayer.RemovePlayerState(PlayerCapabilityType.GunVisibility);
 
             playerPosition = playerManager.transform.position;
+            playerRotation = playerManager.playerTransform.rotation;
             currentPlayer.SetPosition(transform.position);
+
+            playerManager.PlayerCamera.CameraTarget = cameraTargetTransform ?? transform;
+
+            playerManager.PlayerCamera.CameraCollider.enabled = false;
+
+            playerManager.playerTransform.rotation = transform.rotation;
+
 
             currentPlayer.playerInput.InBuild.Leave.performed += OnLeavePerformed;
 
@@ -77,6 +94,11 @@ namespace OperationPlayground.Buildings
 
             currentPlayer.playerInput.InBuild.Look.performed += OnLookPerformed;
             currentPlayer.playerInput.InBuild.Look.canceled += OnLookCanceled;
+
+            currentPlayer.playerInput.InBuild.Enable();
+
+            if(BuildingShooter)
+            currentPlayer.PlayerCanvas.firePointTransform = BuildingShooter.CurrentWeapon.FirePointTransform;
 
             interactable.CanInteractWith = false;
 
@@ -91,6 +113,8 @@ namespace OperationPlayground.Buildings
 
         private void OnLeavePerformed(InputAction.CallbackContext context)
         {
+            currentPlayer.playerInput.InBuild.Disable();
+
             currentPlayer.playerInput.InBuild.Leave.performed -= OnLeavePerformed;
 
             currentPlayer.playerInput.InBuild.Fire.performed -= OnFirePerformed;
@@ -107,8 +131,16 @@ namespace OperationPlayground.Buildings
             currentPlayer.AddPlayerState(PlayerCapabilityType.Health);
             currentPlayer.AddPlayerState(PlayerCapabilityType.InvalidPlacement);
             currentPlayer.AddPlayerState(PlayerCapabilityType.ToggleBuilding);
+            currentPlayer.AddPlayerState(PlayerCapabilityType.GunVisibility);
 
             currentPlayer.SetPosition(playerPosition);
+            currentPlayer.playerTransform.rotation = playerRotation;
+
+            currentPlayer.PlayerCamera.CameraCollider.enabled = true;
+
+            currentPlayer.PlayerCanvas.firePointTransform = null;
+
+            currentPlayer.PlayerCamera.ResetCameraTarget();
 
             onPlayerLeaveBuilding?.Invoke(currentPlayer);
 

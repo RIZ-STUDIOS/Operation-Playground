@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: AvailableBuildings
   m_EditorClassIdentifier: 
   items:
-  - {fileID: 11400000, guid: 323c69d66c5f54b438bc79bc3b0445a4, type: 2}
+  - {fileID: 11400000, guid: 29ac6eaea83301b42bb73a189ce790fe, type: 2}

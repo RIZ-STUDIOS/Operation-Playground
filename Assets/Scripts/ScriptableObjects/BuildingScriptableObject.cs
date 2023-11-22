@@ -11,7 +11,7 @@ namespace OperationPlayground.ScriptableObjects
         public GameObject visual;
         public GameObject prefab;
         public Vector3 timerOffset;
-        public float placementDistance;
+        public Vector3 placementOffset;
         public Vector3 boundsToCheck;
         public int resourceCost;
         public Sprite buildingSprite;

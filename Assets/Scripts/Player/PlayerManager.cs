@@ -128,6 +128,7 @@ namespace OperationPlayground.Player
             AddPlayerState(PlayerCapabilityType.InvalidPlacement);
             AddPlayerState(PlayerCapabilityType.MapViewInput);
             AddPlayerState(PlayerCapabilityType.TPSLook);
+            AddPlayerState(PlayerCapabilityType.GunVisibility);
         }
 
         public void AddAllPlayerStates()

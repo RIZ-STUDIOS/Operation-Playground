@@ -24,6 +24,11 @@ namespace OperationPlayground.Player
 
         private Coroutine fadeCoroutine;
 
+        [System.NonSerialized]
+        public Transform firePointTransform;
+
+        private Transform FirePointTransform => firePointTransform ?? currentPlayerWeapon.FirePointTransform;
+
         private Vector3 smoothVelocity = Vector3.zero;
 
         private void Awake()
@@ -60,8 +65,8 @@ namespace OperationPlayground.Player
 
             Ray firepointRay = new Ray
                 (
-                    currentPlayerWeapon.FirePointTransform.position,
-                    currentPlayerWeapon.FirePointTransform.forward
+                    FirePointTransform.position,
+                    FirePointTransform.forward
                 );
 
             Vector3 screenPoint;

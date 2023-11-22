@@ -20,7 +20,8 @@ namespace OperationPlayground.Player.PlayerCapabilities
         InvalidPlacement,
         MapViewInput,
         MapLook,
-        TPSLook
+        TPSLook,
+        GunVisibility,
     }
 
     public abstract class PlayerCapability
@@ -40,6 +41,7 @@ namespace OperationPlayground.Player.PlayerCapabilities
             {PlayerCapabilityType.MapViewInput, typeof(MapViewPlayerCapability) },
             {PlayerCapabilityType.MapLook, typeof(MapLookPlayerCapability) },
             {PlayerCapabilityType.TPSLook, typeof(TPSLookPlayerCapability) },
+            {PlayerCapabilityType.GunVisibility, typeof(GunVisbilityPlayerCapability) },
         };
 
         public PlayerCapabilityType CapabilityType { get; private set; }

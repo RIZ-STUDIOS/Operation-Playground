@@ -19,6 +19,7 @@ namespace OperationPlayground.Editor.Windows
         public EditorContainer<int> maxHealth;
         public EditorContainer<WeaponScriptableObject> weaponScriptableObject;
         public EditorContainer<Sprite> enemySprite = new EditorContainer<Sprite>();
+        public EditorContainer<float> attackRange;
 
         public DamageType[] damageTypes;
 
@@ -66,6 +67,11 @@ namespace OperationPlayground.Editor.Windows
             }
 
             {
+                var element = rootVisualElement.AddFloatField(attackRange, "Attack Range");
+                RegisterLoadChange(element, attackRange);
+            }
+
+            {
                 var element = rootVisualElement.AddPropertyField(damageTypesProperty, "Damage Types");
             }
         }
@@ -80,6 +86,7 @@ namespace OperationPlayground.Editor.Windows
                 damageTypes = new DamageType[] { };
                 speed.Reset();
                 enemySprite.Reset();
+                attackRange.Reset();
             }
             else
             {
@@ -89,6 +96,7 @@ namespace OperationPlayground.Editor.Windows
                 damageTypes = so.vulnerableDamageTypes.Copy();
                 speed.Value = so.speed;
                 enemySprite.Value = so.enemySprite;
+                attackRange.Value = so.attackRange;
             }
         }
 
@@ -100,6 +108,7 @@ namespace OperationPlayground.Editor.Windows
             asset.vulnerableDamageTypes = damageTypes.Copy();
             asset.speed = speed;
             asset.enemySprite = enemySprite;
+            asset.attackRange = attackRange;
         }
 
         protected override IEnumerable<CompleteCriteria> GetCompleteCriteria()

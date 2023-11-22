@@ -19,3 +19,5 @@ MonoBehaviour:
   speed: 5
   weaponScriptableObject: {fileID: 11400000, guid: 5a8cd0839c0ac164ba4fe2e6d2f74337,
     type: 2}
+  enemySprite: {fileID: 0}
+  attackRange: 10

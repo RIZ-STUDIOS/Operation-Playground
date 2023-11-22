@@ -3602,6 +3602,74 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 294043024}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &295147613
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 4876c554e1e718b45a7ffaec1e069183,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 9.328304
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4876c554e1e718b45a7ffaec1e069183,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.064
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4876c554e1e718b45a7ffaec1e069183,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -6.6747165
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4876c554e1e718b45a7ffaec1e069183,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4876c554e1e718b45a7ffaec1e069183,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4876c554e1e718b45a7ffaec1e069183,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4876c554e1e718b45a7ffaec1e069183,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4876c554e1e718b45a7ffaec1e069183,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4876c554e1e718b45a7ffaec1e069183,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4876c554e1e718b45a7ffaec1e069183,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4876c554e1e718b45a7ffaec1e069183,
+        type: 3}
+      propertyPath: m_Name
+      value: Finnish_Soldier1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4876c554e1e718b45a7ffaec1e069183, type: 3}
 --- !u!1 &295709989
 GameObject:
   m_ObjectHideFlags: 0
@@ -14843,6 +14911,74 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1495624936}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1497537380
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 94df0d9d2afa42e449a79013456729a7,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 6.800083
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 94df0d9d2afa42e449a79013456729a7,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.136
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 94df0d9d2afa42e449a79013456729a7,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -6.7638617
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 94df0d9d2afa42e449a79013456729a7,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 94df0d9d2afa42e449a79013456729a7,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 94df0d9d2afa42e449a79013456729a7,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 94df0d9d2afa42e449a79013456729a7,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 94df0d9d2afa42e449a79013456729a7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 94df0d9d2afa42e449a79013456729a7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 94df0d9d2afa42e449a79013456729a7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 94df0d9d2afa42e449a79013456729a7,
+        type: 3}
+      propertyPath: m_Name
+      value: Finnish_Soldier2
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 94df0d9d2afa42e449a79013456729a7, type: 3}
 --- !u!1001 &1500067045
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21576,3 +21712,5 @@ SceneRoots:
   - {fileID: 1989441435}
   - {fileID: 925386919}
   - {fileID: 530085103}
+  - {fileID: 295147613}
+  - {fileID: 1497537380}

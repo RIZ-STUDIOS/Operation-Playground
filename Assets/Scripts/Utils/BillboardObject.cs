@@ -33,5 +33,10 @@ namespace OperationPlayground
         {
             RenderPipelineManager.beginCameraRendering -= RenderPipelineManager_beginCameraRendering;
         }
+
+        private void OnDestroy()
+        {
+            transform.rotation = Quaternion.identity;
+        }
     }
 }

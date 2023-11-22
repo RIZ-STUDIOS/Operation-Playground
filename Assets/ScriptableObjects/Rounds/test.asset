@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: test
   m_EditorClassIdentifier: 
   id: test
-  minEnemies: 5
-  maxEnemies: 10
-  spawnDelay: 0.5
+  minEnemies: 25
+  maxEnemies: 30
+  spawnDelay: 0.1
   enemies:
   - minEnemies: 0
     enemySo: {fileID: 11400000, guid: c36d09db48bdeed4893371e978b44bfd, type: 2}

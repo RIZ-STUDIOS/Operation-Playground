@@ -38,7 +38,7 @@ namespace OperationPlayground.EntityData
 
         protected virtual bool DestroyOnDeath => true;
 
-        private ProgressBarUI healthBar;
+        protected ProgressBarUI healthBar;
 
         private bool visibleHealthBar = true;
 

@@ -10,16 +10,23 @@ namespace OperationPlayground.Player.DefendPoint
         [SerializeField]
         private int maxHealth = 200;
 
+        [SerializeField]
+        private Vector3 healthBarOffset;
+
+        [SerializeField]
+        private Vector3 healthBarSize;
+
         public override int MaxHealth => maxHealth;
 
-        protected override Vector3 HealthBarSpawnOffset => new Vector3(0, 6, 0);
+        protected override Vector3 HealthBarSpawnOffset => healthBarOffset;
 
-        protected override Vector3 HealthBarSize => base.HealthBarSize * 3f;
+        protected override Vector3 HealthBarSize => healthBarSize;
 
         protected override void Awake()
         {
             base.Awake();
             ForceVisibleHealthBar = true;
+            Destroy(healthBar.GetComponent<BillboardObject>());
         }
     }
 }

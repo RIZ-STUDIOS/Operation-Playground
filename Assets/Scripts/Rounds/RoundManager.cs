@@ -17,7 +17,7 @@ namespace OperationPlayground.Rounds
         private float preRoundTimer;
 
         [SerializeField]
-        private PathWaypointList waypointList;
+        private PathWaypointList[] waypointLists;
 
         public float PreRoundTimer => preRoundTimer;
 
@@ -147,6 +147,8 @@ namespace OperationPlayground.Rounds
         private void SpawnRandomEnemy()
         {
             var enemySo = CurrentRound.enemies.GetRandomElement();
+
+            var waypointList = waypointLists.GetRandomElement();
 
             var position = waypointList.GetFirstWaypoint().GetRandomPoint();
 

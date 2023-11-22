@@ -8,9 +8,9 @@ namespace OperationPlayground.Player.DefendPoint
     public class DefendPointHealth : GenericHealth
     {
         [SerializeField]
-        private int health = 200;
+        private int maxHealth = 200;
 
-        public override int MaxHealth => health;
+        public override int MaxHealth => maxHealth;
 
         protected override Vector3 HealthBarSpawnOffset => new Vector3(0, 3, 0);
 

@@ -32,6 +32,8 @@ namespace OperationPlayground.Player
             base.Awake();
             if (Instance == this)
                 DontDestroyOnLoad(gameObject);
+            else
+                Destroy(GetComponent<PlayerInputManager>());
         }
 
         private void OnPlayerJoined(PlayerInput playerInput)
@@ -79,7 +81,7 @@ namespace OperationPlayground.Player
 
         public void LoadIntoLevel()
         {
-            LevelLoader.LoadScene("Game", OnGameSceneLoad);
+            LevelLoader.LoadScene("MapDraft", OnGameSceneLoad);
         }
 
         public void SetupPlayers()

@@ -79,7 +79,7 @@ GameObject:
   - component: {fileID: 7678336632512611244}
   - component: {fileID: 2445222675923877136}
   m_Layer: 0
-  m_Name: MachineGunBuilding
+  m_Name: Building_MachineGun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -206,7 +206,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 572e354d3ab7c1b49839714acdb59273, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponSo: {fileID: 11400000, guid: a89cd43c3ae93cb43b6c91078a2399b7, type: 2}
+  weaponSo: {fileID: 11400000, guid: 25b6e310e96ddf842b6afe0b8ed6d7de, type: 2}
   _firePointTransform: {fileID: 8648953208145603568}
   infiniteAmmo: 1
 --- !u!1001 &3953344417068981653

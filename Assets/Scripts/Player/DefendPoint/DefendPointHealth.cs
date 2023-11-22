@@ -22,6 +22,8 @@ namespace OperationPlayground.Player.DefendPoint
 
         protected override Vector3 HealthBarSize => healthBarSize;
 
+        protected override bool DestroyOnDeath => false;
+
         protected override void Awake()
         {
             base.Awake();

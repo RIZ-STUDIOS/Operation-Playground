@@ -23,8 +23,6 @@ namespace OperationPlayground.EntityData
 
         public void SwitchWeapon(Weapon weapon)
         {
-            if (weapon.interactable)
-                Destroy(weapon.interactable);
             if (_currentWeapon)
             {
                 _currentWeapon.gameObject.SetActive(false);

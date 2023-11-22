@@ -14,9 +14,6 @@ namespace OperationPlayground.Weapons
     {
         public WeaponScriptableObject weaponSo;
 
-        [System.NonSerialized]
-        public Interactable interactable;
-
         [SerializeField]
         private Transform _firePointTransform;
         public Transform FirePointTransform { get { return _firePointTransform; } }
@@ -49,16 +46,6 @@ namespace OperationPlayground.Weapons
             weapon.ApplyOffset();
 
             return weaponObject;
-        }
-
-        private void Awake()
-        {
-            interactable = GetComponent<Interactable>();
-
-            if (interactable)
-            {
-                interactable.onInteract += OnInteract;
-            }
         }
 
         private void Start()
@@ -131,11 +118,6 @@ namespace OperationPlayground.Weapons
         public bool CompareScriptableObject(WeaponScriptableObject weaponScriptableObject)
         {
             return weaponScriptableObject == weaponSo;
-        }
-
-        private void OnInteract(PlayerManager playerManager)
-        {
-            playerManager.PlayerShooter.AddWeapon(this);
         }
     }
 }

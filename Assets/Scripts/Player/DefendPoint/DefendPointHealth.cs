@@ -12,7 +12,7 @@ namespace OperationPlayground.Player.DefendPoint
 
         public override int MaxHealth => maxHealth;
 
-        protected override Vector3 HealthBarSpawnOffset => new Vector3(0, 3, 0);
+        protected override Vector3 HealthBarSpawnOffset => new Vector3(0, 6, 0);
 
         protected override Vector3 HealthBarSize => base.HealthBarSize * 3f;
 

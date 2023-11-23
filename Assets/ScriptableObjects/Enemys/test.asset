@@ -17,7 +17,7 @@ MonoBehaviour:
   maxHealth: 5
   vulnerableDamageTypes: 
   speed: 5
-  weaponScriptableObject: {fileID: 11400000, guid: 5a8cd0839c0ac164ba4fe2e6d2f74337,
+  weaponScriptableObject: {fileID: 11400000, guid: a89cd43c3ae93cb43b6c91078a2399b7,
     type: 2}
   enemySprite: {fileID: 0}
   attackRange: 10

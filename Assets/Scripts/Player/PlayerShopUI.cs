@@ -1,21 +1,24 @@
-using OperationPlayground.Player;
 using OperationPlayground.Player.PlayerCapabilities;
 using OperationPlayground.ScriptableObjects;
-using System.Collections;
+using OperationPlayground.Shop;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-namespace OperationPlayground.Shop
+namespace OperationPlayground.Player
 {
-    public class SupplyShopUI : MonoBehaviour
+    public class PlayerShopUI : MonoBehaviour
     {
         public GameObject shopButtonPrefab;
         public GameObject scrollShop;
 
         private PlayerCanvas playerCanvas;
         private CanvasGroup canvasGroup;
+
+        private int shopNavigationIndex = 0;
+
+        private List<Button> shopButtonList;
 
         private void Awake()
         {
@@ -25,6 +28,12 @@ namespace OperationPlayground.Shop
 
         public void OpenShop(ShopItemScriptableObject[] shopItems)
         {
+            if (shopItems.Length <= 0)
+            {
+                playerCanvas.DisplayPrompt("<color=#EC5D5D>SHOP UNAVAILABLE</color>", 3f);
+                return;
+            }
+
             playerCanvas.playerManager.RemovePlayerState(PlayerCapabilityType.Movement);
             playerCanvas.playerManager.RemovePlayerState(PlayerCapabilityType.Interaction);
             playerCanvas.playerManager.RemovePlayerState(PlayerCapabilityType.Building);
@@ -33,14 +42,11 @@ namespace OperationPlayground.Shop
 
             StartCoroutine(playerCanvas.ToggleCanvasElement(canvasGroup, true, true));
 
-            if (shopItems.Length > 0)
+            foreach (var shopItem in shopItems)
             {
-                foreach (var shopItem in shopItems)
-                {
-                    var buyButton = Instantiate(shopButtonPrefab);
-                    buyButton.GetComponent<ShopButton>().AssignShopItem(shopItem);
-                    buyButton.transform.SetParent(scrollShop.transform, false);
-                }
+                var buyButton = Instantiate(shopButtonPrefab);
+                buyButton.GetComponent<ShopButton>().AssignShopItem(shopItem);
+                buyButton.transform.SetParent(scrollShop.transform, false);
             }
 
             if (scrollShop.transform.childCount > 0)
@@ -48,8 +54,7 @@ namespace OperationPlayground.Shop
                 scrollShop.transform.GetChild(0).GetComponent<Button>().Select();
             }
 
-            playerCanvas.playerManager.playerInput.Basic.Disable();
-            playerCanvas.playerManager.playerInput.UI.Cancel.performed += CloseShop;
+
         }
 
         public void CloseShop(InputAction.CallbackContext value)
@@ -66,6 +71,46 @@ namespace OperationPlayground.Shop
             playerCanvas.playerManager.AddPlayerState(PlayerCapabilityType.Shooter);
             playerCanvas.playerManager.AddPlayerState(PlayerCapabilityType.ToggleBuilding);
 
+            
+        }
+
+        private void OnNavigate(InputAction.CallbackContext value)
+        {
+            Vector2 input = value.ReadValue<Vector2>();
+
+            switch (input.y)
+            {
+                // Go up shop buttons.
+                case 1:
+                    {
+                        shopNavigationIndex--;
+                        if (shopNavigationIndex < 0) shopNavigationIndex = shopButtonList.Count - 1;
+                    }
+                    break;
+
+                // Go down shop buttons.
+                case -1:
+                    {
+                        shopNavigationIndex++;
+                        if (shopNavigationIndex > shopButtonList.Count) shopNavigationIndex = 0;
+                    }
+                    break;
+            }
+
+            shopButtonList[shopNavigationIndex].Select();
+        }
+
+        private void EnableShopInput()
+        {
+            playerCanvas.playerManager.playerInput.Basic.Disable();
+            playerCanvas.playerManager.playerInput.UI.Cancel.performed += CloseShop;
+            playerCanvas.playerManager.playerInput.UI.Navigate.performed += OnNavigate;
+        }
+
+        private void DisableShopInput()
+        {
+            playerCanvas.playerManager.playerInput.UI.Navigate.performed -= OnNavigate;
+            playerCanvas.playerManager.playerInput.UI.Cancel.performed -= CloseShop;
             playerCanvas.playerManager.playerInput.Basic.Enable();
         }
     }

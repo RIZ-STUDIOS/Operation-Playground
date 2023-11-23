@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace OperationPlayground.Interactables
 {
-    [RequireComponent(typeof(SphereCollider))]
+    //[RequireComponent(typeof(SphereCollider))]
     public class Interactable : MonoBehaviour
     {
         [SerializeField, PositiveValueOnly]
@@ -47,8 +47,8 @@ namespace OperationPlayground.Interactables
 
         private void Awake()
         {
-            sphereCollider = GetComponent<SphereCollider>();
-            sphereCollider.isTrigger = true;
+            //sphereCollider = GetComponent<SphereCollider>();
+            //sphereCollider.isTrigger = true;
 
             var renderers = GetComponentsInChildren<Renderer>();
 
@@ -106,12 +106,12 @@ namespace OperationPlayground.Interactables
             playerManager.PlayerInteraction.SetInteractable(null);
         }
 
-        private void OnValidate()
+        /*private void OnValidate()
         {
             var collider = GetComponent<SphereCollider>();
             collider.radius = interactRadius;
             collider.isTrigger = true;
-        }
+        }*/
 
         private void OnEnable()
         {

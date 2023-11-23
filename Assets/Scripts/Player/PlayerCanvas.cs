@@ -1,9 +1,8 @@
 using OperationPlayground.Interactables;
-using OperationPlayground.Player;
 using OperationPlayground.Weapons;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+using TMPro;
+using Unity.Profiling.Editor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,18 +10,21 @@ namespace OperationPlayground.Player
 {
     public class PlayerCanvas : MonoBehaviour
     {
-        public CanvasGroup interactCG;
-        public CanvasGroup supplyShopCG;
-        public GameObject reticle;
+        [SerializeField] private CanvasGroup interactCG;
+        [SerializeField] private CanvasGroup supplyShopCG;
+        [SerializeField] private CanvasGroup promptCG;
+        [SerializeField] private GameObject reticle;
+
+        public PlayerManager playerManager;
 
         private RectTransform canvasRectTransform;
         private RectTransform reticleRectTransform;
 
-        public PlayerManager playerManager;
         private Weapon currentPlayerWeapon;
         private Camera playerCamera;
 
         private Coroutine fadeCoroutine;
+        private Coroutine promptCoroutine;
 
         [System.NonSerialized]
         public Transform firePointTransform;
@@ -37,6 +39,8 @@ namespace OperationPlayground.Player
 
             canvasRectTransform = GetComponent<RectTransform>();
             reticleRectTransform = reticle.GetComponent<RectTransform>();
+
+            //StartCoroutine(DebugCo());
         }
 
         private void FixedUpdate()
@@ -100,7 +104,7 @@ namespace OperationPlayground.Player
             playerCamera = playerManager.PlayerCamera.Camera;
         }
 
-        public IEnumerator ToggleCanvasElement(CanvasGroup canvasGroup, bool isFadeIn, bool interactable = false, float fadeSpeed = 2)
+        public IEnumerator ToggleCanvasElement(CanvasGroup canvasGroup, bool isFadeIn, bool interactable = false, float fadeSpeedMod = 2)
         {
             Vector2 fadeVector;
 
@@ -110,7 +114,7 @@ namespace OperationPlayground.Player
             float progress = 0;
             while (progress < 1)
             {
-                progress += Time.deltaTime * fadeSpeed;
+                progress += Time.deltaTime * fadeSpeedMod;
                 canvasGroup.alpha = Mathf.Lerp(fadeVector.x, fadeVector.y, progress);
 
                 yield return null;
@@ -124,6 +128,34 @@ namespace OperationPlayground.Player
             }
 
             fadeCoroutine = null;
+        }
+
+        public void DisplayPrompt(string text, float duration)
+        {
+            if (promptCoroutine != null) StopCoroutine(promptCoroutine);
+
+            promptCG.alpha = 0;
+            promptCG.GetComponentInChildren<TextMeshProUGUI>().text = text;
+            promptCoroutine = StartCoroutine(ToggleMessagePrompt(duration));
+        }
+
+        private IEnumerator ToggleMessagePrompt(float duration)
+        {
+            promptCoroutine = StartCoroutine(ToggleCanvasElement(promptCG, true, fadeSpeedMod: 2f));
+            while (promptCG.alpha != 1) yield return null;
+            
+            yield return new WaitForSeconds(duration);
+
+            promptCoroutine = StartCoroutine(ToggleCanvasElement(promptCG, false, fadeSpeedMod: 2f));
+        }
+
+        private IEnumerator DebugCo()
+        {
+            while (true)
+            {
+                Debug.Log("Prompt Coroutine: " + promptCoroutine);
+                yield return new WaitForSeconds(1);
+            }
         }
     }
 }

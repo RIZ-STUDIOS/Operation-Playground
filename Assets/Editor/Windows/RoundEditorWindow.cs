@@ -18,6 +18,8 @@ namespace OperationPlayground.Editor.Windows
 
         public EditorContainer<float> spawnDelay;
 
+        public EditorContainer<int> supplyReward;
+
         public RoundEnemyData[] enemies;
 
         private SerializedProperty enemiesProperty;
@@ -56,6 +58,11 @@ namespace OperationPlayground.Editor.Windows
             }
 
             {
+                var element = rootVisualElement.AddIntField(supplyReward, "Supply Reward");
+                RegisterLoadChange(element, supplyReward);
+            }
+
+            {
                 var element = rootVisualElement.AddPropertyField(enemiesProperty, "Enemies");
                 RegisterCheckCompletion(element);
             }
@@ -69,6 +76,7 @@ namespace OperationPlayground.Editor.Windows
                 maxEnemies.Reset();
                 enemies = new RoundEnemyData[] { };
                 spawnDelay.Reset();
+                supplyReward.Reset();
             }
             else
             {
@@ -76,6 +84,7 @@ namespace OperationPlayground.Editor.Windows
                 maxEnemies.Value = so.maxEnemies;
                 enemies = so.enemies.Copy();
                 spawnDelay.Value = so.spawnDelay;
+                supplyReward.Value = so.supplyReward;
             }
         }
 
@@ -85,6 +94,7 @@ namespace OperationPlayground.Editor.Windows
             asset.enemies = enemies.Copy();
             asset.minEnemies = minEnemies;
             asset.maxEnemies = maxEnemies;
+            asset.supplyReward = supplyReward;
         }
 
         protected override IEnumerable<CompleteCriteria> GetCompleteCriteria()

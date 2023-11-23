@@ -1,5 +1,6 @@
 using OperationPlayground.Enemies;
 using OperationPlayground.Pathfinding;
+using OperationPlayground.Resources;
 using OperationPlayground.ScriptableObjects;
 using RicTools.Attributes;
 using RicTools.Managers;
@@ -97,7 +98,7 @@ namespace OperationPlayground.Rounds
             var enemyCount = Random.Range(roundData.minEnemies, roundData.maxEnemies);
             var enemies = new List<RoundEnemyData>(roundData.enemies);
 
-            CurrentRound = new RoundData(enemyCount, roundData.spawnDelay, enemies);
+            CurrentRound = new RoundData(enemyCount, roundData.supplyReward, roundData.spawnDelay, enemies);
 
             roundList.RemoveAt(0);
 
@@ -117,6 +118,7 @@ namespace OperationPlayground.Rounds
             {
                 Debug.Log("Ended Round");
                 onRoundEnd?.Invoke();
+                ResourceManager.Instance.Supplies += CurrentRound.supplyReward;
                 if (CheckFinishRounds())
                 {
                     roundStatus = RoundStatus.Finished;
@@ -186,10 +188,12 @@ namespace OperationPlayground.Rounds
         public List<RoundEnemyData> enemies;
         public int spawnEnemies;
         public int killedEnemies;
+        public int supplyReward;
 
-        public RoundData(int maxEnemies, float spawnDelay, List<RoundEnemyData> enemies)
+        public RoundData(int maxEnemies, int supplyReward, float spawnDelay, List<RoundEnemyData> enemies)
         {
             this.enemyCount = maxEnemies;
+            this.supplyReward = supplyReward;
             this.enemies = enemies;
             this.spawnDelay = spawnDelay;
             spawnEnemies = 0;

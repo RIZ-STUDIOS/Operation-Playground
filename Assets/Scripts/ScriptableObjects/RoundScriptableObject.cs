@@ -11,13 +11,13 @@ namespace OperationPlayground.ScriptableObjects
         public int minEnemies;
         public int maxEnemies;
         public float spawnDelay;
+        public int supplyReward;
         public RoundEnemyData[] enemies;
     }
 
     [System.Serializable]
     public class RoundEnemyData
     {
-        public int minEnemies;
         [System.NonSerialized]
         public int spawned;
         public EnemyScriptableObject enemySo;

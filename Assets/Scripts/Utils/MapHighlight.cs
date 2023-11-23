@@ -25,8 +25,9 @@ namespace OperationPlayground
                 var outline = renderer.gameObject.AddComponent<Outline>();
                 if (!outline) continue;
                 outline.enabled = false;
-                outline.OutlineWidth = 7;
-                outline.OutlineMode = Outline.Mode.OutlineVisible;
+                outline.OutlineWidth = 3;
+                outline.OutlineMode = Outline.Mode.OutlineAll;
+                outline.UpdateMaterialProperties();
                 outlines.Add(outline);
             }
 
@@ -35,12 +36,11 @@ namespace OperationPlayground
 
         private void UpdateOutlineColor()
         {
-            EnableOutlines();
             foreach (var outline in outlines)
             {
                 outline.OutlineColor = HighLightColor;
+                outline.UpdateMaterialProperties();
             }
-            DisableOutlines();
         }
 
         private void OnEnable()
@@ -77,7 +77,6 @@ namespace OperationPlayground
             foreach (var outline in outlines)
             {
                 outline.enabled = true;
-                outline.UpdateMaterialProperties();
             }
         }
 

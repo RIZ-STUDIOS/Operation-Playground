@@ -20,6 +20,9 @@ namespace OperationPlayground.Editor.Windows
         public EditorContainer<WeaponScriptableObject> weaponScriptableObject;
         public EditorContainer<Sprite> enemySprite = new EditorContainer<Sprite>();
         public EditorContainer<float> attackRange;
+        public EditorContainer<float> targetCheckTime;
+        public EditorContainer<float> attackDelayTime;
+        public EditorContainer<float> shootingTime;
 
         public DamageType[] damageTypes;
 
@@ -72,6 +75,21 @@ namespace OperationPlayground.Editor.Windows
             }
 
             {
+                var element = rootVisualElement.AddFloatField(targetCheckTime, "Attack Check Time");
+                RegisterLoadChange(element, targetCheckTime);
+            }
+
+            {
+                var element = rootVisualElement.AddFloatField(attackDelayTime, "Attack Delay Time");
+                RegisterLoadChange(element, attackDelayTime);
+            }
+
+            {
+                var element = rootVisualElement.AddFloatField(shootingTime, "Shooting Time");
+                RegisterLoadChange(element, shootingTime);
+            }
+
+            {
                 var element = rootVisualElement.AddPropertyField(damageTypesProperty, "Damage Types");
             }
         }
@@ -87,6 +105,9 @@ namespace OperationPlayground.Editor.Windows
                 speed.Reset();
                 enemySprite.Reset();
                 attackRange.Reset();
+                targetCheckTime.Reset();
+                attackDelayTime.Reset();
+                shootingTime.Reset();
             }
             else
             {
@@ -97,6 +118,9 @@ namespace OperationPlayground.Editor.Windows
                 speed.Value = so.speed;
                 enemySprite.Value = so.enemySprite;
                 attackRange.Value = so.attackRange;
+                targetCheckTime.Value = so.targetCheckTime;
+                attackDelayTime.Value = so.attackDelayTime;
+                shootingTime.Value = so.shootingTime;
             }
         }
 
@@ -109,6 +133,9 @@ namespace OperationPlayground.Editor.Windows
             asset.speed = speed;
             asset.enemySprite = enemySprite;
             asset.attackRange = attackRange;
+            asset.attackDelayTime = attackDelayTime;
+            asset.targetCheckTime = targetCheckTime;
+            asset.shootingTime = shootingTime;
         }
 
         protected override IEnumerable<CompleteCriteria> GetCompleteCriteria()

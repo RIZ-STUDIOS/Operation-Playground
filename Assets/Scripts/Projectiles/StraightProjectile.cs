@@ -94,7 +94,7 @@ namespace OperationPlayground.Projectiles
             hasCollided = true;
             transform.position = hit.point;
 
-            var entity = hit.collider.GetComponent<GenericEntity>();
+            var entity = hit.collider.GetComponentInParent<GenericEntity>();
 
             onCollision?.Invoke(hit.collider, hit.point);
 

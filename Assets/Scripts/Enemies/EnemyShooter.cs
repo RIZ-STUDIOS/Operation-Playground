@@ -115,12 +115,13 @@ namespace OperationPlayground.Enemies
 
         private void ResetAim()
         {
-
+            transform.rotation = Quaternion.identity;
         }
 
         private void AimAtTarget()
         {
             if (!target) return;
+            transform.LookAt(target.transform.position, Vector3.up);
         }
 
         private void OnDrawGizmosSelected()

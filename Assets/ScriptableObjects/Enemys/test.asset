@@ -21,3 +21,6 @@ MonoBehaviour:
     type: 2}
   enemySprite: {fileID: 0}
   attackRange: 10
+  targetCheckTime: 0.2
+  attackDelayTime: 0.8
+  shootingTime: 0.05

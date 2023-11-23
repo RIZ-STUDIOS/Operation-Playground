@@ -58,6 +58,8 @@ namespace OperationPlayground.Buildings
             interactable = GetComponent<Interactable>();
 
             interactable.onInteract += OnInteract;
+
+            Health.onDeath += RemovePlayer;
         }
 
         private void OnInteract(PlayerManager playerManager)
@@ -113,6 +115,12 @@ namespace OperationPlayground.Buildings
 
         private void OnLeavePerformed(InputAction.CallbackContext context)
         {
+            RemovePlayer();
+        }
+
+        private void RemovePlayer()
+        {
+            if (!currentPlayer) return;
             currentPlayer.playerInput.InBuild.Disable();
 
             currentPlayer.playerInput.InBuild.Leave.performed -= OnLeavePerformed;

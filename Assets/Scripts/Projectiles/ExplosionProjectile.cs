@@ -28,7 +28,7 @@ namespace OperationPlayground.Projectiles
             foreach (var collider in colliders)
             {
                 if(collider == hitCollider) continue;
-                var genericEntity = collider.GetComponent<GenericEntity>();
+                var genericEntity = collider.GetComponentInParent<GenericEntity>();
                 if(!genericEntity) continue;
 
                 if(projectile.shooter.parentEntity.Team == genericEntity.Team) continue;

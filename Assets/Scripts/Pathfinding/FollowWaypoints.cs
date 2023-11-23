@@ -16,6 +16,9 @@ namespace OperationPlayground.Pathfinding
         [SerializeField]
         private float nextWaypointDistance = 3;
 
+        [SerializeField]
+        private bool faceWaypoint = true;
+
         private PathWaypoint currentPathWaypoint;
         private PathWaypointList waypointList;
 
@@ -112,10 +115,14 @@ namespace OperationPlayground.Pathfinding
 
             var speedFactor = reachedEndOfPath ? Mathf.Sqrt(distanceToWaypoint / nextWaypointDistance) : 1;
 
-            Vector3 dir = (path.vectorPath[currentWaypoint] - transform.position).normalized;
+            Vector3 dir = GetMovementDirection();
             var velocity = dir * speed * speedFactor;
 
             characterController.SimpleMove(velocity);
+            if (faceWaypoint)
+            {
+                transform.LookAt(path.vectorPath[currentWaypoint], Vector3.up);
+            }
 
             if (reachedEndOfPath)
             {
@@ -129,6 +136,12 @@ namespace OperationPlayground.Pathfinding
             characterController.enabled = false;
             transform.position = position;
             characterController.enabled = charEnabled;
+        }
+
+        public Vector3 GetMovementDirection()
+        {
+            if(path == null) return Vector3.zero;
+            return (path.vectorPath[currentWaypoint] - transform.position).normalized;
         }
     }
 }

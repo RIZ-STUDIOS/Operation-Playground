@@ -15,7 +15,7 @@ namespace OperationPlayground.Projectiles
         [System.NonSerialized]
         public GenericShooter shooter;
 
-        public event System.Action<Collider> onCollision;
+        public System.Action<Collider, Vector3> onCollision;
 
         protected Rigidbody rb;
 

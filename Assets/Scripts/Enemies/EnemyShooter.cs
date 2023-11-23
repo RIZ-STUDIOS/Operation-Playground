@@ -6,7 +6,6 @@ using UnityEngine;
 
 namespace OperationPlayground.Enemies
 {
-    [RequireComponent(typeof(SphereCollider))]
     public class EnemyShooter : GenericShooter
     {
         private EnemyEntity _enemyEntity;
@@ -20,42 +19,114 @@ namespace OperationPlayground.Enemies
             }
         }
 
-        private SphereCollider sphereCollider;
-
         private List<GenericEntity> nearbyEntities = new List<GenericEntity>();
 
         private GenericEntity target;
 
-        private void Awake()
+        private float argetCheckTime => parentEntity.enemyScriptableObject.targetCheckTime;
+
+        private float AttackTime => parentEntity.enemyScriptableObject.attackDelayTime;
+
+        private float ShootTime => parentEntity.enemyScriptableObject.shootingTime;
+
+        private float targetCheckTimer;
+        private float attackTimer;
+        private float shootTimer;
+
+        private bool shooting;
+
+        private void Update()
         {
-            sphereCollider = GetComponent<SphereCollider>();
-            sphereCollider.isTrigger = true;
-            sphereCollider.radius = parentEntity.enemyScriptableObject.attackRange;
+            targetCheckTimer += Time.deltaTime;
+
+            if (targetCheckTimer >= argetCheckTime)
+            {
+                targetCheckTimer = 0;
+                GetNearbyEntities();
+                CalculateTarget();
+            }
+
+            AimAtTarget();
+
+            if (target)
+            {
+                if (!shooting)
+                {
+                    attackTimer += Time.deltaTime;
+
+                    if (attackTimer >= AttackTime)
+                    {
+                        attackTimer = 0;
+                        shooting = true;
+                    }
+                }
+
+                AttackTarget();
+            }
         }
 
-        private void OnTriggerEnter(Collider other)
+        private void GetNearbyEntities()
         {
-            var entity = other.GetComponentInParent<GenericEntity>();
-            if (!entity) return;
+            nearbyEntities.Clear();
 
-            nearbyEntities.Add(entity);
+            var colliders = Physics.OverlapSphere(transform.position, parentEntity.enemyScriptableObject.attackRange, Physics.AllLayers, QueryTriggerInteraction.Ignore).ToList();
+            if (colliders.Count == 0) return;
 
-            CalculateTarget();
-        }
+            var entities = colliders.Select(c => c.GetComponentInParent<GenericEntity>()).ToList().FindAll(e => e != null && e.Team != parentEntity.Team && e.targettable);
+            if(entities.Count == 0) return;
 
-        private void OnTriggerExit(Collider other)
-        {
-            var entity = other.GetComponentInParent<GenericEntity>();
-            if (!entity) return;
-
-            nearbyEntities.Remove(entity);
-
-            CalculateTarget();
+            nearbyEntities = entities;
         }
 
         private void CalculateTarget()
         {
-            nearbyEntities = (List<GenericEntity>)nearbyEntities.OrderBy((entity) => Vector3.Distance(entity.transform.position, transform.position));
+            nearbyEntities = nearbyEntities.OrderBy((entity) => Vector3.Distance(entity.transform.position, transform.position)).ToList();
+            target = null;
+
+            if(nearbyEntities.Count > 0)
+            {
+                target = nearbyEntities[0];
+            }
+
+
+            if(!target)
+            {
+                shooting = false;
+                attackTimer = 0;
+                ResetAim();
+            }
+        }
+
+        private void AttackTarget()
+        {
+            if (!target) return;
+            if (!shooting) return;
+
+            shootTimer += Time.deltaTime;
+
+            CurrentWeapon.Shoot();
+
+            if (shootTimer >= ShootTime)
+            {
+                shootTimer = 0;
+                shooting = false;
+            }
+        }
+
+        private void ResetAim()
+        {
+
+        }
+
+        private void AimAtTarget()
+        {
+            if (!target) return;
+        }
+
+        private void OnDrawGizmosSelected()
+        {
+            if (!parentEntity.enemyScriptableObject) return;
+            Gizmos.DrawWireSphere(transform.position, parentEntity.enemyScriptableObject.attackRange);
         }
     }
 }

@@ -124,6 +124,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponHoldTransform: {fileID: 714740134429497479}
+  targetCheckTime: 1
+  attackTime: 1
 --- !u!114 &2672817053557055547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -136,6 +138,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37aa0239735e5f941a282c976c8777f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targettable: 1
   enemyScriptableObject: {fileID: 0}
 --- !u!143 &4553904067173318499
 CharacterController:

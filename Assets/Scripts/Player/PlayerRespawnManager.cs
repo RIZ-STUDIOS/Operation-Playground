@@ -1,5 +1,6 @@
 using OperationPlayground.Managers;
 using OperationPlayground.Player.PlayerCapabilities;
+using OperationPlayground.Rounds;
 using RicTools.Utilities;
 using System.Collections;
 using System.Collections.Generic;
@@ -16,9 +17,26 @@ namespace OperationPlayground.Player
 
         private List<Transform> takenSpawnLocations = new List<Transform>();
 
+        private List<PlayerManager> deadPlayers = new List<PlayerManager>();
+
         private void Awake()
         {
             GameManager.Instance.playerRespawnManager = this;
+        }
+
+        private void Start()
+        {
+            RoundManager.Instance.onPreRoundStart += OnPreRoundStart;
+        }
+
+        private void OnPreRoundStart()
+        {
+            foreach(var playerManager in deadPlayers)
+            {
+                SpawnPlayer(playerManager);
+                playerManager.AddDefaultPlayerStates();
+            }
+            deadPlayers.Clear();
         }
 
         public void SpawnPlayers()
@@ -46,7 +64,7 @@ namespace OperationPlayground.Player
             playerManager.AddPlayerState(PlayerCapabilityType.Camera);
             playerManager.Health.FullyHeal();
 
-            StartCoroutine(PlayerRespawnCoroutine(playerManager));
+            deadPlayers.Add(playerManager);
         }
 
         private void Update()
@@ -55,20 +73,6 @@ namespace OperationPlayground.Player
             {
                 takenSpawnLocations.Clear();
             }
-        }
-
-        private IEnumerator PlayerRespawnCoroutine(PlayerManager playerManager)
-        {
-            float timer = 0;
-
-            while (timer < respawnTimer)
-            {
-                timer += Time.deltaTime;
-                yield return null;
-            }
-
-            SpawnPlayer(playerManager);
-            playerManager.AddDefaultPlayerStates();
         }
     }
 }

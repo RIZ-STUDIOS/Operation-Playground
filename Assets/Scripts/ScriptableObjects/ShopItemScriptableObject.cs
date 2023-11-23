@@ -11,5 +11,6 @@ namespace OperationPlayground.ScriptableObjects
         public int itemCost;
         public bool availableInTruckShop;
         public bool availableInRadioShop;
+        public WeaponScriptableObject weaponSo;
     }
 }

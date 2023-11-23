@@ -13,10 +13,9 @@ MonoBehaviour:
   m_Name: SMG
   m_EditorClassIdentifier: 
   id: SMG
-  sprite: {fileID: 21300000, guid: b40c42d21b4e75c4ab3700c47ac0dd05, type: 3}
+  sprite: {fileID: 21300000, guid: ff0085e1ad2395d4ca552cbc3ee1a337, type: 3}
   supplyCost: 25
   type: 0
-  weapon: {fileID: 0}
   availableInTruckShop: 1
   availableInRadioShop: 0
   weaponSo: {fileID: 11400000, guid: a89cd43c3ae93cb43b6c91078a2399b7, type: 2}

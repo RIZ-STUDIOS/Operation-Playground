@@ -1,5 +1,6 @@
 using OperationPlayground.Loading;
 using OperationPlayground.Managers;
+using OperationPlayground.UI;
 using RicTools.Managers;
 using RicTools.Utilities;
 using System.Collections;
@@ -95,6 +96,7 @@ namespace OperationPlayground.Player
         private void SetupPlayer(PlayerManager playerManager)
         {
             playerManager.AddDefaultPlayerStates();
+            playerManager.GetComponentInChildren<SupplyCountUI>().SubscribeEvent();
         }
 
         private void OnGameSceneLoad()

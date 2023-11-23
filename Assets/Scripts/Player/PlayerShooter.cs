@@ -159,7 +159,7 @@ namespace OperationPlayground.Player
             {
                 foreach (var weapon in heldWeapons)
                 {
-                    if (weapon.weaponSo == weaponSO) return weapon;
+                    if (weapon.CompareScriptableObject(weaponSO)) return weapon;
                 }
             }
             return null;

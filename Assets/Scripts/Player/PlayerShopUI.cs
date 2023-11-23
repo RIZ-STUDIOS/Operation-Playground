@@ -20,6 +20,10 @@ namespace OperationPlayground.Player
 
         private List<ShopButton> shopButtonList;
 
+        public bool InShop => _inShop;
+
+        private bool _inShop;
+
         private void Awake()
         {
             playerCanvas = GetComponentInParent<PlayerCanvas>();
@@ -58,9 +62,16 @@ namespace OperationPlayground.Player
             shopButtonList[shopNavigationIndex].SetButtonSelected();
 
             EnableShopInput();
+
+            _inShop = true;
         }
 
-        public void CloseShop(InputAction.CallbackContext value)
+        public void OnCancelPerformed(InputAction.CallbackContext value)
+        {
+            CloseShop();
+        }
+
+        public void CloseShop()
         {
             foreach (Transform child in scrollShop.transform)
             {
@@ -77,6 +88,7 @@ namespace OperationPlayground.Player
             shopButtonList.Clear();
 
             DisableShopInput();
+            _inShop = false;
         }
 
         private void OnNavigate(InputAction.CallbackContext value)
@@ -118,7 +130,7 @@ namespace OperationPlayground.Player
         private void EnableShopInput()
         {
             playerCanvas.playerManager.playerInput.Basic.Disable();
-            playerCanvas.playerManager.playerInput.UI.Cancel.performed += CloseShop;
+            playerCanvas.playerManager.playerInput.UI.Cancel.performed += OnCancelPerformed;
             playerCanvas.playerManager.playerInput.UI.Navigate.performed += OnNavigate;
             playerCanvas.playerManager.playerInput.UI.Submit.performed += OnSubmit;
         }
@@ -127,7 +139,7 @@ namespace OperationPlayground.Player
         {
             playerCanvas.playerManager.playerInput.UI.Submit.performed -= OnSubmit;
             playerCanvas.playerManager.playerInput.UI.Navigate.performed -= OnNavigate;
-            playerCanvas.playerManager.playerInput.UI.Cancel.performed -= CloseShop;
+            playerCanvas.playerManager.playerInput.UI.Cancel.performed -= OnCancelPerformed;
             playerCanvas.playerManager.playerInput.Basic.Enable();
         }
     }

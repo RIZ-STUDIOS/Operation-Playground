@@ -33,6 +33,9 @@ namespace OperationPlayground.Enemies
         private float targetCheckTimer;
         private float attackTimer;
         private float shootTimer;
+        private float randomOffsetChangeTimer;
+
+        private Vector3 targetOffset;
 
         private bool shooting;
 
@@ -41,6 +44,7 @@ namespace OperationPlayground.Enemies
         private void Awake()
         {
             followWaypoints = GetComponent<FollowWaypoints>();
+            CalculateTargetOffset();
         }
 
         private void Update()
@@ -122,14 +126,24 @@ namespace OperationPlayground.Enemies
 
         private void ResetAim()
         {
-            transform.LookAt(followWaypoints.GetCurrentWaypointPosition(), Vector3.up);
+            var position = followWaypoints.GetCurrentWaypointPosition();
+            position.y = transform.position.y;
+            transform.LookAt(position, Vector3.up);
         }
 
         private void AimAtTarget()
         {
             if (target)
             {
-                transform.LookAt(target.transform.position, Vector3.up);
+                randomOffsetChangeTimer += Time.deltaTime;
+                if (randomOffsetChangeTimer >= 1.5f)
+                {
+                    CalculateTargetOffset();
+                    randomOffsetChangeTimer = 0;
+                }
+                var targetPosition = target.transform.position;
+                targetPosition.y = transform.position.y;
+                transform.LookAt(targetPosition + targetOffset, Vector3.up);
             }
             else
             {
@@ -141,6 +155,11 @@ namespace OperationPlayground.Enemies
         {
             if (!parentEntity.enemyScriptableObject) return;
             Gizmos.DrawWireSphere(transform.position, parentEntity.enemyScriptableObject.attackRange);
+        }
+
+        private void CalculateTargetOffset()
+        {
+            targetOffset = Random.insideUnitSphere * 0.5f;
         }
     }
 }

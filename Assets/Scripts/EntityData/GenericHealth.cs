@@ -32,6 +32,8 @@ namespace OperationPlayground.EntityData
         public event System.Action onHealthChanged;
         public event System.Action onDeath;
 
+        private bool dead;
+
         protected virtual Vector3 HealthBarSpawnOffset => new Vector3(0, 2.5f, 0);
 
         protected virtual Vector3 HealthBarSize => new Vector3(1, 0.25f, 1);
@@ -61,8 +63,9 @@ namespace OperationPlayground.EntityData
 
             Health -= amount;
 
-            if (health <= 0)
+            if (health <= 0 && !dead)
             {
+                dead = true;
                 onDeath?.Invoke();
                 if (DestroyOnDeath)
                 {

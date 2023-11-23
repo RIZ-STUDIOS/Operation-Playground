@@ -15,6 +15,7 @@ namespace OperationPlayground.Player
         [SerializeField] private CanvasGroup promptCG;
         [SerializeField] private GameObject reticle;
 
+        //[System.NonSerialized]
         public PlayerManager playerManager;
 
         private RectTransform canvasRectTransform;
@@ -130,7 +131,7 @@ namespace OperationPlayground.Player
             fadeCoroutine = null;
         }
 
-        public void DisplayPrompt(string text, float duration)
+        public void DisplayPrompt(string text, float duration = 0.5f)
         {
             if (promptCoroutine != null) StopCoroutine(promptCoroutine);
 
@@ -141,12 +142,12 @@ namespace OperationPlayground.Player
 
         private IEnumerator ToggleMessagePrompt(float duration)
         {
-            promptCoroutine = StartCoroutine(ToggleCanvasElement(promptCG, true, fadeSpeedMod: 2f));
+            promptCoroutine = StartCoroutine(ToggleCanvasElement(promptCG, true, fadeSpeedMod: 3f));
             while (promptCG.alpha != 1) yield return null;
             
             yield return new WaitForSeconds(duration);
 
-            promptCoroutine = StartCoroutine(ToggleCanvasElement(promptCG, false, fadeSpeedMod: 2f));
+            promptCoroutine = StartCoroutine(ToggleCanvasElement(promptCG, false, fadeSpeedMod: 3f));
         }
 
         private IEnumerator DebugCo()

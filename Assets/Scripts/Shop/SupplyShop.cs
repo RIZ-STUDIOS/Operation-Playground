@@ -1,7 +1,7 @@
 using OperationPlayground.Interactables;
 using OperationPlayground.Player;
-using OperationPlayground.Rounds;
 using OperationPlayground.ScriptableObjects;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace OperationPlayground.Shop
@@ -16,18 +16,12 @@ namespace OperationPlayground.Shop
         {
             interactable = GetComponent<Interactable>();
             interactable.onInteract += OnInteract;
-
-            RoundManager.Instance.onPreRoundStart += () => interactable.enabled = true;
-            RoundManager.Instance.onPreRoundEnd += () =>
-            {
-
-                interactable.enabled = false;
-            };
         }
 
-        private void OnInteract(PlayerManager playerManager)
+        private void OnInteract(PlayerManager pM)
         {
-            playerManager.PlayerShopUI.OpenShop(shopItems);
+            if (interactable.CanInteractWith) pM.GetComponentInChildren<PlayerShopUI>().OpenShop(shopItems);
+            else pM.PlayerCanvas.DisplayPrompt("<color=#EC5D5D>SHOP UNAVAILABLE</color>");
         }
     }
 }

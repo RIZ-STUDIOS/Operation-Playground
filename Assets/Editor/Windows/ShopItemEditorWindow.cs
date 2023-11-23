@@ -64,8 +64,8 @@ namespace OperationPlayground.Editor.Windows
             }
             else
             {
-                itemSprite.Value = so.itemSprite;
-                supplyCost.Value = so.itemCost;
+                itemSprite.Value = so.sprite;
+                supplyCost.Value = so.supplyCost;
                 availableInTruckShop.Value = so.availableInTruckShop;
                 availableInRadioShop.Value = so.availableInRadioShop;
                 weaponSO.Value = so.weaponSo;
@@ -74,8 +74,8 @@ namespace OperationPlayground.Editor.Windows
 
         protected override void CreateAsset(ref ShopItemScriptableObject asset)
         {
-            asset.itemSprite = itemSprite;
-            asset.itemCost = supplyCost;
+            asset.sprite = itemSprite;
+            asset.supplyCost = supplyCost;
             asset.availableInRadioShop = availableInRadioShop;
             asset.availableInTruckShop = availableInTruckShop;
             asset.weaponSo = weaponSO;

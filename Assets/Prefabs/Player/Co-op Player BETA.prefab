@@ -957,7 +957,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponHoldTransform: {fileID: 7898335944874745302}
   maxWeaponSlots: 4
-  defaultWeaponScriptableObject: {fileID: 11400000, guid: a89cd43c3ae93cb43b6c91078a2399b7,
+  defaultWeaponScriptableObject: {fileID: 11400000, guid: 0049b9e0cbcbbb54eb433784828f66f3,
     type: 2}
 --- !u!114 &1370434865088146647
 MonoBehaviour:
@@ -1037,7 +1037,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40cec5f6a8d636a4d82e2039bd287179, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 6
+  maxSpeed: 5
   playerAnimator: {fileID: 8374723080524973596}
 --- !u!114 &6177291057596857722
 MonoBehaviour:

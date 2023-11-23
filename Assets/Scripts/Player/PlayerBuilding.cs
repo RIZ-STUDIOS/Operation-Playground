@@ -3,6 +3,7 @@ using OperationPlayground.Managers;
 using OperationPlayground.Resources;
 using OperationPlayground.ScriptableObjects;
 using OperationPlayground.UI;
+using Pathfinding;
 using RicTools.Attributes;
 using System.Collections;
 using System.Collections.Generic;
@@ -188,6 +189,10 @@ namespace OperationPlayground.Player
 
                     var invalidPlacement = buildingObject.GetOrAddComponent<InvalidPlacement>();
                     invalidPlacement.invalid = true;
+
+                    var guo = new GraphUpdateObject(new Bounds(buildingObject.transform.position, currentBuilding.boundsToCheck));
+
+                    AstarPath.active.UpdateGraphs(guo);
 
                     triggerDown = false;
                     UpdateTimerUI();

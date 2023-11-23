@@ -11,6 +11,8 @@ namespace OperationPlayground.Player
 
         private PlayerManager playerManager;
 
+        public Interactable CurrentInteractable => currentInteractable;
+
         private Interactable currentInteractable;
 
         private void Awake()

@@ -32,6 +32,10 @@ namespace OperationPlayground.Pathfinding
 
         private int currentWaypoint;
 
+        private Vector3 point;
+
+        private Vector3 previousWaypointPosition;
+
         private void Awake()
         {
             seeker = GetComponent<Seeker>();
@@ -46,7 +50,7 @@ namespace OperationPlayground.Pathfinding
                 currentPathWaypoint = waypointList.GetFirstWaypoint();
             else
                 currentPathWaypoint = null;
-            RecalculatePath();
+            CalculateNewPath();
         }
 
         public void NextWaypoint()
@@ -57,15 +61,21 @@ namespace OperationPlayground.Pathfinding
             {
                 onEndPathReached?.Invoke();
             }
-            RecalculatePath();
+            CalculateNewPath();
         }
 
-        public void RecalculatePath()
+        public void CalculateNewPath()
+        {
+            point = currentPathWaypoint.GetRandomPoint();
+            CalculatePath();
+        }
+
+        public void CalculatePath()
         {
             seeker.CancelCurrentPathRequest();
             if (currentPathWaypoint == null)
                 path = null;
-            seeker.StartPath(transform.position, currentPathWaypoint.GetRandomPoint(), OnPathComplete);
+            seeker.StartPath(transform.position, point, OnPathComplete);
         }
 
         public void SetSpeed(float speed)
@@ -100,6 +110,7 @@ namespace OperationPlayground.Pathfinding
                     if (currentWaypoint + 1 < path.vectorPath.Count)
                     {
                         currentWaypoint++;
+                        previousWaypointPosition = path.vectorPath[currentWaypoint];
                     }
                     else
                     {
@@ -140,13 +151,12 @@ namespace OperationPlayground.Pathfinding
 
         public Vector3 GetCurrentWaypointPosition()
         {
-            if (path == null) return Vector3.zero;
+            if (path == null) return previousWaypointPosition;
             return path.vectorPath[currentWaypoint];
         }
 
         public Vector3 GetMovementDirection()
         {
-            if(path == null) return Vector3.zero;
             return (GetCurrentWaypointPosition() - transform.position).normalized;
         }
     }

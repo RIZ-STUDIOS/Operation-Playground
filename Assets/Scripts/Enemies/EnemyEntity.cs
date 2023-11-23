@@ -25,6 +25,10 @@ namespace OperationPlayground.Enemies
 
         public override GenericShooter Shooter => EnemyShooter;
 
+        private FollowWaypoints followWaypoints;
+
+        private float timer;
+
         public static GameObject SpawnEnemy(EnemyScriptableObject enemyScriptableObject, Vector3 spawnLocation = default)
         {
             var enemyObject = Instantiate(enemyScriptableObject.prefab);
@@ -39,6 +43,7 @@ namespace OperationPlayground.Enemies
             enemy.Shooter.AddWeapon(enemyScriptableObject.weaponScriptableObject);
 
             var followPath = enemyObject.GetComponent<FollowWaypoints>();
+            enemy.followWaypoints = followPath;
             if (followPath)
             {
                 followPath.SetPosition(spawnLocation);
@@ -53,6 +58,17 @@ namespace OperationPlayground.Enemies
                 enemy.transform.position = spawnLocation;
 
             return enemyObject;
+        }
+
+        private void Update()
+        {
+            timer += Time.deltaTime;
+
+            if(timer >= 5)
+            {
+                followWaypoints.CalculateNewPath();
+                timer = 0;
+            }
         }
     }
 }

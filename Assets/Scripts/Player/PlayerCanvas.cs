@@ -53,7 +53,7 @@ namespace OperationPlayground.Player
         {
             if (fadeCoroutine != null) StopCoroutine(fadeCoroutine);
 
-            if (interactable)
+            if (interactable && interactable.enabled)
                 fadeCoroutine = StartCoroutine(ToggleCanvasElement(interactCG, true));
             else
                 fadeCoroutine = StartCoroutine(ToggleCanvasElement(interactCG, false));

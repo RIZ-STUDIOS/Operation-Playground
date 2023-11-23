@@ -1,5 +1,6 @@
 using OperationPlayground.EntityData;
 using OperationPlayground.Managers;
+using OperationPlayground.Rounds;
 using RicTools.Attributes;
 using System.Collections;
 using System.Collections.Generic;
@@ -25,6 +26,11 @@ namespace OperationPlayground.Player
             base.Awake();
             playerManager = GetComponent<PlayerManager>();
             onDeath += OnDeath;
+        }
+
+        private void Start()
+        {
+            RoundManager.Instance.onRoundEnd += () => FullyHeal();
         }
 
         private void OnDeath()

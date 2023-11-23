@@ -103,7 +103,8 @@ namespace OperationPlayground.Interactables
 
             if (!nearbyPlayers.Contains(playerManager)) return;
 
-            playerManager.PlayerInteraction.SetInteractable(null);
+            if (playerManager.PlayerInteraction.CurrentInteractable == this)
+                playerManager.PlayerInteraction.SetInteractable(null);
         }
 
         private void OnValidate()
@@ -116,11 +117,21 @@ namespace OperationPlayground.Interactables
         private void OnEnable()
         {
             UpdateOutlines();
+            foreach(var playerManager in nearbyPlayers)
+            {
+                if(playerManager.PlayerInteraction.CurrentInteractable == this)
+                    playerManager.PlayerInteraction.SetInteractable(this);
+            }
         }
 
         private void OnDisable()
         {
             UpdateOutlines();
+            foreach (var playerManager in nearbyPlayers)
+            {
+                if (playerManager.PlayerInteraction.CurrentInteractable == this)
+                    playerManager.PlayerInteraction.SetInteractable(this);
+            }
         }
 
         public void UpdateOutlines()

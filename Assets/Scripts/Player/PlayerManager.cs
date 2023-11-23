@@ -50,6 +50,8 @@ namespace OperationPlayground.Player
 
         public MapHighlight MapHighlight => this.GetIfNull(ref _mapHighlight);
 
+        public PlayerShopUI PlayerShopUI => this.GetIfNull(ref _playerShopUI);
+
         private PlayerCamera _playerCamera;
         private Renderer[] _playerRenderers;
         private Collider[] _playerColliders;
@@ -66,6 +68,7 @@ namespace OperationPlayground.Player
         private CharacterController _characterController;
         private PlayerLookMap _playerLook;
         private MapHighlight _mapHighlight;
+        private PlayerShopUI _playerShopUI;
 
         public override GameTeam Team => GameTeam.TeamA;
 

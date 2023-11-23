@@ -1,5 +1,6 @@
 using OperationPlayground.Interactables;
 using OperationPlayground.Player;
+using OperationPlayground.Rounds;
 using OperationPlayground.ScriptableObjects;
 using UnityEngine;
 
@@ -15,11 +16,18 @@ namespace OperationPlayground.Shop
         {
             interactable = GetComponent<Interactable>();
             interactable.onInteract += OnInteract;
+
+            RoundManager.Instance.onPreRoundStart += () => interactable.enabled = true;
+            RoundManager.Instance.onPreRoundEnd += () =>
+            {
+
+                interactable.enabled = false;
+            };
         }
 
-        private void OnInteract(PlayerManager pM)
+        private void OnInteract(PlayerManager playerManager)
         {
-            pM.GetComponentInChildren<PlayerShopUI>().OpenShop(shopItems);
+            playerManager.PlayerShopUI.OpenShop(shopItems);
         }
     }
 }

@@ -30,23 +30,21 @@ namespace OperationPlayground.Player
 
         public void OpenShop(ShopItemScriptableObject[] shopItems)
         {
-            foreach (var shopItem in shopItems)
-            {
-                if (SkipInvalidItem(shopItem)) continue;
-
-                var buyButton = Instantiate(shopButtonPrefab);
-
-                ShopButton shopButton = buyButton.GetComponent<ShopButton>();
-                shopButton.AssignShopItem(shopItem);
-                shopButton.transform.SetParent(scrollShop.transform, false);
-
-                shopButtonList.Add(shopButton);
-            }
-
             if (shopItems.Length <= 0)
             {
                 playerCanvas.DisplayPrompt("<color=#EC5D5D>NO ITEMS IN SHOP</color>");
                 return;
+            }
+
+            foreach (var shopItem in shopItems)
+            {
+                var buyButton = Instantiate(shopButtonPrefab);
+
+                ShopButton shopButton = buyButton.GetComponent<ShopButton>();
+                shopButton.AssignShopItem(shopItem, playerCanvas.playerManager);
+                shopButton.transform.SetParent(scrollShop.transform, false);
+
+                shopButtonList.Add(shopButton);
             }
 
             playerCanvas.playerManager.RemovePlayerState(PlayerCapabilityType.Movement);
@@ -60,19 +58,6 @@ namespace OperationPlayground.Player
             shopButtonList[shopNavigationIndex].SetButtonSelected();
 
             EnableShopInput();
-        }
-
-        private bool SkipInvalidItem(ShopItemScriptableObject shopItem)
-        {
-            switch (shopItem.type)
-            {
-                case ShopItemWeaponType.Weapon:
-                    {
-
-                    }
-                    break;
-            }
-            return false;
         }
 
         public void CloseShop(InputAction.CallbackContext value)
@@ -127,7 +112,7 @@ namespace OperationPlayground.Player
 
         private void OnSubmit(InputAction.CallbackContext value)
         {
-            shopButtonList[shopNavigationIndex].OnClick();
+            shopButtonList[shopNavigationIndex].BuyItem(playerCanvas.playerManager);
         }
 
         private void EnableShopInput()

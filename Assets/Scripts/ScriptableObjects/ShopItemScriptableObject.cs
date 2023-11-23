@@ -11,7 +11,6 @@ namespace OperationPlayground.ScriptableObjects
         public Sprite sprite;
         public int supplyCost;
         public ShopItemWeaponType type;
-        public Weapon weapon;
         public bool availableInTruckShop;
         public bool availableInRadioShop;
         public WeaponScriptableObject weaponSo;

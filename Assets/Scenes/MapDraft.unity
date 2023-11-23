@@ -709,7 +709,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1743514446519076, guid: 796da63bd221ff94bb7fb1530d633f73,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 243810019}
+      addedObject: {fileID: 243810022}
   m_SourcePrefab: {fileID: 100100000, guid: 796da63bd221ff94bb7fb1530d633f73, type: 3}
 --- !u!4 &74544000 stripped
 Transform:
@@ -1006,14 +1006,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 139676783}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: -0, y: 0.26175836, z: -0, w: 0.9651334}
   m_LocalPosition: {x: 2.642, y: -0.041, z: 9.05}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2013679230}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 30.349, z: 0}
 --- !u!114 &139676787
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1028,7 +1028,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shopItems:
   - {fileID: 11400000, guid: a9c9b6aba595b23459091aa93d9e56a7, type: 2}
-  - {fileID: 11400000, guid: c9c07a6c8e3281f44abde8e7d0fa2563, type: 2}
 --- !u!1001 &159401869
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1414,19 +1413,28 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 74543999}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &243810019
-MonoBehaviour:
+--- !u!64 &243810022
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 243810015}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f401bf75d8488ba4c81a28c100373aa8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shopItems: []
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: 253bf630c2d1a7e4a8505f0ab206dd74, type: 3}
 --- !u!1 &252159173
 GameObject:
   m_ObjectHideFlags: 0
@@ -3960,6 +3968,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9ecfd5045f8f7f448da8c79e4d1c432, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targettable: 1
 --- !u!114 &646150356
 MonoBehaviour:
   m_ObjectHideFlags: 0

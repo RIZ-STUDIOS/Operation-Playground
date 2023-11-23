@@ -1,4 +1,7 @@
+using OperationPlayground.Player;
+using OperationPlayground.Resources;
 using OperationPlayground.ScriptableObjects;
+using OperationPlayground.Weapons;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -12,17 +15,22 @@ namespace OperationPlayground.Shop
         public ShopItemScriptableObject shopItem;
 
         public Image itemBackground;
-        public Image itemImage;
+        public Image itemIcon;
         public TextMeshProUGUI itemName;
         public TextMeshProUGUI itemCost;
         public Color normalColor;
+        public bool hasGun;
 
-        public void AssignShopItem(ShopItemScriptableObject newShopItem)
+        public void AssignShopItem(ShopItemScriptableObject newShopItem, PlayerManager owningPlayer)
         {
             shopItem = newShopItem;
-            itemImage.sprite = shopItem.sprite;
-            itemName.text = shopItem.id;
-            itemCost.text = shopItem.supplyCost.ToString();
+            itemIcon.sprite = shopItem.sprite;
+
+            if (owningPlayer.PlayerShooter.GetWeaponBySO(newShopItem.weaponSo) != null) hasGun = true;
+
+            Debug.Log(hasGun);
+
+            SetText();
         }
 
         public void SetButtonSelected()
@@ -39,17 +47,32 @@ namespace OperationPlayground.Shop
             itemBackground.color = normalColor;
         }
 
-        public void OnClick()
+        public void SetText()
         {
-            switch (shopItem.type)
+            if (hasGun)
             {
-                case ShopItemWeaponType.Weapon:
-                    {
-
-                    }
-                    break;
+                itemName.text = shopItem.id + " Ammo";
+                itemCost.text = ((int)(shopItem.supplyCost * 0.5f)).ToString();
             }
-            Debug.Log(shopItem.supplyCost + " Supplies deducted!");
+            else
+            {
+                itemName.text = shopItem.id;
+                itemCost.text = shopItem.supplyCost.ToString();
+            }
+        }
+
+        public void BuyItem(PlayerManager playerManager)
+        {
+            if (hasGun)
+            {
+                playerManager.PlayerShooter.GetWeaponBySO(shopItem.weaponSo).AddAmmo((int)(shopItem.weaponSo.maxAmmo * 0.5f));
+                ResourceManager.Instance.Supplies -= (int)(shopItem.supplyCost * 0.5f);
+            }
+            else
+            {
+                playerManager.Shooter.AddWeapon(shopItem.weaponSo);
+                ResourceManager.Instance.Supplies -= shopItem.supplyCost;
+            }
         }
     }
 }

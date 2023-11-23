@@ -15,6 +15,7 @@ namespace OperationPlayground
         protected override void Awake()
         {
             base.Awake();
+
             roundManager = RoundManager.Instance;
             roundManager.onAllRoundsFinish += OnGameWon;
 

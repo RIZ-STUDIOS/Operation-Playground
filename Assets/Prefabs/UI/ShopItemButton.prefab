@@ -93,11 +93,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shopItem: {fileID: 0}
   itemBackground: {fileID: 6953527104407448561}
-  itemImage: {fileID: 683386255805470862}
+  itemIcon: {fileID: 683386255805470862}
   itemName: {fileID: 2734099154826285568}
   itemCost: {fileID: 4453811676764872286}
   normalColor: {r: 0.2509804, g: 0.29803923, b: 0.2, a: 1}
-  selectColor: {r: 0.15, g: 0.19, b: 0.1, a: 1}
+  hasGun: 0
 --- !u!1 &3201670841673240498
 GameObject:
   m_ObjectHideFlags: 0

@@ -152,5 +152,17 @@ namespace OperationPlayground.Player
 
             return null;
         }
+
+        public Weapon GetWeaponBySO(WeaponScriptableObject weaponSO)
+        {
+            if (heldWeapons.Count > 0)
+            {
+                foreach (var weapon in heldWeapons)
+                {
+                    if (weapon.weaponSo == weaponSO) return weapon;
+                }
+            }
+            return null;
+        }
     }
 }

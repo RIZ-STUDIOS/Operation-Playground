@@ -670,7 +670,6 @@ MonoBehaviour:
   shopButtonPrefab: {fileID: 550147763474860397, guid: 935750b6d7c41704caec68e23ef77588,
     type: 3}
   scrollShop: {fileID: 5600831125791121841}
-  shopButtonList: []
 --- !u!1 &2208364360076967888
 GameObject:
   m_ObjectHideFlags: 0

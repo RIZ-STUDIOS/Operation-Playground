@@ -17,6 +17,7 @@ namespace OperationPlayground.EntityData
         public abstract GenericHealth Health { get; }
         public abstract GenericShooter Shooter { get; }
 
+        public bool targettable = true;
         public virtual GameTeam Team => GameTeam.TeamB;
 
         protected virtual void Awake()

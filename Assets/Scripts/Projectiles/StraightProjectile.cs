@@ -10,7 +10,7 @@ namespace OperationPlayground.Projectiles
     {
         private const float FORCE_GRAVITY = 9.8f;
 
-        private new StraightProjectileScriptableObject projectileSo => base.projectileSo as StraightProjectileScriptableObject;
+        public new StraightProjectileScriptableObject projectileSo => base.projectileSo as StraightProjectileScriptableObject;
 
         private float timer;
 
@@ -94,7 +94,9 @@ namespace OperationPlayground.Projectiles
             hasCollided = true;
             transform.position = hit.point;
 
-            var entity = hit.collider.GetComponent<GenericEntity>();
+            var entity = hit.collider.GetComponentInParent<GenericEntity>();
+
+            onCollision?.Invoke(hit.collider, hit.point);
 
             if (!entity)
             {

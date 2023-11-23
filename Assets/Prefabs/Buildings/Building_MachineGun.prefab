@@ -165,6 +165,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55bd9c3cfdc6153439c260f388ba72a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targettable: 1
   buildingScriptableObject: {fileID: 0}
   cameraTargetTransform: {fileID: 131736545464705955}
 --- !u!114 &5212910457014125860

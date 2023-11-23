@@ -22,6 +22,7 @@ namespace OperationPlayground.Player.PlayerCapabilities
         MapLook,
         TPSLook,
         GunVisibility,
+        Target,
     }
 
     public abstract class PlayerCapability
@@ -42,6 +43,7 @@ namespace OperationPlayground.Player.PlayerCapabilities
             {PlayerCapabilityType.MapLook, typeof(MapLookPlayerCapability) },
             {PlayerCapabilityType.TPSLook, typeof(TPSLookPlayerCapability) },
             {PlayerCapabilityType.GunVisibility, typeof(GunVisbilityPlayerCapability) },
+            {PlayerCapabilityType.Target, typeof(TargetPlayerCapability) },
         };
 
         public PlayerCapabilityType CapabilityType { get; private set; }

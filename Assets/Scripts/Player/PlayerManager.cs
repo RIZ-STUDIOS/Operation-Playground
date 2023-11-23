@@ -129,6 +129,7 @@ namespace OperationPlayground.Player
             AddPlayerState(PlayerCapabilityType.MapViewInput);
             AddPlayerState(PlayerCapabilityType.TPSLook);
             AddPlayerState(PlayerCapabilityType.GunVisibility);
+            AddPlayerState(PlayerCapabilityType.Target);
         }
 
         public void AddAllPlayerStates()

@@ -42,6 +42,7 @@ GameObject:
   m_Component:
   - component: {fileID: 480220882579034357}
   - component: {fileID: 7667505667998946160}
+  - component: {fileID: 6694291121683736898}
   m_Layer: 0
   m_Name: Projectile_BazookaRocket
   m_TagString: Untagged
@@ -81,6 +82,19 @@ MonoBehaviour:
   impactGround: {fileID: 6999264587704449637}
   impactBlood: {fileID: 6053277779102276289}
   bulletRender: {fileID: 5468780327504731638}
+--- !u!114 &6694291121683736898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7288351491597327683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c9af0417f29c7d4a9a341f8d0c578c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explosionRadius: 2.5
 --- !u!1 &7873901980065479427
 GameObject:
   m_ObjectHideFlags: 0

@@ -16,5 +16,8 @@ namespace OperationPlayground.ScriptableObjects
         public WeaponScriptableObject weaponScriptableObject;
         public Sprite enemySprite;
         public float attackRange;
+        public float targetCheckTime;
+        public float attackDelayTime;
+        public float shootingTime;
     }
 }

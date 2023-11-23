@@ -153,6 +153,7 @@ GameObject:
   - component: {fileID: 4813430752336110086}
   - component: {fileID: 4035035934633382386}
   - component: {fileID: 6428795873631993109}
+  - component: {fileID: 2648147532245548407}
   m_Layer: 0
   m_Name: Building
   m_TagString: Untagged
@@ -297,6 +298,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55bd9c3cfdc6153439c260f388ba72a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targettable: 1
+  buildingScriptableObject: {fileID: 0}
+  cameraTargetTransform: {fileID: 0}
 --- !u!114 &6428795873631993109
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -311,3 +315,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotateTransform: {fileID: 8401020787651860000}
   restrictedAngle: 90
+--- !u!114 &2648147532245548407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7599571061544888827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae3c22b3b412ae94eabccb41461dac3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

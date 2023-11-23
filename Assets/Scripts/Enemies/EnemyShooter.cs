@@ -1,4 +1,5 @@
 using OperationPlayground.EntityData;
+using OperationPlayground.Pathfinding;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,6 +35,13 @@ namespace OperationPlayground.Enemies
         private float shootTimer;
 
         private bool shooting;
+
+        private FollowWaypoints followWaypoints;
+
+        private void Awake()
+        {
+            followWaypoints = GetComponent<FollowWaypoints>();
+        }
 
         private void Update()
         {
@@ -93,7 +101,6 @@ namespace OperationPlayground.Enemies
             {
                 shooting = false;
                 attackTimer = 0;
-                ResetAim();
             }
         }
 
@@ -115,13 +122,19 @@ namespace OperationPlayground.Enemies
 
         private void ResetAim()
         {
-            transform.rotation = Quaternion.identity;
+            transform.LookAt(followWaypoints.GetCurrentWaypointPosition(), Vector3.up);
         }
 
         private void AimAtTarget()
         {
-            if (!target) return;
-            transform.LookAt(target.transform.position, Vector3.up);
+            if (target)
+            {
+                transform.LookAt(target.transform.position, Vector3.up);
+            }
+            else
+            {
+                ResetAim();
+            }
         }
 
         private void OnDrawGizmosSelected()

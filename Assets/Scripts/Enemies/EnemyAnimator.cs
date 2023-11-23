@@ -8,7 +8,6 @@ namespace OperationPlayground
     public class EnemyAnimator : MonoBehaviour
     {
         private Animator animator;
-        private CharacterController enemyController;
         private FollowWaypoints followWaypoints;
 
         private int velocityXHash;
@@ -16,7 +15,6 @@ namespace OperationPlayground
 
         private void Awake()
         {
-            enemyController = GetComponent<CharacterController>();
             animator = GetComponentInChildren<Animator>();
             followWaypoints = GetComponent<FollowWaypoints>();
             velocityXHash = Animator.StringToHash("VelocityX");

@@ -138,10 +138,16 @@ namespace OperationPlayground.Pathfinding
             characterController.enabled = charEnabled;
         }
 
+        public Vector3 GetCurrentWaypointPosition()
+        {
+            if (path == null) return Vector3.zero;
+            return path.vectorPath[currentWaypoint];
+        }
+
         public Vector3 GetMovementDirection()
         {
             if(path == null) return Vector3.zero;
-            return (path.vectorPath[currentWaypoint] - transform.position).normalized;
+            return (GetCurrentWaypointPosition() - transform.position).normalized;
         }
     }
 }

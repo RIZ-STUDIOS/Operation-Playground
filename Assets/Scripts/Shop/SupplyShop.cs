@@ -20,7 +20,8 @@ namespace OperationPlayground.Shop
 
         private void OnInteract(PlayerManager pM)
         {
-            pM.GetComponentInChildren<PlayerShopUI>().OpenShop(shopItems);
+            if (interactable.CanInteractWith) pM.GetComponentInChildren<PlayerShopUI>().OpenShop(shopItems);
+            else pM.PlayerCanvas.DisplayPrompt("<color=#EC5D5D>SHOP UNAVAILABLE</color>");
         }
     }
 }

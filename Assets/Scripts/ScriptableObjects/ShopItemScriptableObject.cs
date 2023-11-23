@@ -1,3 +1,4 @@
+using OperationPlayground.Weapons;
 using RicTools.ScriptableObjects;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,9 +8,17 @@ namespace OperationPlayground.ScriptableObjects
 {
     public class ShopItemScriptableObject : GenericScriptableObject
     {
-        public Sprite itemSprite;
-        public int itemCost;
+        public Sprite sprite;
+        public int supplyCost;
+        public ShopItemWeaponType type;
+        public Weapon weapon;
         public bool availableInTruckShop;
         public bool availableInRadioShop;
+    }
+
+    public enum ShopItemWeaponType
+    {
+        None,
+        Weapon
     }
 }

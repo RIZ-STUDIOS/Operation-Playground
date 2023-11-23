@@ -18,21 +18,34 @@ namespace OperationPlayground.Player
 
         private int shopNavigationIndex = 0;
 
-        public List<Button> shopButtonList;
+        private List<ShopButton> shopButtonList;
 
         private void Awake()
         {
             playerCanvas = GetComponentInParent<PlayerCanvas>();
             canvasGroup = GetComponent<CanvasGroup>();
 
-            shopButtonList = new List<Button>();
+            shopButtonList = new List<ShopButton>();
         }
 
         public void OpenShop(ShopItemScriptableObject[] shopItems)
         {
+            foreach (var shopItem in shopItems)
+            {
+                if (SkipInvalidItem(shopItem)) continue;
+
+                var buyButton = Instantiate(shopButtonPrefab);
+
+                ShopButton shopButton = buyButton.GetComponent<ShopButton>();
+                shopButton.AssignShopItem(shopItem);
+                shopButton.transform.SetParent(scrollShop.transform, false);
+
+                shopButtonList.Add(shopButton);
+            }
+
             if (shopItems.Length <= 0)
             {
-                playerCanvas.DisplayPrompt("<color=#EC5D5D>SHOP UNAVAILABLE</color>", 1f);
+                playerCanvas.DisplayPrompt("<color=#EC5D5D>NO ITEMS IN SHOP</color>");
                 return;
             }
 
@@ -44,17 +57,22 @@ namespace OperationPlayground.Player
 
             StartCoroutine(playerCanvas.ToggleCanvasElement(canvasGroup, true, true));
 
-            foreach (var shopItem in shopItems)
-            {
-                var buyButton = Instantiate(shopButtonPrefab);
-                buyButton.GetComponent<ShopButton>().AssignShopItem(shopItem);
-                buyButton.transform.SetParent(scrollShop.transform, false);
-                shopButtonList.Add(buyButton.GetComponent<Button>());
-            }
-
-            shopButtonList[shopNavigationIndex].Select();
+            shopButtonList[shopNavigationIndex].SetButtonSelected();
 
             EnableShopInput();
+        }
+
+        private bool SkipInvalidItem(ShopItemScriptableObject shopItem)
+        {
+            switch (shopItem.type)
+            {
+                case ShopItemWeaponType.Weapon:
+                    {
+
+                    }
+                    break;
+            }
+            return false;
         }
 
         public void CloseShop(InputAction.CallbackContext value)
@@ -78,6 +96,7 @@ namespace OperationPlayground.Player
 
         private void OnNavigate(InputAction.CallbackContext value)
         {
+            int previousNavigationIndex = shopNavigationIndex;
             Vector2 input = value.ReadValue<Vector2>();
 
             switch (input.y)
@@ -97,9 +116,18 @@ namespace OperationPlayground.Player
                         if (shopNavigationIndex >= shopButtonList.Count) shopNavigationIndex = 0;
                     }
                     break;
+
+                default:
+                    return;
             }
 
-            shopButtonList[shopNavigationIndex].Select();
+            shopButtonList[previousNavigationIndex].SetButtonDeselected();
+            shopButtonList[shopNavigationIndex].SetButtonSelected();
+        }
+
+        private void OnSubmit(InputAction.CallbackContext value)
+        {
+            shopButtonList[shopNavigationIndex].OnClick();
         }
 
         private void EnableShopInput()
@@ -107,10 +135,12 @@ namespace OperationPlayground.Player
             playerCanvas.playerManager.playerInput.Basic.Disable();
             playerCanvas.playerManager.playerInput.UI.Cancel.performed += CloseShop;
             playerCanvas.playerManager.playerInput.UI.Navigate.performed += OnNavigate;
+            playerCanvas.playerManager.playerInput.UI.Submit.performed += OnSubmit;
         }
 
         private void DisableShopInput()
         {
+            playerCanvas.playerManager.playerInput.UI.Submit.performed -= OnSubmit;
             playerCanvas.playerManager.playerInput.UI.Navigate.performed -= OnNavigate;
             playerCanvas.playerManager.playerInput.UI.Cancel.performed -= CloseShop;
             playerCanvas.playerManager.playerInput.Basic.Enable();

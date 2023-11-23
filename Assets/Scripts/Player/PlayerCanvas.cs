@@ -131,7 +131,7 @@ namespace OperationPlayground.Player
             fadeCoroutine = null;
         }
 
-        public void DisplayPrompt(string text, float duration)
+        public void DisplayPrompt(string text, float duration = 0.5f)
         {
             if (promptCoroutine != null) StopCoroutine(promptCoroutine);
 

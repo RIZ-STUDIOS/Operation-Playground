@@ -11,22 +11,45 @@ namespace OperationPlayground.Shop
     {
         public ShopItemScriptableObject shopItem;
 
+        public Image itemBackground;
         public Image itemImage;
         public TextMeshProUGUI itemName;
         public TextMeshProUGUI itemCost;
+        public Color normalColor;
 
         public void AssignShopItem(ShopItemScriptableObject newShopItem)
         {
             shopItem = newShopItem;
-            itemImage.sprite = shopItem.itemSprite;
+            itemImage.sprite = shopItem.sprite;
             itemName.text = shopItem.id;
-            itemCost.text = shopItem.itemCost.ToString();
-            GetComponent<Button>().onClick.AddListener(OnClick);
+            itemCost.text = shopItem.supplyCost.ToString();
+        }
+
+        public void SetButtonSelected()
+        {
+            Color selectColor = normalColor;
+            selectColor.r *= 0.65f;
+            selectColor.g *= 0.65f;
+            selectColor.b *= 0.65f;
+            itemBackground.color = selectColor;
+        }
+
+        public void SetButtonDeselected()
+        {
+            itemBackground.color = normalColor;
         }
 
         public void OnClick()
         {
-            Debug.Log(shopItem.itemCost + " Supplies deducted!");
+            switch (shopItem.type)
+            {
+                case ShopItemWeaponType.Weapon:
+                    {
+
+                    }
+                    break;
+            }
+            Debug.Log(shopItem.supplyCost + " Supplies deducted!");
         }
     }
 }

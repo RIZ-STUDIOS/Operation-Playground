@@ -14,6 +14,7 @@ namespace OperationPlayground.ScriptableObjects
         public Weapon weapon;
         public bool availableInTruckShop;
         public bool availableInRadioShop;
+        public WeaponScriptableObject weaponSo;
     }
 
     public enum ShopItemWeaponType

@@ -16,6 +16,8 @@ namespace OperationPlayground.Editor.Windows
         public EditorContainer<bool> availableInTruckShop = new EditorContainer<bool>(true);
         public EditorContainer<bool> availableInRadioShop;
 
+        public EditorContainer<WeaponScriptableObject> weaponSO;
+
         [MenuItem("Operation Playground/Item Shop Editor")]
         public static ShopItemEditorWindow ShowWindow()
         {
@@ -27,6 +29,11 @@ namespace OperationPlayground.Editor.Windows
             {
                 var element = rootVisualElement.AddObjectField(itemSprite, "Item Sprite");
                 RegisterLoadChange(element, itemSprite);
+            }
+
+            {
+                var element = rootVisualElement.AddObjectField(weaponSO, "Weapon SO");
+                RegisterLoadChange(element, weaponSO);
             }
 
             {
@@ -53,6 +60,7 @@ namespace OperationPlayground.Editor.Windows
                 supplyCost.Reset();
                 availableInRadioShop.Reset();
                 availableInTruckShop.Reset();
+                weaponSO.Reset();
             }
             else
             {
@@ -60,6 +68,7 @@ namespace OperationPlayground.Editor.Windows
                 supplyCost.Value = so.supplyCost;
                 availableInTruckShop.Value = so.availableInTruckShop;
                 availableInRadioShop.Value = so.availableInRadioShop;
+                weaponSO.Value = so.weaponSo;
             }
         }
 
@@ -69,6 +78,7 @@ namespace OperationPlayground.Editor.Windows
             asset.supplyCost = supplyCost;
             asset.availableInRadioShop = availableInRadioShop;
             asset.availableInTruckShop = availableInTruckShop;
+            asset.weaponSo = weaponSO;
         }
     }
 }

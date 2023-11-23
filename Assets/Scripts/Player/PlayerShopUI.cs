@@ -18,19 +18,21 @@ namespace OperationPlayground.Player
 
         private int shopNavigationIndex = 0;
 
-        private List<Button> shopButtonList;
+        public List<Button> shopButtonList;
 
         private void Awake()
         {
             playerCanvas = GetComponentInParent<PlayerCanvas>();
             canvasGroup = GetComponent<CanvasGroup>();
+
+            shopButtonList = new List<Button>();
         }
 
         public void OpenShop(ShopItemScriptableObject[] shopItems)
         {
             if (shopItems.Length <= 0)
             {
-                playerCanvas.DisplayPrompt("<color=#EC5D5D>SHOP UNAVAILABLE</color>", 3f);
+                playerCanvas.DisplayPrompt("<color=#EC5D5D>SHOP UNAVAILABLE</color>", 1f);
                 return;
             }
 
@@ -47,14 +49,12 @@ namespace OperationPlayground.Player
                 var buyButton = Instantiate(shopButtonPrefab);
                 buyButton.GetComponent<ShopButton>().AssignShopItem(shopItem);
                 buyButton.transform.SetParent(scrollShop.transform, false);
+                shopButtonList.Add(buyButton.GetComponent<Button>());
             }
 
-            if (scrollShop.transform.childCount > 0)
-            {
-                scrollShop.transform.GetChild(0).GetComponent<Button>().Select();
-            }
+            shopButtonList[shopNavigationIndex].Select();
 
-
+            EnableShopInput();
         }
 
         public void CloseShop(InputAction.CallbackContext value)
@@ -71,7 +71,9 @@ namespace OperationPlayground.Player
             playerCanvas.playerManager.AddPlayerState(PlayerCapabilityType.Shooter);
             playerCanvas.playerManager.AddPlayerState(PlayerCapabilityType.ToggleBuilding);
 
-            
+            shopButtonList.Clear();
+
+            DisableShopInput();
         }
 
         private void OnNavigate(InputAction.CallbackContext value)
@@ -92,7 +94,7 @@ namespace OperationPlayground.Player
                 case -1:
                     {
                         shopNavigationIndex++;
-                        if (shopNavigationIndex > shopButtonList.Count) shopNavigationIndex = 0;
+                        if (shopNavigationIndex >= shopButtonList.Count) shopNavigationIndex = 0;
                     }
                     break;
             }

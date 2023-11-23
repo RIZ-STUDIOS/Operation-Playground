@@ -1,49 +1,47 @@
-using OperationPlayground.Enemies;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class EntityRagdollHandler : MonoBehaviour
+namespace OperationPlayground.EntityData
 {
-    private Rigidbody[] rigidbodies;
-    private EnemyHealth enemyHealth;
-    
-    private void Awake()
+    public class EntityRagdollHandler : MonoBehaviour
     {
-        rigidbodies = GetComponentsInChildren<Rigidbody>();
-        DisableRagdoll();
+        private Rigidbody[] rigidbodies;
 
-        enemyHealth = GetComponentInParent<EnemyHealth>();
-        enemyHealth.onDeath += EnableRagdoll;
-    }
-
-    public void DisableRagdoll()
-    {
-        foreach (var rigidbody in rigidbodies)
+        private void Awake()
         {
-            rigidbody.isKinematic = true;
-        }
-    }
+            rigidbodies = GetComponentsInChildren<Rigidbody>();
+            DisableRagdoll();
 
-    [ContextMenu("TriggerRagdoll")]
-    public void EnableRagdoll()
-    {
-        transform.parent = null;
-
-        GetComponent<Animator>().enabled = false;
-
-        foreach (var rigidbody in rigidbodies)
-        {
-            rigidbody.isKinematic = false;
+            GetComponentInParent<GenericHealth>().onDeath += EnableRagdoll;
         }
 
-        StartCoroutine(DeathSequence());
-    }
+        public void DisableRagdoll()
+        {
+            foreach (var rigidbody in rigidbodies)
+            {
+                rigidbody.isKinematic = true;
+            }
+        }
 
-    private IEnumerator DeathSequence()
-    {
-        yield return new WaitForSeconds(3);
+        public void EnableRagdoll()
+        {
+            transform.parent = null;
 
-        Destroy(gameObject);
+            GetComponent<Animator>().enabled = false;
+
+            foreach (var rigidbody in rigidbodies)
+            {
+                rigidbody.isKinematic = false;
+            }
+
+            StartCoroutine(DeathSequence());
+        }
+
+        private IEnumerator DeathSequence()
+        {
+            yield return new WaitForSeconds(3);
+
+            Destroy(gameObject);
+        }
     }
 }

@@ -26,6 +26,10 @@ namespace OperationPlayground.Player
 
         private Vector3 smoothVelocity = Vector3.zero;
 
+        [SerializeField]
+        private LayerMask _lookMask;
+        public LayerMask LookMask { get { return _lookMask; } }
+
         private void Awake()
         {
             playerManager = GetComponentInParent<PlayerManager>();
@@ -107,7 +111,7 @@ namespace OperationPlayground.Player
             Vector3 fallbackVector = PlayerCamera.transform.position + PlayerCamera.transform.forward * 200f;
 
             Ray ray = new Ray(PlayerCamera.transform.position, PlayerCamera.transform.forward);
-            if (Physics.Raycast(ray, out RaycastHit hit, 999, 1, QueryTriggerInteraction.Ignore))
+            if (Physics.Raycast(ray, out RaycastHit hit, 999, _lookMask, QueryTriggerInteraction.Ignore))
             {
                 _aimTransform.position = Vector3.SmoothDamp(_aimTransform.position, hit.point, ref smoothVelocity, 0.1f);
             }

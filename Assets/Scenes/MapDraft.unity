@@ -7360,6 +7360,12 @@ PrefabInstance:
       propertyPath: m_AllowJoining
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6313550740997706603, guid: 9e81c5e73d266d34d8d3f13e637cfb32,
+        type: 3}
+      propertyPath: m_PlayerPrefab
+      value: 
+      objectReference: {fileID: 2420707843782067168, guid: 2c6d5390345aaee43b1b00613f662a52,
+        type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

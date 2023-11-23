@@ -71,7 +71,7 @@ namespace OperationPlayground.Player
 
             Vector3 screenPoint;
 
-            if (Physics.Raycast(firepointRay, out RaycastHit hit, 999f, 1, QueryTriggerInteraction.Ignore))
+            if (Physics.Raycast(firepointRay, out RaycastHit hit, 999f, playerManager.PlayerMovementTPS.LookMask, QueryTriggerInteraction.Ignore))
             {
                 screenPoint = playerCamera.WorldToScreenPoint(hit.point);
             }

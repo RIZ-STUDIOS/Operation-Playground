@@ -40,7 +40,7 @@ namespace OperationPlayground.Enemies
         private void CreateAmmoPickup()
         {
             var gameObject = Instantiate(PrefabsManager.Instance.data.ammoPickupPrefab);
-            gameObject.transform.position = transform.position + new Vector3(0, 0.1f, 0);
+            gameObject.transform.position = transform.position + new Vector3(0, 0.25f, 0);
         }
     }
 }

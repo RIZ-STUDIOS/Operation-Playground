@@ -3,7 +3,6 @@ using OperationPlayground.UI;
 using OperationPlayground.Weapons;
 using System.Collections;
 using TMPro;
-using Unity.Profiling.Editor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 

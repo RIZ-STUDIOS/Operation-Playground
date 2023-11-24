@@ -69,6 +69,10 @@ namespace OperationPlayground.Player
         public void OnCancelPerformed(InputAction.CallbackContext value)
         {
             CloseShop();
+            if (playerCanvas.playerManager.PlayerInteraction.CurrentInteractable != null)
+            {
+                playerCanvas.EnableInteract();
+            }
         }
 
         public void CloseShop()
@@ -124,7 +128,7 @@ namespace OperationPlayground.Player
 
         private void OnSubmit(InputAction.CallbackContext value)
         {
-            shopButtonList[shopNavigationIndex].BuyItem(playerCanvas.playerManager);
+            shopButtonList[shopNavigationIndex].OnSubmit(playerCanvas.playerManager);
         }
 
         private void EnableShopInput()

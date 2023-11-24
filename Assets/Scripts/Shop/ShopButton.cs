@@ -10,15 +10,13 @@ using UnityEngine.UI;
 
 namespace OperationPlayground.Shop
 {
-    public class ShopButton : MonoBehaviour
+    public class ShopButton : ZedButton
     {
         public ShopItemScriptableObject shopItem;
 
-        public Image itemBackground;
         public Image itemIcon;
         public TextMeshProUGUI itemName;
         public TextMeshProUGUI itemCost;
-        public Color normalColor;
         public bool hasGun;
 
         private int ItemCost
@@ -42,20 +40,6 @@ namespace OperationPlayground.Shop
             SetText();
         }
 
-        public void SetButtonSelected()
-        {
-            Color selectColor = normalColor;
-            selectColor.r *= 0.65f;
-            selectColor.g *= 0.65f;
-            selectColor.b *= 0.65f;
-            itemBackground.color = selectColor;
-        }
-
-        public void SetButtonDeselected()
-        {
-            itemBackground.color = normalColor;
-        }
-
         public void SetText()
         {
             if (hasGun)
@@ -70,9 +54,14 @@ namespace OperationPlayground.Shop
             }
         }
 
-        public void BuyItem(PlayerManager playerManager)
+        public override void OnSubmit(PlayerManager playerManager)
         {
-            if (ResourceManager.Instance.Supplies < ItemCost) return;
+            if (ResourceManager.Instance.Supplies < ItemCost)
+            {
+                playerManager.PlayerCanvas.DisplayPrompt("<color=#EC5D5D>INSUFFICIENT SUPPLIES</color>");
+                return;
+            }
+
             if (hasGun)
             {
                 var weapon = playerManager.PlayerShooter.GetWeaponBySO(shopItem.weaponSo);
@@ -81,7 +70,7 @@ namespace OperationPlayground.Shop
             }
             else
             {
-            ResourceManager.Instance.Supplies -= ItemCost;
+                ResourceManager.Instance.Supplies -= ItemCost;
                 playerManager.Shooter.AddWeapon(shopItem.weaponSo);
                 hasGun = true;
                 SetText();

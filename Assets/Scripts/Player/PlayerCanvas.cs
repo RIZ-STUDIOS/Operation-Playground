@@ -13,12 +13,11 @@ namespace OperationPlayground.Player
         [SerializeField] private CanvasGroup interactCG;
         [SerializeField] private CanvasGroup supplyShopCG;
         [SerializeField] private CanvasGroup promptCG;
-        public GameObject reticle;
         [SerializeField] private CanvasGroup deathCG;
+        public GameObject reticle;
 
         public GameOverUI gameOverUI;
 
-        //[System.NonSerialized]
         public PlayerManager playerManager;
 
         private RectTransform canvasRectTransform;
@@ -45,8 +44,6 @@ namespace OperationPlayground.Player
 
             canvasRectTransform = GetComponent<RectTransform>();
             reticleRectTransform = reticle.GetComponent<RectTransform>();
-
-            //StartCoroutine(DebugCo());
         }
 
         private void FixedUpdate()
@@ -62,6 +59,19 @@ namespace OperationPlayground.Player
                 fadeCoroutine = StartCoroutine(ToggleCanvasElement(interactCG, true));
             else
                 fadeCoroutine = StartCoroutine(ToggleCanvasElement(interactCG, false));
+
+            interactable.onInteract += DisableInteract;
+        }
+
+        public void EnableInteract()
+        {
+            StartCoroutine(ToggleCanvasElement(interactCG, true));
+        }
+
+        public void DisableInteract(PlayerManager playerManager)
+        {
+            StartCoroutine(ToggleCanvasElement(interactCG, false));
+            playerManager.PlayerInteraction.CurrentInteractable.onInteract -= DisableInteract;
         }
 
         private void MatchReticleToMuzzleTrajectory()
@@ -146,15 +156,6 @@ namespace OperationPlayground.Player
             yield return new WaitForSeconds(duration);
 
             promptCoroutine = StartCoroutine(ToggleCanvasElement(promptCG, false, fadeSpeedMod: 3f));
-        }
-
-        private IEnumerator DebugCo()
-        {
-            while (true)
-            {
-                Debug.Log("Prompt Coroutine: " + promptCoroutine);
-                yield return new WaitForSeconds(1);
-            }
         }
 
         public void ShowDeathScreen()

@@ -91,12 +91,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a202a01e2e90fae4ca867e408fed7c60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _buttonBackground: {fileID: 6953527104407448561}
+  _normalColor: {r: 0.2509804, g: 0.29803923, b: 0.2, a: 1}
   shopItem: {fileID: 0}
-  itemBackground: {fileID: 6953527104407448561}
   itemIcon: {fileID: 683386255805470862}
   itemName: {fileID: 2734099154826285568}
   itemCost: {fileID: 4453811676764872286}
-  normalColor: {r: 0.2509804, g: 0.29803923, b: 0.2, a: 1}
   hasGun: 0
 --- !u!1 &3201670841673240498
 GameObject:

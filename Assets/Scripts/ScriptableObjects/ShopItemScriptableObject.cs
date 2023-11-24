@@ -10,13 +10,13 @@ namespace OperationPlayground.ScriptableObjects
     {
         public Sprite sprite;
         public int supplyCost;
-        public ShopItemWeaponType type;
+        public ShopItemType type;
         public bool availableInTruckShop;
         public bool availableInRadioShop;
         public WeaponScriptableObject weaponSo;
     }
 
-    public enum ShopItemWeaponType
+    public enum ShopItemType
     {
         None,
         Weapon

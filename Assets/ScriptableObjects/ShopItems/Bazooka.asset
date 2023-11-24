@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f86e05ed5b55ecf4aaa8e17ea223d88f, type: 3}
-  m_Name: SMG
+  m_Name: Bazooka
   m_EditorClassIdentifier: 
-  id: SMG
+  id: Bazooka
   sprite: {fileID: 21300000, guid: 3e08c53b2ca4223428970445a15af99c, type: 3}
-  supplyCost: 25
+  supplyCost: 100
   type: 0
   availableInTruckShop: 1
   availableInRadioShop: 0
-  weaponSo: {fileID: 11400000, guid: a89cd43c3ae93cb43b6c91078a2399b7, type: 2}
+  weaponSo: {fileID: 11400000, guid: 0049b9e0cbcbbb54eb433784828f66f3, type: 2}

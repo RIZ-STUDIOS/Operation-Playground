@@ -73,13 +73,15 @@ namespace OperationPlayground.Shop
         public void BuyItem(PlayerManager playerManager)
         {
             if (ResourceManager.Instance.Supplies < ItemCost) return;
-            ResourceManager.Instance.Supplies -= ItemCost;
             if (hasGun)
             {
-                playerManager.PlayerShooter.GetWeaponBySO(shopItem.weaponSo).AddAmmo((int)(shopItem.weaponSo.maxAmmo * 0.5f));
+                var weapon = playerManager.PlayerShooter.GetWeaponBySO(shopItem.weaponSo);
+                if (weapon.AddAmmo((int)(shopItem.weaponSo.maxAmmo * 0.5f)) <= 0)
+                    ResourceManager.Instance.Supplies -= ItemCost;
             }
             else
             {
+            ResourceManager.Instance.Supplies -= ItemCost;
                 playerManager.Shooter.AddWeapon(shopItem.weaponSo);
                 hasGun = true;
                 SetText();

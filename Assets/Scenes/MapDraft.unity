@@ -1029,6 +1029,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shopItems:
   - {fileID: 11400000, guid: a9c9b6aba595b23459091aa93d9e56a7, type: 2}
+  - {fileID: 11400000, guid: 46017e77c4cd60048806b32c60671884, type: 2}
 --- !u!1001 &159401869
 PrefabInstance:
   m_ObjectHideFlags: 0

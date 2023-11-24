@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -50,9 +51,10 @@ namespace OperationPlayground.Player
         private void OnEnable()
         {
             EnableInput();
+
+            SetAimPosition();
             UpdateRotation();
             RotateCharacter();
-            SetAimPosition();
         }
 
         private void OnDisable()
@@ -61,6 +63,8 @@ namespace OperationPlayground.Player
             Vector3 aimPos = _aimTransform.localPosition;
             aimPos.y = 0.1f;
             _aimTransform.transform.localPosition = aimPos;
+
+            Debug.Log(rotX + " " + rotY);
         }
 
         private void Update()
@@ -89,8 +93,8 @@ namespace OperationPlayground.Player
 
         private void UpdateRotation()
         {
-            rotX = playerManager.playerTransform.rotation.x;
-            rotY = playerManager.playerTransform.rotation.y;
+            rotX = playerManager.playerTransform.eulerAngles.x;
+            rotY = playerManager.playerTransform.eulerAngles.y;
         }
 
         private void RotateCharacter()

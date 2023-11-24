@@ -36,7 +36,7 @@ namespace OperationPlayground.Enemies
             var enemy = enemyObject.GetComponent<EnemyEntity>();
 
             if (!enemy)
-                throw new System.Exception();
+                throw new System.Exception("NOT AN ENEMY");
 
             enemy.enemyScriptableObject = enemyScriptableObject;
 

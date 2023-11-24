@@ -8801,13 +8801,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf195fd27af576140923512d37b6091a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  preRoundTimer: 20
+  preRoundTimer: 5
   waypointLists:
   - {fileID: 787334279}
   - {fileID: 1130760628}
   - {fileID: 1386762133}
   rounds:
-  - {fileID: 11400000, guid: bc030b3c74722f74ca88fb1fa6a3fdeb, type: 2}
+  - {fileID: 11400000, guid: b5affec592ea84c4e96fa7216516abdd, type: 2}
   - {fileID: 11400000, guid: bc030b3c74722f74ca88fb1fa6a3fdeb, type: 2}
 --- !u!4 &616800481
 Transform:
@@ -29100,7 +29100,7 @@ MonoBehaviour:
       type: 3}
     data_cachedStartup: 
     cacheStartup: 1
-  showNavGraphs: 0
+  showNavGraphs: 1
   showUnwalkableNodes: 1
   debugMode: 0
   debugFloor: 0

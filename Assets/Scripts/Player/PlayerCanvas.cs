@@ -60,7 +60,7 @@ namespace OperationPlayground.Player
             else
                 fadeCoroutine = StartCoroutine(ToggleCanvasElement(interactCG, false));
 
-            interactable.onInteract += DisableInteract;
+            if (interactable) interactable.onInteract += DisableInteract;
         }
 
         public void EnableInteract()

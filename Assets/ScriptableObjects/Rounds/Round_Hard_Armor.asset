@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 444aa95fe13dd61478978fd226b19b40, type: 3}
+  m_Name: Round_Hard_Armor
+  m_EditorClassIdentifier: 
+  id: Round_Hard_Armor
+  minEnemies: 1
+  maxEnemies: 5
+  spawnDelay: 3
+  supplyReward: 500
+  enemies:
+  - enemySo: {fileID: 11400000, guid: 49b80c967d202274e96aab40786c6e95, type: 2}

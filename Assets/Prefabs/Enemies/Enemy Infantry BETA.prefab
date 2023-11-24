@@ -48,7 +48,7 @@ GameObject:
   - component: {fileID: -3321143499473240436}
   - component: {fileID: 5712903436314417593}
   m_Layer: 0
-  m_Name: Enemy BETA
+  m_Name: Enemy Infantry BETA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

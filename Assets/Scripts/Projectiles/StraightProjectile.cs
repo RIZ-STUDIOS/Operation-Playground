@@ -110,7 +110,7 @@ namespace OperationPlayground.Projectiles
                 return;
             }
 
-            entity.Health.Damage();
+            entity.Health.Damage(projectileSo.damage);
             StartCoroutine(DestroyAfterFX(impactBlood));
         }
 

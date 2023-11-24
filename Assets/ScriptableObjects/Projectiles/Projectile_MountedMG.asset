@@ -15,6 +15,6 @@ MonoBehaviour:
   id: Projectile_MountedMG
   prefab: {fileID: 7288351491597327683, guid: 7ab5e1bcc886dd343862a7ad88310edb, type: 3}
   speed: 797
-  damageType: 0
+  damage: 2
   projectileType: 0
   aliveTime: 0.5

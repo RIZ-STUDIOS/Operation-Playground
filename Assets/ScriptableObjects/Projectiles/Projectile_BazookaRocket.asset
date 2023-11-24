@@ -15,6 +15,6 @@ MonoBehaviour:
   id: Projectile_BazookaRocket
   prefab: {fileID: 7288351491597327683, guid: 68b0697e82423334888f75a17bac4d4f, type: 3}
   speed: 110
-  damageType: 0
+  damage: 500
   projectileType: 0
   aliveTime: 2

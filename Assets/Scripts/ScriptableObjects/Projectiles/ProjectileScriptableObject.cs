@@ -10,7 +10,7 @@ namespace OperationPlayground.ScriptableObjects.Projectiles
     {
         public GameObject prefab;
         public float speed;
-        public DamageType damageType;
+        public int damage;
         public ProjectileType projectileType;
     }
 
@@ -18,10 +18,5 @@ namespace OperationPlayground.ScriptableObjects.Projectiles
     {
         Straight,
         Arc
-    }
-
-    public enum DamageType
-    {
-        None
     }
 }

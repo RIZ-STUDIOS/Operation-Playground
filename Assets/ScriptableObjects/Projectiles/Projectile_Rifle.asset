@@ -9,9 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df6052c6456234948b3b043b7099d9d2, type: 3}
-  m_Name: AvailableRounds
+  m_Script: {fileID: 11500000, guid: 6cfa8ea39692a58418ec0555f149b52a, type: 3}
+  m_Name: Projectile_Rifle
   m_EditorClassIdentifier: 
-  items:
-  - {fileID: 11400000, guid: b5df20847c6b1664e81f2bae7c604bbc, type: 2}
-  - {fileID: 11400000, guid: bc030b3c74722f74ca88fb1fa6a3fdeb, type: 2}
+  id: Projectile_Rifle
+  prefab: {fileID: 7288351491597327683, guid: 018f619ab33bf0146a970da7c466c52b, type: 3}
+  speed: 615
+  damageType: 0
+  projectileType: 0
+  aliveTime: 1

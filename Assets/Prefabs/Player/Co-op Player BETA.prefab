@@ -342,7 +342,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 3405936ab0f1ffb4fa49b8123985252e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5ae879af157069044b94ecbdbc3f0f74, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -1235,7 +1235,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponHoldTransform: {fileID: 7898335944874745302}
   maxWeaponSlots: 4
-  defaultWeaponScriptableObject: {fileID: 11400000, guid: 0049b9e0cbcbbb54eb433784828f66f3,
+  defaultWeaponScriptableObject: {fileID: 11400000, guid: 8298f02143fa7d54f83f67f395a8f3b5,
     type: 2}
 --- !u!114 &1370434865088146647
 MonoBehaviour:

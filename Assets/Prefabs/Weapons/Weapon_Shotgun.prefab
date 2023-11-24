@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7922222406643585558}
   - component: {fileID: -6650606241826977914}
-  - component: {fileID: 8855447101065287436}
   m_Layer: 0
   m_Name: Weapon_Shotgun
   m_TagString: Untagged
@@ -50,19 +49,6 @@ MonoBehaviour:
   weaponSo: {fileID: 0}
   _firePointTransform: {fileID: 4463709162312353674}
   infiniteAmmo: 1
---- !u!114 &8855447101065287436
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5672386898822300190}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 777fa560ea03a9347ac33f88451a7518, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _pelletCount: 6
 --- !u!1 &7210810280814924358
 GameObject:
   m_ObjectHideFlags: 0

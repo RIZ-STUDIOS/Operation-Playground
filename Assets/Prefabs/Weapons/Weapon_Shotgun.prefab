@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7922222406643585558}
-  - component: {fileID: -6650606241826977914}
+  - component: {fileID: 6252644866437982273}
   m_Layer: 0
   m_Name: Weapon_Shotgun
   m_TagString: Untagged
@@ -34,7 +34,7 @@ Transform:
   - {fileID: 9218070222589294774}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-6650606241826977914
+--- !u!114 &6252644866437982273
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -43,12 +43,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 5672386898822300190}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 572e354d3ab7c1b49839714acdb59273, type: 3}
+  m_Script: {fileID: 11500000, guid: e6dcaae7ed09784458ab431da020007f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   weaponSo: {fileID: 0}
   _firePointTransform: {fileID: 4463709162312353674}
   infiniteAmmo: 1
+  deviationMultiplier: 0.025
+  numberOfShots: 3
 --- !u!1 &7210810280814924358
 GameObject:
   m_ObjectHideFlags: 0

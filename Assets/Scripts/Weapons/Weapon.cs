@@ -70,20 +70,31 @@ namespace OperationPlayground.Weapons
             if (!HasAmmo()) return false;
             if (shootCooldown > 0) return false;
 
+            ShootGun();
+
+            return true;
+        }
+
+        protected virtual void ShootGun()
+        {
             shootCooldown = weaponSo.cooldown;
 
             var projectileObject = Projectile.CreateProjectile(weaponSo.projectileScriptableObject, shooter);
 
             projectileObject.transform.position = _firePointTransform.position;
-            projectileObject.transform.forward = _firePointTransform.forward;
+            projectileObject.transform.forward = GetFirePointForwardVector().normalized;
 
             if (!infiniteAmmo)
             {
                 currentAmmo--;
             }
             onAmmoChange?.Invoke();
+        }
 
-            return true;
+        protected virtual Vector3 GetFirePointForwardVector()
+        {
+            var deviation = Random.insideUnitCircle * weaponSo.deviationOffsetModifier;
+            return _firePointTransform.forward + new Vector3(deviation.x, deviation.y);
         }
 
         public void ApplyOffset()

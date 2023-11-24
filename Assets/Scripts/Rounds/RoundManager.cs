@@ -43,6 +43,10 @@ namespace OperationPlayground.Rounds
 
         public RoundStatus RoundStatus => roundStatus;
 
+        private List<EnemyEntity> enemyEntities = new List<EnemyEntity>();
+
+        private Coroutine spawnEnemiesCoroutine;
+
         protected override void Awake()
         {
             base.Awake();
@@ -92,6 +96,7 @@ namespace OperationPlayground.Rounds
         {
             roundStatus = RoundStatus.Round;
 
+            enemyEntities.Clear();
             Debug.Log("Started Round");
             onRoundStart?.Invoke();
 
@@ -104,7 +109,7 @@ namespace OperationPlayground.Rounds
 
             roundList.RemoveAt(0);
 
-            StartCoroutine(SpawnEnemiesRoundCoroutine());
+            spawnEnemiesCoroutine = StartCoroutine(SpawnEnemiesRoundCoroutine());
         }
 
         private bool CheckFinishRounds()
@@ -115,6 +120,8 @@ namespace OperationPlayground.Rounds
         public void EnemyKilled()
         {
             CurrentRound.killedEnemies++;
+
+            if (roundStatus == RoundStatus.Finished) return;
 
             if (CurrentRound.killedEnemies == CurrentRound.enemyCount)
             {
@@ -171,7 +178,21 @@ namespace OperationPlayground.Rounds
                 followPath.NextWaypoint();
             }
 
+            enemyEntities.Add(enemy.GetComponentInChildren<EnemyEntity>());
+
             CurrentRound.spawnEnemies++;
+        }
+
+        public void StopRounds()
+        {
+            roundStatus = RoundStatus.Finished;
+            if (spawnEnemiesCoroutine != null)
+                StopCoroutine(spawnEnemiesCoroutine);
+            foreach (var enemy in enemyEntities)
+            {
+                enemy.Shooter.enabled = false;
+                enemy.GetComponent<FollowWaypoints>().enabled = false;
+            }
         }
     }
 

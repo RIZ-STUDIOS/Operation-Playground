@@ -1,4 +1,5 @@
 using OperationPlayground.Interactables;
+using OperationPlayground.UI;
 using OperationPlayground.Weapons;
 using System.Collections;
 using TMPro;
@@ -15,6 +16,8 @@ namespace OperationPlayground.Player
         [SerializeField] private CanvasGroup promptCG;
         [SerializeField] private GameObject reticle;
         [SerializeField] private CanvasGroup deathCG;
+
+        public GameOverUI gameOverUI;
 
         //[System.NonSerialized]
         public PlayerManager playerManager;

@@ -33,8 +33,8 @@ namespace OperationPlayground.Projectiles
 
         private void Start()
         {
-            startPosition = shooter.CurrentWeapon.FirePointTransform.position;
-            startPositionForward = shooter.CurrentWeapon.FirePointTransform.forward.normalized;
+            startPosition = transform.position;
+            startPositionForward = transform.forward;
 
             currentPoint = startPosition;
             previousPoint = startPosition;
@@ -86,7 +86,7 @@ namespace OperationPlayground.Projectiles
 
         private bool CastRayBetweenTwoPoints(Vector3 startPoint, Vector3 endPoint, out RaycastHit hit)
         {
-            return Physics.Raycast(startPoint, endPoint - startPoint, out hit, (endPoint - startPoint).magnitude, Physics.AllLayers ^ LayerMask.GetMask("InvisibleInvalidPlacement", "EnemyPath"), QueryTriggerInteraction.Ignore);
+            return Physics.Raycast(startPoint, endPoint - startPoint, out hit, (endPoint - startPoint).magnitude, Physics.AllLayers ^ LayerMask.GetMask("InvisibleInvalidPlacement", "EnemyPath",  "PlayerBarrier"), QueryTriggerInteraction.Ignore);
         }
 
         private void HitQuery(RaycastHit hit)

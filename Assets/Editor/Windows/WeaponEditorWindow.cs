@@ -18,6 +18,7 @@ namespace OperationPlayground.Editor.Windows
         public EditorContainer<ProjectileScriptableObject> projectileSo;
         public EditorContainer<Vector3> slotOffset;
         public EditorContainer<Sprite> weaponSprite = new EditorContainer<Sprite>();
+        public EditorContainer<Vector2> deviationOffsetModifier = new EditorContainer<Vector2>();
 
         [MenuItem("Operation Playground/Weapon Editor")]
         public static WeaponEditorWindow ShowWindow()
@@ -61,6 +62,11 @@ namespace OperationPlayground.Editor.Windows
                 var element = rootVisualElement.AddVector3Field(slotOffset, "Slot Offset");
                 RegisterLoadChange(element, slotOffset);
             }
+
+            {
+                var element = rootVisualElement.AddVector2Field(deviationOffsetModifier, "Deviation Offset");
+                RegisterLoadChange(element, deviationOffsetModifier);
+            }
         }
 
         protected override void LoadScriptableObject(WeaponScriptableObject so, bool isNull)
@@ -73,6 +79,7 @@ namespace OperationPlayground.Editor.Windows
                 slotOffset.Reset();
                 maxAmmo.Reset();
                 weaponSprite.Reset();
+                deviationOffsetModifier.Reset();
             }
             else
             {
@@ -82,6 +89,7 @@ namespace OperationPlayground.Editor.Windows
                 slotOffset.Value = so.slotOffset;
                 maxAmmo.Value = so.maxAmmo;
                 weaponSprite.Value = so.weaponSprite;
+                deviationOffsetModifier.Value = so.deviationOffsetModifier;
             }
         }
 
@@ -93,6 +101,7 @@ namespace OperationPlayground.Editor.Windows
             asset.slotOffset = slotOffset;
             asset.maxAmmo = maxAmmo;
             asset.weaponSprite = weaponSprite;
+            asset.deviationOffsetModifier = deviationOffsetModifier;
         }
 
         protected override IEnumerable<CompleteCriteria> GetCompleteCriteria()

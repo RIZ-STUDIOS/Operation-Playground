@@ -76,7 +76,7 @@ namespace OperationPlayground.Shop
             if (hasGun)
             {
                 var weapon = playerManager.PlayerShooter.GetWeaponBySO(shopItem.weaponSo);
-                if (weapon.AddAmmo((int)(shopItem.weaponSo.maxAmmo * 0.5f)) <= 0)
+                if (weapon.AddAmmo((int)Mathf.Ceil(shopItem.weaponSo.maxAmmo * 0.5f)) <= 0)
                     ResourceManager.Instance.Supplies -= ItemCost;
             }
             else

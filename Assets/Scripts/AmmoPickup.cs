@@ -41,7 +41,7 @@ namespace OperationPlayground
             }
             if (!weapon) return;
 
-            weapon.AddAmmo((int)(weapon.weaponSo.maxAmmo / 10f));
+            weapon.AddAmmo((int)Mathf.Ceil(weapon.weaponSo.maxAmmo / 10f));
 
             Destroy(gameObject);
         }

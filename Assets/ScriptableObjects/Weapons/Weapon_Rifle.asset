@@ -19,4 +19,4 @@ MonoBehaviour:
   projectileScriptableObject: {fileID: 11400000, guid: f75939d4658a60e4aac0ed199155f0ae,
     type: 2}
   slotOffset: {x: 0, y: 0, z: 0}
-  weaponSprite: {fileID: 21300000, guid: e1916e1298e56f544b9654fbcabd9753, type: 3}
+  weaponSprite: {fileID: 21300000, guid: 5381a29e377f04c4f97f3a7da4867339, type: 3}

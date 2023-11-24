@@ -47,6 +47,7 @@ namespace OperationPlayground.Player
 
         public void SpawnPlayer(PlayerManager playerManager)
         {
+            playerManager.Health.FullyHeal();
             Transform spawnLocation;
             do
             {
@@ -60,11 +61,14 @@ namespace OperationPlayground.Player
         {
             playerManager.RemoveAllPlayerStates();
             playerManager.AddPlayerState(PlayerCapabilityType.Camera);
-            playerManager.Health.FullyHeal();
 
             if (RoundManager.Instance.RoundStatus == RoundStatus.Round)
             {
                 deadPlayers.Add(playerManager);
+                if(deadPlayers.Count == PlayerSpawnManager.TotalPlayers)
+                {
+                    GameStateManager.Instance.OnGameLost();
+                }
             }
             else
             {

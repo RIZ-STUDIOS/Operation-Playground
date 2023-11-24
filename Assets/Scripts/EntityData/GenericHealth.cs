@@ -86,6 +86,11 @@ namespace OperationPlayground.EntityData
                 return;
 
             Health += amount;
+
+            if(Health > 0)
+            {
+                dead = false;
+            }
         }
 
         public void FullyHeal()

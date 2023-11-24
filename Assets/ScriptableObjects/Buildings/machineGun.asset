@@ -19,5 +19,5 @@ MonoBehaviour:
   placementOffset: {x: 0, y: -1.08, z: 2.5}
   boundsToCheck: {x: 2.0105674, y: 1.7001948, z: 4.4815483}
   resourceCost: 50
-  buildingSprite: {fileID: 1167946846, guid: d26d0767cdd713f4ab006b87496deb80, type: 3}
+  buildingSprite: {fileID: 21300000, guid: ac3b5b77c36c5f74584e23463382450e, type: 3}
   health: 5

@@ -24,20 +24,10 @@ namespace OperationPlayground.Editor.Windows
         public EditorContainer<float> attackDelayTime;
         public EditorContainer<float> shootingTime;
 
-        public DamageType[] damageTypes;
-
-        private SerializedProperty damageTypesProperty;
-
         [MenuItem("Operation Playground/Enemy Editor")]
         public static EnemyEditorWindow ShowWindow()
         {
             return GetWindow<EnemyEditorWindow>("Enemy Editor");
-        }
-
-        protected override void OnEnable()
-        {
-            base.OnEnable();
-            damageTypesProperty = serializedObject.FindProperty("damageTypes");
         }
 
         protected override void DrawGUI()
@@ -88,10 +78,6 @@ namespace OperationPlayground.Editor.Windows
                 var element = rootVisualElement.AddFloatField(shootingTime, "Shooting Time");
                 RegisterLoadChange(element, shootingTime);
             }
-
-            {
-                var element = rootVisualElement.AddPropertyField(damageTypesProperty, "Damage Types");
-            }
         }
 
         protected override void LoadScriptableObject(EnemyScriptableObject so, bool isNull)
@@ -101,7 +87,6 @@ namespace OperationPlayground.Editor.Windows
                 maxHealth.Reset();
                 weaponScriptableObject.Reset();
                 prefab.Reset();
-                damageTypes = new DamageType[] { };
                 speed.Reset();
                 enemySprite.Reset();
                 attackRange.Reset();
@@ -114,7 +99,6 @@ namespace OperationPlayground.Editor.Windows
                 maxHealth.Value = so.maxHealth;
                 weaponScriptableObject.Value = so.weaponScriptableObject;
                 prefab.Value = so.prefab;
-                damageTypes = so.vulnerableDamageTypes.Copy();
                 speed.Value = so.speed;
                 enemySprite.Value = so.enemySprite;
                 attackRange.Value = so.attackRange;
@@ -129,7 +113,6 @@ namespace OperationPlayground.Editor.Windows
             asset.weaponScriptableObject = weaponScriptableObject;
             asset.maxHealth = maxHealth;
             asset.prefab = prefab;
-            asset.vulnerableDamageTypes = damageTypes.Copy();
             asset.speed = speed;
             asset.enemySprite = enemySprite;
             asset.attackRange = attackRange;

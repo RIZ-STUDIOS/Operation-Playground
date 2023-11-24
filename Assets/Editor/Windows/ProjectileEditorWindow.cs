@@ -18,7 +18,7 @@ namespace OperationPlayground.Editor.Windows
         public EditorContainer<float> maxRange;
         public EditorContainer<float> speed;
         public EditorContainer<float> aliveTime;
-        public EditorContainer<DamageType> damageType;
+        public EditorContainer<int> damage;
 
         private FloatField maxRangeFloatField;
         private FloatField timeAliveFloatField;
@@ -58,8 +58,8 @@ namespace OperationPlayground.Editor.Windows
             }
 
             {
-                var element = rootVisualElement.AddEnumField(damageType, "Damage Type");
-                RegisterLoadChange(element, damageType);
+                var element = rootVisualElement.AddIntField(damage, "Damage");
+                RegisterLoadChange(element, damage);
             }
 
             UpdateVisibleFields();
@@ -71,7 +71,7 @@ namespace OperationPlayground.Editor.Windows
             {
                 prefab.Reset();
                 projectileType.Reset();
-                damageType.Reset();
+                damage.Reset();
                 maxRange.Reset();
                 speed.Reset();
                 aliveTime.Reset();
@@ -80,7 +80,7 @@ namespace OperationPlayground.Editor.Windows
             {
                 prefab.Value = so.prefab;
                 projectileType.Value = so.projectileType;
-                damageType.Value = so.damageType;
+                damage.Value = so.damage;
                 speed.Value = so.speed;
                 if (so is ArcProjectileScriptableObject arcProj)
                 {
@@ -118,7 +118,7 @@ namespace OperationPlayground.Editor.Windows
 
             asset.prefab = prefab;
             asset.projectileType = projectileType;
-            asset.damageType = damageType;
+            asset.damage = damage;
             asset.speed = speed;
         }
 

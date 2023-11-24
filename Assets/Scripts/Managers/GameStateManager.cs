@@ -34,7 +34,7 @@ namespace OperationPlayground.Managers
             }
         }
 
-        private void OnGameLost()
+        public void OnGameLost()
         {
             Debug.Log("Game Lost");
             roundManager.StopRounds();

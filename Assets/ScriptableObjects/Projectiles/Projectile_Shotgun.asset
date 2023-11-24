@@ -15,6 +15,6 @@ MonoBehaviour:
   id: Projectile_Shotgun
   prefab: {fileID: 7288351491597327683, guid: a4b2e7f0f1b9b3047a899f4802876c40, type: 3}
   speed: 381
-  damageType: 0
+  damage: 1
   projectileType: 0
   aliveTime: 1

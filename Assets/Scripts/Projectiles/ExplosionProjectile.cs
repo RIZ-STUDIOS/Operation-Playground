@@ -12,6 +12,9 @@ namespace OperationPlayground.Projectiles
         [SerializeField]
         private float explosionRadius = 5;
 
+        [SerializeField]
+        private int explosionDamage = 10;
+
         private StraightProjectile projectile;
 
         private void Awake()
@@ -33,7 +36,11 @@ namespace OperationPlayground.Projectiles
 
                 if(projectile.shooter.parentEntity.Team == genericEntity.Team) continue;
 
-                genericEntity.Health.Damage();
+                var distance = Vector3.Distance(genericEntity.transform.position, hitPoint);
+
+                var damageFalloff = distance / explosionRadius;
+
+                genericEntity.Health.Damage((int)Mathf.Ceil(explosionDamage * damageFalloff));
             }
         }
 

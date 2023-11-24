@@ -140,14 +140,13 @@ namespace OperationPlayground.Player
             }
         }
 
-        private Weapon FindWeaponWithAmmo()
+        public Weapon FindWeaponWithAmmo()
         {
             if (heldWeapons.Count == 0) return null;
-            if (heldWeapons.Count == 1) return heldWeapons[0];
 
-            for (int i = 1; i < heldWeapons.Count; i++)
+            for (int i = 0; i < heldWeapons.Count; i++)
             {
-                if (heldWeapons[i].HasAmmo()) return heldWeapons[i];
+                if (!heldWeapons[i].InfiniteAmmo) return heldWeapons[i];
             }
 
             return null;

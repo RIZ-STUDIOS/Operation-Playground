@@ -20,3 +20,5 @@ MonoBehaviour:
     type: 3}
   cratePrefab: {fileID: 8257343781488228297, guid: 73c955d684a9a9c48a3e85c4a1f3c6b3,
     type: 3}
+  ammoPickupPrefab: {fileID: 5152461021469583986, guid: 735e221ed8807c343a2129c197f85bc2,
+    type: 3}

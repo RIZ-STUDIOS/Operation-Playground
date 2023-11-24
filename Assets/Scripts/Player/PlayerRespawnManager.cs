@@ -10,9 +10,6 @@ namespace OperationPlayground.Player
 {
     public class PlayerRespawnManager : MonoBehaviour
     {
-        [SerializeField]
-        private float respawnTimer;
-
         private PlayerSpawnManager PlayerSpawnManager => PlayerSpawnManager.Instance;
 
         private List<Transform> takenSpawnLocations = new List<Transform>();
@@ -48,7 +45,7 @@ namespace OperationPlayground.Player
             }
         }
 
-        private void SpawnPlayer(PlayerManager playerManager)
+        public void SpawnPlayer(PlayerManager playerManager)
         {
             Transform spawnLocation;
             do

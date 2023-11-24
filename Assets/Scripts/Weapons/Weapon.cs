@@ -82,7 +82,8 @@ namespace OperationPlayground.Weapons
             var projectileObject = Projectile.CreateProjectile(weaponSo.projectileScriptableObject, shooter);
 
             projectileObject.transform.position = _firePointTransform.position;
-            projectileObject.transform.forward = GetFirePointForwardVector().normalized;
+            projectileObject.transform.LookAt(GetFirePointForwardVector());
+            projectileObject.transform.forward = GetFirePointForwardVector();
 
             if (!infiniteAmmo)
             {
@@ -94,7 +95,7 @@ namespace OperationPlayground.Weapons
         protected virtual Vector3 GetFirePointForwardVector()
         {
             var deviation = Random.insideUnitCircle * weaponSo.deviationOffsetModifier;
-            return _firePointTransform.forward + new Vector3(deviation.x, deviation.y);
+            return (_firePointTransform.forward + new Vector3(deviation.x, deviation.y)).normalized;
         }
 
         public void ApplyOffset()

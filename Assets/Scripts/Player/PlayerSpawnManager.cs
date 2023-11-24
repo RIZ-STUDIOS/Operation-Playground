@@ -100,6 +100,7 @@ namespace OperationPlayground.Player
             playerManager.GetComponentInChildren<SupplyCountUI>().SubscribeEvent();
             playerManager.Health.FullyHeal();
             RoundManager.Instance.onRoundEnd += () => playerManager.Health.FullyHeal();
+            GameManager.Instance.playerRespawnManager.SpawnPlayer(playerManager);
         }
 
         private void OnGameSceneLoad()

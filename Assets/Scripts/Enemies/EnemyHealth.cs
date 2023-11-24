@@ -1,4 +1,5 @@
 using OperationPlayground.EntityData;
+using OperationPlayground.Managers;
 using OperationPlayground.Rounds;
 using System.Collections;
 using System.Collections.Generic;
@@ -26,6 +27,7 @@ namespace OperationPlayground.Enemies
             onDeath += () =>
             {
                 RoundManager.Instance.EnemyKilled();
+                CreateAmmoPickup();
             };
         }
 
@@ -33,6 +35,12 @@ namespace OperationPlayground.Enemies
         {
             CreateHealthBar();
             Health = MaxHealth;
+        }
+
+        private void CreateAmmoPickup()
+        {
+            var gameObject = Instantiate(PrefabsManager.Instance.data.ammoPickupPrefab);
+            gameObject.transform.position = transform.position + new Vector3(0, 0.1f, 0);
         }
     }
 }

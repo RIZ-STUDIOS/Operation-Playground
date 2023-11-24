@@ -11,5 +11,6 @@ namespace OperationPlayground.Managers
         public GameObject radialBarUIPrefab;
         public GameObject progressBarUIPrefab;
         public GameObject cratePrefab;
+        public GameObject ammoPickupPrefab;
     }
 }

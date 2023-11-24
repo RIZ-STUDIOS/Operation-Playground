@@ -2,6 +2,7 @@ using OperationPlayground.EntityData;
 using OperationPlayground.Managers;
 using OperationPlayground.Pathfinding;
 using OperationPlayground.ScriptableObjects;
+using OperationPlayground.Weapons;
 using Pathfinding;
 using System.Collections;
 using System.Collections.Generic;
@@ -40,7 +41,15 @@ namespace OperationPlayground.Enemies
 
             enemy.enemyScriptableObject = enemyScriptableObject;
 
-            enemy.Shooter.AddWeapon(enemyScriptableObject.weaponScriptableObject);
+            var weapon = enemy.GetComponentInChildren<Weapon>();
+            if (!weapon)
+                enemy.Shooter.AddWeapon(enemyScriptableObject.weaponScriptableObject);
+            else
+            {
+                weapon.weaponSo = enemyScriptableObject.weaponScriptableObject;
+                weapon.InfiniteAmmo = true;
+                enemy.Shooter.SetWeapon(weapon);
+            }
 
             var followPath = enemyObject.GetComponent<FollowWaypoints>();
             enemy.followWaypoints = followPath;

@@ -22,6 +22,11 @@ namespace OperationPlayground.Enemies
 
         public override int MaxHealth => parentEntity.enemyScriptableObject.maxHealth;
 
+        [SerializeField]
+        private Vector3 healthBarSpawnOffset = new Vector3(0, 2.5f, 0);
+
+        protected override Vector3 HealthBarSpawnOffset => healthBarSpawnOffset;
+
         protected override void Awake()
         {
             onDeath += () =>
@@ -40,7 +45,7 @@ namespace OperationPlayground.Enemies
         private void CreateAmmoPickup()
         {
             var gameObject = Instantiate(PrefabsManager.Instance.data.ammoPickupPrefab);
-            gameObject.transform.position = transform.position + new Vector3(0, 0.25f, 0);
+            gameObject.transform.position = transform.position + new Vector3(0, 0.5f, 0);
         }
     }
 }

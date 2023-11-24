@@ -38,7 +38,7 @@ namespace OperationPlayground.Projectiles
 
                 var distance = Vector3.Distance(genericEntity.transform.position, hitPoint);
 
-                var damageFalloff = distance / explosionRadius;
+                var damageFalloff = Mathf.Min(1, distance / explosionRadius);
 
                 genericEntity.Health.Damage((int)Mathf.Ceil(explosionDamage * damageFalloff));
             }

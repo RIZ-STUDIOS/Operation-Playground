@@ -21,7 +21,7 @@ namespace OperationPlayground.Weapons
         [SerializeField]
         private bool infiniteAmmo;
 
-        public bool InfiniteAmmo => infiniteAmmo;
+        public bool InfiniteAmmo { get { return infiniteAmmo; } set { infiniteAmmo = value; } }
 
         private int currentAmmo;
 

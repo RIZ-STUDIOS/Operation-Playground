@@ -59,7 +59,7 @@ namespace OperationPlayground.EntityData
             return true;
         }
 
-        protected void SetWeapon(Weapon weapon)
+        public void SetWeapon(Weapon weapon)
         {
             onWeaponAdded?.Invoke(weapon);
             SwitchWeapon(weapon);

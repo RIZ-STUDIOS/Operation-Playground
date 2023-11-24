@@ -102,9 +102,8 @@ namespace OperationPlayground.Pathfinding
 
             while (true)
             {
-                var distanceDifference = transform.position - path.vectorPath[currentWaypoint];
-                distanceToWaypoint = (distanceDifference.x * distanceDifference.x) + (distanceDifference.y * distanceDifference.y) + (distanceDifference.z * distanceDifference.z);
-                if (distanceToWaypoint < nextWaypointDistance * nextWaypointDistance)
+                distanceToWaypoint = Vector3.Distance(transform.position, path.vectorPath[currentWaypoint]);
+                if (distanceToWaypoint < nextWaypointDistance)
                 {
                     if (currentWaypoint + 1 < path.vectorPath.Count)
                     {

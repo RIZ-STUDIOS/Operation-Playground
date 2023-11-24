@@ -15,12 +15,11 @@ MonoBehaviour:
   id: Enemy_Russian_Infantry
   prefab: {fileID: 242933109357955558, guid: ddd7fdf7305cd534392ca5b6775c8b49, type: 3}
   maxHealth: 5
-  vulnerableDamageTypes: 
   speed: 4
   weaponScriptableObject: {fileID: 11400000, guid: 8298f02143fa7d54f83f67f395a8f3b5,
     type: 2}
   enemySprite: {fileID: 21300000, guid: e1916e1298e56f544b9654fbcabd9753, type: 3}
-  attackRange: 10
+  attackRange: 20
   targetCheckTime: 2
   attackDelayTime: 1
   shootingTime: 1.74

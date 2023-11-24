@@ -41,6 +41,9 @@ namespace OperationPlayground.Enemies
 
         private FollowWaypoints followWaypoints;
 
+        [SerializeField]
+        private Transform aimingTransform;
+
         private void Awake()
         {
             followWaypoints = GetComponent<FollowWaypoints>();
@@ -127,8 +130,16 @@ namespace OperationPlayground.Enemies
         private void ResetAim()
         {
             var position = followWaypoints.GetCurrentWaypointPosition();
-            position.y = transform.position.y;
-            transform.LookAt(position, Vector3.up);
+            if (!target || (target && aimingTransform))
+            {
+                position.y = transform.position.y;
+                transform.LookAt(position, Vector3.up);
+            }
+            if (aimingTransform && !target)
+            {
+                position.y = aimingTransform.position.y;
+                aimingTransform.LookAt(position, Vector3.up);
+            }
         }
 
         private void AimAtTarget()
@@ -141,14 +152,12 @@ namespace OperationPlayground.Enemies
                     CalculateTargetOffset();
                     randomOffsetChangeTimer = 0;
                 }
+                var transform = aimingTransform ?? this.transform;
                 var targetPosition = target.transform.position;
                 targetPosition.y = transform.position.y;
                 transform.LookAt(targetPosition + targetOffset, Vector3.up);
             }
-            else
-            {
-                ResetAim();
-            }
+            ResetAim();
         }
 
         private void OnDrawGizmosSelected()

@@ -83,6 +83,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 8032412858161045035}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f0d1a48a3f366c34bb2453e330025b68,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3877764120366489476}
   m_SourcePrefab: {fileID: 100100000, guid: f0d1a48a3f366c34bb2453e330025b68, type: 3}
 --- !u!1 &4518226669146760187 stripped
 GameObject:
@@ -152,6 +156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4eb4614fb9a31374e9a723b0fda7889f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targettable: 0
   parachuteGameObjects:
   - {fileID: 6457839543070109077}
   - {fileID: 4518226669146760187}
@@ -176,3 +181,16 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0.5, z: 0}
+--- !u!114 &3877764120366489476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8257343781488228297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27afb29303f31ae46865d977c53d99f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 3

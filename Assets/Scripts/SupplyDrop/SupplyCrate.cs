@@ -1,3 +1,4 @@
+using OperationPlayground.EntityData;
 using OperationPlayground.Interactables;
 using OperationPlayground.Player;
 using OperationPlayground.Resources;
@@ -7,7 +8,8 @@ using UnityEngine;
 
 namespace OperationPlayground.SupplyDrop
 {
-    public class SupplyCrate : MonoBehaviour
+    [RequireComponent(typeof(SupplyCrateHealth))]
+    public class SupplyCrate : GenericEntity
     {
         [System.NonSerialized]
         public Interactable interactable;
@@ -18,8 +20,17 @@ namespace OperationPlayground.SupplyDrop
         [SerializeField]
         private GameObject[] parachuteGameObjects;
 
-        private void Awake()
+        public override GenericHealth Health => this.GetIfNull(ref _health);
+
+        public override GenericShooter Shooter => null;
+
+        private SupplyCrateHealth _health;
+
+        public override GameTeam Team => GameTeam.TeamA;
+
+        protected override void Awake()
         {
+            base.Awake();
             interactable = GetComponent<Interactable>();
 
             interactable.onInteract += OnInteract;
@@ -28,6 +39,7 @@ namespace OperationPlayground.SupplyDrop
         public void OnLand()
         {
             interactable.enabled = true;
+            targettable = true;
 
             foreach (var obj in parachuteGameObjects)
             {

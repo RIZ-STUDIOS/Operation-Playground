@@ -48,5 +48,11 @@ namespace OperationPlayground.UI
 
             wonLostText.text = "The Soviets Won the Battle";
         }
+
+        public void HideCanvasGroup()
+        {
+            canvasGroup.alpha = 0;
+            canvasGroup.interactable = false;
+        }
     }
 }

@@ -76,7 +76,8 @@ namespace OperationPlayground.Menus
 
         private void UpdatePlayers(PlayerManager playerManager)
         {
-            if (PlayerSpawnManager.Instance.TotalPlayers <= 1) EndLobby();
+            if (PlayerSpawnManager.Instance.TotalPlayers <= 1 && playerManager != PlayerSpawnManager.Instance.Players[0]) EndLobby();
+            if (PlayerSpawnManager.Instance.TotalPlayers == 1 && playerManager == PlayerSpawnManager.Instance.Players[0]) EndLobby();
             //players.RemoveAll(player => player == null);
         }
 

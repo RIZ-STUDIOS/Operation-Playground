@@ -98,6 +98,7 @@ namespace OperationPlayground.Player
         {
             playerManager.AddDefaultPlayerStates();
             playerManager.GetComponentInChildren<SupplyCountUI>().SubscribeEvent();
+            playerManager.Health.FullyHeal();
             RoundManager.Instance.onRoundEnd += () => playerManager.Health.FullyHeal();
         }
 
@@ -115,6 +116,21 @@ namespace OperationPlayground.Player
         public void DisableJoining()
         {
             PlayerInputManager.instance.DisableJoining();
+        }
+
+        [ContextMenu("Return To Main Menu")]
+        public void ReturnToMainMenu()
+        {
+            DisableJoining();
+            foreach(var player in players)
+            {
+                if (player.PlayerShopUI.InShop)
+                    player.PlayerShopUI.CloseShop();
+                player.PlayerCanvas.HideDeathScreen(true);
+                player.PlayerCanvas.gameOverUI.HideCanvasGroup();
+                player.RemoveAllPlayerStates();
+            }
+            LevelLoader.LoadScene("MainMenu");
         }
     }
 }

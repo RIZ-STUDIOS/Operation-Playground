@@ -70,16 +70,17 @@ namespace OperationPlayground.Menus
 
         private void ExitSlot()
         {
+            onPlayerExit?.Invoke(currentPlayer);
+
+            if (currentPlayer && (currentPlayer.playerIndex != 0 || (currentPlayer.playerIndex == 0 && PlayerSpawnManager.Instance.TotalPlayers == 1)))
+                ToggleInput(false);
             if (currentPlayer && currentPlayer.playerIndex != 0)
             {
                 Destroy(currentPlayer.gameObject);
                 currentPlayer = null;
+
+                ToggleCharacterSelect(false);
             }
-            ToggleInput(false);
-
-            onPlayerExit?.Invoke(currentPlayer);
-
-            ToggleCharacterSelect(false);
         }
 
         private void ReadyUp()

@@ -44,15 +44,21 @@ namespace OperationPlayground.Player
             }
             else
             {
-                ResetZoom();
+                ResetZoomPlayer();
             }
         }
 
-        private void ResetZoom()
+        private void ResetZoomPlayer()
         {
+            if (!playerManager) return;
             playerManager.RemovePlayerState(PlayerCapabilityType.MapLook);
             playerManager.AddPlayerState(PlayerCapabilityType.TPSLook);
+            ResetZoom();
+        }
 
+        public void ResetZoom()
+        {
+            if (!playerManager) return;
             playerManager.PlayerCamera.CameraBrain.enabled = true;
             playerManager.PlayerCamera.VirtualCamera.enabled = true;
 

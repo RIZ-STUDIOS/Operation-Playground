@@ -21,7 +21,7 @@ namespace OperationPlayground.Menus
         public Button creditsButton;
         public Button quitButton;
 
-        private PlayerManager firstPlayer;
+        private PlayerManager firstPlayer => PlayerSpawnManager.Instance.Players[0];
         private LobbyHandler lobby;
 
         private void Awake()
@@ -41,12 +41,16 @@ namespace OperationPlayground.Menus
 
         private void InitMainMenu()
         {
+            ActiveMenu = mainMenu;
             lobby = GetComponentInChildren<LobbyHandler>();
             lobby.onLobbyEnded += OnLobbyEnded;
 
-            PlayerSpawnManager.Instance.OnPlayerJoin += OnPlayerJoin;
-            PlayerSpawnManager.Instance.GetComponent<PlayerInputManager>().EnableJoining();
-            PlayerSpawnManager.Instance.GetComponent<PlayerInputManager>().joinBehavior = PlayerJoinBehavior.JoinPlayersWhenButtonIsPressed;
+            if (PlayerSpawnManager.Instance.Players.Count <= 0)
+            {
+                PlayerSpawnManager.Instance.OnPlayerJoin += OnPlayerJoin;
+                PlayerSpawnManager.Instance.EnableJoining();
+                PlayerSpawnManager.Instance.GetComponent<PlayerInputManager>().joinBehavior = PlayerJoinBehavior.JoinPlayersWhenButtonIsPressed;
+            }
 
             lobbyButton.onClick.AddListener(OnLobbyButton);
             settingsButton.onClick.AddListener(OnSettingsButton);
@@ -56,7 +60,6 @@ namespace OperationPlayground.Menus
 
         private void OnPlayerJoin(PlayerManager player)
         {
-            firstPlayer = player;
             firstPlayer.playerInput.UI.Cancel.performed += OnCancel;
             PlayerSpawnManager.Instance.OnPlayerJoin -= OnPlayerJoin;
             PlayerSpawnManager.Instance.GetComponent<PlayerInputManager>().DisableJoining();

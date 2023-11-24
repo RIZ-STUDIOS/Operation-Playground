@@ -14,7 +14,7 @@ namespace OperationPlayground.Player
         [SerializeField] private CanvasGroup interactCG;
         [SerializeField] private CanvasGroup supplyShopCG;
         [SerializeField] private CanvasGroup promptCG;
-        [SerializeField] private GameObject reticle;
+        public GameObject reticle;
         [SerializeField] private CanvasGroup deathCG;
 
         public GameOverUI gameOverUI;
@@ -65,11 +65,6 @@ namespace OperationPlayground.Player
                 fadeCoroutine = StartCoroutine(ToggleCanvasElement(interactCG, false));
         }
 
-        private void ToggleReticle(InputAction.CallbackContext value)
-        {
-            reticle.SetActive(!reticle.activeSelf);
-        }
-
         private void MatchReticleToMuzzleTrajectory()
         {
             if (!currentPlayerWeapon) return;
@@ -103,8 +98,6 @@ namespace OperationPlayground.Player
         {
             playerManager = GetComponentInParent<PlayerManager>();
             playerManager.PlayerInteraction.onSetInteractable += OnSetInteractable;
-
-            playerManager.playerInput.Basic.ZoomMap.performed += ToggleReticle;
 
             playerManager.PlayerShooter.onWeaponSwitch += (weapon) => currentPlayerWeapon = weapon;
 
@@ -174,12 +167,20 @@ namespace OperationPlayground.Player
             deathCGCoroutine = StartCoroutine(ToggleCanvasElement(deathCG, true, true));
         }
 
-        public void HideDeathScreen()
+        public void HideDeathScreen(bool instant = false)
         {
             if (deathCGCoroutine != null) StopCoroutine(deathCGCoroutine);
             reticle.SetActive(visibleReticle);
 
-            deathCGCoroutine = StartCoroutine(ToggleCanvasElement(deathCG, false, false));
+            if (instant)
+            {
+                deathCG.alpha = 0;
+                deathCG.interactable = false;
+            }
+            else
+            {
+                deathCGCoroutine = StartCoroutine(ToggleCanvasElement(deathCG, false, false));
+            }
         }
     }
 }

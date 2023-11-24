@@ -14,6 +14,7 @@ namespace OperationPlayground.Player.PlayerCapabilities
         public override void OnStateLeave()
         {
             playerManager.PlayerLookMap.enabled = false;
+            playerManager.PlayerMap.ResetZoom();
         }
     }
 }

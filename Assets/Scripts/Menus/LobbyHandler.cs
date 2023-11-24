@@ -39,6 +39,12 @@ namespace OperationPlayground.Menus
             PlayerSpawnManager.Instance.EnableJoining();
 
             if (playerSlots[0].currentPlayer) playerSlots[0].ListenForJoin();
+
+            foreach(var player in PlayerSpawnManager.Instance.Players)
+            {
+                OnPlayerJoin(player);
+            }
+
         }
 
         private void EndLobby()

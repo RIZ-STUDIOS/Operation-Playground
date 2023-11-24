@@ -28,15 +28,11 @@ namespace OperationPlayground.Player
             onDeath += OnDeath;
         }
 
-        private void Start()
-        {
-            RoundManager.Instance.onRoundEnd += () => FullyHeal();
-        }
-
         private void OnDeath()
         {
             if (!GameManager.Instance.playerRespawnManager) return;
 
+            playerManager.PlayerCanvas.ShowDeathScreen();
             GameManager.Instance.playerRespawnManager.StartRespawnPlayer(playerManager);
         }
     }

@@ -1,5 +1,6 @@
 using OperationPlayground.Loading;
 using OperationPlayground.Managers;
+using OperationPlayground.Rounds;
 using OperationPlayground.UI;
 using RicTools.Managers;
 using RicTools.Utilities;
@@ -97,6 +98,7 @@ namespace OperationPlayground.Player
         {
             playerManager.AddDefaultPlayerStates();
             playerManager.GetComponentInChildren<SupplyCountUI>().SubscribeEvent();
+            RoundManager.Instance.onRoundEnd += () => playerManager.Health.FullyHeal();
         }
 
         private void OnGameSceneLoad()

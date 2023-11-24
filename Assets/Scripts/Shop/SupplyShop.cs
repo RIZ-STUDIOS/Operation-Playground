@@ -21,9 +21,9 @@ namespace OperationPlayground.Shop
 
         private void Start()
         {
-            RoundManager.Instance.onPreRoundStart += () => interactable.enabled = true;
+            RoundManager.Instance.onRoundEnd += () => interactable.enabled = true;
 
-            RoundManager.Instance.onPreRoundEnd += () =>
+            RoundManager.Instance.onRoundStart += () =>
             {
                 foreach (var player in PlayerSpawnManager.Instance.Players)
                 {

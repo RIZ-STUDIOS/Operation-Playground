@@ -41,6 +41,8 @@ namespace OperationPlayground.Rounds
 
         private RoundStatus roundStatus;
 
+        public RoundStatus RoundStatus => roundStatus;
+
         protected override void Awake()
         {
             base.Awake();

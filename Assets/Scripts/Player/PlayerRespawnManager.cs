@@ -26,7 +26,7 @@ namespace OperationPlayground.Player
 
         private void Start()
         {
-            RoundManager.Instance.onPreRoundStart += OnPreRoundStart;
+            RoundManager.Instance.onRoundEnd += OnPreRoundStart;
         }
 
         private void OnPreRoundStart()
@@ -35,6 +35,7 @@ namespace OperationPlayground.Player
             {
                 SpawnPlayer(playerManager);
                 playerManager.AddDefaultPlayerStates();
+                playerManager.PlayerCanvas.HideDeathScreen();
             }
             deadPlayers.Clear();
         }
@@ -64,7 +65,16 @@ namespace OperationPlayground.Player
             playerManager.AddPlayerState(PlayerCapabilityType.Camera);
             playerManager.Health.FullyHeal();
 
-            deadPlayers.Add(playerManager);
+            if (RoundManager.Instance.RoundStatus == RoundStatus.Round)
+            {
+                deadPlayers.Add(playerManager);
+            }
+            else
+            {
+                SpawnPlayer(playerManager);
+                playerManager.AddDefaultPlayerStates();
+                playerManager.PlayerCanvas.HideDeathScreen();
+            }
         }
 
         private void Update()

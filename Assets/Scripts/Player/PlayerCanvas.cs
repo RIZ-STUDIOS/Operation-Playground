@@ -14,6 +14,7 @@ namespace OperationPlayground.Player
         [SerializeField] private CanvasGroup supplyShopCG;
         [SerializeField] private CanvasGroup promptCG;
         [SerializeField] private GameObject reticle;
+        [SerializeField] private CanvasGroup deathCG;
 
         //[System.NonSerialized]
         public PlayerManager playerManager;
@@ -26,6 +27,7 @@ namespace OperationPlayground.Player
 
         private Coroutine fadeCoroutine;
         private Coroutine promptCoroutine;
+        private Coroutine deathCGCoroutine;
 
         [System.NonSerialized]
         public Transform firePointTransform;
@@ -33,6 +35,7 @@ namespace OperationPlayground.Player
         private Transform FirePointTransform => firePointTransform ?? currentPlayerWeapon.FirePointTransform;
 
         private Vector3 smoothVelocity = Vector3.zero;
+        private bool visibleReticle;
 
         private void Awake()
         {
@@ -157,6 +160,23 @@ namespace OperationPlayground.Player
                 Debug.Log("Prompt Coroutine: " + promptCoroutine);
                 yield return new WaitForSeconds(1);
             }
+        }
+
+        public void ShowDeathScreen()
+        {
+            if (deathCGCoroutine != null) StopCoroutine(deathCGCoroutine);
+            visibleReticle = reticle.activeSelf;
+            reticle.SetActive(false);
+
+            deathCGCoroutine = StartCoroutine(ToggleCanvasElement(deathCG, true, true));
+        }
+
+        public void HideDeathScreen()
+        {
+            if (deathCGCoroutine != null) StopCoroutine(deathCGCoroutine);
+            reticle.SetActive(visibleReticle);
+
+            deathCGCoroutine = StartCoroutine(ToggleCanvasElement(deathCG, false, false));
         }
     }
 }

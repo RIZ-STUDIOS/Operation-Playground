@@ -48,7 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponSo: {fileID: 0}
   _firePointTransform: {fileID: 4463709162312353674}
-  infiniteAmmo: 1
+  infiniteAmmo: 0
 --- !u!1 &7210810280814924358
 GameObject:
   m_ObjectHideFlags: 0

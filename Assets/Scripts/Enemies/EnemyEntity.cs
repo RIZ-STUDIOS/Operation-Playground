@@ -48,11 +48,6 @@ namespace OperationPlayground.Enemies
             {
                 followPath.SetPosition(spawnLocation);
                 followPath.SetSpeed(enemyScriptableObject.speed);
-                followPath.onEndPathReached += () =>
-                {
-                    GameManager.Instance.defendPointData.Health.Damage(enemy.Health.Health);
-                    enemy.Health.Kill();
-                };
             }
             else
                 enemy.transform.position = spawnLocation;

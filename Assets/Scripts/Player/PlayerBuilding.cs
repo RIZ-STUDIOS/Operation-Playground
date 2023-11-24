@@ -49,6 +49,10 @@ namespace OperationPlayground.Player
 
         private bool cachedCanPlace;
 
+        public event System.Action onEnterBuildingMode;
+        public event System.Action onExitBuildingMode;
+        public event System.Action<BuildingScriptableObject> onBuildingSelected;
+
         private void Awake()
         {
             playerManager = GetComponent<PlayerManager>();
@@ -80,11 +84,13 @@ namespace OperationPlayground.Player
             if (!isBuilding)
             {
                 playerManager.RemovePlayerState(PlayerCapabilities.PlayerCapabilityType.Building);
+                onExitBuildingMode?.Invoke();
             }
             else
             {
                 hasPlayerShootingCapability = playerManager.RemovePlayerState(PlayerCapabilities.PlayerCapabilityType.Shooter);
                 playerManager.AddPlayerState(PlayerCapabilities.PlayerCapabilityType.Building);
+                onEnterBuildingMode?.Invoke();
                 SelectBuilding(0);
             }
         }
@@ -167,6 +173,8 @@ namespace OperationPlayground.Player
             cachedCanPlace = CanPlace();
 
             UpdateVisualMaterial();
+
+            onBuildingSelected?.Invoke(currentBuilding);
         }
 
         private void Update()

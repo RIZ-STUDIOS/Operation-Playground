@@ -20249,7 +20249,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a8de80874f093f49a827dfc6c947a80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dropCheckTimer: 15
+  dropCheckTimer: 30
   dropChance: 0.1
   dropSpeed: 5
 --- !u!4 &1372620786

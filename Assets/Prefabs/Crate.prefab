@@ -125,7 +125,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 5
+  m_Radius: 3
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &6938263589681848608
 MonoBehaviour:
@@ -139,8 +139,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e8321b549e645242a30188af8e60017, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactRadius: 5
-  interactionTime: 5
+  interactRadius: 3
+  interactionTime: 4
   destroyOnInteract: 1
   radialBarOffset: {x: 0, y: 1.5, z: 0}
   _canInteractWith: 1

@@ -95,6 +95,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponHoldTransform: {fileID: 9149425206913797294}
   aimingTransform: {fileID: 6376355060018360589}
+  baseTransformRotationSpeed: 90
+  aimingTransformRotationSpeed: 30
 --- !u!114 &2672817053557055547
 MonoBehaviour:
   m_ObjectHideFlags: 0

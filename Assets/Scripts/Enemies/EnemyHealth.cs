@@ -31,7 +31,7 @@ namespace OperationPlayground.Enemies
         {
             onDeath += () =>
             {
-                RoundManager.Instance.EnemyKilled();
+                RoundManager.Instance.EnemyKilled(parentEntity);
                 CreateAmmoPickup();
             };
         }

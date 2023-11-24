@@ -117,9 +117,10 @@ namespace OperationPlayground.Rounds
             return roundList.Count <= 0;
         }
 
-        public void EnemyKilled()
+        public void EnemyKilled(EnemyEntity enemyEntity)
         {
             CurrentRound.killedEnemies++;
+            enemyEntities.Remove(enemyEntity);
 
             if (roundStatus == RoundStatus.Finished) return;
 

@@ -44,6 +44,15 @@ namespace OperationPlayground.Enemies
         [SerializeField]
         private Transform aimingTransform;
 
+        [SerializeField]
+        private float baseTransformRotationSpeed;
+
+        [SerializeField]
+        private float aimingTransformRotationSpeed;
+
+        private Vector3 baseTransformTargetPosition;
+        private Vector3 aimingTransformTargetPosition;
+
         private void Awake()
         {
             followWaypoints = GetComponent<FollowWaypoints>();
@@ -77,6 +86,17 @@ namespace OperationPlayground.Enemies
                 }
 
                 AttackTarget();
+            }
+
+            {
+                var rotation = Quaternion.LookRotation(baseTransformTargetPosition - transform.position);
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, baseTransformRotationSpeed * Time.deltaTime);
+            }
+
+            if (aimingTransform)
+            {
+                var rotation = Quaternion.LookRotation(aimingTransformTargetPosition - aimingTransform.position);
+                aimingTransform.rotation = Quaternion.RotateTowards(aimingTransform.rotation, rotation, aimingTransformRotationSpeed * Time.deltaTime);
             }
         }
 
@@ -133,12 +153,14 @@ namespace OperationPlayground.Enemies
             if (!target || (target && aimingTransform))
             {
                 position.y = transform.position.y;
-                transform.LookAt(position, Vector3.up);
+                baseTransformTargetPosition = position;
+                //transform.LookAt(position, Vector3.up);
             }
             if (aimingTransform && !target)
             {
                 position.y = aimingTransform.position.y;
-                aimingTransform.LookAt(position, Vector3.up);
+                aimingTransformTargetPosition = position;
+                //aimingTransform.LookAt(position, Vector3.up);
             }
         }
 
@@ -152,10 +174,14 @@ namespace OperationPlayground.Enemies
                     CalculateTargetOffset();
                     randomOffsetChangeTimer = 0;
                 }
-                var transform = aimingTransform ?? this.transform;
+                var transform = aimingTransform ? aimingTransform : this.transform;
                 var targetPosition = target.transform.position;
                 targetPosition.y = transform.position.y;
-                transform.LookAt(targetPosition + targetOffset, Vector3.up);
+                if (!aimingTransform)
+                    baseTransformTargetPosition = targetPosition;
+                else
+                    aimingTransformTargetPosition = targetPosition;
+                //transform.LookAt(targetPosition + targetOffset, Vector3.up);
             }
             ResetAim();
         }

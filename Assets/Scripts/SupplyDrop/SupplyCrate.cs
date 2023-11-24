@@ -39,6 +39,11 @@ namespace OperationPlayground.SupplyDrop
         {
             ResourceManager.Instance.Supplies += supplyAmount;
 
+            foreach(var weapon in playerManager.PlayerShooter.HeldWeapons)
+            {
+                weapon.AddAmmo((int)Mathf.Ceil(weapon.weaponSo.maxAmmo / 2f));
+            }
+
             Destroy(gameObject);
         }
     }

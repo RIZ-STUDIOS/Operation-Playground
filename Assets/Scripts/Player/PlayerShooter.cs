@@ -19,6 +19,8 @@ namespace OperationPlayground.Player
 
         private List<Weapon> heldWeapons = new List<Weapon>();
 
+        public List<Weapon> HeldWeapons => heldWeapons;
+
         private int heldWeaponIndex;
 
         private PlayerManager playerManager;

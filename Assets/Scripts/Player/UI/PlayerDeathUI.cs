@@ -19,8 +19,8 @@ namespace OperationPlayground.Player.UI
             _playerCanvas = GetComponentInParent<PlayerCanvasManager>();
             _canvasGroup = GetComponent<CanvasGroup>();
 
-            _playerCanvas.playerManager.Health.OnDeath += ShowDeathScreen;
-            _playerCanvas.playerManager.PlayerHealth.OnRespawn += HideDeathScreen;
+            //_playerCanvas.playerManager.PlayerHealth.OnDeath += ShowDeathScreen;
+            //_playerCanvas.playerManager.PlayerHealth.OnRespawn += HideDeathScreen;
             GameStateManager.Instance.OnGameOver += HideDeathScreen;
         }
 

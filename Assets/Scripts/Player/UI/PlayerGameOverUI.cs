@@ -1,3 +1,4 @@
+using OperationPlayground.Managers;
 using OperationPlayground.Player;
 using OperationPlayground.ZedExtensions;
 using System.Collections;
@@ -31,30 +32,38 @@ namespace OperationPlayground.Player.UI
         {
             _playerCanvas = GetComponentInParent<PlayerCanvasManager>();
             _canvasGroup = GetComponent<CanvasGroup>();
+
+            GameStateManager.Instance.OnGameOver += GameOverQuery;
+        }
+
+        private void GameOverQuery()
+        {
+            if (GameStateManager.Instance.IsVictory) ShowWin();
+            else ShowLost();
         }
 
         public void ShowWin()
         {
             if (_gameOverCoroutine != null) StopCoroutine(_gameOverCoroutine);
 
-            StartCoroutine(_canvasGroup.FadeIn(true));
             var color = wonColor;
-            color.a = 0.2f;
             backgroundImage.color = color;
 
             wonLostText.text = "VICTORY FOR THE FINNS";
+
+            _gameOverCoroutine = StartCoroutine(_canvasGroup.FadeIn(true));
         }
 
         public void ShowLost()
         {
             if (_gameOverCoroutine != null) StopCoroutine(_gameOverCoroutine);
 
-            StartCoroutine(_canvasGroup.FadeIn(true));
             var color = lostColor;
-            color.a = 0.2f;
             backgroundImage.color = color;
 
             wonLostText.text = "DEFEATED BY THE SOVIETS";
+
+            _gameOverCoroutine = StartCoroutine(_canvasGroup.FadeIn(true));
         }
 
         public void HideGameOverScreen()

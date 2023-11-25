@@ -14,15 +14,14 @@ namespace OperationPlayground.Player
     [DisallowMultipleComponent]
     public class PlayerSpawnManager : GenericManager<PlayerSpawnManager>
     {
-        private List<PlayerManager> players = new List<PlayerManager>();
-
-        public List<PlayerManager> Players => players;
+        public List<PlayerManager> Players => _players;
+        private List<PlayerManager> _players = new List<PlayerManager>();
 
         public event System.Action<PlayerManager> OnPlayerJoin;
         public event System.Action<PlayerManager> OnPlayerLeave;
 
-        public bool AnyPlayersJoined => players.Count > 0;
-        public int TotalPlayers => players.Count;
+        public bool AnyPlayersJoined => _players.Count > 0;
+        public int TotalPlayers => _players.Count;
 
         public bool autoSetupPlayers;
 
@@ -57,7 +56,7 @@ namespace OperationPlayground.Player
 
             playerManager.MapHighlight.HighLightColor = mapHighlightColors[playerManager.playerIndex];
 
-            players.Add(playerManager);
+            _players.Add(playerManager);
 
             OnPlayerJoin?.Invoke(playerManager);
 
@@ -70,7 +69,7 @@ namespace OperationPlayground.Player
 
             var playerManager = playerInput.GetComponent<PlayerManager>();
 
-            players.Remove(playerManager);
+            _players.Remove(playerManager);
 
             OnPlayerLeave?.Invoke(playerManager);
         }
@@ -88,7 +87,7 @@ namespace OperationPlayground.Player
 
         public void SetupPlayers()
         {
-            foreach (var player in players)
+            foreach (var player in _players)
             {
                 SetupPlayer(player);
             }
@@ -123,7 +122,7 @@ namespace OperationPlayground.Player
         public void ReturnToMainMenu()
         {
             DisableJoining();
-            foreach(var player in players)
+            foreach(var player in _players)
             {
                 if (player.PlayerShopUI.InShop) player.PlayerShopUI.CloseShop();
 

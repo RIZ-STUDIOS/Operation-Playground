@@ -1,3 +1,4 @@
+using OperationPlayground.Managers;
 using OperationPlayground.Rounds;
 using OperationPlayground.ZedExtensions;
 using System.Collections;
@@ -20,6 +21,7 @@ namespace OperationPlayground.Player.UI
 
             _playerCanvas.playerManager.Health.OnDeath += ShowDeathScreen;
             _playerCanvas.playerManager.PlayerHealth.OnRespawn += HideDeathScreen;
+            GameStateManager.Instance.OnGameOver += HideDeathScreen;
         }
 
         public void ShowDeathScreen()

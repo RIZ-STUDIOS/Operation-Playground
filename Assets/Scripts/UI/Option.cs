@@ -1,9 +1,4 @@
-using log4net.Util;
-using OperationPlayground.Managers;
 using OperationPlayground.Player;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 namespace OperationPlayground.UI
 {

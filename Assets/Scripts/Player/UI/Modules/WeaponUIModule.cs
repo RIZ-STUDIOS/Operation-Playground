@@ -1,4 +1,3 @@
-using Codice.CM.Common;
 using OperationPlayground.Weapons;
 using UnityEngine;
 using UnityEngine.UI;

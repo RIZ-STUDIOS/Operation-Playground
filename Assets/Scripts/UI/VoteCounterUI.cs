@@ -18,12 +18,8 @@ namespace OperationPlayground
             UpdateVoteCount();
             PostGameManager.Instance.OnVoteValueChanged += UpdateVoteCount;
         }
-        private void OnEnable()
-        {
-            UpdateVoteCount();
-        }
 
-        private void UpdateVoteCount()
+        public void UpdateVoteCount()
         {
             if (isCountingRetry)
                 _voteText.text = $"<color=green>{PostGameManager.Instance.VoteRetryCount}</color>/<color=blue>{PlayerSpawnManager.Instance.TotalPlayers}";

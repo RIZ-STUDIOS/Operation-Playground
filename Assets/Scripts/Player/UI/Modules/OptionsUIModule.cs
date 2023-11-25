@@ -54,6 +54,11 @@ namespace OperationPlayground.Player.UI.Modules
                 GameObject optionButtonGO = Instantiate(_buttonPrefab);
 
                 var optionButton = optionButtonGO.GetComponent<OptionZedButton>();
+
+                if (option.text == Option.NAME_VOTE_RETRY) optionButton.voteCounter.isCountingRetry = true;
+
+                optionButton.voteCounter.UpdateVoteCount();
+
                 optionButton.CreateOptionAction(option);
                 optionButtonGO.transform.SetParent(_scrollPanel.transform, false);
 

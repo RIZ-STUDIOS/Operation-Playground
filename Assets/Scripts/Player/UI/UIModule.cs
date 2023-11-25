@@ -26,6 +26,8 @@ namespace OperationPlayground
             _canvasGroup = GetComponent<CanvasGroup>();
         }
 
+        public virtual void ConfigureUI() { }
+
         public void InstantRevealModule()
         {
             if (_fadeCoroutine != null) StopCoroutine(_fadeCoroutine);

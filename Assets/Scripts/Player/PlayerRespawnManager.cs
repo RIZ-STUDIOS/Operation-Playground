@@ -15,7 +15,7 @@ namespace OperationPlayground.Player
 
         private List<Transform> takenSpawnLocations = new List<Transform>();
 
-        private List<PlayerManager> deadPlayers = new List<PlayerManager>();
+        public List<PlayerManager> deadPlayers = new List<PlayerManager>();
 
         private void Awake()
         {
@@ -75,7 +75,7 @@ namespace OperationPlayground.Player
             {
                 SpawnPlayer(playerManager);
                 playerManager.AddDefaultPlayerStates();
-                playerManager.PlayerCanvas.DeathUI.InstantHideModule();
+                playerManager.PlayerCanvas.ResetPlayerUI();
             }
         }
 

@@ -97,6 +97,7 @@ namespace OperationPlayground.Player
             playerManager.AddDefaultPlayerStates();
             playerManager.GetComponentInChildren<SupplyCountUIModule>().SubscribeEvent();
             playerManager.Health.FullyHeal();
+            playerManager.PlayerCanvas.ConfigureModules();
             RoundManager.Instance.onRoundEnd += () => playerManager.Health.FullyHeal();
             GameManager.Instance.playerRespawnManager.SpawnPlayer(playerManager);
         }

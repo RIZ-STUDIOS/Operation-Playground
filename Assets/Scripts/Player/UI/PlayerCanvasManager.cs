@@ -33,14 +33,29 @@ namespace OperationPlayground.Player.UI
         private ReticleUIModule _reticleUI;
         private BuildingUIModule _buildingUI;
         private DeathUIModule _deathUI;
-        private WeaponAmmoUIModule _weaponAmmoUI;
         private GameOverUIModule _gameOverUI;
         private WeaponUIModule _weaponUI;
+        private WeaponAmmoUIModule _weaponAmmoUI;
         private OptionsUIModule _optionsUI;
+
 
         private void Awake()
         {
             playerManager = GetComponentInParent<PlayerManager>();
+        }
+
+        public void ConfigureModules()
+        {
+            ShopUI.ConfigureUI();
+            InteractUI.ConfigureUI();
+            MessageUI.ConfigureUI();
+            ReticleUI.ConfigureUI();
+            BuildingUI.ConfigureUI();
+            DeathUI.ConfigureUI();
+            GameOverUI.ConfigureUI();
+            WeaponUI.ConfigureUI();
+            WeaponAmmoUI.ConfigureUI();
+            OptionsUI.ConfigureUI();
         }
 
         public void ResetPlayerUI()

@@ -24,13 +24,8 @@ namespace OperationPlayground.UI
                 NAME_VOTE_RETRY,
                 (PlayerManager playerManager) =>
                 {
+                    playerManager.PlayerCanvas.OptionsUI.StopListeningToPlayer();
                     PostGameManager.Instance.VoteRetryCount++;
-
-                    foreach (var button in playerManager.PlayerCanvas.OptionsUI.ButtonList)
-                    {
-                        var optionButton = (OptionZedButton)button;
-                        optionButton.voteCounter.gameObject.SetActive(true);
-                    }
                 }
             );
 
@@ -39,12 +34,8 @@ namespace OperationPlayground.UI
                 NAME_VOTE_QUIT,
                 (PlayerManager playerManager) =>
                 {
+                    playerManager.PlayerCanvas.OptionsUI.StopListeningToPlayer();
                     PostGameManager.Instance.VoteQuitCount++;
-
-                    foreach (var button in playerManager.PlayerCanvas.OptionsUI.ButtonList)
-                    {
-
-                    }
                 }
             );
 

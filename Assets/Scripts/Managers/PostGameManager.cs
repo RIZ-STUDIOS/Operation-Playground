@@ -62,10 +62,14 @@ namespace OperationPlayground
                 {
                     player.PlayerCanvas.ResetPlayerUI();
                 }
+                isPostGame = false;
                 PlayerSpawnManager.Instance.LoadIntoLevel();
             }
             else if (VoteQuitCount >= PlayerSpawnManager.Instance.Players.Count * 0.5f)
+            {
+                isPostGame = false;
                 PlayerSpawnManager.Instance.ReturnToMainMenu();
+            }
         }
     }
 }

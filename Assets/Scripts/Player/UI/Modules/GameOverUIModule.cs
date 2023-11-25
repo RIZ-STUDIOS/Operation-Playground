@@ -23,11 +23,15 @@ namespace OperationPlayground.Player.UI.Modules
         protected override void Awake()
         {
             base.Awake();
-
-            GameStateManager.Instance.OnGameOver += GameOverQuery;
         }
 
-        private void GameOverQuery()
+        public override void ConfigureUI()
+        {
+            GameStateManager.Instance.OnGameOver += GameOverQuery;
+            Debug.Log("Fired!");
+        }
+
+        public void GameOverQuery()
         {
             if (GameStateManager.Instance.IsVictory) ShowWin();
             else ShowLost();

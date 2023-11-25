@@ -27,8 +27,8 @@ namespace OperationPlayground.Shop
             {
                 foreach (var player in PlayerSpawnManager.Instance.Players)
                 {
-                    if (player.PlayerShopUI.InShop)
-                        player.PlayerShopUI.CloseShop();
+                    if (player.PlayerShopUI.InMenu)
+                        player.PlayerShopUI.CloseMenu();
                 }
 
                 interactable.enabled = false;
@@ -37,7 +37,11 @@ namespace OperationPlayground.Shop
 
         private void OnInteract(PlayerManager playerManager)
         {
-            if (interactable.CanInteractWith) playerManager.PlayerShopUI.OpenShop(shopItems);
+            if (interactable.CanInteractWith)
+            {
+                playerManager.PlayerShopUI.ShopItems = shopItems;
+                playerManager.PlayerShopUI.OpenMenu();
+            }
             else playerManager.PlayerCanvas.MessageUI.DisplayMessage("<color=#EC5D5D>SHOP UNAVAILABLE</color>");
         }
     }

@@ -1,21 +1,19 @@
+using Codice.CM.Common;
 using OperationPlayground.Weapons;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace OperationPlayground.Player.UI
+namespace OperationPlayground.Player.UI.Modules
 {
-    public class PlayerWeaponUI : MonoBehaviour
+    public class WeaponUIModule : UIModule
     {
-        private PlayerManager playerManager;
-
         [SerializeField]
         private Image weaponIconImage;
 
-        private void Awake()
+        protected override void Awake()
         {
-            playerManager = GetComponentInParent<PlayerManager>();
-
-            playerManager.PlayerShooter.onWeaponSwitch += onWeaponSwitch;
+            base.Awake();
+            _playerCanvas.playerManager.PlayerShooter.onWeaponSwitch += onWeaponSwitch;
         }
 
         private void onWeaponSwitch(Weapon weapon)

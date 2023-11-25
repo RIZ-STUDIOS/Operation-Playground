@@ -2,6 +2,7 @@ using OperationPlayground.Buildings;
 using OperationPlayground.EntityData;
 using OperationPlayground.Player.PlayerCapabilities;
 using OperationPlayground.Player.UI;
+using OperationPlayground.Player.UI.Modules;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -49,7 +50,7 @@ namespace OperationPlayground.Player
 
         public MapHighlight MapHighlight => this.GetIfNull(ref _mapHighlight);
 
-        public PlayerShopUI PlayerShopUI => this.GetIfNull(ref _playerShopUI);
+        public ShopUIModule PlayerShopUI => this.GetIfNull(ref _playerShopUI);
 
         private PlayerCamera _playerCamera;
         private Renderer[] _playerRenderers;
@@ -67,7 +68,7 @@ namespace OperationPlayground.Player
         private CharacterController _characterController;
         private PlayerLookMap _playerLook;
         private MapHighlight _mapHighlight;
-        private PlayerShopUI _playerShopUI;
+        private ShopUIModule _playerShopUI;
 
         public override GameTeam Team => GameTeam.TeamA;
 

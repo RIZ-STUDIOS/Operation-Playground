@@ -1,6 +1,7 @@
 using OperationPlayground.Managers;
 using OperationPlayground.Player.PlayerCapabilities;
 using OperationPlayground.Rounds;
+using OperationPlayground.ZedExtensions;
 using RicTools.Utilities;
 using System.Collections;
 using System.Collections.Generic;
@@ -32,7 +33,7 @@ namespace OperationPlayground.Player
             {
                 SpawnPlayer(playerManager);
                 playerManager.AddDefaultPlayerStates();
-                playerManager.PlayerCanvas.DeathUI.HideDeathScreen();
+                playerManager.PlayerCanvas.DeathUI.InstantHideModule();
             }
             deadPlayers.Clear();
         }
@@ -74,7 +75,7 @@ namespace OperationPlayground.Player
             {
                 SpawnPlayer(playerManager);
                 playerManager.AddDefaultPlayerStates();
-                playerManager.PlayerCanvas.DeathUI.HideDeathScreen();
+                playerManager.PlayerCanvas.DeathUI.InstantHideModule();
             }
         }
 

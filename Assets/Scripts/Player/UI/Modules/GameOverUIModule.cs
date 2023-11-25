@@ -1,19 +1,13 @@
 using OperationPlayground.Managers;
-using OperationPlayground.Player;
 using OperationPlayground.ZedExtensions;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace OperationPlayground.Player.UI
+namespace OperationPlayground.Player.UI.Modules
 {
-    public class PlayerGameOverUI : MonoBehaviour
+    public class GameOverUIModule : UIModule
     {
-        private PlayerCanvasManager _playerCanvas;
-        private CanvasGroup _canvasGroup;
-
         [SerializeField]
         private Color wonColor;
 
@@ -28,10 +22,9 @@ namespace OperationPlayground.Player.UI
 
         private Coroutine _gameOverCoroutine;
 
-        private void Awake()
+        protected override void Awake()
         {
-            _playerCanvas = GetComponentInParent<PlayerCanvasManager>();
-            _canvasGroup = GetComponent<CanvasGroup>();
+            base.Awake();
 
             GameStateManager.Instance.OnGameOver += GameOverQuery;
         }

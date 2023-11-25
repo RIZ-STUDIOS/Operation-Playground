@@ -1,13 +1,10 @@
-using OperationPlayground.Managers;
 using OperationPlayground.Resources;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-namespace OperationPlayground.UI
+namespace OperationPlayground.Player.UI.Modules
 {
-    public class SupplyCountUI : MonoBehaviour
+    public class SupplyCountUIModule : UIModule
     {
         [SerializeField]
         private TextMeshProUGUI text;

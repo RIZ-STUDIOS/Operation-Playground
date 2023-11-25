@@ -1,10 +1,9 @@
 using OperationPlayground.Loading;
 using OperationPlayground.Managers;
+using OperationPlayground.Player.UI.Modules;
 using OperationPlayground.Rounds;
-using OperationPlayground.UI;
+using OperationPlayground.ZedExtensions;
 using RicTools.Managers;
-using RicTools.Utilities;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -96,7 +95,7 @@ namespace OperationPlayground.Player
         private void SetupPlayer(PlayerManager playerManager)
         {
             playerManager.AddDefaultPlayerStates();
-            playerManager.GetComponentInChildren<SupplyCountUI>().SubscribeEvent();
+            playerManager.GetComponentInChildren<SupplyCountUIModule>().SubscribeEvent();
             playerManager.Health.FullyHeal();
             RoundManager.Instance.onRoundEnd += () => playerManager.Health.FullyHeal();
             GameManager.Instance.playerRespawnManager.SpawnPlayer(playerManager);
@@ -122,12 +121,12 @@ namespace OperationPlayground.Player
         public void ReturnToMainMenu()
         {
             DisableJoining();
-            foreach(var player in _players)
+            foreach (var player in _players)
             {
-                if (player.PlayerShopUI.InShop) player.PlayerShopUI.CloseShop();
+                if (player.PlayerShopUI.InMenu) player.PlayerShopUI.CloseMenu();
 
-                player.PlayerCanvas.DeathUI.HideDeathScreen();
-                player.PlayerCanvas.GameOverUI.HideGameOverScreen();
+                player.PlayerCanvas.DeathUI.InstantHideModule();
+                player.PlayerCanvas.GameOverUI.InstantHideModule();
                 player.RemoveAllPlayerStates();
             }
             LevelLoader.LoadScene("MainMenu");

@@ -34,7 +34,7 @@ namespace OperationPlayground.Player
         {
             if (!GameManager.Instance.playerRespawnManager) return;
 
-            playerManager.PlayerCanvas.DeathUI.ShowDeathScreen();
+            playerManager.PlayerCanvas.DeathUI.FadeRevealModule();
             GameManager.Instance.playerRespawnManager.StartRespawnPlayer(playerManager);
         }
     }

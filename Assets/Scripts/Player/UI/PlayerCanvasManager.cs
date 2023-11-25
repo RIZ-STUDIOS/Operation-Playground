@@ -1,8 +1,4 @@
-using OperationPlayground.Interactables;
-using OperationPlayground.Weapons;
-using OperationPlayground.ZedExtensions;
-using System.Collections;
-using TMPro;
+using OperationPlayground.Player.UI.Modules;
 using UnityEngine;
 
 namespace OperationPlayground.Player.UI
@@ -11,33 +7,33 @@ namespace OperationPlayground.Player.UI
     {
         public PlayerManager playerManager;
 
-        public PlayerShopUI ShopUI => this.GetIfNull(ref _shopUI);
+        public ShopUIModule ShopUI => this.GetIfNull(ref _shopUI);
 
-        public PlayerInteractUI InteractUI => this.GetIfNull(ref _interactUI);
+        public InteractUIModule InteractUI => this.GetIfNull(ref _interactUI);
 
-        public PlayerMessageUI MessageUI => this.GetIfNull(ref _messageUI);
+        public MessageUIModule MessageUI => this.GetIfNull(ref _messageUI);
 
-        public PlayerReticleUI ReticleUI => this.GetIfNull(ref _reticleUI);
+        public ReticleUIModule ReticleUI => this.GetIfNull(ref _reticleUI);
 
-        public PlayerBuildingUI BuildingUI => this.GetIfNull(ref _buildingUI);
+        public BuildingUIModule BuildingUI => this.GetIfNull(ref _buildingUI);
 
-        public PlayerWeaponUI WeaponUI => this.GetIfNull(ref _weaponUI);
+        public WeaponUIModule WeaponUI => this.GetIfNull(ref _weaponUI);
 
-        public PlayerWeaponAmmoUI WeaponAmmoUI => this.GetIfNull(ref _weaponAmmoUI);
+        public WeaponAmmoUIModule WeaponAmmoUI => this.GetIfNull(ref _weaponAmmoUI);
 
-        public PlayerDeathUI DeathUI => this.GetIfNull(ref _deathUI);
+        public DeathUIModule DeathUI => this.GetIfNull(ref _deathUI);
 
-        public PlayerGameOverUI GameOverUI => this.GetIfNull(ref _gameOverUI);
+        public GameOverUIModule GameOverUI => this.GetIfNull(ref _gameOverUI);
 
-        private PlayerShopUI _shopUI;
-        private PlayerInteractUI _interactUI;
-        private PlayerMessageUI _messageUI;
-        private PlayerReticleUI _reticleUI;
-        private PlayerBuildingUI _buildingUI;
-        private PlayerDeathUI _deathUI;
-        private PlayerWeaponAmmoUI _weaponAmmoUI;
-        private PlayerGameOverUI _gameOverUI;
-        private PlayerWeaponUI _weaponUI;
+        private ShopUIModule _shopUI;
+        private InteractUIModule _interactUI;
+        private MessageUIModule _messageUI;
+        private ReticleUIModule _reticleUI;
+        private BuildingUIModule _buildingUI;
+        private DeathUIModule _deathUI;
+        private WeaponAmmoUIModule _weaponAmmoUI;
+        private GameOverUIModule _gameOverUI;
+        private WeaponUIModule _weaponUI;
 
         private void Awake()
         {

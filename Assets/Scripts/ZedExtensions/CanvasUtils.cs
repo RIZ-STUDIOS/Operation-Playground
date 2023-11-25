@@ -9,6 +9,18 @@ namespace OperationPlayground.ZedExtensions
 {
     public static class CanvasUtils
     {
+        public static void InstantShow(this CanvasGroup canvasGroup, bool isInteractable = false, bool canBlockRaycasts = false)
+        {
+            canvasGroup.alpha = 1;
+            ToggleCanvasGroupInteraction(canvasGroup, true, isInteractable, canBlockRaycasts);
+        }
+
+        public static void InstantHide(this CanvasGroup canvasGroup, bool isInteractable = false, bool canBlockRaycasts = false)
+        {
+            canvasGroup.alpha = 0;
+            ToggleCanvasGroupInteraction(canvasGroup, false, isInteractable, canBlockRaycasts);
+        }
+
         public static IEnumerator FadeIn(this CanvasGroup canvasGroup, bool isInteractable = false, bool canBlockRaycasts = false, float fadeSpeedMod = 2)
         {
             IEnumerator lerpIn = LerpCanvasAlphaOverTime(canvasGroup, 1);

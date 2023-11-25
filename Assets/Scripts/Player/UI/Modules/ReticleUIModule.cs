@@ -3,13 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace OperationPlayground.Player.UI
+namespace OperationPlayground.Player.UI.Modules
 {
-    public class PlayerReticleUI : MonoBehaviour
+    public class ReticleUIModule : UIModule
     {
-        private PlayerCanvasManager _playerCanvas;
-        private CanvasGroup _canvasGroup;
-
         private RectTransform _playerCanvasRectTransform;
         private RectTransform _canvasRectTransform;
 
@@ -19,10 +16,9 @@ namespace OperationPlayground.Player.UI
 
         private Vector3 smoothVelocity;
 
-        private void Awake()
+        protected override void Awake()
         {
-            _playerCanvas = GetComponentInParent<PlayerCanvasManager>();
-            _canvasGroup = GetComponent<CanvasGroup>();
+            base.Awake();
 
             _playerCanvasRectTransform = _playerCanvas.GetComponent<RectTransform>();
             _canvasRectTransform = GetComponent<RectTransform>();

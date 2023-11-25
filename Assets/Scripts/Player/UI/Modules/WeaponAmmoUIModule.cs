@@ -2,21 +2,20 @@
 using TMPro;
 using UnityEngine;
 
-namespace OperationPlayground.Player.UI
+namespace OperationPlayground.Player.UI.Modules
 {
-    public class PlayerWeaponAmmoUI : MonoBehaviour
+    public class WeaponAmmoUIModule : UIModule
     {
-        private PlayerManager playerManager;
         private Weapon currentWeapon;
 
         [SerializeField]
         private TextMeshProUGUI ammoText;
 
-        private void Awake()
+        protected override void Awake()
         {
-            playerManager = GetComponentInParent<PlayerManager>();
+            base.Awake();
 
-            playerManager.PlayerShooter.onWeaponSwitch += (weapon) =>
+            _playerCanvas.playerManager.PlayerShooter.onWeaponSwitch += (weapon) =>
             {
                 if (currentWeapon)
                 {

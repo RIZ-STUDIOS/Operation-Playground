@@ -9,36 +9,32 @@ namespace OperationPlayground.ZedExtensions
 {
     public static class CanvasUtils
     {
-        public static IEnumerator FadeIn(this CanvasGroup canvasGroup, bool interactable = false, bool blocksRaycasts = false, float fadeSpeedMod = 2)
+        public static IEnumerator FadeIn(this CanvasGroup canvasGroup, bool isInteractable = false, bool canBlockRaycasts = false, float fadeSpeedMod = 2)
         {
             IEnumerator lerpIn = LerpCanvasAlphaOverTime(canvasGroup, 1);
             yield return lerpIn;
 
-            if (interactable) canvasGroup.interactable = true;
-            if (blocksRaycasts) canvasGroup.blocksRaycasts = true;
+            ToggleCanvasGroupInteraction(canvasGroup, true, isInteractable, canBlockRaycasts);
         }
 
-        public static IEnumerator FadeOut(this CanvasGroup canvasGroup, bool interactable = false, bool blocksRaycasts = false, float fadeSpeedMod = 2)
+        public static IEnumerator FadeOut(this CanvasGroup canvasGroup, bool isInteractable = false, bool canBlockRaycasts = false, float fadeSpeedMod = 2)
         {
-            if (interactable) canvasGroup.interactable = false;
-            if (blocksRaycasts) canvasGroup.blocksRaycasts = false;
+            ToggleCanvasGroupInteraction(canvasGroup, false, isInteractable, canBlockRaycasts);
 
             IEnumerator lerpOut = LerpCanvasAlphaOverTime(canvasGroup, 0);
             yield return lerpOut;
         }
 
-        public static IEnumerator FadeInThenOut(this CanvasGroup canvasGroup, bool interactable = false, bool blocksRaycasts = false, float fadeSpeedMod = 2, float duration = 0.5f)
+        public static IEnumerator FadeInThenOut(this CanvasGroup canvasGroup, bool isInteractable = false, bool canBlockRaycasts = false, float fadeSpeedMod = 2, float duration = 0.5f)
         {
             IEnumerator lerpIn = LerpCanvasAlphaOverTime(canvasGroup, 1);
             yield return lerpIn;
 
-            if (interactable) canvasGroup.interactable = true;
-            if (blocksRaycasts) canvasGroup.blocksRaycasts = true;
+            ToggleCanvasGroupInteraction(canvasGroup, true, isInteractable, canBlockRaycasts);
 
             yield return new WaitForSeconds(duration);
 
-            if (interactable) canvasGroup.interactable = false;
-            if (blocksRaycasts) canvasGroup.blocksRaycasts = false;
+            ToggleCanvasGroupInteraction(canvasGroup, false, isInteractable, canBlockRaycasts);
 
             IEnumerator lerpOut = LerpCanvasAlphaOverTime(canvasGroup, 0);
             yield return lerpOut;
@@ -59,6 +55,20 @@ namespace OperationPlayground.ZedExtensions
             }
 
             yield return lerpVector.y;
+        }
+
+        private static void ToggleCanvasGroupInteraction(CanvasGroup canvasGroup, bool togglingOn, bool isInteractable, bool canBlockRaycasts)
+        {
+            if (togglingOn)
+            {
+                if (isInteractable) canvasGroup.interactable = true;
+                if (canBlockRaycasts) canvasGroup.blocksRaycasts = true;
+            }
+            else
+            {
+                if (isInteractable) canvasGroup.interactable = false;
+                if (canBlockRaycasts) canvasGroup.blocksRaycasts = false;
+            }
         }
     }
 }

@@ -1,9 +1,6 @@
 using OperationPlayground.Player;
 using OperationPlayground.Resources;
 using OperationPlayground.ScriptableObjects;
-using OperationPlayground.Weapons;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -58,7 +55,7 @@ namespace OperationPlayground.Shop
         {
             if (ResourceManager.Instance.Supplies < ItemCost)
             {
-                playerManager.PlayerCanvas.DisplayPrompt("<color=#EC5D5D>INSUFFICIENT SUPPLIES</color>");
+                playerManager.PlayerCanvas.MessageUI.DisplayMessage("<color=#EC5D5D>INSUFFICIENT SUPPLIES</color>");
                 return;
             }
 

@@ -21,7 +21,7 @@ namespace OperationPlayground.EntityData
                 health = value;
                 if (health > MaxHealth) health = MaxHealth;
                 UpdateHealthbarVisibility();
-                onHealthChanged?.Invoke();
+                OnHealthChanged?.Invoke();
             }
         }
 
@@ -29,8 +29,8 @@ namespace OperationPlayground.EntityData
 
         public float HealthPer => Health / (float)MaxHealth;
 
-        public event System.Action onHealthChanged;
-        public event System.Action onDeath;
+        public event System.Action OnHealthChanged;
+        public event System.Action OnDeath;
 
         private bool dead;
 
@@ -66,7 +66,7 @@ namespace OperationPlayground.EntityData
             if (health <= 0 && !dead)
             {
                 dead = true;
-                onDeath?.Invoke();
+                OnDeath?.Invoke();
                 if (DestroyOnDeath)
                 {
                     Destroy(gameObject);
@@ -105,7 +105,7 @@ namespace OperationPlayground.EntityData
             healthBarObject.transform.localScale = HealthBarSize;
             healthBarObject.transform.localPosition = HealthBarSpawnOffset;
             healthBar = healthBarObject.GetComponent<ProgressBarUI>();
-            onHealthChanged += () =>
+            OnHealthChanged += () =>
             {
                 healthBar.PercentFilled = HealthPer;
             };

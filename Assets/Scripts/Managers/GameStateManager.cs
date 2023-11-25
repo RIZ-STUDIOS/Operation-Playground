@@ -11,6 +11,9 @@ namespace OperationPlayground.Managers
 {
     public class GameStateManager : GenericManager<GameStateManager>
     {
+        private bool _isGameOver;
+        public bool IsGameOver { get { return _isGameOver; } private set { _isGameOver = value; } }
+
         private RoundManager roundManager;
         private DefendPointData defendPointData;
 
@@ -21,7 +24,7 @@ namespace OperationPlayground.Managers
 
             defendPointData = GameManager.Instance.defendPointData;
 
-            defendPointData.DefendPointHealth.onDeath += OnGameLost;
+            defendPointData.DefendPointHealth.OnDeath += OnGameLost;
         }
 
         private void OnGameWon()
@@ -30,18 +33,19 @@ namespace OperationPlayground.Managers
             DisablePlayers();
             foreach(var playerManager in PlayerSpawnManager.Instance.Players)
             {
-                playerManager.PlayerCanvas.gameOverUI.ShowWin();
+                playerManager.PlayerCanvas.GameOverUI.ShowWin();
             }
         }
 
         public void OnGameLost()
         {
             Debug.Log("Game Lost");
+            IsGameOver = true;
             roundManager.StopRounds();
             DisablePlayers();
             foreach (var playerManager in PlayerSpawnManager.Instance.Players)
             {
-                playerManager.PlayerCanvas.gameOverUI.ShowLost();
+                playerManager.PlayerCanvas.GameOverUI.ShowLost();
             }
         }
 

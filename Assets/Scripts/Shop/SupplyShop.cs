@@ -35,10 +35,10 @@ namespace OperationPlayground.Shop
             };
         }
 
-        private void OnInteract(PlayerManager pM)
+        private void OnInteract(PlayerManager playerManager)
         {
-            if (interactable.CanInteractWith) pM.PlayerShopUI.OpenShop(shopItems);
-            else pM.PlayerCanvas.DisplayPrompt("<color=#EC5D5D>SHOP UNAVAILABLE</color>");
+            if (interactable.CanInteractWith) playerManager.PlayerShopUI.OpenShop(shopItems);
+            else playerManager.PlayerCanvas.MessageUI.DisplayMessage("<color=#EC5D5D>SHOP UNAVAILABLE</color>");
         }
     }
 }

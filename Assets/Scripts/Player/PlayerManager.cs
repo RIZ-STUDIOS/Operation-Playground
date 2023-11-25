@@ -1,11 +1,10 @@
 using OperationPlayground.Buildings;
 using OperationPlayground.EntityData;
 using OperationPlayground.Player.PlayerCapabilities;
-using System.Collections;
+using OperationPlayground.Player.UI;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.XR;
 
 namespace OperationPlayground.Player
 {
@@ -42,7 +41,7 @@ namespace OperationPlayground.Player
 
         public PlayerMap PlayerMap => this.GetIfNull(ref _playerMap);
 
-        public PlayerCanvas PlayerCanvas => this.GetIfNull(ref _playerCanvas);
+        public PlayerCanvasManager PlayerCanvas => this.GetIfNull(ref _playerCanvas);
 
         public CharacterController CharacterController => this.GetIfNull(ref _characterController);
 
@@ -64,7 +63,7 @@ namespace OperationPlayground.Player
         private PlayerBuilding _playerBuilding;
         private InvalidPlacement _invalidPlacement;
         private PlayerMap _playerMap;
-        private PlayerCanvas _playerCanvas;
+        private PlayerCanvasManager _playerCanvas;
         private CharacterController _characterController;
         private PlayerLookMap _playerLook;
         private MapHighlight _mapHighlight;

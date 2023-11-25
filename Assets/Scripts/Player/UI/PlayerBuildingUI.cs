@@ -1,17 +1,13 @@
-using OperationPlayground.Player;
 using OperationPlayground.ScriptableObjects;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace OperationPlayground.UI
+namespace OperationPlayground.Player.UI
 {
-    public class BuildingUI : MonoBehaviour
+    public class PlayerBuildingUI : MonoBehaviour
     {
         private PlayerManager playerManager;
-
         private CanvasGroup canvasGroup;
 
         [SerializeField]
@@ -23,7 +19,6 @@ namespace OperationPlayground.UI
         private void Awake()
         {
             playerManager = GetComponentInParent<PlayerManager>();
-
             canvasGroup = GetComponent<CanvasGroup>();
 
             playerManager.PlayerBuilding.onEnterBuildingMode += () => canvasGroup.alpha = 1;

@@ -63,8 +63,6 @@ namespace OperationPlayground.Player
             Vector3 aimPos = _aimTransform.localPosition;
             aimPos.y = 0.1f;
             _aimTransform.transform.localPosition = aimPos;
-
-            Debug.Log(rotX + " " + rotY);
         }
 
         private void Update()

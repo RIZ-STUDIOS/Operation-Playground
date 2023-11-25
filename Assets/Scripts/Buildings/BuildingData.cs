@@ -59,7 +59,7 @@ namespace OperationPlayground.Buildings
 
             interactable.onInteract += OnInteract;
 
-            Health.onDeath += RemovePlayer;
+            Health.OnDeath += RemovePlayer;
         }
 
         private void OnInteract(PlayerManager playerManager)
@@ -98,9 +98,6 @@ namespace OperationPlayground.Buildings
             currentPlayer.playerInput.InBuild.Look.canceled += OnLookCanceled;
 
             currentPlayer.playerInput.InBuild.Enable();
-
-            if(BuildingShooter)
-            currentPlayer.PlayerCanvas.firePointTransform = BuildingShooter.CurrentWeapon.FirePointTransform;
 
             interactable.CanInteractWith = false;
 
@@ -145,8 +142,6 @@ namespace OperationPlayground.Buildings
             currentPlayer.playerTransform.rotation = playerRotation;
 
             currentPlayer.PlayerCamera.CameraCollider.enabled = true;
-
-            currentPlayer.PlayerCanvas.firePointTransform = null;
 
             currentPlayer.PlayerCamera.ResetCameraTarget();
 

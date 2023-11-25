@@ -10,6 +10,8 @@ namespace OperationPlayground.Player
 {
     public class PlayerHealth : GenericHealth
     {
+        public System.Action OnRespawn;
+
         [SerializeField, MinValue(1)]
         private int maxHealth = 10;
 
@@ -25,14 +27,14 @@ namespace OperationPlayground.Player
         {
             base.Awake();
             playerManager = GetComponent<PlayerManager>();
-            onDeath += OnDeath;
+            OnDeath += OnPlayerDeath;
         }
 
-        private void OnDeath()
+        private void OnPlayerDeath()
         {
             if (!GameManager.Instance.playerRespawnManager) return;
+            if (GameStateManager.Instance.IsGameOver) return;
 
-            playerManager.PlayerCanvas.ShowDeathScreen();
             GameManager.Instance.playerRespawnManager.StartRespawnPlayer(playerManager);
         }
     }

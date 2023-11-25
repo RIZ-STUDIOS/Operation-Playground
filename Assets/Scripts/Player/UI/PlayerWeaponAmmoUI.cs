@@ -1,16 +1,12 @@
-﻿using OperationPlayground.Player;
-using OperationPlayground.Weapons;
-using System.Collections;
-using System.Collections.Generic;
+﻿using OperationPlayground.Weapons;
 using TMPro;
 using UnityEngine;
 
-namespace OperationPlayground.UI
+namespace OperationPlayground.Player.UI
 {
-    public class WeaponAmmoUI : MonoBehaviour
+    public class PlayerWeaponAmmoUI : MonoBehaviour
     {
         private PlayerManager playerManager;
-
         private Weapon currentWeapon;
 
         [SerializeField]

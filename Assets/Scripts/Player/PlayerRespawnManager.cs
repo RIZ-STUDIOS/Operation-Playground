@@ -32,7 +32,7 @@ namespace OperationPlayground.Player
             {
                 SpawnPlayer(playerManager);
                 playerManager.AddDefaultPlayerStates();
-                playerManager.PlayerCanvas.HideDeathScreen();
+                playerManager.PlayerCanvas.DeathUI.HideDeathScreen();
             }
             deadPlayers.Clear();
         }
@@ -74,7 +74,7 @@ namespace OperationPlayground.Player
             {
                 SpawnPlayer(playerManager);
                 playerManager.AddDefaultPlayerStates();
-                playerManager.PlayerCanvas.HideDeathScreen();
+                playerManager.PlayerCanvas.DeathUI.HideDeathScreen();
             }
         }
 

@@ -9,13 +9,13 @@ namespace OperationPlayground.Player.PlayerCapabilities
         public override void OnStateEnter()
         {
             playerManager.PlayerMovementTPS.enabled = true;
-            playerManager.PlayerCanvas.reticle.SetActive(true);
+            playerManager.PlayerCanvas.ReticleUI.gameObject.SetActive(true);
         }
 
         public override void OnStateLeave()
         {
             playerManager.PlayerMovementTPS.enabled = false;
-            playerManager.PlayerCanvas.reticle.SetActive(false);
+            playerManager.PlayerCanvas.ReticleUI.gameObject.SetActive(false);
         }
     }
 }

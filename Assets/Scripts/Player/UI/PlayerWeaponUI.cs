@@ -1,13 +1,10 @@
-using OperationPlayground.Player;
 using OperationPlayground.Weapons;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace OperationPlayground.UI
+namespace OperationPlayground.Player.UI
 {
-    public class WeaponUI : MonoBehaviour
+    public class PlayerWeaponUI : MonoBehaviour
     {
         private PlayerManager playerManager;
 

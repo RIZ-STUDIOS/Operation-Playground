@@ -12,7 +12,7 @@ namespace OperationPlayground.EntityData
             rigidbodies = GetComponentsInChildren<Rigidbody>();
             DisableRagdoll();
 
-            GetComponentInParent<GenericHealth>().onDeath += EnableRagdoll;
+            GetComponentInParent<GenericHealth>().OnDeath += EnableRagdoll;
         }
 
         public void DisableRagdoll()

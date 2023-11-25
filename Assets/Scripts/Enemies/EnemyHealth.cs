@@ -29,7 +29,7 @@ namespace OperationPlayground.Enemies
 
         protected override void Awake()
         {
-            onDeath += () =>
+            OnDeath += () =>
             {
                 RoundManager.Instance.EnemyKilled(parentEntity);
                 CreateAmmoPickup();

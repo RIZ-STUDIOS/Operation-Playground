@@ -123,10 +123,7 @@ namespace OperationPlayground.Player
             DisableJoining();
             foreach (var player in _players)
             {
-                if (player.PlayerShopUI.InMenu) player.PlayerShopUI.CloseMenu();
-
-                player.PlayerCanvas.DeathUI.InstantHideModule();
-                player.PlayerCanvas.GameOverUI.InstantHideModule();
+                player.PlayerCanvas.ResetPlayerUI();
                 player.RemoveAllPlayerStates();
             }
             LevelLoader.LoadScene("MainMenu");

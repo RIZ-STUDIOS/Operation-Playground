@@ -14,6 +14,7 @@ namespace OperationPlayground.Player.UI.Modules
         [SerializeField] protected GameObject _buttonPrefab;
         [SerializeField] protected GameObject _scrollPanel;
 
+        public List<ZedButton> ButtonList { get { return _buttonList; } }
         protected List<ZedButton> _buttonList;
 
         private int _navigationIndex = 0;
@@ -27,6 +28,7 @@ namespace OperationPlayground.Player.UI.Modules
 
         public virtual void OpenMenu()
         {
+            DePopulateMenu();
             PopulateMenu();
 
             FadeRevealModule();
@@ -72,7 +74,7 @@ namespace OperationPlayground.Player.UI.Modules
             }
         }
 
-        private void OnNavigate(InputAction.CallbackContext value)
+        protected void OnNavigate(InputAction.CallbackContext value)
         {
             int previousNavigationIndex = _navigationIndex;
             Vector2 input = value.ReadValue<Vector2>();
@@ -103,12 +105,12 @@ namespace OperationPlayground.Player.UI.Modules
             _buttonList[_navigationIndex].SetButtonSelected();
         }
 
-        private void OnCancelPerformed(InputAction.CallbackContext value)
+        protected void OnCancelPerformed(InputAction.CallbackContext value)
         {
             CloseMenu();
         }
 
-        private void OnSubmit(InputAction.CallbackContext value)
+        protected void OnSubmit(InputAction.CallbackContext value)
         {
             _buttonList[_navigationIndex].OnSubmit(_playerCanvas.playerManager);
         }

@@ -17,6 +17,9 @@ namespace OperationPlayground.Player.UI.Modules
         }
         private ShopItemScriptableObject[] _shopItems;
 
+        protected override bool IsInteractable => true;
+        protected override bool CanBlockRaycasts => false;
+
         protected override void PopulateMenu()
         {
             if (ShopItems.Length <= 0)
@@ -29,7 +32,7 @@ namespace OperationPlayground.Player.UI.Modules
             {
                 GameObject buyButton = Instantiate(_buttonPrefab);
 
-                ShopButton shopButton = buyButton.GetComponent<ShopButton>();
+                ShopZedButton shopButton = buyButton.GetComponent<ShopZedButton>();
                 shopButton.AssignShopItem(shopItem, _playerCanvas.playerManager);
                 shopButton.transform.SetParent(_scrollPanel.transform, false);
 

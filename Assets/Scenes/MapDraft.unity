@@ -7186,6 +7186,7 @@ GameObject:
   m_Component:
   - component: {fileID: 484982752}
   - component: {fileID: 484982753}
+  - component: {fileID: 484982754}
   m_Layer: 0
   m_Name: GameStateManager
   m_TagString: Untagged
@@ -7220,6 +7221,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 791024566fa36ff488530e2f42e16160, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &484982754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 484982751}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c95522b6755f88489852774eb301f23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isPostGame: 0
 --- !u!1001 &492144474
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8801,7 +8815,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf195fd27af576140923512d37b6091a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  preRoundTimer: 60
+  preRoundTimer: 4
   waypointLists:
   - {fileID: 787334279}
   - {fileID: 1130760628}
@@ -24298,7 +24312,7 @@ Camera:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1681664095}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_ClearFlags: 1
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}

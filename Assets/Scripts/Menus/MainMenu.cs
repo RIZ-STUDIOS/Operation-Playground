@@ -45,12 +45,8 @@ namespace OperationPlayground.Menus
             lobby = GetComponentInChildren<LobbyHandler>();
             lobby.onLobbyEnded += OnLobbyEnded;
 
-            if (PlayerSpawnManager.Instance.Players.Count <= 0)
-            {
-                PlayerSpawnManager.Instance.OnPlayerJoin += OnPlayerJoin;
-                PlayerSpawnManager.Instance.EnableJoining();
-                PlayerSpawnManager.Instance.GetComponent<PlayerInputManager>().joinBehavior = PlayerJoinBehavior.JoinPlayersWhenButtonIsPressed;
-            }
+            if (PlayerSpawnManager.Instance.Players.Count <= 0) WaitForFirstPlayer();
+            else firstPlayer.playerInput.UI.Cancel.performed += OnCancel;
 
             lobbyButton.onClick.AddListener(OnLobbyButton);
             settingsButton.onClick.AddListener(OnSettingsButton);
@@ -58,12 +54,24 @@ namespace OperationPlayground.Menus
             quitButton.onClick.AddListener(OnQuitButton);
         }
 
-        private void OnPlayerJoin(PlayerManager player)
+        private void WaitForFirstPlayer()
         {
-            firstPlayer.playerInput.UI.Cancel.performed += OnCancel;
+            PlayerSpawnManager.Instance.OnPlayerJoin += OnPlayerJoin;
+            PlayerSpawnManager.Instance.EnableJoining();
+            PlayerSpawnManager.Instance.GetComponent<PlayerInputManager>().joinBehavior = PlayerJoinBehavior.JoinPlayersWhenButtonIsPressed;
+        }
+
+        private void FirstPlayerFound()
+        {
             PlayerSpawnManager.Instance.OnPlayerJoin -= OnPlayerJoin;
             PlayerSpawnManager.Instance.GetComponent<PlayerInputManager>().DisableJoining();
             PlayerSpawnManager.Instance.GetComponent<PlayerInputManager>().joinBehavior = PlayerJoinBehavior.JoinPlayersWhenJoinActionIsTriggered;
+        }
+
+        private void OnPlayerJoin(PlayerManager player)
+        {
+            firstPlayer.playerInput.UI.Cancel.performed += OnCancel;
+            FirstPlayerFound();
         }
 
         private void OnCancel(InputAction.CallbackContext input)

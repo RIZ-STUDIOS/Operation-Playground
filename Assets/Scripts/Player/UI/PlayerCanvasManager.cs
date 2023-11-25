@@ -25,6 +25,8 @@ namespace OperationPlayground.Player.UI
 
         public GameOverUIModule GameOverUI => this.GetIfNull(ref _gameOverUI);
 
+        public OptionsUIModule OptionsUI => this.GetIfNull(ref _optionsUI);
+
         private ShopUIModule _shopUI;
         private InteractUIModule _interactUI;
         private MessageUIModule _messageUI;
@@ -34,10 +36,22 @@ namespace OperationPlayground.Player.UI
         private WeaponAmmoUIModule _weaponAmmoUI;
         private GameOverUIModule _gameOverUI;
         private WeaponUIModule _weaponUI;
+        private OptionsUIModule _optionsUI;
 
         private void Awake()
         {
             playerManager = GetComponentInParent<PlayerManager>();
+        }
+
+        public void ResetPlayerUI()
+        {
+            ShopUI.CloseMenu();
+            OptionsUI.CloseMenu();
+            InteractUI.InstantHideModule();
+            MessageUI.InstantHideModule();
+            BuildingUI.InstantHideModule();
+            DeathUI.InstantHideModule();
+            GameOverUI.InstantHideModule();
         }
     }
 }

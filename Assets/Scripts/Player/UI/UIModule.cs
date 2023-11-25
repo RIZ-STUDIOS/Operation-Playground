@@ -17,6 +17,9 @@ namespace OperationPlayground
 
         protected Coroutine _fadeCoroutine;
 
+        protected virtual bool IsInteractable => false;
+        protected virtual bool CanBlockRaycasts => false;
+
         protected virtual void Awake()
         {
             _playerCanvas = GetComponentInParent<PlayerCanvasManager>();
@@ -27,28 +30,28 @@ namespace OperationPlayground
         {
             if (_fadeCoroutine != null) StopCoroutine(_fadeCoroutine);
 
-            CanvasGroup.InstantShow();
+            CanvasGroup.InstantShow(IsInteractable, CanBlockRaycasts);
         }
 
         public void InstantHideModule()
         {
             if (_fadeCoroutine != null) StopCoroutine(_fadeCoroutine);
 
-            CanvasGroup.InstantHide();
+            CanvasGroup.InstantHide(IsInteractable, CanBlockRaycasts);
         }
 
         public void FadeRevealModule()
         {
             if (_fadeCoroutine != null) StopCoroutine(_fadeCoroutine);
 
-            _fadeCoroutine = StartCoroutine(_canvasGroup.FadeIn());
+            _fadeCoroutine = StartCoroutine(_canvasGroup.FadeIn(IsInteractable, CanBlockRaycasts));
         }
 
         public void FadeHideModule()
         {
             if (_fadeCoroutine != null) StopCoroutine(_fadeCoroutine);
 
-            _fadeCoroutine = StartCoroutine(_canvasGroup.FadeOut());
+            _fadeCoroutine = StartCoroutine(_canvasGroup.FadeOut(IsInteractable, CanBlockRaycasts));
         }
     }
 }

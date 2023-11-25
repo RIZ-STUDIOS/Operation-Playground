@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace OperationPlayground.Shop
 {
-    public class ShopButton : ZedButton
+    public class ShopZedButton : ZedButton
     {
         public ShopItemScriptableObject shopItem;
 
@@ -31,8 +31,6 @@ namespace OperationPlayground.Shop
             itemIcon.sprite = shopItem.sprite;
 
             if (owningPlayer.PlayerShooter.GetWeaponBySO(newShopItem.weaponSo) != null) hasGun = true;
-
-            Debug.Log(hasGun);
 
             SetText();
         }

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Projectile_Rifle
   m_EditorClassIdentifier: 
   id: Projectile_Rifle
-  prefab: {fileID: 7288351491597327683, guid: 018f619ab33bf0146a970da7c466c52b, type: 3}
+  prefab: {fileID: 7288351491597327683, guid: a50dedb405c8dfa4d9f1b65839b31640, type: 3}
   speed: 615
   damage: 5
   projectileType: 0

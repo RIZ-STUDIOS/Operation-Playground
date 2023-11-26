@@ -5,6 +5,7 @@ using RicTools.Managers;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace OperationPlayground
 {
@@ -12,6 +13,10 @@ namespace OperationPlayground
     {
         public bool isPostGame;
         public event System.Action OnVoteValueChanged;
+
+        public AudioSource audioSource;
+        public AudioClip winClip;
+        public AudioClip loseClip;
 
         public int VoteRetryCount
         {
@@ -38,6 +43,12 @@ namespace OperationPlayground
         }
         private int _voteQuitCount;
 
+        protected override void Awake()
+        {
+            base.Awake();
+            audioSource = GetComponent<AudioSource>();
+        }
+
         private void Start()
         {
             GameStateManager.Instance.OnGameOver += SetupPlayers;
@@ -47,6 +58,11 @@ namespace OperationPlayground
         private void SetupPlayers()
         {
             isPostGame = true;
+
+            if (GameStateManager.Instance.IsVictory) audioSource.clip = winClip;
+            else audioSource.clip = loseClip;
+
+            audioSource.Play();
 
             foreach (var player in PlayerSpawnManager.Instance.Players)
             {
@@ -70,6 +86,8 @@ namespace OperationPlayground
                 isPostGame = false;
                 PlayerSpawnManager.Instance.ReturnToMainMenu();
             }
+
+            audioSource.Stop();
         }
     }
 }

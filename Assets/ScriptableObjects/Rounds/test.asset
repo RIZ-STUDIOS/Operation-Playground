@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: test
   m_EditorClassIdentifier: 
   id: test
-  minEnemies: 25
-  maxEnemies: 30
+  minEnemies: 1
+  maxEnemies: 1
   spawnDelay: 0.1
   supplyReward: 50
   enemies:

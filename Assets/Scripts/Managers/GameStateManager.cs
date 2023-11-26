@@ -61,6 +61,8 @@ namespace OperationPlayground.Managers
                 playerManager.AddPlayerState(PlayerCapabilityType.Collision);
                 playerManager.AddPlayerState(PlayerCapabilityType.Health);
                 playerManager.AddPlayerState(PlayerCapabilityType.GunVisibility);
+
+                playerManager.PlayerCanvas.DeathUI.InstantHideModule();
             }
         }
     }

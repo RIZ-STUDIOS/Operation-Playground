@@ -9,7 +9,7 @@ namespace OperationPlayground.Player.UI.Modules
         [SerializeField]
         private TextMeshProUGUI text;
 
-        public void SubscribeEvent()
+        public override void ConfigureUI()
         {
             ResourceManager.Instance.onSupplyChange += OnSupplyChange;
             OnSupplyChange();

@@ -13,6 +13,11 @@ namespace OperationPlayground.Player.UI.Modules
         [SerializeField]
         private TextMeshProUGUI supplyCountText;
 
+        public override void ConfigureUI()
+        {
+            
+        }
+
         protected override void Awake()
         {
             base.Awake();

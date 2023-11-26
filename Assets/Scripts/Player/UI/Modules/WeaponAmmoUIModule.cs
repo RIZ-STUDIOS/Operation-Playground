@@ -32,6 +32,11 @@ namespace OperationPlayground.Player.UI.Modules
             };
         }
 
+        public override void ConfigureUI()
+        {
+
+        }
+
         private void UpdateAmmoCount()
         {
             if (currentWeapon.InfiniteAmmo)

@@ -80,10 +80,7 @@ namespace OperationPlayground.Rounds
 
         private void StartPreRound()
         {
-            if (CheckFinishRounds())
-            {
-                return;
-            }
+            if (CheckFinishRounds()) return;
 
             roundStatus = RoundStatus.PreRound;
             preRoundTime = 0;

@@ -566,6 +566,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerManager: {fileID: 445927759791602954}
+  uiModules: []
 --- !u!1 &859333219054697041
 GameObject:
   m_ObjectHideFlags: 0
@@ -2000,10 +2001,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7638567332541025094}
   - component: {fileID: 3034329611946428298}
-  - component: {fileID: 431671545708541047}
-  - component: {fileID: 5155544264582751422}
   m_Layer: 14
-  m_Name: SupplyCount
+  m_Name: SupplyCost
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2038,31 +2037,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2672253068932235740}
   m_CullTransparentMesh: 1
---- !u!225 &431671545708541047
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2672253068932235740}
-  m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 0
-  m_BlocksRaycasts: 0
-  m_IgnoreParentGroups: 0
---- !u!114 &5155544264582751422
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2672253068932235740}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17a72c22145eb9549ba0f3230c75000f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  text: {fileID: 5069850929810410996}
 --- !u!1 &2715955171352861599
 GameObject:
   m_ObjectHideFlags: 0
@@ -2741,7 +2715,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9730074d959a2b4486d64a97e4e8447, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wonColor: {r: 0.2901961, g: 0.36862746, b: 0.20392157, a: 1}
+  wonColor: {r: 0, g: 0.18431373, b: 0.42352942, a: 1}
   lostColor: {r: 0.3019608, g: 0.16862746, b: 0.19607843, a: 1}
   backgroundImage: {fileID: 6724063172064635263}
   wonLostText: {fileID: 2225579233155066519}
@@ -4786,6 +4760,7 @@ MonoBehaviour:
   _buttonPrefab: {fileID: 550147763474860397, guid: 3464108fe20bc0f4d9541ff8249e96cd,
     type: 3}
   _scrollPanel: {fileID: 7993845613816181490}
+  hasVoted: 0
 --- !u!1001 &2689330591957285773
 PrefabInstance:
   m_ObjectHideFlags: 0

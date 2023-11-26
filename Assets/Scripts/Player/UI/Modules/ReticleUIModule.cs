@@ -24,6 +24,11 @@ namespace OperationPlayground.Player.UI.Modules
             _canvasRectTransform = GetComponent<RectTransform>();
         }
 
+        public override void ConfigureUI()
+        {
+
+        }
+
         private void FixedUpdate()
         {
             MatchReticleToMuzzleTrajectory();

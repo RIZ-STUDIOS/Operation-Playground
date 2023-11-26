@@ -15,12 +15,9 @@ namespace OperationPlayground.Player.UI.Modules
             _playerCanvas.playerManager.PlayerInteraction.onSetInteractable += OnSetInteractable;
         }
 
-        private void OnSetInteractable(Interactable interactable)
+        public override void ConfigureUI()
         {
-            if (interactable && interactable.enabled)
-                FadeRevealModule();
-            else
-                FadeHideModule();
+            
         }
 
         public void EnableInteract()
@@ -31,6 +28,14 @@ namespace OperationPlayground.Player.UI.Modules
         public void DisableInteract(PlayerManager playerManager)
         {
             FadeHideModule();
+        }
+
+        private void OnSetInteractable(Interactable interactable)
+        {
+            if (interactable && interactable.enabled)
+                FadeRevealModule();
+            else
+                FadeHideModule();
         }
     }
 }

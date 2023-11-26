@@ -35,19 +35,19 @@ namespace OperationPlayground.Managers
         private void OnGameWon()
         {
             Debug.Log("Game Won");
-            OnGameOver?.Invoke();
             _isGameOver = true;
             _isVictory = true;
+            OnGameOver?.Invoke();
             DisablePlayers();
         }
 
         public void OnGameLost()
         {
             Debug.Log("Game Lost");
-            OnGameOver?.Invoke();
             _isGameOver = true;
             _isVictory = false;
             roundManager.StopRounds();
+            OnGameOver?.Invoke();
             DisablePlayers();
         }
 

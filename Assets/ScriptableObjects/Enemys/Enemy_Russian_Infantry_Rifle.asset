@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: be9437efb527018439c427d41e49088d, type: 3}
-  m_Name: Enemy_Russian_Infantry
+  m_Name: Enemy_Russian_Infantry_Rifle
   m_EditorClassIdentifier: 
-  id: Enemy_Russian_Infantry
+  id: Enemy_Russian_Infantry_Rifle
   prefab: {fileID: 242933109357955558, guid: ddd7fdf7305cd534392ca5b6775c8b49, type: 3}
   maxHealth: 5
   speed: 4
   weaponScriptableObject: {fileID: 11400000, guid: 8298f02143fa7d54f83f67f395a8f3b5,
     type: 2}
-  enemySprite: {fileID: 21300000, guid: e1916e1298e56f544b9654fbcabd9753, type: 3}
+  enemySprite: {fileID: 0}
   attackRange: 50
   targetCheckTime: 2
   attackDelayTime: 1

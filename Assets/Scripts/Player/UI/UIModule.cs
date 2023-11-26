@@ -26,7 +26,7 @@ namespace OperationPlayground
             _canvasGroup = GetComponent<CanvasGroup>();
         }
 
-        public virtual void ConfigureUI() { }
+        public abstract void ConfigureUI();
 
         public void InstantRevealModule()
         {

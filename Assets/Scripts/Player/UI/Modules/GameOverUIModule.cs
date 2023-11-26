@@ -28,7 +28,6 @@ namespace OperationPlayground.Player.UI.Modules
         public override void ConfigureUI()
         {
             GameStateManager.Instance.OnGameOver += GameOverQuery;
-            Debug.Log("Fired!");
         }
 
         public void GameOverQuery()
@@ -43,6 +42,7 @@ namespace OperationPlayground.Player.UI.Modules
             backgroundImage.color = color;
 
             wonLostText.text = "VICTORY FOR THE FINNS";
+            Debug.Log("Victory for the Finns!");
 
             FadeRevealModule();
         }

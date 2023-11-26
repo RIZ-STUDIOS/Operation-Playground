@@ -15,6 +15,11 @@ namespace OperationPlayground.Player.UI.Modules
             _playerCanvas.playerManager.PlayerShooter.onWeaponSwitch += onWeaponSwitch;
         }
 
+        public override void ConfigureUI()
+        {
+
+        }
+
         private void onWeaponSwitch(Weapon weapon)
         {
             weaponIconImage.sprite = weapon.weaponSo.weaponSprite;

@@ -16,6 +16,6 @@ MonoBehaviour:
   minEnemies: 6
   maxEnemies: 12
   spawnDelay: 0.5
-  supplyReward: 100
+  supplyReward: 200
   enemies:
-  - enemySo: {fileID: 11400000, guid: c4bf65efeb5b38348a3346237c26a5a1, type: 2}
+  - enemySo: {fileID: 11400000, guid: 2e86de78753c97047970699f8a93df0e, type: 2}

@@ -1,4 +1,5 @@
 using OperationPlayground.Player.UI.Modules;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace OperationPlayground.Player.UI
@@ -17,6 +18,8 @@ namespace OperationPlayground.Player.UI
 
         public BuildingUIModule BuildingUI => this.GetIfNull(ref _buildingUI);
 
+        public SupplyCountUIModule SupplyCountUI => this.GetIfNull(ref _supplyCountUI);
+
         public WeaponUIModule WeaponUI => this.GetIfNull(ref _weaponUI);
 
         public WeaponAmmoUIModule WeaponAmmoUI => this.GetIfNull(ref _weaponAmmoUI);
@@ -32,16 +35,19 @@ namespace OperationPlayground.Player.UI
         private MessageUIModule _messageUI;
         private ReticleUIModule _reticleUI;
         private BuildingUIModule _buildingUI;
-        private DeathUIModule _deathUI;
-        private GameOverUIModule _gameOverUI;
+        private SupplyCountUIModule _supplyCountUI;
         private WeaponUIModule _weaponUI;
         private WeaponAmmoUIModule _weaponAmmoUI;
+        private DeathUIModule _deathUI;
+        private GameOverUIModule _gameOverUI;
         private OptionsUIModule _optionsUI;
 
+        public UIModule[] uiModules;
 
         private void Awake()
         {
             playerManager = GetComponentInParent<PlayerManager>();
+            uiModules = GetComponentsInChildren<UIModule>();
         }
 
         public void ConfigureModules()
@@ -51,10 +57,11 @@ namespace OperationPlayground.Player.UI
             MessageUI.ConfigureUI();
             ReticleUI.ConfigureUI();
             BuildingUI.ConfigureUI();
-            DeathUI.ConfigureUI();
-            GameOverUI.ConfigureUI();
+            SupplyCountUI.ConfigureUI();
             WeaponUI.ConfigureUI();
             WeaponAmmoUI.ConfigureUI();
+            DeathUI.ConfigureUI();
+            GameOverUI.ConfigureUI();
             OptionsUI.ConfigureUI();
         }
 

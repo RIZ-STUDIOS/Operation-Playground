@@ -19,5 +19,10 @@ namespace OperationPlayground.Player.UI.Modules
 
             _messageCoroutine = StartCoroutine(_canvasGroup.FadeInThenOut());
         }
+        public override void ConfigureUI()
+        {
+
+        }
+
     }
 }

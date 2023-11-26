@@ -64,6 +64,11 @@ namespace OperationPlayground.Player.UI.Modules
             _inMenu = false;
         }
 
+        public override void ConfigureUI()
+        {
+
+        }
+
         protected virtual void PopulateMenu() { }
 
         protected virtual void DePopulateMenu()

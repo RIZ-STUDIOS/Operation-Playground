@@ -298,6 +298,11 @@ MonoBehaviour:
   targettable: 1
   buildingScriptableObject: {fileID: 0}
   cameraTargetTransform: {fileID: 131736545464705955}
+  inBuildingCameraData:
+    shoulderOffset: {x: 0, y: 0.1, z: -1}
+    verticalArmLength: 0
+    cameraSide: 0
+    cameraDistance: 0
 --- !u!114 &5212910457014125860
 MonoBehaviour:
   m_ObjectHideFlags: 0

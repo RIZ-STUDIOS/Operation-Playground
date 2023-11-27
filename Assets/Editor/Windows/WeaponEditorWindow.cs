@@ -19,6 +19,7 @@ namespace OperationPlayground.Editor.Windows
         public EditorContainer<Vector3> slotOffset;
         public EditorContainer<Sprite> weaponSprite = new EditorContainer<Sprite>();
         public EditorContainer<Vector2> deviationOffsetModifier = new EditorContainer<Vector2>();
+        public EditorContainer<AudioClip> gunshotAudioClip = new EditorContainer<AudioClip>();
 
         [MenuItem("Operation Playground/Weapon Editor")]
         public static WeaponEditorWindow ShowWindow()
@@ -37,6 +38,12 @@ namespace OperationPlayground.Editor.Windows
             {
                 var element = rootVisualElement.AddObjectField(weaponSprite, "Sprite");
                 RegisterLoadChange(element, weaponSprite);
+                RegisterCheckCompletion(element);
+            }
+
+            {
+                var element = rootVisualElement.AddObjectField(gunshotAudioClip, "Gunshot Audio");
+                RegisterLoadChange(element, gunshotAudioClip);
                 RegisterCheckCompletion(element);
             }
 
@@ -80,6 +87,7 @@ namespace OperationPlayground.Editor.Windows
                 maxAmmo.Reset();
                 weaponSprite.Reset();
                 deviationOffsetModifier.Reset();
+                gunshotAudioClip.Reset();
             }
             else
             {
@@ -90,6 +98,7 @@ namespace OperationPlayground.Editor.Windows
                 maxAmmo.Value = so.maxAmmo;
                 weaponSprite.Value = so.weaponSprite;
                 deviationOffsetModifier.Value = so.deviationOffsetModifier;
+                gunshotAudioClip.Value = so.gunshotAudioclip;
             }
         }
 
@@ -102,6 +111,7 @@ namespace OperationPlayground.Editor.Windows
             asset.maxAmmo = maxAmmo;
             asset.weaponSprite = weaponSprite;
             asset.deviationOffsetModifier = deviationOffsetModifier;
+            asset.gunshotAudioclip = gunshotAudioClip;
         }
 
         protected override IEnumerable<CompleteCriteria> GetCompleteCriteria()

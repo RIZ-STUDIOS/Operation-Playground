@@ -20,3 +20,5 @@ MonoBehaviour:
     type: 2}
   slotOffset: {x: 0, y: 0, z: 0}
   weaponSprite: {fileID: 21300000, guid: e1916e1298e56f544b9654fbcabd9753, type: 3}
+  deviationOffsetModifier: {x: 0, y: 0}
+  gunshotAudioclip: {fileID: 8300000, guid: 5f88355b668ab734ea49f2a51c066ebc, type: 3}

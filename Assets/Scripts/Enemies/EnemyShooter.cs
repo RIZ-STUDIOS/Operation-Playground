@@ -194,6 +194,7 @@ namespace OperationPlayground.Enemies
 
         private void OnDrawGizmosSelected()
         {
+            if (!base.parentEntity) return;
             if (!parentEntity.enemyScriptableObject) return;
             Gizmos.DrawWireSphere(transform.position, parentEntity.enemyScriptableObject.attackRange);
         }

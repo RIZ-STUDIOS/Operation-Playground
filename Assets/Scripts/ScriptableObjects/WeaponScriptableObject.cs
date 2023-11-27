@@ -16,5 +16,6 @@ namespace OperationPlayground.ScriptableObjects
         public Vector3 slotOffset;
         public Sprite weaponSprite;
         public Vector2 deviationOffsetModifier;
+        public AudioClip gunshotAudioclip;
     }
 }

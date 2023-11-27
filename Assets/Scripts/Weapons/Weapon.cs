@@ -60,6 +60,7 @@ namespace OperationPlayground.Weapons
         {
             currentAmmo = weaponSo.maxAmmo;
             onAmmoChange?.Invoke();
+            gunshotSound.clip = weaponSo.gunshotAudioclip;
         }
 
         private void Update()
@@ -99,7 +100,13 @@ namespace OperationPlayground.Weapons
             }
             onAmmoChange?.Invoke();
 
-            gunshotSound.Play();
+            if (weaponSo.gunshotAudioclip != null)
+            {
+                var gunshotClone = Instantiate(gunshotSound, gunshotSound.transform.parent);
+                var gunshotSoundClone = gunshotClone.GetComponent<AudioSource>();
+                gunshotSoundClone.Play();
+                Destroy(gunshotSoundClone, gunshotSoundClone.clip.length);
+            }
         }
 
         protected virtual Vector3 GetFirePointForwardVector()

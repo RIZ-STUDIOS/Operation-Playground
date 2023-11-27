@@ -130,6 +130,7 @@ namespace OperationPlayground.Player
         {
             DestroyCurrentBuilding();
             isBuilding = false;
+            onExitBuildingMode?.Invoke();
             if (hasPlayerShootingCapability)
             {
                 playerManager.AddPlayerState(PlayerCapabilities.PlayerCapabilityType.Shooter);

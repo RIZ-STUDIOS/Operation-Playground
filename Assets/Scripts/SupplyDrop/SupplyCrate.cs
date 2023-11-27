@@ -15,7 +15,7 @@ namespace OperationPlayground.SupplyDrop
         public Interactable interactable;
 
         [System.NonSerialized]
-        public int supplyAmount;
+        public int supplyAmount = 150;
 
         [SerializeField]
         private GameObject[] parachuteGameObjects;

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: SMG
   sprite: {fileID: 21300000, guid: 3e08c53b2ca4223428970445a15af99c, type: 3}
-  supplyCost: 25
+  supplyCost: 50
   type: 0
   availableInTruckShop: 1
   availableInRadioShop: 0

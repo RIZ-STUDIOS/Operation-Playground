@@ -34,6 +34,8 @@ namespace OperationPlayground.Player
                 DontDestroyOnLoad(gameObject);
             else
                 Destroy(GetComponent<PlayerInputManager>());
+
+            Cursor.visible = false;
         }
 
         private void OnPlayerJoined(PlayerInput playerInput)
@@ -97,6 +99,7 @@ namespace OperationPlayground.Player
             playerManager.AddDefaultPlayerStates();
             playerManager.Health.FullyHeal();
             playerManager.PlayerCanvas.ConfigureModules();
+            playerManager.PlayerShooter.ResetPlayerWeapons();
             RoundManager.Instance.onRoundEnd += () => playerManager.Health.FullyHeal();
             GameManager.Instance.playerRespawnManager.SpawnPlayer(playerManager);
         }

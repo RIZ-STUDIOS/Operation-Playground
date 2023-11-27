@@ -1,5 +1,6 @@
 using OperationPlayground.Enemies;
 using OperationPlayground.Pathfinding;
+using OperationPlayground.Player;
 using OperationPlayground.Resources;
 using OperationPlayground.ScriptableObjects;
 using RicTools.Attributes;
@@ -46,10 +47,13 @@ namespace OperationPlayground.Rounds
 
         private Coroutine spawnEnemiesCoroutine;
 
+        private AudioSource roundAudio;
+
         protected override void Awake()
         {
             base.Awake();
             roundList = new List<RoundScriptableObject>(rounds);
+            roundAudio = GetComponent<AudioSource>();
         }
 
         private void Start()
@@ -86,10 +90,17 @@ namespace OperationPlayground.Rounds
             preRoundTime = 0;
             Debug.Log("Started Pre Round");
             onPreRoundStart?.Invoke();
+
+            foreach (var player in PlayerSpawnManager.Instance.Players)
+            {
+                player.PlayerCanvas.MessageUI.DisplayMessage("<color=#00B0FF>PREPARE FOR ENEMIES\nSHOP IS OPEN</color>", 3);
+            }
         }
 
         private void StartRound()
         {
+            roundAudio.Play();
+
             roundStatus = RoundStatus.Round;
 
             enemyEntities.Clear();
@@ -106,6 +117,11 @@ namespace OperationPlayground.Rounds
             roundList.RemoveAt(0);
 
             spawnEnemiesCoroutine = StartCoroutine(SpawnEnemiesRoundCoroutine());
+
+            foreach (var player in PlayerSpawnManager.Instance.Players)
+            {
+                player.PlayerCanvas.MessageUI.DisplayMessage("<color=#EC5D5D>ENEMIES ARE COMING</color>", 3);
+            }
         }
 
         private bool CheckFinishRounds()
@@ -176,6 +192,8 @@ namespace OperationPlayground.Rounds
             }
 
             enemyEntities.Add(enemy.GetComponentInChildren<EnemyEntity>());
+
+            enemy.GetComponentInChildren<EnemyShooter>().SetGunshoutSound();
 
             CurrentRound.spawnEnemies++;
         }

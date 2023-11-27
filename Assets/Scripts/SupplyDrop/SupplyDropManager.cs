@@ -1,8 +1,7 @@
 using OperationPlayground.Managers;
+using OperationPlayground.Player;
 using OperationPlayground.Rounds;
 using RicTools.Utilities;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace OperationPlayground.SupplyDrop
@@ -23,11 +22,15 @@ namespace OperationPlayground.SupplyDrop
 
         private SupplyDropLocation[] locations;
 
+        private AudioSource supplyDropAudio;
+
         private void Awake()
         {
             GameManager.Instance.supplyDropManager = this;
 
             locations = GetComponentsInChildren<SupplyDropLocation>();
+
+            supplyDropAudio = GetComponent<AudioSource>();
         }
 
         private void Start()
@@ -77,6 +80,13 @@ namespace OperationPlayground.SupplyDrop
             if (tries < 5)
             {
                 location.SpawnCrate();
+            }
+
+            supplyDropAudio.Play();
+
+            foreach (var player in PlayerSpawnManager.Instance.Players)
+            {
+                player.PlayerCanvas.MessageUI.DisplayMessage("<color=#A0C16D>SUPPLY CRATE INCOMING\nLOOK TO THE SKY</color>", 3);
             }
         }
     }

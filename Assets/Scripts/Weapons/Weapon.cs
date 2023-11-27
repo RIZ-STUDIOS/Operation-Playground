@@ -19,19 +19,22 @@ namespace OperationPlayground.Weapons
         public Transform FirePointTransform { get { return _firePointTransform; } }
 
         [SerializeField]
-        private bool infiniteAmmo;
+        protected bool infiniteAmmo;
 
         public bool InfiniteAmmo { get { return infiniteAmmo; } set { infiniteAmmo = value; } }
 
-        private int currentAmmo;
+        protected int currentAmmo;
 
         public int CurrentAmmo => currentAmmo;
 
-        private float shootCooldown;
+        protected float shootCooldown;
 
-        private GenericShooter shooter;
+        protected GenericShooter shooter;
 
-        public event System.Action onAmmoChange;
+        public System.Action onAmmoChange;
+
+        public AudioSource GunshotSound { get { return gunshotSound; } }
+        protected AudioSource gunshotSound;
 
         public static GameObject CreateWeapon(WeaponScriptableObject weaponScriptableObject, Transform parentTransform = null)
         {
@@ -46,6 +49,11 @@ namespace OperationPlayground.Weapons
             weapon.ApplyOffset();
 
             return weaponObject;
+        }
+
+        private void Awake()
+        {
+            gunshotSound = GetComponentInChildren<AudioSource>();
         }
 
         private void Start()
@@ -90,6 +98,8 @@ namespace OperationPlayground.Weapons
                 currentAmmo--;
             }
             onAmmoChange?.Invoke();
+
+            gunshotSound.Play();
         }
 
         protected virtual Vector3 GetFirePointForwardVector()

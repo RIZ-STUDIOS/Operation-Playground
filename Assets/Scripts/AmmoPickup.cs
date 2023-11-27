@@ -1,6 +1,5 @@
 using OperationPlayground.Player;
-using System.Collections;
-using System.Collections.Generic;
+using OperationPlayground.Resources;
 using UnityEngine;
 
 namespace OperationPlayground
@@ -37,11 +36,19 @@ namespace OperationPlayground
             var weapon = playerManager.Shooter.CurrentWeapon;
             if (weapon.InfiniteAmmo)
             {
-                weapon = playerManager.PlayerShooter.FindWeaponWithAmmo();
-            }
-            if (!weapon) return;
+                int checks = 0;
+                do
+                {
+                    weapon = playerManager.PlayerShooter.FindWeaponWithAmmo();
+                    if (!weapon) break;
 
-            weapon.AddAmmo((int)Mathf.Ceil(weapon.weaponSo.maxAmmo / 10f));
+                    checks++;
+                } while (weapon.CurrentAmmo == weapon.weaponSo.maxAmmo || checks >= playerManager.PlayerShooter.HeldWeapons.Count);
+            }
+
+            if (weapon) weapon.AddAmmo((int)Mathf.Ceil(weapon.weaponSo.maxAmmo / 10f));
+
+            ResourceManager.Instance.Supplies += 5;
 
             Destroy(gameObject);
         }

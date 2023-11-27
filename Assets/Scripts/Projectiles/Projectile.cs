@@ -3,6 +3,7 @@ using OperationPlayground.ScriptableObjects;
 using OperationPlayground.ScriptableObjects.Projectiles;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 namespace OperationPlayground.Projectiles
@@ -17,7 +18,11 @@ namespace OperationPlayground.Projectiles
 
         public System.Action<Collider, Vector3> onCollision;
 
+        public AudioSource projectileLaunchSound;
+
         protected Rigidbody rb;
+
+        private bool hasSound;
 
         protected virtual void Awake()
         {
@@ -33,14 +38,6 @@ namespace OperationPlayground.Projectiles
 
             projectile.projectileSo = projectileScriptableObject;
             projectile.shooter = shooter;
-
-            /*var rb = projectileObject.GetComponent<Rigidbody>();
-            if (!rb) projectileObject.AddComponent<Rigidbody>();
-
-            rb.isKinematic = true;
-
-            var collider = projectileObject.GetComponent<Collider>();
-            collider.isTrigger = true;*/
 
             return projectileObject;
         }

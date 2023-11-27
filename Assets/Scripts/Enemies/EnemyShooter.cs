@@ -100,6 +100,12 @@ namespace OperationPlayground.Enemies
             }
         }
 
+        public void SetGunshoutSound()
+        {
+            // Make enemy gunshots 3D space.
+            CurrentWeapon.GunshotSound.spatialBlend = 1;
+        }
+
         private void GetNearbyEntities()
         {
             nearbyEntities.Clear();
@@ -194,7 +200,7 @@ namespace OperationPlayground.Enemies
 
         private void CalculateTargetOffset()
         {
-            targetOffset = Random.insideUnitSphere * 0.5f;
+            targetOffset = Random.insideUnitSphere * 0.25f;
         }
     }
 }

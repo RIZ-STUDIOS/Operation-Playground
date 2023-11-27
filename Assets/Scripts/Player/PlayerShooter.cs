@@ -42,7 +42,19 @@ namespace OperationPlayground.Player
 
         private void Start()
         {
+            AddDefaultWeapon();
+        }
+
+        public void AddDefaultWeapon()
+        {
             AddWeapon(defaultWeaponScriptableObject);
+        }
+
+        public void ResetPlayerWeapons()
+        {
+            heldWeapons.Clear();
+
+            AddDefaultWeapon();
         }
 
         protected override bool CanAddWeapon(WeaponScriptableObject weaponSo)

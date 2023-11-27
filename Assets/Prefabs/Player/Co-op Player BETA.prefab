@@ -1533,7 +1533,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponHoldTransform: {fileID: 7898335944874745302}
   maxWeaponSlots: 4
-  defaultWeaponScriptableObject: {fileID: 11400000, guid: a89cd43c3ae93cb43b6c91078a2399b7,
+  defaultWeaponScriptableObject: {fileID: 11400000, guid: 8298f02143fa7d54f83f67f395a8f3b5,
     type: 2}
 --- !u!114 &1370434865088146647
 MonoBehaviour:

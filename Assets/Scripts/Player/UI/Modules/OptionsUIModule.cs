@@ -62,6 +62,11 @@ namespace OperationPlayground.Player.UI.Modules
                 optionButton.CreateOptionAction(option);
                 optionButtonGO.transform.SetParent(_scrollPanel.transform, false);
 
+                if (!option.hasVote)
+                {
+                    Destroy(optionButton.voteCounter.gameObject);
+                }
+
                 _buttonList.Add(optionButton);
             }
         }

@@ -41,17 +41,22 @@ namespace OperationPlayground.UI
                 {
                     PlayerSpawnManager.Instance.ReturnToMainMenu();
                 }
-            );
+            )
+        {
+            hasVote = false
+        };
 
         #endregion Options
 
         public string text;
         public System.Action<PlayerManager> action;
+        public bool hasVote;
 
         public Option(string optionText, System.Action<PlayerManager> optionAction)
         {
             text = optionText;
             action = optionAction;
+            hasVote = true;
         }
     }
 }

@@ -14,10 +14,12 @@ namespace OperationPlayground.Menus
         public MainSubMenu mainMenu;
         public MainSubMenu lobbyMenu;
         public MainSubMenu settingsMenu;
+        public MainSubMenu controlsMenu;
         public MainSubMenu creditsMenu;
 
         public Button lobbyButton;
         public Button settingsButton;
+        public Button controlsButton;
         public Button creditsButton;
         public Button quitButton;
 
@@ -50,6 +52,7 @@ namespace OperationPlayground.Menus
 
             lobbyButton.onClick.AddListener(OnLobbyButton);
             settingsButton.onClick.AddListener(OnSettingsButton);
+            controlsButton.onClick.AddListener(OnControlsButton);
             creditsButton.onClick.AddListener(OnCreditsButton);
             quitButton.onClick.AddListener(OnQuitButton);
         }
@@ -107,6 +110,13 @@ namespace OperationPlayground.Menus
             StartCoroutine(TransitionMenu(mainMenu.canvasGroup, false, -settingsMenu.entryDirection));
             StartCoroutine(TransitionMenu(settingsMenu.canvasGroup, true, settingsMenu.entryDirection));
             ActiveMenu = settingsMenu;
+        }
+
+        private void OnControlsButton()
+        {
+            StartCoroutine(TransitionMenu(mainMenu.canvasGroup, false, -controlsMenu.entryDirection));
+            StartCoroutine(TransitionMenu(controlsMenu.canvasGroup, true, controlsMenu.entryDirection));
+            ActiveMenu = controlsMenu;
         }
 
         private void OnCreditsButton()

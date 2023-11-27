@@ -1,3 +1,4 @@
+using Cinemachine;
 using OperationPlayground.EntityData;
 using OperationPlayground.Interactables;
 using OperationPlayground.Managers;
@@ -52,6 +53,11 @@ namespace OperationPlayground.Buildings
         [SerializeField]
         private Transform cameraTargetTransform;
 
+        [SerializeField]
+        private CameraPositionData inBuildingCameraData;
+
+        private CameraPositionData playerCameraData;
+
         protected override void Awake()
         {
             base.Awake();
@@ -94,6 +100,12 @@ namespace OperationPlayground.Buildings
             playerPosition = playerManager.transform.position;
             playerRotation = playerManager.playerTransform.rotation;
             currentPlayer.SetPosition(transform.position);
+
+            var _3rdPersonFollow = playerManager.PlayerCamera.VirtualCamera.GetCinemachineComponent<Cinemachine3rdPersonFollow>();
+
+            playerCameraData = new CameraPositionData(_3rdPersonFollow);
+
+            inBuildingCameraData.SetValues(_3rdPersonFollow);
 
             playerManager.PlayerCamera.CameraTarget = cameraTargetTransform ?? transform;
 
@@ -141,6 +153,10 @@ namespace OperationPlayground.Buildings
             currentPlayer.playerInput.InBuild.Look.performed -= OnLookPerformed;
             currentPlayer.playerInput.InBuild.Look.canceled -= OnLookCanceled;
 
+            var _3rdPersonFollow = currentPlayer.PlayerCamera.VirtualCamera.GetCinemachineComponent<Cinemachine3rdPersonFollow>();
+
+            playerCameraData.SetValues(_3rdPersonFollow);
+
             currentPlayer.AddPlayerState(PlayerCapabilityType.Movement);
             currentPlayer.AddPlayerState(PlayerCapabilityType.Interaction);
             currentPlayer.AddPlayerState(PlayerCapabilityType.Shooter);
@@ -185,6 +201,35 @@ namespace OperationPlayground.Buildings
         private void OnLookCanceled(InputAction.CallbackContext callback)
         {
             onLookCanceled?.Invoke(callback);
+        }
+    }
+
+    [System.Serializable]
+    struct CameraPositionData
+    {
+        public Vector3 shoulderOffset;
+
+        public float verticalArmLength;
+
+        [Range(0, 1)]
+        public float cameraSide;
+
+        public float cameraDistance;
+
+        public CameraPositionData(Cinemachine3rdPersonFollow followTargetGroup)
+        {
+            shoulderOffset = followTargetGroup.ShoulderOffset;
+            verticalArmLength = followTargetGroup.VerticalArmLength;
+            cameraSide = followTargetGroup.CameraSide;
+            cameraDistance = followTargetGroup.CameraDistance;
+        }
+
+        public void SetValues(Cinemachine3rdPersonFollow followTargetGroup)
+        {
+            followTargetGroup.ShoulderOffset = shoulderOffset;
+            followTargetGroup.CameraSide = cameraSide;
+            followTargetGroup.CameraDistance = cameraDistance;
+            followTargetGroup.VerticalArmLength = verticalArmLength;
         }
     }
 }

@@ -196,10 +196,10 @@ MonoBehaviour:
   activeCharacterPrompt: {fileID: 713661005}
   activeCharacterArt: {fileID: 323730964}
   availableCharacters:
-  - {fileID: 11400000, guid: 9f6ff1b03d7564947a611448ac39b37a, type: 2}
-  - {fileID: 11400000, guid: 025c28bf3a5b8b841af0335e9c488e34, type: 2}
-  - {fileID: 11400000, guid: e266b5d9eff8d9745b4fe6a85305647a, type: 2}
   - {fileID: 11400000, guid: 79ea697836c6b9140bd35575ad4284b5, type: 2}
+  - {fileID: 11400000, guid: e266b5d9eff8d9745b4fe6a85305647a, type: 2}
+  - {fileID: 11400000, guid: 025c28bf3a5b8b841af0335e9c488e34, type: 2}
+  - {fileID: 11400000, guid: 9f6ff1b03d7564947a611448ac39b37a, type: 2}
 --- !u!1 &57155644
 GameObject:
   m_ObjectHideFlags: 0
@@ -1474,10 +1474,10 @@ MonoBehaviour:
   activeCharacterPrompt: {fileID: 1459520932}
   activeCharacterArt: {fileID: 702332298}
   availableCharacters:
-  - {fileID: 11400000, guid: 9f6ff1b03d7564947a611448ac39b37a, type: 2}
-  - {fileID: 11400000, guid: 025c28bf3a5b8b841af0335e9c488e34, type: 2}
-  - {fileID: 11400000, guid: e266b5d9eff8d9745b4fe6a85305647a, type: 2}
   - {fileID: 11400000, guid: 79ea697836c6b9140bd35575ad4284b5, type: 2}
+  - {fileID: 11400000, guid: e266b5d9eff8d9745b4fe6a85305647a, type: 2}
+  - {fileID: 11400000, guid: 025c28bf3a5b8b841af0335e9c488e34, type: 2}
+  - {fileID: 11400000, guid: 9f6ff1b03d7564947a611448ac39b37a, type: 2}
 --- !u!114 &503898246
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3199,10 +3199,10 @@ MonoBehaviour:
   activeCharacterPrompt: {fileID: 1904701813}
   activeCharacterArt: {fileID: 1154479550}
   availableCharacters:
-  - {fileID: 11400000, guid: 9f6ff1b03d7564947a611448ac39b37a, type: 2}
-  - {fileID: 11400000, guid: 025c28bf3a5b8b841af0335e9c488e34, type: 2}
-  - {fileID: 11400000, guid: e266b5d9eff8d9745b4fe6a85305647a, type: 2}
   - {fileID: 11400000, guid: 79ea697836c6b9140bd35575ad4284b5, type: 2}
+  - {fileID: 11400000, guid: e266b5d9eff8d9745b4fe6a85305647a, type: 2}
+  - {fileID: 11400000, guid: 025c28bf3a5b8b841af0335e9c488e34, type: 2}
+  - {fileID: 11400000, guid: 9f6ff1b03d7564947a611448ac39b37a, type: 2}
 --- !u!1 &961586273
 GameObject:
   m_ObjectHideFlags: 0
@@ -4830,10 +4830,10 @@ MonoBehaviour:
   activeCharacterPrompt: {fileID: 794857285}
   activeCharacterArt: {fileID: 717043789}
   availableCharacters:
-  - {fileID: 11400000, guid: 9f6ff1b03d7564947a611448ac39b37a, type: 2}
-  - {fileID: 11400000, guid: 025c28bf3a5b8b841af0335e9c488e34, type: 2}
-  - {fileID: 11400000, guid: e266b5d9eff8d9745b4fe6a85305647a, type: 2}
   - {fileID: 11400000, guid: 79ea697836c6b9140bd35575ad4284b5, type: 2}
+  - {fileID: 11400000, guid: e266b5d9eff8d9745b4fe6a85305647a, type: 2}
+  - {fileID: 11400000, guid: 025c28bf3a5b8b841af0335e9c488e34, type: 2}
+  - {fileID: 11400000, guid: 9f6ff1b03d7564947a611448ac39b37a, type: 2}
 --- !u!1 &1312886108
 GameObject:
   m_ObjectHideFlags: 0

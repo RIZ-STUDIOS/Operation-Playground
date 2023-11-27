@@ -40,10 +40,10 @@ namespace OperationPlayground
                 do
                 {
                     weapon = playerManager.PlayerShooter.FindWeaponWithAmmo();
-                    if (!weapon) break;
+                    if (weapon && weapon.CurrentAmmo < weapon.weaponSo.maxAmmo) break;
 
                     checks++;
-                } while (weapon.CurrentAmmo == weapon.weaponSo.maxAmmo || checks >= playerManager.PlayerShooter.HeldWeapons.Count);
+                } while (checks < playerManager.PlayerShooter.HeldWeapons.Count);
             }
 
             if (weapon) weapon.AddAmmo((int)Mathf.Ceil(weapon.weaponSo.maxAmmo / 10f));

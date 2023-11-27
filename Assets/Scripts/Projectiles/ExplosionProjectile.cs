@@ -17,10 +17,14 @@ namespace OperationPlayground.Projectiles
 
         private StraightProjectile projectile;
 
+        private AudioSource explosionSound;
+
         private void Awake()
         {
             projectile = GetComponent<StraightProjectile>();
             projectile.onCollision += OnCollision;
+
+            explosionSound = GetComponentInChildren<AudioSource>();
         }
 
         private void OnCollision(Collider hitCollider, Vector3 hitPoint)
@@ -42,6 +46,8 @@ namespace OperationPlayground.Projectiles
 
                 genericEntity.Health.Damage((int)Mathf.Ceil(explosionDamage * damageFalloff));
             }
+
+            explosionSound.Play();
         }
 
         private void OnDrawGizmosSelected()

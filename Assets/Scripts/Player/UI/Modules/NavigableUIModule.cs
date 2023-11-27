@@ -63,6 +63,7 @@ namespace OperationPlayground.Player.UI.Modules
             DisableMenuInput();
 
             _inMenu = false;
+            _navigationIndex = 0;
         }
 
         public override void ConfigureUI()

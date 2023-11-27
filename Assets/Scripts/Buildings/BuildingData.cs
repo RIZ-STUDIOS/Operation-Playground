@@ -202,6 +202,16 @@ namespace OperationPlayground.Buildings
         {
             onLookCanceled?.Invoke(callback);
         }
+
+        private void OnValidate()
+        {
+            if (currentPlayer)
+            {
+                var _3rdPersonFollow = currentPlayer.PlayerCamera.VirtualCamera.GetCinemachineComponent<Cinemachine3rdPersonFollow>();
+
+                inBuildingCameraData.SetValues(_3rdPersonFollow);
+            }
+        }
     }
 
     [System.Serializable]

@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Char_Senni
   m_EditorClassIdentifier: 
   characterName: SENNI
-  childArt: {fileID: 21300000, guid: 5dfba48ed3799af4297940bc7a4af5b7, type: 3}
+  childArt: {fileID: 21300000, guid: fe0ed81b26e8c3e4a8d864e6cb070373, type: 3}
   adultArt: {fileID: 21300000, guid: d53d23de3f2229948812f71f252d1e24, type: 3}

@@ -1,5 +1,6 @@
 using OperationPlayground.EntityData;
 using OperationPlayground.Interactables;
+using OperationPlayground.Managers;
 using OperationPlayground.Player;
 using OperationPlayground.Player.PlayerCapabilities;
 using OperationPlayground.ScriptableObjects;
@@ -59,7 +60,18 @@ namespace OperationPlayground.Buildings
 
             interactable.onInteract += OnInteract;
 
+            Health.OnDeath += () =>
+            {
+                if (!currentPlayer) return;
+
+                if (currentPlayer.PlayerInteraction.CurrentInteractable == interactable)
+                    currentPlayer.PlayerInteraction.SetInteractable(null);
+            };
+
+
             Health.OnDeath += RemovePlayer;
+
+            GameStateManager.Instance.OnGameOver += RemovePlayer;
         }
 
         private void OnInteract(PlayerManager playerManager)

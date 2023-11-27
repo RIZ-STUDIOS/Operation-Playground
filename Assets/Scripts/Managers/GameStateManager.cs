@@ -55,6 +55,7 @@ namespace OperationPlayground.Managers
         {
             foreach(var playerManager in PlayerSpawnManager.Instance.Players)
             {
+                playerManager.PlayerInteraction.SetInteractable(null);
                 playerManager.RemoveAllPlayerStates();
                 playerManager.AddPlayerState(PlayerCapabilityType.Camera);
                 playerManager.AddPlayerState(PlayerCapabilityType.Graphics);

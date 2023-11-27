@@ -19,7 +19,7 @@ MonoBehaviour:
   weaponScriptableObject: {fileID: 11400000, guid: 8298f02143fa7d54f83f67f395a8f3b5,
     type: 2}
   enemySprite: {fileID: 0}
-  attackRange: 50
+  attackRange: 30
   targetCheckTime: 2
   attackDelayTime: 1
   shootingTime: 1.74

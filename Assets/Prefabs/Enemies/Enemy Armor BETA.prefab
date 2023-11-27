@@ -150,7 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb438dd092042814aa317788b2b0b786, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextWaypointDistance: 3
+  nextWaypointDistance: 1
   faceWaypoint: 0
 --- !u!114 &-2456194983923778288
 MonoBehaviour:

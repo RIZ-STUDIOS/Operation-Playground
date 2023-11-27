@@ -120,7 +120,7 @@ namespace OperationPlayground.Interactables
             foreach(var playerManager in nearbyPlayers)
             {
                 if(playerManager.PlayerInteraction.CurrentInteractable == this)
-                    playerManager.PlayerInteraction.SetInteractable(this);
+                    playerManager.PlayerInteraction.SetInteractable(null);
             }
         }
 
@@ -129,7 +129,7 @@ namespace OperationPlayground.Interactables
             UpdateOutlines();
             foreach (var playerManager in nearbyPlayers)
             {
-                if (playerManager.PlayerInteraction.CurrentInteractable == this)
+                if (playerManager.PlayerInteraction.PreviousInteractable == this)
                     playerManager.PlayerInteraction.SetInteractable(this);
             }
         }

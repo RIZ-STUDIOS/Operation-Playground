@@ -59,6 +59,7 @@ namespace OperationPlayground.Pathfinding
             if (currentPathWaypoint == previousWaypoint)
             {
                 onEndPathReached?.Invoke();
+                enabled = false;
             }
             CalculateNewPath();
         }

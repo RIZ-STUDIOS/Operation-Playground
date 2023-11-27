@@ -12,8 +12,10 @@ namespace OperationPlayground.Player
         private PlayerManager playerManager;
 
         public Interactable CurrentInteractable => currentInteractable;
+        public Interactable PreviousInteractable => previousInteractable;
 
         private Interactable currentInteractable;
+        private Interactable previousInteractable;
 
         private void Awake()
         {
@@ -25,6 +27,7 @@ namespace OperationPlayground.Player
 
         public void SetInteractable(Interactable interactable)
         {
+            previousInteractable = currentInteractable;
             if (currentInteractable)
             {
                 currentInteractable.RemovePlayer(playerManager);

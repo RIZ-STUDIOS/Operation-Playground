@@ -182,11 +182,15 @@ namespace OperationPlayground.Enemies
                 }
                 var transform = aimingTransform ? aimingTransform : this.transform;
                 var targetPosition = target.transform.position;
-                targetPosition.y = transform.position.y;
+                    targetPosition.y = transform.position.y;
                 if (!aimingTransform)
-                    baseTransformTargetPosition = targetPosition;
+                {
+                    baseTransformTargetPosition = targetPosition + targetOffset + Vector3.one;
+                }
                 else
-                    aimingTransformTargetPosition = targetPosition;
+                {
+                    aimingTransformTargetPosition = targetPosition + targetOffset + Vector3.one;
+                }
                 //transform.LookAt(targetPosition + targetOffset, Vector3.up);
             }
             ResetAim();
@@ -196,6 +200,7 @@ namespace OperationPlayground.Enemies
         {
             if (!base.parentEntity) return;
             if (!parentEntity.enemyScriptableObject) return;
+            Gizmos.color = Color.yellow;
             Gizmos.DrawWireSphere(transform.position, parentEntity.enemyScriptableObject.attackRange);
         }
 

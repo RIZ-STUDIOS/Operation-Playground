@@ -193,6 +193,8 @@ namespace OperationPlayground.Player
                     buildingObject.transform.position = currentBuildingObject.transform.position;
                     buildingObject.transform.rotation = currentBuildingObject.transform.rotation;
 
+                    ResourceManager.Instance.Supplies -= currentBuilding.resourceCost;
+
                     buildingObject.GetComponent<BuildingData>().buildingScriptableObject = currentBuilding;
 
                     var invalidPlacement = buildingObject.GetOrAddComponent<InvalidPlacement>();

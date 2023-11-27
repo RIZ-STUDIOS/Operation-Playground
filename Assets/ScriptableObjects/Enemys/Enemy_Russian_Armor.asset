@@ -22,4 +22,4 @@ MonoBehaviour:
   attackRange: 15
   targetCheckTime: 5
   attackDelayTime: 4
-  shootingTime: 4
+  shootingTime: 0.5

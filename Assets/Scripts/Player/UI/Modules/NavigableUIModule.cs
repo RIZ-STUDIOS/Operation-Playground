@@ -1,3 +1,4 @@
+using OperationPlayground.Managers;
 using OperationPlayground.Player.PlayerCapabilities;
 using OperationPlayground.ZedExtensions;
 using System.Collections.Generic;
@@ -123,7 +124,7 @@ namespace OperationPlayground.Player.UI.Modules
         private void EnableMenuInput()
         {
             _playerCanvas.playerManager.playerInput.Basic.Disable();
-            _playerCanvas.playerManager.playerInput.UI.Cancel.performed += OnCancelPerformed;
+            if (!GameStateManager.Instance.IsGameOver) _playerCanvas.playerManager.playerInput.UI.Cancel.performed += OnCancelPerformed;
             _playerCanvas.playerManager.playerInput.UI.Navigate.performed += OnNavigate;
             _playerCanvas.playerManager.playerInput.UI.Submit.performed += OnSubmit;
         }
@@ -132,7 +133,7 @@ namespace OperationPlayground.Player.UI.Modules
         {
             _playerCanvas.playerManager.playerInput.UI.Submit.performed -= OnSubmit;
             _playerCanvas.playerManager.playerInput.UI.Navigate.performed -= OnNavigate;
-            _playerCanvas.playerManager.playerInput.UI.Cancel.performed -= OnCancelPerformed;
+            if (!GameStateManager.Instance.IsGameOver) _playerCanvas.playerManager.playerInput.UI.Cancel.performed -= OnCancelPerformed;
             _playerCanvas.playerManager.playerInput.Basic.Enable();
         }
     }

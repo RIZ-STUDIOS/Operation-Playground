@@ -89,6 +89,7 @@ namespace OperationPlayground.Buildings
             currentPlayer.RemovePlayerState(PlayerCapabilityType.InvalidPlacement);
             currentPlayer.RemovePlayerState(PlayerCapabilityType.ToggleBuilding);
             currentPlayer.RemovePlayerState(PlayerCapabilityType.GunVisibility);
+            currentPlayer.RemovePlayerState(PlayerCapabilityType.Target);
 
             playerPosition = playerManager.transform.position;
             playerRotation = playerManager.playerTransform.rotation;
@@ -149,6 +150,7 @@ namespace OperationPlayground.Buildings
             currentPlayer.AddPlayerState(PlayerCapabilityType.InvalidPlacement);
             currentPlayer.AddPlayerState(PlayerCapabilityType.ToggleBuilding);
             currentPlayer.AddPlayerState(PlayerCapabilityType.GunVisibility);
+            currentPlayer.AddPlayerState(PlayerCapabilityType.Target);
 
             currentPlayer.SetPosition(playerPosition);
             currentPlayer.playerTransform.rotation = playerRotation;

@@ -181,15 +181,15 @@ namespace OperationPlayground.Enemies
                     randomOffsetChangeTimer = 0;
                 }
                 var transform = aimingTransform ? aimingTransform : this.transform;
-                var targetPosition = target.transform.position;
+                var targetPosition = target.transform.position + targetOffset;
                     targetPosition.y = transform.position.y;
                 if (!aimingTransform)
                 {
-                    baseTransformTargetPosition = targetPosition + targetOffset + Vector3.one;
+                    baseTransformTargetPosition = targetPosition;
                 }
                 else
                 {
-                    aimingTransformTargetPosition = targetPosition + targetOffset + Vector3.one;
+                    aimingTransformTargetPosition = targetPosition;
                 }
                 //transform.LookAt(targetPosition + targetOffset, Vector3.up);
             }

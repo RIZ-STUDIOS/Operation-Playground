@@ -58,14 +58,14 @@ namespace OperationPlayground.Menus
         {
             PlayerSpawnManager.Instance.OnPlayerJoin += OnPlayerJoin;
             PlayerSpawnManager.Instance.EnableJoining();
-            PlayerSpawnManager.Instance.GetComponent<PlayerInputManager>().joinBehavior = PlayerJoinBehavior.JoinPlayersWhenButtonIsPressed;
+            PlayerSpawnManager.Instance.PlayerInputManager.joinBehavior = PlayerJoinBehavior.JoinPlayersWhenButtonIsPressed;
         }
 
         private void FirstPlayerFound()
         {
             PlayerSpawnManager.Instance.OnPlayerJoin -= OnPlayerJoin;
-            PlayerSpawnManager.Instance.GetComponent<PlayerInputManager>().DisableJoining();
-            PlayerSpawnManager.Instance.GetComponent<PlayerInputManager>().joinBehavior = PlayerJoinBehavior.JoinPlayersWhenJoinActionIsTriggered;
+            PlayerSpawnManager.Instance.DisableJoining();
+            PlayerSpawnManager.Instance.PlayerInputManager.joinBehavior = PlayerJoinBehavior.JoinPlayersWhenJoinActionIsTriggered;
         }
 
         private void OnPlayerJoin(PlayerManager player)

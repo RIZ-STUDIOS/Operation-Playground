@@ -27,6 +27,10 @@ namespace OperationPlayground.Player
         [SerializeField]
         private Color[] mapHighlightColors;
 
+        public PlayerInputManager PlayerInputManager => this.GetIfNull(ref _playerInputManager);
+
+        private PlayerInputManager _playerInputManager;
+
         protected override void Awake()
         {
             base.Awake();

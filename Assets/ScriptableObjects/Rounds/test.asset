@@ -18,4 +18,4 @@ MonoBehaviour:
   spawnDelay: 0.1
   supplyReward: 50
   enemies:
-  - enemySo: {fileID: 11400000, guid: 49b80c967d202274e96aab40786c6e95, type: 2}
+  - enemySo: {fileID: 11400000, guid: 2e86de78753c97047970699f8a93df0e, type: 2}

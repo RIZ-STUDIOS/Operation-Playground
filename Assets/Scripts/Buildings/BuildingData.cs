@@ -66,18 +66,14 @@ namespace OperationPlayground.Buildings
 
             interactable.onInteract += OnInteract;
 
-            Health.OnDeath += () =>
-            {
-                if (!currentPlayer) return;
-
-                if (currentPlayer.PlayerInteraction.CurrentInteractable == interactable)
-                    currentPlayer.PlayerInteraction.SetInteractable(null);
-            };
-
-
             Health.OnDeath += RemovePlayer;
 
             GameStateManager.Instance.OnGameOver += RemovePlayer;
+        }
+
+        private void OnDisable()
+        {
+            RemovePlayer();
         }
 
         private void OnInteract(PlayerManager playerManager)
@@ -137,10 +133,20 @@ namespace OperationPlayground.Buildings
 
         private void OnLeavePerformed(InputAction.CallbackContext context)
         {
-            RemovePlayer();
+            KickPlayer();
         }
 
         private void RemovePlayer()
+        {
+            if (!currentPlayer) return;
+
+            if (currentPlayer.PlayerInteraction.CurrentInteractable == interactable)
+                currentPlayer.PlayerInteraction.SetInteractable(null);
+
+            KickPlayer();
+        }
+
+        private void KickPlayer()
         {
             if (!currentPlayer) return;
             currentPlayer.playerInput.InBuild.Disable();

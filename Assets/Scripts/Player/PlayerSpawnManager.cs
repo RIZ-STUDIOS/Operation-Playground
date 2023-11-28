@@ -49,10 +49,10 @@ namespace OperationPlayground.Player
             DontDestroyOnLoad(playerInput.gameObject);
 
             var playerManager = playerInput.GetComponent<PlayerManager>();
+            playerManager.playerIndex = playerInput.playerIndex;
             playerManager.InitializePlayer();
             playerManager.playerInput.devices = playerInput.devices;
             playerManager.gamepad = playerInput.GetDevice<Gamepad>();
-            playerManager.playerIndex = playerInput.playerIndex;
 
             playerManager.SetLayer(LayerMask.NameToLayer($"Player{playerManager.playerIndex}"));
 

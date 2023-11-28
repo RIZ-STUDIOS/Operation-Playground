@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterName: ARI-PEKKA
   childArt: {fileID: 21300000, guid: 4f0b555d2284da44f9838296b9bd6112, type: 3}
-  adultArt: {fileID: 21300000, guid: 31dd3d3fae109f847a119a9d1c0c8865, type: 3}
+  adultArt: {fileID: 21300000, guid: b6139d768950b0b46aadcd2779be2668, type: 3}

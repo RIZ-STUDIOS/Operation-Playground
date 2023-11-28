@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterName: JUHA
   childArt: {fileID: 21300000, guid: 37cf20e681705384db4848a518570dda, type: 3}
-  adultArt: {fileID: 21300000, guid: 889c013ec7e67c54d933ac3ecb6835fe, type: 3}
+  adultArt: {fileID: 21300000, guid: 685044339f887bd48a563363b6849ab3, type: 3}

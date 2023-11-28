@@ -70,6 +70,9 @@ namespace OperationPlayground.Player
         private MapHighlight _mapHighlight;
         private ShopUIModule _playerShopUI;
 
+        [SerializeField]
+        private GameObject[] playerHats;
+
         public override GameTeam Team => GameTeam.TeamA;
 
         public override GenericHealth Health => PlayerHealth;
@@ -89,6 +92,11 @@ namespace OperationPlayground.Player
             playerInput.Enable();
 
             SetParentEntity();
+
+            for (int i = 0; i < playerHats.Length; i++)
+            {
+                playerHats[i].SetActive(i == playerIndex);
+            }
         }
 
         public void AddPlayerState(PlayerCapabilityType playerStateType)

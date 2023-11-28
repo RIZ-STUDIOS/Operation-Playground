@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterName: TOMI
   childArt: {fileID: 21300000, guid: 0863be746393b384392aedb90f55fb26, type: 3}
-  adultArt: {fileID: 21300000, guid: c24fd0ad9e46eca49941fdcb732ed5bd, type: 3}
+  adultArt: {fileID: 21300000, guid: 5abc5b7243e46a34f97f22248e71ebb7, type: 3}

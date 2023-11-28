@@ -12,6 +12,8 @@ namespace OperationPlayground.Weapons
 {
     public class Weapon : MonoBehaviour
     {
+        private const int MAX_AUDIO_SOURCES = 10;
+
         public WeaponScriptableObject weaponSo;
 
         [SerializeField]
@@ -35,6 +37,8 @@ namespace OperationPlayground.Weapons
 
         public AudioSource GunshotSound { get { return gunshotSound; } }
         protected AudioSource gunshotSound;
+
+        private List<AudioSource> audioSources = new List<AudioSource>();
 
         public static GameObject CreateWeapon(WeaponScriptableObject weaponScriptableObject, Transform parentTransform = null)
         {
@@ -102,10 +106,18 @@ namespace OperationPlayground.Weapons
 
             if (weaponSo.gunshotAudioclip != null)
             {
-                var gunshotClone = Instantiate(gunshotSound, gunshotSound.transform.parent);
-                var gunshotSoundClone = gunshotClone.GetComponent<AudioSource>();
-                gunshotSoundClone.Play();
-                Destroy(gunshotSoundClone, gunshotSoundClone.clip.length);
+                var gunshotClone = Instantiate(gunshotSound);
+                gunshotClone.transform.position = _firePointTransform.position;
+                gunshotClone.Play();
+                Destroy(gunshotClone.gameObject, gunshotClone.clip.length);
+                audioSources.RemoveAll(x => x == null);
+                while(audioSources.Count > MAX_AUDIO_SOURCES)
+                {
+                    var source = audioSources[0];
+                    Destroy(source.gameObject);
+                    audioSources.RemoveAt(0);
+                }
+                audioSources.Add(gunshotClone);
             }
         }
 

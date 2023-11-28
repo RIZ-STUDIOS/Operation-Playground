@@ -119,8 +119,8 @@ namespace OperationPlayground.Interactables
             UpdateOutlines();
             foreach(var playerManager in nearbyPlayers)
             {
-                if(playerManager.PlayerInteraction.CurrentInteractable == this)
-                    playerManager.PlayerInteraction.SetInteractable(null);
+                if(playerManager.PlayerInteraction.PreviousInteractable == this)
+                    playerManager.PlayerInteraction.SetInteractable(this);
             }
         }
 
@@ -129,8 +129,8 @@ namespace OperationPlayground.Interactables
             UpdateOutlines();
             foreach (var playerManager in nearbyPlayers)
             {
-                if (playerManager.PlayerInteraction.PreviousInteractable == this)
-                    playerManager.PlayerInteraction.SetInteractable(this);
+                if (playerManager.PlayerInteraction.CurrentInteractable == this)
+                    playerManager.PlayerInteraction.SetInteractable(null);
             }
         }
 

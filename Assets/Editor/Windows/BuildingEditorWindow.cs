@@ -127,7 +127,7 @@ namespace OperationPlayground.Editor.Windows
             }
             combinedMesh.CombineMeshes(combine);
             var bounds = combinedMesh.bounds;
-            asset.boundsToCheck = bounds.size * 1.5f;
+            asset.boundsToCheck = bounds.size;
 
             DestroyImmediate(gameObject);
         }

@@ -27,6 +27,9 @@ namespace OperationPlayground.Enemies
 
         protected override Vector3 HealthBarSpawnOffset => healthBarSpawnOffset;
 
+        [System.NonSerialized]
+        public bool spawnAmmo;
+
         protected override void Awake()
         {
             OnDeath += () =>
@@ -44,6 +47,7 @@ namespace OperationPlayground.Enemies
 
         private void CreateAmmoPickup()
         {
+            if (!spawnAmmo) return;
             var gameObject = Instantiate(PrefabsManager.Instance.data.ammoPickupPrefab);
             gameObject.transform.position = transform.position + new Vector3(0, 0.5f, 0);
         }

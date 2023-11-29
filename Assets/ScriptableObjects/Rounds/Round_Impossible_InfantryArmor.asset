@@ -15,8 +15,8 @@ MonoBehaviour:
   id: Round_Impossible_InfantryArmor
   minEnemies: 26
   maxEnemies: 28
-  spawnDelay: 0
-  supplyReward: 0
+  spawnDelay: 2
+  supplyReward: 600
   enemies:
   - enemySo: {fileID: 11400000, guid: 2e86de78753c97047970699f8a93df0e, type: 2}
   - enemySo: {fileID: 11400000, guid: d0f16216e4d17384b927d18d1f45114e, type: 2}

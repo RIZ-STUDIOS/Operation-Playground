@@ -80,6 +80,13 @@ namespace OperationPlayground.Player
 
         private List<PlayerCapability> playerStates = new List<PlayerCapability>();
 
+        private void OnDeviceLost(PlayerInput playerInput)
+        {
+            if (this.playerInput == null) return;
+            this.playerInput.devices = playerInput.devices;
+            gamepad = playerInput.GetDevice<Gamepad>();
+        }
+
         protected override void Awake()
         {
             InitializePlayer();

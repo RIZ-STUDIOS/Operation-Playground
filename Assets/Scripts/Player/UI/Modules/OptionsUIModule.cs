@@ -73,6 +73,7 @@ namespace OperationPlayground.Player.UI.Modules
 
         private void OpenOptions(InputAction.CallbackContext value)
         {
+            if(PlayerCanvas.playerManager.HasPlayerState(PlayerCapabilities.PlayerCapabilityType.Camera))
             OpenMenu();
         }
     }

@@ -49,13 +49,8 @@ namespace OperationPlayground.Player
         public void SpawnPlayer(PlayerManager playerManager)
         {
             playerManager.Health.FullyHeal();
-            Transform spawnLocation;
-            do
-            {
-                spawnLocation = GameManager.Instance.gameLevelData.spawnLocations.GetRandomElement();
-            } while (takenSpawnLocations.Contains(spawnLocation));
+            Transform spawnLocation = GameManager.Instance.gameLevelData.spawnLocations.GetRandomElement();
             playerManager.SetPosition(spawnLocation.position);
-            takenSpawnLocations.Add(spawnLocation);
         }
 
         public void StartRespawnPlayer(PlayerManager playerManager)

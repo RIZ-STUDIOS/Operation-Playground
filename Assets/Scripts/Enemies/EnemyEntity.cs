@@ -43,7 +43,10 @@ namespace OperationPlayground.Enemies
 
             var weapon = enemy.GetComponentInChildren<Weapon>();
             if (!weapon)
+            {
                 enemy.Shooter.AddWeapon(enemyScriptableObject.weaponScriptableObject);
+                enemy.Shooter.CurrentWeapon.InfiniteAmmo = true;
+            }
             else
             {
                 weapon.weaponSo = enemyScriptableObject.weaponScriptableObject;

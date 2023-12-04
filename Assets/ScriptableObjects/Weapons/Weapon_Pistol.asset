@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: Weapon_Pistol
   prefab: {fileID: 5672386898822300190, guid: 610a6fa77b1e05848b3bf5bf2782cd88, type: 3}
-  cooldown: 0.9
+  cooldown: 0.01
   maxAmmo: 8
   projectileScriptableObject: {fileID: 11400000, guid: 438794d218d9d864a92a4b6444012fa8,
     type: 2}
   slotOffset: {x: 0, y: 0, z: 0}
   weaponSprite: {fileID: 21300000, guid: 2337631b2d9bb3446b8374f9ffcb3a8b, type: 3}
   deviationOffsetModifier: {x: 0.01, y: 0.01}
-  gunshotAudioclip: {fileID: 8300000, guid: 0652235abefb16a4d93b045b65eae82c, type: 3}
+  gunshotAudioclip: {fileID: 8300000, guid: ce987bbd14f8ee34c80c05f5e42cd69a, type: 3}

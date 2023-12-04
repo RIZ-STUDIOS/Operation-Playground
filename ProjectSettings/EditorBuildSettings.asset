@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MapDraft.unity
     guid: 04c8ffb6973edf847a6da00a032e955b
+  - enabled: 1
+    path: Assets/Scenes/MapDraftNewBuildings.unity
+    guid: 042d5387b59209943a994e608e0f3335
   m_configObjects: {}

@@ -105,6 +105,7 @@ namespace OperationPlayground.Player
         private void OnFireCanceled(InputAction.CallbackContext context)
         {
             triggerDown = false;
+            if (_currentWeapon.hasShot) _currentWeapon.hasShot = false;
         }
 
         private void OnCyclePerformed(InputAction.CallbackContext context)
@@ -144,6 +145,8 @@ namespace OperationPlayground.Player
             if (triggerDown)
             {
                 if (!_currentWeapon) return;
+                if (_currentWeapon.triggerFinger && _currentWeapon.hasShot) return;
+
                 if (_currentWeapon.Shoot())
                 {
                     if (!_currentWeapon.HasAmmo())

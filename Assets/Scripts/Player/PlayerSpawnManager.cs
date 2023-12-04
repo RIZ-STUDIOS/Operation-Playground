@@ -87,7 +87,7 @@ namespace OperationPlayground.Player
 
         public void LoadIntoLevel()
         {
-            LevelLoader.LoadScene("MapDraft", OnGameSceneLoad);
+            LevelLoader.LoadScene("MapDraftNewBuildings", OnGameSceneLoad);
         }
 
         public void SetupPlayers()

@@ -14,6 +14,9 @@ namespace OperationPlayground.Weapons
     {
         private const int MAX_AUDIO_SOURCES = 10;
 
+        public bool triggerFinger;
+        public bool hasShot;
+
         public WeaponScriptableObject weaponSo;
 
         [SerializeField]
@@ -84,6 +87,7 @@ namespace OperationPlayground.Weapons
             if (shootCooldown > 0) return false;
 
             ShootGun();
+            hasShot = true;
 
             return true;
         }

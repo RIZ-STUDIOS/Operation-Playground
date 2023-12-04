@@ -43,7 +43,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 7742527748079516847, guid: 76ea386d737f64c4296d258c011eec82,
     type: 2}
-  m_audioClip: {fileID: 8300000, guid: 0652235abefb16a4d93b045b65eae82c, type: 3}
+  m_audioClip: {fileID: 8300000, guid: ce987bbd14f8ee34c80c05f5e42cd69a, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -176,6 +176,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 572e354d3ab7c1b49839714acdb59273, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  triggerFinger: 1
+  hasShot: 0
   weaponSo: {fileID: 0}
   _firePointTransform: {fileID: 4463709162312353674}
   infiniteAmmo: 1
